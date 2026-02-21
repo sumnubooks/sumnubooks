@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Contact — Sumnu Books</title>
+<link href="css/style.v6.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="site-logo-header">
+<div class="container">
+<a aria-label="Go to homepage" href="index.html">
+<img alt="Sumnu Books logo" src="images/logos/your-logo.png"/>
+</a>
+</div>
+</div>
+<header>
+<div class="container navbar">
+<div aria-label="Site name" class="brand">
+<div class="name">SUMNU BOOKS</div>
+<div class="tag">Urban Fiction • Hip Hop Culture • Las Vegas Night Vision</div>
+</div>
+<button aria-expanded="false" aria-label="Open menu" class="nav-toggle" data-nav-toggle="">
+        ☰
+      </button>
+<ul class="nav-links" data-nav-links="">
+<li><a class="" href="index.html">Home</a></li>
+<li><a class="" href="books.html">Books</a></li>
+<li><a class="" href="music.html">Music</a></li>
+<li><a class="" href="video.html">Videos</a></li>
+<li><a class="" href="audiobooks.html">Audiobooks</a></li>
+<li><a class="active" href="contact.html">Contact</a></li>
+</ul>
+</div>
+</header>
+<div class="mobile-sticky-cta">
+<a class="btn btn-primary" href="mailto:therealericlewis@sumnubooks.com">📩 Email now</a>
+</div>
+<main>
+<section class="page-hero">
+<div class="container">
+<div class="wrap">
+<h1>Contact</h1>
+<p>Bookings, collabs, media inquiries, and sales support.</p>
+</div>
+</div>
+</section>
+<section class="section">
+<div class="container">
+<div class="grid grid-3">
+<div class="card card-pad">
+<h3 style="margin:0; color: var(--gold); letter-spacing:.12em; text-transform:uppercase;">Email</h3>
+<p style="margin:10px 0 0; color: var(--muted); line-height:1.75;">
+          Sales/support: <a href="mailto:sales@sumnubooks.com">sales@sumnubooks.com</a><br/>
+          General: <a href="mailto:therealericlewis@sumnubooks.com">therealericlewis@sumnubooks.com</a>
+</p>
+<p style="margin-top:12px"><a class="btn btn-small btn-primary" href="mailto:sales@sumnubooks.com">Email sales</a></p>
+</div>
+<div class="card card-pad">
+<h3 style="margin:0; color: var(--gold); letter-spacing:.12em; text-transform:uppercase;">Amazon</h3>
+<p style="margin:10px 0 0; color: var(--muted); line-height:1.75;">
+          Want paperbacks/Kindle? Shop the full catalog on Amazon.
+        </p>
+<p style="margin-top:12px"><a class="btn btn-small btn-secondary" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&amp;ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab" rel="noopener" target="_blank">Open Amazon Store</a></p>
+</div>
+</div>
+<div class="hr"></div>
+<div class="card card-pad">
+<div class="section-title">
+<div>
+<h2>Send a message</h2>
+<p>This form is “static” (works once you connect it to a form service). For now it opens your email app.</p>
+</div>
+</div>
+<form class="form" onsubmit="event.preventDefault(); window.location.href = buildMailto();">
+<div class="grid grid-3" style="gap:12px">
+<div class="field">
+<label for="name">Name</label>
+<input id="name" name="name" placeholder="Your name" required=""/>
+</div>
+<div class="field">
+<label for="email">Email</label>
+<input id="email" name="email" placeholder="you@email.com" required="" type="email"/>
+</div>
+<div class="field">
+<label for="topic">Topic</label>
+<select id="topic" name="topic">
+<option>Sales / Audiobooks</option>
+<option>Books / Publishing</option>
+<option>Music / Beats</option>
+<option>Video / Media</option>
+<option>Other</option>
+</select>
+</div>
+</div>
+<div class="field">
+<label for="msg">Message</label>
+<textarea id="msg" name="msg" placeholder="Tell me what you need..." required=""></textarea>
+</div>
+<div style="display:flex; gap:12px; flex-wrap:wrap;">
+<button class="btn btn-primary" type="submit">Send Email</button>
+<a class="btn btn-secondary" href="audiobooks.html">Audiobook help</a>
+</div>
+</form>
+</div>
+</div>
+</section>
+<script>
+function buildMailto(){
+  const name = document.getElementById('name').value || '';
+  const email = document.getElementById('email').value || '';
+  const topic = document.getElementById('topic').value || '';
+  const msg = document.getElementById('msg').value || '';
+  const subject = encodeURIComponent(`[SUMNU] ${topic} — ${name}`);
+  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nTopic: ${topic}\n\n${msg}\n`);
+  return `mailto:therealericlewis@sumnubooks.com?subject=${subject}&body=${body}`;
+}
+</script>
+</main>
+<footer>
+<div class="container footer-grid">
+<div>
+<h3>Sumnu Books</h3>
+<p>Urban Fiction &amp; Hip Hop Culture.</p>
+<p style="margin-top:10px"><a class="btn btn-small btn-secondary" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&amp;ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab" rel="noopener" target="_blank">Shop my Amazon Author Page</a></p>
+</div>
+<div>
+<h3>Quick Links</h3>
+<ul>
+<li><a href="books.html">Books</a></li>
+<li><a href="music.html">Music</a></li>
+<li><a href="video.html">Videos</a></li>
+<li><a href="audiobooks.html">Audiobooks</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</div>
+<div>
+<h3>Connect</h3>
+<p>Sales: <a href="mailto:sales@sumnubooks.com">sales@sumnubooks.com</a></p>
+<p style="margin-top:10px">© 2026 Las Vegas Night Vision Productions</p>
+</div>
+</div>
+<div class="copy">Built for mobile + laptop • Replace placeholder images/audio in the folders and you’re live.</div>
+</footer>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
