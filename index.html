@@ -1,198 +1,251 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Sumnu Books — Urban Fiction &amp; Hip Hop Culture</title>
-<link href="css/style.v6.css" rel="stylesheet"/>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>Sumnu Books — Urban Fiction &amp; Hip Hop Culture</title>
+
+  <!-- MUST exist at /css/style.v6.css -->
+  <link href="css/style.v6.css" rel="stylesheet"/>
 </head>
+
 <body class="page-home">
 
-<div class="site-logo-header">
-<div class="container">
-<a aria-label="Go to homepage" href="index.html">
-<img alt="Sumnu Books logo" src="images/logos/your-logo.png"/>
-</a>
-</div>
-</div>
-<header>
-<div class="container navbar">
-<div aria-label="Site name" class="brand">
-<div class="name">SUMNU BOOKS</div>
-<div class="tag">Urban Fiction • Hip Hop Culture • Las Vegas Night Vision</div>
-</div>
-<button aria-expanded="false" aria-label="Open menu" class="nav-toggle" data-nav-toggle="">
+  <div class="site-logo-header">
+    <div class="container">
+      <a aria-label="Go to homepage" href="index.html">
+        <img alt="Sumnu Books logo" src="images/logos/your-logo.png"/>
+      </a>
+    </div>
+  </div>
+
+  <header>
+    <div class="container navbar">
+      <div aria-label="Site name" class="brand">
+        <div class="name">SUMNU BOOKS</div>
+        <div class="tag">Urban Fiction • Hip Hop Culture • Las Vegas Night Vision</div>
+      </div>
+
+      <button aria-expanded="false" aria-label="Open menu" class="nav-toggle" data-nav-toggle>
         ☰
       </button>
-<ul class="nav-links" data-nav-links="">
-<li><a class="active" href="index.html">Home</a></li>
-<li><a class="" href="books.html">Books</a></li>
-<li><a class="" href="music.html">Music</a></li>
-<li><a class="" href="video.html">Videos</a></li>
-<li><a class="" href="audiobooks.html">Audiobooks</a></li>
-<li><a class="" href="contact.html">Contact</a></li>
-</ul>
-</div>
-<!-- SUMNU RADIO CONTROLS -->
-<div class="sumnu-radio" style="margin:16px 0; padding:12px; border:1px solid rgba(0,0,0,.15); border-radius:10px;">
-  <button type="button" id="sumnuRadioBtn">▶️ Play Sumnu Radio (Shuffle)</button>
-  <button type="button" id="sumnuSkipBtn" disabled style="margin-left:8px;">⏭ Skip</button>
-  <div id="sumnuNowPlaying" style="margin-top:10px; font-size:14px; opacity:.9;"></div>
-  <audio id="sumnuRadioPlayer" preload="none"></audio>
-</div>
 
-<script src="/js/sumnu-radio.js"></script>
-</header>
-<div class="mobile-sticky-cta">
-<a class="btn btn-primary" href="books.html">🔥 Explore &amp; Buy</a>
-</div>
-<main>
-<section class="section home-featured">
-<div class="container">
-<div class="section-title reveal">
-<div>
-<h2>Featured Releases</h2>
-<p>Quick picks — listen to samples and dive in.</p>
-</div>
-<a class="btn btn-small btn-secondary" href="books.html">View all books →</a>
-</div>
-<div class="grid grid-3">
-<article class="card product reveal">
-<div class="product-media">
-<div class="cover"><img alt="A PENNY For My Thoughts cover" loading="lazy" src="images/books/book1.jpg"/></div>
-</div>
-<div class="product-body">
-<div class="product-title">A PENNY For My Thoughts</div>
-<div class="product-desc">A gripping urban tale that takes you deep into the streets.</div>
-<div class="actions">
-<a class="btn btn-primary btn-small" href="books.html">Preview &amp; Buy</a>
-</div>
-</div>
-</article>
-<article class="card product reveal">
-<div class="product-media">
-<div class="cover"><img alt="Unplugged: 30 Days of Chaos cover" loading="lazy" src="images/books/book2.jpg"/></div>
-</div>
-<div class="product-body">
-<div class="product-title">Unplugged: 30 Days of Chaos</div>
-<div class="product-desc">Raw reality of survival and redemption — no sugarcoating.</div>
-<div class="actions">
-<a class="btn btn-primary btn-small" href="books.html">Preview &amp; Buy</a>
-</div>
-</div>
-</article>
-<article class="card product reveal">
-<div class="product-media">
-<div class="cover"><img alt="The May Tricks cover" loading="lazy" src="images/music/album2.jpg"/></div>
-</div>
-<div class="product-body">
-<div class="product-title">The May Tricks (Album)</div>
-<div class="product-desc">New heat from Las Vegas Night Vision Productions.</div>
-<div class="actions">
-<a class="btn btn-primary btn-small" href="music.html">Listen now</a>
-</div>
-</div>
-</article>
-</div>
-</div>
-<!-- SUMNUBOOKS EMAIL SIGNUP (Netlify Forms) -->
-<form name="sumnu-newsletter"
-      method="POST"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
-      action="/thanks.html"
-      style="margin:16px 0; padding:12px; border:1px solid rgba(0,0,0,.15); border-radius:10px;">
+      <ul class="nav-links" data-nav-links>
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="books.html">Books</a></li>
+        <li><a href="music.html">Music</a></li>
+        <li><a href="video.html">Videos</a></li>
+        <li><a href="audiobooks.html">Audiobooks</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </header>
 
-  <input type="hidden" name="form-name" value="sumnu-newsletter" />
-  <p style="display:none;">
-    <label>Don’t fill this out: <input name="bot-field" /></label>
-  </p>
-
-  <div style="font-weight:700; margin-bottom:6px;">Get a FREE ebook of your choice</div>
-  <div style="margin-bottom:10px; opacity:.9;">
-    Join the SumnuBooks list for new drops, exclusives, and giveaways.
+  <div class="mobile-sticky-cta">
+    <a class="btn btn-primary" href="books.html">🔥 Explore &amp; Buy</a>
   </div>
 
-  <div style="display:flex; gap:8px; flex-wrap:wrap;">
-    <input type="email" name="email" required placeholder="Your email"
-           style="flex:1; min-width:220px; padding:10px; border-radius:8px; border:1px solid rgba(0,0,0,.2);" />
-    <button type="submit" style="padding:10px 14px; border-radius:8px; cursor:pointer;">
-      Claim Free Ebook
-    </button>
-  </div>
+  <main>
 
-  <div style="margin-top:8px; font-size:12px; opacity:.75;">
-    No spam. Unsubscribe anytime.
-  </div>
-</form>
+    <!-- EMAIL + FREE EBOOK CHOICE (Netlify Forms) -->
+    <section class="section">
+      <div class="container">
+        <div class="card card-pad reveal home-compact">
+          <div class="section-title" style="margin-bottom:12px">
+            <div>
+              <h2>Join the Sumnu Books and Music</h2>
+              <p>Get a <strong>free ebook or music CD of your choice</strong> + updates on new releases.</p>
+            </div>
+          </div>
 
-</section>
-<section class="section">
-<div class="container">
-<div class="card card-pad reveal about-mini">
-<div class="section-title" style="margin-bottom:12px">
-<div>
-<h2>About Eric Lewis</h2>
-<p>Author + producer (EMC / E‑MAC)</p>
-</div>
-</div>
-<p style="margin:0; color: var(--muted); line-height:1.75;">
-        Urban fiction novels and music from <strong>Las Vegas Night Vision Productions</strong>.
-        If you like real stories and real sound — you’re home.
-      </p>
-<div style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap;">
-<a class="btn btn-secondary btn-small" href="contact.html">Contact</a>
-<a class="btn btn-secondary btn-small" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&amp;ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab" rel="noopener" target="_blank">Amazon Author Page</a>
-</div>
-</div>
-</div>
-</section>
-</main>
-<footer>
-<div class="container footer-grid">
-<div>
-<h3>Sumnu Books</h3>
-<p>Urban Fiction &amp; Hip Hop Culture.</p>
-<p style="margin-top:10px"><a class="btn btn-small btn-secondary" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&amp;ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab" rel="noopener" target="_blank">Shop my Amazon Author Page</a></p>
-</div>
-<div>
-<h3>Quick Links</h3>
-<ul>
-<li><a href="books.html">Books</a></li>
-<li><a href="music.html">Music</a></li>
-<li><a href="video.html">Videos</a></li>
-<li><a href="audiobooks.html">Audiobooks</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-</div>
-<div>
-<h3>Connect</h3>
-<p>Sales: <a href="mailto:sales@sumnubooks.com">sales@sumnubooks.com</a></p>
-<p style="margin-top:10px">© 2026 Las Vegas Night Vision Productions</p>
-</div>
-</div>
-<div class="copy">Built for mobile + laptop • Replace placeholder images/audio in the folders and you’re live.</div>
-<p style="opacity:.6;font-size:12px;margin-top:10px">Build v63</p></footer>
-<script src="js/data.js"></script>
-<script src="js/main.js"></script>
-<script>
-(function(){
-  const els = document.querySelectorAll('.reveal');
-  if(!('IntersectionObserver' in window)){
-    els.forEach(e=>e.classList.add('in'));
-    return;
-  }
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(ent=>{
-      if(ent.isIntersecting){
-        ent.target.classList.add('in');
-        io.unobserve(ent.target);
+          <!-- Netlify will detect this form when deployed -->
+          <form
+            name="ebook-giveaway"
+            method="POST"
+            data-netlify="true"
+            action="/thanks.html"
+          >
+            <input type="hidden" name="form-name" value="ebook-giveaway"/>
+
+            <div style="display:grid; gap:12px; grid-template-columns: 1fr;">
+
+              <label style="display:block;">
+                <span style="display:block; margin-bottom:6px;">Email</span>
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="Enter your email"
+                  style="width:100%;"
+                />
+              </label>
+
+              <label style="display:block;">
+                <span style="display:block; margin-bottom:6px;">Choose your free ebook</span>
+                <select name="ebook_choice" required style="width:100%;">
+                  <option value="" selected disabled>Select a title…</option>
+                  <option value="A PENNY For My Thoughts">A PENNY For My Thoughts</option>
+                  <option value="Unplugged: 30 Days of Chaos">Unplugged: 30 Days of Chaos</option>
+                  <option value="The Echo">The Echo</option>
+                </select>
+              </label>
+
+              <button class="btn btn-primary" type="submit">Get Free Access</button>
+
+              <p style="margin:0; color: var(--muted); font-size: 12px; line-height: 1.5;">
+                No spam. Unsubscribe anytime.
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPTIONAL: RADIO CTA (button only, actual shuffle lives on Music page) -->
+    <section class="section">
+      <div class="container">
+        <div class="card card-pad reveal home-compact">
+          <div class="section-title" style="margin-bottom:12px">
+            <div>
+              <h2>Sumnu Radio</h2>
+              <p>Hit play for a random shuffle like a radio station.</p>
+            </div>
+          </div>
+          <a class="btn btn-secondary" href="music.html#radio">▶ Play Sumnu Radio</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Your existing Featured Releases -->
+    <section class="section home-featured">
+      <div class="container">
+        <div class="section-title reveal">
+          <div>
+            <h2>Featured Releases</h2>
+            <p>Quick picks — listen to samples and dive in.</p>
+          </div>
+          <a class="btn btn-small btn-secondary" href="books.html">View all books →</a>
+        </div>
+
+        <div class="grid grid-3">
+          <article class="card product reveal">
+            <div class="product-media">
+              <div class="cover"><img alt="A PENNY For My Thoughts cover" loading="lazy" src="images/books/book1.jpg"/></div>
+            </div>
+            <div class="product-body">
+              <div class="product-title">A PENNY For My Thoughts</div>
+              <div class="product-desc">A gripping urban tale that takes you deep into the streets.</div>
+              <div class="actions">
+                <a class="btn btn-primary btn-small" href="books.html">Preview &amp; Buy</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card product reveal">
+            <div class="product-media">
+              <div class="cover"><img alt="Unplugged: 30 Days of Chaos cover" loading="lazy" src="images/books/book2.jpg"/></div>
+            </div>
+            <div class="product-body">
+              <div class="product-title">Unplugged: 30 Days of Chaos</div>
+              <div class="product-desc">Raw reality of survival and redemption — no sugarcoating.</div>
+              <div class="actions">
+                <a class="btn btn-primary btn-small" href="books.html">Preview &amp; Buy</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card product reveal">
+            <div class="product-media">
+              <div class="cover"><img alt="The May Tricks cover" loading="lazy" src="images/music/album2.jpg"/></div>
+            </div>
+            <div class="product-body">
+              <div class="product-title">The May Tricks (Album)</div>
+              <div class="product-desc">New heat from Las Vegas Night Vision Productions.</div>
+              <div class="actions">
+                <a class="btn btn-primary btn-small" href="music.html">Listen now</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card card-pad reveal about-mini">
+          <div class="section-title" style="margin-bottom:12px">
+            <div>
+              <h2>About Eric Lewis</h2>
+              <p>Author + producer (EMC / E-MAC)</p>
+            </div>
+          </div>
+          <p style="margin:0; color: var(--muted); line-height:1.75;">
+            Urban fiction novels and music from <strong>Las Vegas Night Vision Productions</strong>.
+            If you like real stories and real sound — you’re home.
+          </p>
+          <div style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap;">
+            <a class="btn btn-secondary btn-small" href="contact.html">Contact</a>
+            <a class="btn btn-secondary btn-small"
+               href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&amp;ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+               rel="noopener" target="_blank">Amazon Author Page</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <h3>Sumnu Books</h3>
+        <p>Urban Fiction &amp; Hip Hop Culture.</p>
+        <p style="margin-top:10px">
+          <a class="btn btn-small btn-secondary"
+             href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&amp;ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+             rel="noopener" target="_blank">Shop my Amazon Author Page</a>
+        </p>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="books.html">Books</a></li>
+          <li><a href="music.html">Music</a></li>
+          <li><a href="video.html">Videos</a></li>
+          <li><a href="audiobooks.html">Audiobooks</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Connect</h3>
+        <p>Sales: <a href="mailto:sales@sumnubooks.com">sales@sumnubooks.com</a></p>
+        <p style="margin-top:10px">© 2026 Las Vegas Night Vision Productions</p>
+      </div>
+    </div>
+    <div class="copy">Please remember to sign our e-mail list for upcoming releases</div>
+    <p style="opacity:.6;font-size:12px;margin-top:10px">Build v63</p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      if(!('IntersectionObserver' in window)){
+        els.forEach(e=>e.classList.add('in'));
+        return;
       }
-    });
-  }, {threshold: 0.12});
-  els.forEach(e=>io.observe(e));
-})();
-</script>
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(ent=>{
+          if(ent.isIntersecting){
+            ent.target.classList.add('in');
+            io.unobserve(ent.target);
+          }
+        });
+      }, {threshold: 0.12});
+      els.forEach(e=>io.observe(e));
+    })();
+  </script>
 </body>
 </html>

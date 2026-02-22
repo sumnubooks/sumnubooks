@@ -1009,3 +1009,31 @@ footer{
 .nav-toggle{position:relative;z-index:10001}
 
 .track-soon .soon-pill{justify-self:end;align-self:center}
+/* HOMEPAGE – make signup card compact */
+.hero .card {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 18px 20px;
+}
+
+/* tighten the form spacing */
+.hero .card input,
+.hero .card select {
+  padding: 10px 12px;
+  font-size: 0.95rem;
+}
+
+.hero .card h2 {
+  font-size: 1.35rem;
+  margin-bottom: 6px;
+}
+
+.hero .card p {
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.hero .card .btn {
+  padding: 10px 14px;
+  font-size: 0.95rem;
+}
