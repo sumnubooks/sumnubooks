@@ -39,6 +39,15 @@
 <h1 class="hero-title">Albums &amp; Tracks</h1>
 <p class="hero-subtitle">Tap an album cover to expand the player links and tracklist.</p>
 </div>
+<!-- SUMNU RADIO CONTROLS -->
+<div class="sumnu-radio" style="margin:16px 0; padding:12px; border:1px solid rgba(0,0,0,.15); border-radius:10px;">
+  <button type="button" id="sumnuRadioBtn">▶️ Play Sumnu Radio (Shuffle)</button>
+  <button type="button" id="sumnuSkipBtn" disabled style="margin-left:8px;">⏭ Skip</button>
+  <div id="sumnuNowPlaying" style="margin-top:10px; font-size:14px; opacity:.9;"></div>
+  <audio id="sumnuRadioPlayer" preload="none"></audio>
+</div>
+
+<script src="/js/sumnu-radio.js"></script>
 </section>
 <section class="section">
 <div class="container">
