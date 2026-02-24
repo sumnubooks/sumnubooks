@@ -2,7 +2,8 @@
    - Mobile nav toggle
    - One-audio-at-a-time
    - Books page rendering + search
-   - Music page accordion rendering
+   - Music page album grid expand/collapse
+   - Music page: Sumnu Radio + Stream button + Video buttons
 */
 
 (function () {
@@ -36,13 +37,19 @@
     });
   }
 
-  // One-audio-at-a-time
+  // One-audio-at-a-time (includes Sumnu Radio)
   const enforceSingleAudio = () => {
     const audios = qsa('audio');
+
     audios.forEach(a => {
+      if (a.dataset.singleAudioBound === '1') return;
+      a.dataset.singleAudioBound = '1';
+
       a.addEventListener('play', () => {
         audios.forEach(other => {
-          if (other !== a) other.pause();
+          if (other !== a) {
+            try { other.pause(); } catch (e) {}
+          }
         });
       });
     });
@@ -101,7 +108,7 @@
               <audio controls preload="none">
                 <source src="${b.audioSample}" type="audio/mpeg">
               </audio>
-</div>
+            </div>
           </div>
         </article>
       `;
@@ -133,7 +140,6 @@
 
     if (sortSel) sortSel.addEventListener('change', draw);
     if (searchInput) searchInput.addEventListener('input', () => {
-      // small debounce
       window.clearTimeout(renderBooks._t);
       renderBooks._t = window.setTimeout(draw, 120);
     });
@@ -141,75 +147,6 @@
     draw();
   }
 
-  // Music rendering
-  function renderAlbums() {
-    const host = qs('[data-albums]');
-    if (!host || !window.SUMNU_DATA?.albums) return;
-
-    function albumCard(a) {
-      const links = (a.links||[]).map(l => `
-        <a class="btn btn-small btn-secondary" href="${l.url}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${escapeHtml(l.label)}</a>
-      `).join('');
-
-      const tracks = (a.tracks||[]).map(t => `
-        <div class="track">
-          <div class="n">${t.n}.</div>
-          <div class="tt">${escapeHtml(t.title)}</div>
-          <audio controls preload="none">
-            <source src="${encodeURI(t.src)}" type="audio/mpeg">
-          </audio>
-        </div>
-      `).join('');
-
-      return `
-        <div class="accordion" data-acc="${a.id}">
-          <div class="acc-head" role="button" tabindex="0" aria-expanded="false">
-            <div class="acc-cover"><img src="${encodeURI(a.cover)}" alt="${escapeHtml(a.title)} cover" loading="lazy"></div>
-            <div class="acc-info">
-              <p class="t">${escapeHtml(a.title)}</p>
-              <div class="m">
-                <span class="pill">🎤 ${escapeHtml(a.artist)}</span>
-                <span class="pill">📅 ${escapeHtml(a.year)}</span>
-              </div>
-            </div>
-            <div class="acc-actions">${links}</div>
-            <div class="acc-arrow">▼</div>
-          </div>
-          <div class="acc-body">
-            ${tracks}
-          </div>
-        </div>
-      `;
-    }
-
-    host.innerHTML = window.SUMNU_DATA.albums.map(albumCard).join('');
-
-    // accordion behavior (only one open)
-    qsa('[data-acc]').forEach(acc => {
-      const head = qs('.acc-head', acc);
-      const toggle = () => {
-        const open = acc.classList.contains('open');
-        qsa('[data-acc]').forEach(o => {
-          o.classList.remove('open');
-          const h = qs('.acc-head', o);
-          if (h) h.setAttribute('aria-expanded','false');
-        });
-        if (!open) {
-          acc.classList.add('open');
-          head.setAttribute('aria-expanded','true');
-        }
-      };
-
-      head.addEventListener('click', toggle);
-      head.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-      });
-    });
-
-    enforceSingleAudio();
-  }
-
-  
   function wireZelleToggles(){
     qsa('[data-zelle-toggle]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
@@ -220,6 +157,201 @@
         panel.style.display = open ? 'none' : 'block';
       });
     });
+  }
+
+  // Music page: album expand/collapse + Stream button + per-track Video + Sumnu Radio
+  function initMusicPage(){
+    const grid = qs('[data-album-grid]');
+    if(!grid) return; // only run on music.html
+
+    const radioAudio = qs('#radioAudio');
+    const radioToggle = qs('#radioToggle');
+    const radioNext = qs('#radioNext');
+    const radioNowTitle = qs('#radioNowTitle');
+
+    const pauseRadio = () => {
+      if(!radioAudio) return;
+      try { radioAudio.pause(); } catch(e) {}
+      if(radioToggle) radioToggle.textContent = '▶ Play';
+    };
+
+    const stopAllAudio = (exceptEl) => {
+      qsa('audio').forEach(a => {
+        if(a !== exceptEl){
+          try { a.pause(); a.currentTime = 0; } catch(e) {}
+        }
+      });
+    };
+
+    const closeAll = () => {
+      qsa('.album-card.is-open', grid).forEach(card => {
+        card.classList.remove('is-open');
+        const btn = qs('[data-album-toggle]', card);
+        if(btn) btn.setAttribute('aria-expanded','false');
+      });
+    };
+
+    const setStreamLinkForCard = (card) => {
+      const panel = qs('[data-album-panel]', card);
+      if(!panel) return;
+      const linkEl = qs('[data-stream-link]', panel);
+      if(!linkEl) return;
+      const href = (card.getAttribute('data-stream') || '').trim();
+      if(href && href !== '#'){
+        linkEl.href = href;
+        linkEl.style.display = '';
+      } else {
+        linkEl.href = '#';
+        linkEl.style.display = 'none';
+      }
+    };
+
+    const wireVideoButtons = () => {
+      qsa('li.track[data-video]').forEach(li => {
+        const url = (li.getAttribute('data-video') || '').trim();
+        const btn = qs('[data-video-btn]', li);
+        if(!btn) return;
+        if(url){
+          btn.href = url;
+          btn.style.display = '';
+        } else {
+          btn.href = '#';
+          btn.style.display = 'none';
+        }
+      });
+    };
+
+    // Album expand/collapse (one open at a time)
+    grid.addEventListener('click', (e) => {
+      const toggle = e.target.closest('[data-album-toggle]');
+      const closeBtn = e.target.closest('[data-album-close]');
+      const card = e.target.closest('.album-card');
+      if(!card) return;
+
+      if(closeBtn){
+        card.classList.remove('is-open');
+        const btn = qs('[data-album-toggle]', card);
+        if(btn) btn.setAttribute('aria-expanded','false');
+        stopAllAudio();
+        pauseRadio();
+        return;
+      }
+
+      if(toggle){
+        const isOpen = card.classList.contains('is-open');
+        closeAll();
+        stopAllAudio();
+        pauseRadio();
+
+        if(!isOpen){
+          card.classList.add('is-open');
+          toggle.setAttribute('aria-expanded','true');
+          setStreamLinkForCard(card);
+          try { card.scrollIntoView({behavior:'smooth', block:'start'}); } catch(e) {}
+        }
+      }
+    });
+
+    // If any album/track audio plays, pause radio
+    document.addEventListener('play', (e) => {
+      if(e.target && e.target.tagName === 'AUDIO' && e.target !== radioAudio){
+        pauseRadio();
+      }
+    }, true);
+
+    // --- Sumnu Radio ---
+    const buildRadioPlaylist = () => {
+      const items = [];
+      qsa('ol.tracklist li.track').forEach(li => {
+        const srcEl = qs('source[src]', li);
+        if(!srcEl) return;
+        const rawSrc = srcEl.getAttribute('src');
+        if(!rawSrc) return;
+        const nameEl = qs('.track-name', li) || qs('.track-title', li);
+        const title = nameEl ? nameEl.textContent.trim() : 'Track';
+        items.push({ title, src: rawSrc });
+      });
+      return items;
+    };
+
+    let playlist = buildRadioPlaylist();
+    let currentIndex = -1;
+
+    const setNowPlaying = (text) => {
+      if(radioNowTitle) radioNowTitle.textContent = text || '—';
+    };
+
+    const pickNextIndex = () => {
+      if(!playlist.length) return -1;
+      if(playlist.length === 1) return 0;
+      let idx = Math.floor(Math.random() * playlist.length);
+      if(idx === currentIndex){
+        idx = (idx + 1) % playlist.length;
+      }
+      return idx;
+    };
+
+    const playAtIndex = (idx) => {
+      if(!radioAudio) return;
+      if(idx < 0 || idx >= playlist.length) return;
+      currentIndex = idx;
+
+      const item = playlist[idx];
+      setNowPlaying(item.title);
+
+      try {
+        radioAudio.src = new URL(encodeURI(item.src), document.baseURI).toString();
+      } catch(e) {
+        radioAudio.src = item.src;
+      }
+
+      stopAllAudio(radioAudio);
+
+      radioAudio.play().then(() => {
+        if(radioToggle) radioToggle.textContent = '⏸ Pause';
+      }).catch(() => {
+        if(radioToggle) radioToggle.textContent = '▶ Play';
+      });
+    };
+
+    const playRandom = () => playAtIndex(pickNextIndex());
+
+    if(radioAudio){
+      radioAudio.addEventListener('ended', () => {
+        playRandom();
+      });
+      radioAudio.addEventListener('play', () => {
+        stopAllAudio(radioAudio);
+      });
+    }
+
+    if(radioToggle && radioAudio){
+      radioToggle.addEventListener('click', () => {
+        playlist = buildRadioPlaylist();
+
+        if(radioAudio.paused){
+          if(currentIndex === -1) playRandom();
+          else {
+            stopAllAudio(radioAudio);
+            radioAudio.play().then(()=>{ radioToggle.textContent='⏸ Pause'; }).catch(()=>{ radioToggle.textContent='▶ Play'; });
+          }
+        } else {
+          pauseRadio();
+        }
+      });
+    }
+
+    if(radioNext){
+      radioNext.addEventListener('click', () => {
+        playlist = buildRadioPlaylist();
+        playRandom();
+      });
+    }
+
+    // Initial wiring
+    qsa('.album-card').forEach(setStreamLinkForCard);
+    wireVideoButtons();
+    enforceSingleAudio();
   }
 
   function escapeHtml(str){
@@ -234,8 +366,8 @@
   document.addEventListener('DOMContentLoaded', () => {
     enforceSingleAudio();
     renderBooks();
-    renderAlbums();
     wireZelleToggles();
+    initMusicPage();
   });
 
   // Scroll reveal (subtle)
