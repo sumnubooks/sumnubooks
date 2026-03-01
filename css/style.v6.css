@@ -1289,3 +1289,11 @@ footer{
   padding: 10px 14px;
   font-size: 0.95rem;
 }
+.welcome-video {
+  width: 100%;
+  max-width: 520px;   /* 👈 makes it smaller */
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;     /* 👈 centers it */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
