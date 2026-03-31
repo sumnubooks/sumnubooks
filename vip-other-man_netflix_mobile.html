@@ -5,52 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Other Man — VIP Series · Sumnu Books</title>
   <link rel="stylesheet" href="css/sumnu.css" />
-  
   <style>
     body {
       background:
-        radial-gradient(ellipse 70% 35% at 5% -5%, rgba(212,168,67,.1), transparent),
-        radial-gradient(ellipse 55% 30% at 95% 5%, rgba(232,97,42,.07), transparent),
+        radial-gradient(ellipse 70% 35% at 5% -5%, rgba(232,97,42,.1), transparent),
+        radial-gradient(ellipse 55% 30% at 95% 5%, rgba(212,168,67,.07), transparent),
         var(--bg);
     }
-    .series-top-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 18px 0 14px;
-    }
-    .series-top-nav a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(212,168,67,.28);
-      background: rgba(12,14,26,.72);
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 700;
-      letter-spacing: .02em;
-    }
-    .series-top-nav a:hover,
-    .series-top-nav a:focus-visible {
-      border-color: rgba(212,168,67,.55);
-      color: var(--gold);
-    }
-    .episode-card.locked.unlock-link { cursor: pointer; }
-    .episode-card.locked.unlock-link:focus-visible {
-      outline: 2px solid rgba(212,168,67,.8);
-      outline-offset: 3px;
-    }
-    .autonext-note {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: .82rem;
-      line-height: 1.5;
-    }
   </style>
-
 </head>
 <body>
   <main class="page-wrap">
@@ -76,7 +38,6 @@
             <span class="pill">Episodes 5–8 Locked</span>
             <span class="pill">Unlock Full Season — $5</span>
           </div>
-          <p class="autonext-note">Episodes autoplay one after another after you start the first one.</p>
         </div>
       </section>
 
@@ -144,7 +105,7 @@
         </article>
 
         <!-- Locked eps 5–8 -->
-        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes with PayPal" data-unlock-paypal="unlock-paypal-form">
+        <article class="episode-card locked reveal">
           <div class="episode-art">
             <img src="images/other-man/other-man-ep5.jpg" alt="Other Man Episode 5">
             <div class="ep-badge locked">VIP · Ep 5</div>
@@ -160,7 +121,7 @@
           </div>
         </article>
 
-        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes with PayPal" data-unlock-paypal="unlock-paypal-form">
+        <article class="episode-card locked reveal">
           <div class="episode-art">
             <img src="images/other-man/other-man-ep6.jpg" alt="Other Man Episode 6">
             <div class="ep-badge locked">VIP · Ep 6</div>
@@ -176,7 +137,7 @@
           </div>
         </article>
 
-        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes with PayPal" data-unlock-paypal="unlock-paypal-form">
+        <article class="episode-card locked reveal">
           <div class="episode-art">
             <img src="images/other-man/other-man-ep7.jpg" alt="Other Man Episode 7">
             <div class="ep-badge locked">VIP · Ep 7</div>
@@ -192,7 +153,7 @@
           </div>
         </article>
 
-        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes with PayPal" data-unlock-paypal="unlock-paypal-form">
+        <article class="episode-card locked reveal">
           <div class="episode-art">
             <img src="images/other-man/other-man-ep8.jpg" alt="Other Man Episode 8">
             <div class="ep-badge locked">VIP · Ep 8</div>
@@ -233,6 +194,15 @@
 
   
   <script>
+    const STORAGE_KEY = "otherman_unlocked";
+    const UNLOCKED_PAGE = "vip-other-man-unlocked.html";
+
+    try {
+      if (localStorage.getItem(STORAGE_KEY) === 'true') {
+        window.location.replace(UNLOCKED_PAGE);
+      }
+    } catch (e) {}
+
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -243,35 +213,11 @@
     }, { threshold: 0.06 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    const audios = Array.from(document.querySelectorAll('.episode-card audio'));
-    audios.forEach((audio, index) => {
-      audio.addEventListener('play', () => {
-        audios.forEach(other => {
-          if (other !== audio && !other.paused) other.pause();
-        });
-      });
-
-      audio.addEventListener('ended', async () => {
-        const nextAudio = audios[index + 1];
-        if (!nextAudio) return;
-
-        const nextCard = nextAudio.closest('.episode-card');
-        if (nextCard) {
-          nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        try {
-          nextAudio.currentTime = 0;
-          await nextAudio.play();
-        } catch (err) {
-          // Mobile browsers sometimes require another tap after the first item.
-        }
-      });
-    });
-
     const unlockForm = document.getElementById('unlock-paypal-form');
-    document.querySelectorAll('[data-unlock-paypal]').forEach(card => {
-      const openCheckout = () => { if (unlockForm) unlockForm.submit(); };
+    document.querySelectorAll('[data-unlock-paypal], .episode-card.locked.unlock-link, .locked-trigger').forEach(card => {
+      const openCheckout = () => {
+        if (unlockForm) unlockForm.submit();
+      };
       card.addEventListener('click', openCheckout);
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {

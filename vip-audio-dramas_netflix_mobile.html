@@ -221,91 +221,6 @@
       opacity: .3;
     }
 
-    .poster-teaser {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(circle at 22% 18%, rgba(212,168,67,.28), transparent 26%),
-        radial-gradient(circle at 78% 78%, rgba(232,97,42,.20), transparent 24%),
-        linear-gradient(160deg, #110d14 0%, #05070f 46%, #0c1530 100%);
-    }
-    .poster-teaser::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to top, rgba(4,6,10,.94) 0%, rgba(4,6,10,.3) 48%, transparent 100%),
-        linear-gradient(125deg, rgba(255,255,255,.05), transparent 35%);
-    }
-    .poster-teaser::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border: 1px solid rgba(212,168,67,.18);
-      pointer-events: none;
-    }
-    .teaser-stack {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 18px 16px;
-    }
-    .teaser-topline {
-      display: inline-flex;
-      align-self: flex-start;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: .66rem;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--gold-lt);
-      background: rgba(0,0,0,.38);
-      border: 1px solid rgba(212,168,67,.28);
-      backdrop-filter: blur(6px);
-    }
-    .teaser-mid {
-      margin-top: auto;
-    }
-    .teaser-kicker {
-      font-size: .72rem;
-      font-weight: 800;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-    .teaser-title {
-      font-family: var(--font-display);
-      font-size: 1.55rem;
-      line-height: 1.02;
-      color: #fff;
-      margin-bottom: 10px;
-      max-width: 10ch;
-    }
-    .teaser-sub {
-      font-size: .82rem;
-      line-height: 1.55;
-      color: rgba(255,255,255,.72);
-      max-width: 28ch;
-    }
-    .teaser-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      font-size: .74rem;
-      color: rgba(255,255,255,.7);
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    
-
     .series-body {
       padding: 14px 16px 16px;
     }
@@ -478,41 +393,21 @@
           <!-- Coming soon -->
           <div class="series-card coming-soon">
             <div class="poster">
-              <div class="poster-teaser">
-                <div class="teaser-stack">
-                  <div class="teaser-topline">In Production</div>
-                  <div class="teaser-mid">
-                    <div class="teaser-kicker">Next Drop</div>
-                    <div class="teaser-title">Coming Soon</div>
-                    <div class="teaser-sub">A new SumnuBooks mini-series is already in motion. Cover art and first episodes are on deck.</div>
-                  </div>
-                  <div class="teaser-footer">
-                    <span>New series loading</span>
-                    <span>VIP shelf</span>
-                  </div>
-                </div>
+              <div class="poster-placeholder">
+                <div class="ph-icon">🎬</div>
+                <span>Coming Soon</span>
               </div>
               <div class="poster-badge upcoming">Upcoming</div>
               <div class="poster-copy">
-                <div class="genre">Next Original</div>
-                <h3>Coming Soon</h3>
-                <div class="meta">Artwork in progress</div>
+                <div class="genre">Coming Soon</div>
+                <h3>Series 3</h3>
+                <div class="meta">Not live yet</div>
               </div>
             </div>
             <div class="series-body">
-              <p></p>
+              <p>Your next original series will live here until it's ready to drop.</p>
               <div class="series-footer">
-                <span>New series in production</span>
-                <span>•</span>
-              </div>
-            </div>
-          </div>
-        </div>
-            </div>
-            <div class="series-body">
-              <p></p>
-              <div class="series-footer">
-                <span></span>
+                <span>Not live yet</span>
                 <span>•</span>
               </div>
             </div>
@@ -537,5 +432,37 @@
     }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   </script>
+
+  <script>
+    try {
+      if (localStorage.getItem('otherman_unlocked') === 'true') {
+        document.querySelectorAll('a[href="vip-other-man_netflix_mobile.html"]').forEach(a => {
+          a.setAttribute('href', 'vip-other-man-unlocked.html');
+          if (!a.dataset.unlockBadgeApplied) {
+            a.dataset.unlockBadgeApplied = 'true';
+            const badge = document.createElement('span');
+            badge.textContent = ' • Unlocked';
+            badge.style.color = '#d4a843';
+            badge.style.fontWeight = '800';
+            a.appendChild(badge);
+          }
+        });
+      }
+      if (localStorage.getItem('beforeourwaterbreaks_unlocked') === 'true') {
+        document.querySelectorAll('a[href="before-our-water-breaks-vip.html"]').forEach(a => {
+          a.setAttribute('href', 'before-our-water-breaks-unlocked.html');
+          if (!a.dataset.unlockBadgeApplied) {
+            a.dataset.unlockBadgeApplied = 'true';
+            const badge = document.createElement('span');
+            badge.textContent = ' • Unlocked';
+            badge.style.color = '#d4a843';
+            badge.style.fontWeight = '800';
+            a.appendChild(badge);
+          }
+        });
+      }
+    } catch (e) {}
+  </script>
+
 </body>
 </html>

@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Before Our Water Breaks — Full Season · Sumnu Books</title>
   <link rel="stylesheet" href="css/sumnu.css" />
-  
   <style>
     body {
       background:
@@ -13,44 +12,7 @@
         radial-gradient(ellipse 55% 30% at 95% 5%, rgba(232,97,42,.07), transparent),
         var(--bg);
     }
-    .series-top-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 18px 0 14px;
-    }
-    .series-top-nav a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: 1px solid rgba(212,168,67,.28);
-      background: rgba(12,14,26,.72);
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 700;
-      letter-spacing: .02em;
-    }
-    .series-top-nav a:hover,
-    .series-top-nav a:focus-visible {
-      border-color: rgba(212,168,67,.55);
-      color: var(--gold);
-    }
-    .episode-card.locked.unlock-link { cursor: pointer; }
-    .episode-card.locked.unlock-link:focus-visible {
-      outline: 2px solid rgba(212,168,67,.8);
-      outline-offset: 3px;
-    }
-    .autonext-note {
-      margin-top: 14px;
-      color: var(--muted);
-      font-size: .82rem;
-      line-height: 1.5;
-    }
   </style>
-
 </head>
 <body>
   <main class="page-wrap">
@@ -182,6 +144,10 @@
 
   
   <script>
+    try {
+      localStorage.setItem("beforeourwaterbreaks_unlocked", 'true');
+    } catch (e) {}
+
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
         if (e.isIntersecting) {
@@ -191,44 +157,6 @@
       });
     }, { threshold: 0.06 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-    const audios = Array.from(document.querySelectorAll('.episode-card audio'));
-    audios.forEach((audio, index) => {
-      audio.addEventListener('play', () => {
-        audios.forEach(other => {
-          if (other !== audio && !other.paused) other.pause();
-        });
-      });
-
-      audio.addEventListener('ended', async () => {
-        const nextAudio = audios[index + 1];
-        if (!nextAudio) return;
-
-        const nextCard = nextAudio.closest('.episode-card');
-        if (nextCard) {
-          nextCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        try {
-          nextAudio.currentTime = 0;
-          await nextAudio.play();
-        } catch (err) {
-          // Mobile browsers sometimes require another tap after the first item.
-        }
-      });
-    });
-
-    const unlockForm = document.getElementById('unlock-paypal-form');
-    document.querySelectorAll('[data-unlock-paypal]').forEach(card => {
-      const openCheckout = () => { if (unlockForm) unlockForm.submit(); };
-      card.addEventListener('click', openCheckout);
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openCheckout();
-        }
-      });
-    });
   </script>
 
 </body>
