@@ -76,7 +76,28 @@
     }
 
     function card(b) {
-      const formats = ['Paperback','Kindle','Audiobook'];
+      // Genre tag — pulled from data, with emoji
+      const genreEmoji = { 'Sci-Fi': '🚀', 'Thriller': '🔪', 'Urban Fiction': '🔥', 'Street Lit': '🔥', 'Nonfiction': '📘', 'Self-Help': '💡', 'Finance': '💰', 'Health': '🩺', 'Leadership': '🏆' };
+      const genreLabel = b.genre || 'Street Lit';
+      const genreIcon = genreEmoji[genreLabel] || '📖';
+
+      // Format pills — only what this book actually has
+      const formats = b.formats || ['Paperback', 'Kindle'];
+      const hasAudiobook = b.audiobookUrl || false;
+
+      // Format pill HTML
+      const formatPills = formats.map(f => `<span class="pill">${f}</span>`).join('');
+
+      // Audiobook pill (gold, exclusive) if this book has one
+      const audiobookPill = hasAudiobook
+        ? `<a href="${escapeHtml(b.audiobookUrl)}" class="pill pill-gold" style="background:rgba(255,215,0,.18);border:1px solid rgba(255,215,0,.5);color:#ffd700;text-decoration:none;font-weight:700;">🎧 Audiobook — Exclusive</a>`
+        : '';
+
+      // Action buttons
+      const audiobookBtn = hasAudiobook
+        ? `<a class="btn btn-primary btn-small" href="${escapeHtml(b.audiobookUrl)}" style="background:linear-gradient(135deg,#b8860b,#ffd700);color:#000;font-weight:800;">🎧 Audiobook $12.99</a>`
+        : '';
+
       return `
         <article class="card product" data-book="${b.id}">
           <div class="product-media">
@@ -88,17 +109,19 @@
             <div class="product-title">${escapeHtml(b.title)}</div>
             <div class="product-desc">${escapeHtml(b.desc)}</div>
             <div class="product-meta">
-              <div class="pill">🔥 Street Lit</div>
+              <div class="pill">${genreIcon} ${escapeHtml(genreLabel)}</div>
               <div class="price">${escapeHtml(b.price || '')}</div>
             </div>
-            <div class="product-desc" style="display:flex; gap:8px; flex-wrap:wrap;">
-              ${formats.map(f=>`<span class="pill">${f}</span>`).join('')}
+            <div class="product-desc" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+              ${formatPills}
+              ${audiobookPill}
             </div>
 
-            <div class="actions">
+            <div class="actions" style="flex-wrap:wrap;">
               <button class="btn btn-secondary btn-small" data-audio-btn="${b.id}">
                 🎧 Sample
               </button>
+              ${audiobookBtn}
               <a class="btn btn-primary btn-small" href="${b.buyUrl}" target="_blank" rel="noopener">
                 🛒 Buy on Amazon
               </a>

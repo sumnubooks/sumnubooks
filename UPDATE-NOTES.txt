@@ -1,0 +1,7 @@
+Included in this build:
+- VIP hub placeholder replaced with a premium coming-soon teaser cover
+- Series pages now include navigation
+- Locked episodes on VIP pages are clickable and open the PayPal checkout
+- Episodes now try to autoplay the next episode after the current one ends
+
+Important: some mobile browsers can still block autoplay on a later episode unless the browser allows it. The script is wired, but browser media policy still has final control.

@@ -1,256 +1,1258 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Sumnu Books — Urban Fiction &amp; Hip Hop Culture</title>
-<link href="css/style.v6.css" rel="stylesheet"/>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>Sumnu Books — Sci-Fi, Thriller &amp; Urban Fiction by E.D. Lewis</title>
+  <meta name="description" content="25 novels by E.D. Lewis — sci-fi, thriller, urban fiction. Exclusive audiobooks only at SumnuBooks.com. Music from Las Vegas Night Vision Productions."/>
+  <link rel="stylesheet" href="css/sumnu.css" />
+  <style>
+    /* ══════════════════════════════════════════════
+       PAGE-SPECIFIC HOMEPAGE STYLES
+    ══════════════════════════════════════════════ */
 
-<style>
-  /* Compact signup card (keeps the rest of your site unchanged) */
-  .home-signup { padding: 28px 0 10px; }
-  .signup-card{
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 18px 18px 14px;
-    border-radius: 14px;
-    background: rgba(10, 14, 22, 0.72);
-    border: 1px solid rgba(255,255,255,0.08);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-  }
-  .signup-head h2{ margin: 0 0 6px; font-size: 1.15rem; letter-spacing: .4px; }
-  .signup-head p{ margin: 0 0 12px; opacity: .9; }
-  .signup-form{ display: grid; gap: 10px; }
-  .signup-form .field span{ display:block; font-size: .85rem; opacity: .9; margin-bottom: 6px; }
-  .signup-form input{
-    width: 100%;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(0,0,0,0.28);
-    color: #fff;
-    outline: none;
-  }
-  .signup-form input::placeholder{ color: rgba(255,255,255,0.55); }
-  .signup-form .hint{ display:block; margin-top: 6px; font-size: .78rem; opacity: .75; }
-  .btn-wide{ width: 100%; padding: 10px 14px; border-radius: 10px; }
-  .fineprint{ font-size: .78rem; opacity: .7; padding-top: 2px; }
-  @media (min-width: 768px){
-    .home-signup{ padding: 32px 0 12px; }
-    .signup-card{ padding: 20px 20px 16px; }
-    .signup-form{ grid-template-columns: 1fr 1fr; }
-    .signup-form .field:nth-child(1),
-    .signup-form .field:nth-child(2){ grid-column: span 1; }
-    .signup-form button,
-    .signup-form .fineprint{ grid-column: 1 / -1; }
-  }
-</style>
-</head>
-<body class="page-home">
+    /* Background atmosphere */
+    body {
+      background:
+        radial-gradient(ellipse 90% 50% at 15% -10%, rgba(232,97,42,.13), transparent),
+        radial-gradient(ellipse 70% 40% at 85% 5%,  rgba(212,168,67,.09), transparent),
+        var(--bg);
+    }
 
-<div class="site-logo-header">
-<div class="container">
-<a aria-label="Go to homepage" href="index.html">
-<img alt="Sumnu Books logo" src="images/logos/your-logo.png"/>
-</a>
-</div>
-</div>
-<header>
-<div class="container navbar">
-<div aria-label="Site name" class="brand">
-<div class="name">SUMNU BOOKS</div>
-<div class="tag">Urban Fiction • Hip Hop Culture • Las Vegas Night Vision</div>
-</div>
-<button aria-expanded="false" aria-label="Open menu" class="nav-toggle" data-nav-toggle="">
-        ☰
-      </button>
-<ul class="nav-links" data-nav-links="">
-<li><a class="active" href="index.html">Home</a></li>
-<li><a class="" href="books.html">Books</a></li>
-<li><a class="" href="music.html">Music</a></li>
-<li><a class="" href="video.html">Videos</a></li>
-<li><a class="" href="audiobooks.html">Audiobooks</a></li>
-<li><a class="" href="contact.html">Contact</a></li>
-</ul>
-</div>
-</header>
-<div class="mobile-sticky-cta">
-<a class="btn btn-primary" href="books.html">🔥 Explore &amp; Buy</a>
-</div>
-<main>
-<section class="section home-signup">
-  <div class="container">
-    <div class="signup-card reveal">
-      <div class="signup-head">
-        <h2>Join the Sumnu Books &amp; Music List</h2>
-        <p>Get a <strong>free ebook or music CD of your choice</strong> + updates on new releases.</p>
-      </div>
+    /* ── Exclusive banner ────────────────────────── */
+    .excl-banner {
+      background: linear-gradient(90deg, #9a7010 0%, #c8971f 40%, #d4a843 55%, #c8971f 70%, #9a7010 100%);
+      color: #06080f;
+      text-align: center;
+      padding: 9px 16px;
+      font-size: .84rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .excl-banner a {
+      color: #06080f;
+      text-decoration: underline;
+      font-weight: 800;
+      text-underline-offset: 2px;
+    }
 
-      <!-- Netlify form: submissions show up in Netlify → Forms -->
-      <form name="ebook-giveaway" method="POST" data-netlify="true" action="/thanks.html" class="signup-form">
-        <input type="hidden" name="form-name" value="ebook-giveaway" />
-
-        <label class="field">
-          <span>Email</span>
-          <input type="email" name="email" placeholder="Enter your email" required />
-        </label>
-
-        <label class="field">
-          <span>What do you want?</span>
-          <input
-            type="text"
-            name="requested_item"
-            list="freebie-options"
-            placeholder="Type the ebook title (or music CD) you want"
-            required
-          />
-          <datalist id="freebie-options">
-            <option value="A Penny For My Thoughts (ebook)"></option>
-            <option value="Unplugged: 30 Days of Chaos (ebook)"></option>
-            <option value="The Echo (ebook)"></option>
-            <option value="EMC (music CD)"></option>
-            <option value="Red Dirt Mercy (music CD)"></option>
-          </datalist>
-          <small class="hint">You can type any title — the list is just suggestions.</small>
-        </label>
-
-        <button type="submit" class="btn btn-primary btn-wide">Get Free Access</button>
-
-        <div class="fineprint">No spam. Unsubscribe anytime.</div>
-      </form>
-    </div>
-  </div>
-</section>
-
-<section class="section home-featured">
-<section class="section home-welcome-video">
-  <div class="container">
-    <div class="reveal" style="text-align:center;">
-
-      <h2 style="margin-bottom:14px;">Welcome to SumnuBooks</h2>
-
-      <video autoplay muted loop playsinline controls class="welcome-video">
-        <source src="video/unplugged/welcome_video_1.mp4" type="video/mp4">
-      </video>
-
-    </div>
-  </div>
-</section>
-<div class="container">
-<div class="section-title reveal">
-<div>
-<h2>Featured Releases</h2>
-<p>Quick picks — listen to samples and dive in.</p>
-</div>
-<a class="btn btn-small btn-secondary" href="books.html">View all books →</a>
-</div>
-<div class="grid grid-3">
-<article class="card product reveal">
-<div class="product-media">
-<div class="cover"><img alt="A PENNY For My Thoughts cover" loading="lazy" src="images/books/book1.jpg"/></div>
-</div>
-<div class="product-body">
-<div class="product-title">A PENNY For My Thoughts</div>
-<div class="product-desc">A gripping urban tale that takes you deep into the streets.</div>
-<div class="actions">
-<a class="btn btn-primary btn-small" href="books.html">Preview &amp; Buy</a>
-</div>
-</div>
-</article>
-<article class="card product reveal">
-<div class="product-media">
-<div class="cover"><img alt="Unplugged: 30 Days of Chaos cover" loading="lazy" src="images/books/book2.jpg"/></div>
-</div>
-<div class="product-body">
-<div class="product-title">Unplugged: 30 Days of Chaos</div>
-<div class="product-desc">Raw reality of survival and redemption — no sugarcoating.</div>
-<div class="actions">
-<a class="btn btn-primary btn-small" href="books.html">Preview &amp; Buy</a>
-</div>
-</div>
-</article>
-<article class="card product reveal">
-<div class="product-media">
-<div class="cover"><img alt="The May Tricks cover" loading="lazy" src="images/music/album2.jpg"/></div>
-</div>
-<div class="product-body">
-<div class="product-title">The May Tricks (Album)</div>
-<div class="product-desc">New heat from Las Vegas Night Vision Productions.</div>
-<div class="actions">
-<a class="btn btn-primary btn-small" href="music.html">Listen now</a>
-</div>
-</div>
-</article>
-</div>
-</div>
-</section>
-<section class="section">
-<div class="container">
-<div class="card card-pad reveal about-mini">
-<div class="section-title" style="margin-bottom:12px">
-<div>
-<h2>About Eric Lewis</h2>
-<p>Author + producer (EMC / E‑MAC)</p>
-</div>
-</div>
-<p style="margin:0; color: var(--muted); line-height:1.75;">
-        Urban fiction novels and music from <strong>Las Vegas Night Vision Productions</strong>.
-        If you like real stories and real sound — you’re home.
-      </p>
-<div style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap;">
-<a class="btn btn-secondary btn-small" href="contact.html">Contact</a>
-<a class="btn btn-secondary btn-small" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&amp;ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab" rel="noopener" target="_blank">Amazon Author Page</a>
-</div>
-</div>
-</div>
-</section>
-</main>
-<footer>
-<div class="container footer-grid">
-<div>
-<h3>Sumnu Books</h3>
-<p>Urban Fiction &amp; Hip Hop Culture.</p>
-<p style="margin-top:10px"><a class="btn btn-small btn-secondary" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&amp;ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab" rel="noopener" target="_blank">Shop my Amazon Author Page</a></p>
-</div>
-<div>
-<h3>Quick Links</h3>
-<ul>
-<li><a href="books.html">Books</a></li>
-<li><a href="music.html">Music</a></li>
-<li><a href="video.html">Videos</a></li>
-<li><a href="audiobooks.html">Audiobooks</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-</div>
-<div>
-<h3>Connect</h3>
-<p>Sales: <a href="mailto:sales@sumnubooks.com">sales@sumnubooks.com</a></p>
-<p style="margin-top:10px">© 2026 Las Vegas Night Vision Productions</p>
-</div>
-</div>
-<div class="copy">Built for mobile + laptop • Replace placeholder images/audio in the folders and you’re live.</div>
-<p style="opacity:.6;font-size:12px;margin-top:10px">Build v63</p></footer>
-<script src="js/data.js"></script>
-<script src="js/main.js"></script>
-<script>
-(function(){
-  const els = document.querySelectorAll('.reveal');
-  if(!('IntersectionObserver' in window)){
-    els.forEach(e=>e.classList.add('in'));
-    return;
-  }
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(ent=>{
-      if(ent.isIntersecting){
-        ent.target.classList.add('in');
-        io.unobserve(ent.target);
+    /* ── Header / nav ────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 34px;
+      z-index: 900;
+      background: rgba(6,8,15,.82);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--stroke);
+    }
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 60px;
+    }
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: .03em;
+      white-space: nowrap;
+    }
+    .brand-tag {
+      font-size: .68rem;
+      color: var(--muted);
+      letter-spacing: .06em;
+      margin-top: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .nav-links a {
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color .18s, background .18s;
+    }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,.05); }
+    .nav-links a.active { color: var(--gold); background: rgba(212,168,67,.08); }
+    .nav-links a.nav-vip {
+      color: var(--gold);
+      border: 1px solid rgba(212,168,67,.25);
+    }
+    .nav-links a.nav-vip:hover {
+      background: rgba(212,168,67,.1);
+    }
+    /* mobile: collapse nav into a toggle */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--stroke2);
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: var(--r-sm);
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    @media (max-width: 760px) {
+      .nav-toggle { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: rgba(6,8,15,.97);
+        border-bottom: 1px solid var(--stroke);
+        padding: 10px 16px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
       }
+      .nav-links.open { display: flex; }
+      .nav-links a { width: 100%; padding: 10px 14px; }
+    }
+
+    /* Mobile sticky CTA */
+    .mobile-cta {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      padding: 10px 16px 14px;
+      background: rgba(6,8,15,.96);
+      border-top: 1px solid var(--stroke);
+      z-index: 800;
+      backdrop-filter: blur(10px);
+    }
+    .mobile-cta a { width: 100%; }
+    @media (max-width: 600px) { .mobile-cta { display: block; } }
+
+    /* ── Hero section ────────────────────────────── */
+    .home-hero {
+      padding: 54px 0 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .home-hero::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at 22% 30%, rgba(232,97,42,.18), transparent 52%),
+        radial-gradient(circle at 78% 22%, rgba(212,168,67,.14), transparent 52%);
+      filter: blur(14px);
+      animation: heroGlow 14s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    @keyframes heroGlow {
+      from { transform: scale(1) translateY(-8px); }
+      to   { transform: scale(1.03) translateY(8px); }
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .hero-text h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5.5vw, 3.6rem);
+      line-height: 1.07;
+      color: var(--gold);
+      letter-spacing: -.01em;
+      margin-bottom: 16px;
+      text-shadow: 0 0 40px rgba(232,97,42,.18);
+    }
+    .hero-text .sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 22px;
+    }
+    .hero-cta-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .hero-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(212,168,67,.18);
+      font-size: .76rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .hero-badge strong { color: var(--gold-lt); }
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+    }
+    .hero-author-img {
+      width: 270px;
+      height: 330px;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: var(--r-lg);
+      border: 1px solid rgba(212,168,67,.25);
+      box-shadow: 0 24px 64px rgba(0,0,0,.55), 0 0 50px rgba(212,168,67,.08);
+    }
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-text .sub { margin-inline: auto; }
+      .hero-cta-row { justify-content: center; }
+      .hero-badges { justify-content: center; }
+      .hero-visual { order: -1; }
+      .hero-author-img { width: 190px; height: 240px; }
+    }
+
+    /* ── Stat bar ─────────────────────────────────── */
+    .stat-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--stroke);
+      border-radius: var(--r-md);
+      background: rgba(17,24,38,.6);
+      backdrop-filter: blur(8px);
+      overflow: hidden;
+      margin: 0 0 44px;
+    }
+    .stat-item {
+      padding: 18px 12px;
+      text-align: center;
+      border-right: 1px solid var(--stroke);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-top: 5px;
+    }
+    @media (max-width: 560px) {
+      .stat-bar { grid-template-columns: repeat(2,1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+    }
+
+    /* ── Section header ──────────────────────────── */
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+    .section-head h2 {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .section-head p { font-size: .86rem; color: var(--muted); }
+
+    /* ── Reviews ─────────────────────────────────── */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+    }
+    .review-card {
+      position: relative;
+      padding: 22px 20px;
+      border-radius: var(--r-md);
+      border: 1px solid rgba(212,168,67,.15);
+      background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(0,0,0,.12));
+    }
+    .review-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 10px; left: 16px;
+      font-family: Georgia, serif;
+      font-size: 3.5rem;
+      color: rgba(212,168,67,.18);
+      line-height: 1;
+    }
+    .review-stars { color: var(--orange); font-size: .86rem; margin-bottom: 8px; }
+    .review-quote {
+      font-size: .9rem;
+      line-height: 1.72;
+      color: var(--text);
+      font-style: italic;
+      margin-bottom: 12px;
+      padding-top: 8px;
+    }
+    .review-source {
+      font-size: .72rem;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 760px) { .reviews-grid { grid-template-columns: 1fr; } }
+
+    /* ── Featured products ───────────────────────── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .product-card {
+      border-radius: var(--r-lg);
+      border: 1px solid var(--stroke);
+      background: var(--card);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--stroke2);
+    }
+    .product-cover {
+      aspect-ratio: 2/3;
+      overflow: hidden;
+      background: var(--bg1);
+    }
+    .product-cover img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .4s ease;
+    }
+    .product-card:hover .product-cover img { transform: scale(1.04); }
+    .product-body {
+      padding: 14px 16px 18px;
+    }
+    .product-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 7px;
+      line-height: 1.3;
+    }
+    .product-desc {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+    .product-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    @media (max-width: 760px) { .products-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 460px) { .products-grid { grid-template-columns: 1fr; } }
+
+    /* ── Spotlight block ─────────────────────────── */
+    .spotlight {
+      border-radius: var(--r-lg);
+      border: 1px solid rgba(212,168,67,.2);
+      background: linear-gradient(135deg,
+        rgba(212,168,67,.08) 0%,
+        rgba(232,97,42,.04) 100%);
+      padding: 28px 24px;
+      margin-bottom: 0;
+    }
+    .spotlight h2 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .spotlight > p {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 18px;
+      max-width: 700px;
+    }
+    .spotlight-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 14px;
+    }
+    .spotlight-card {
+      background: rgba(0,0,0,.32);
+      border: 1px solid rgba(212,168,67,.14);
+      border-radius: var(--r-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .spotlight-card .sc-eyebrow {
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: .8;
+    }
+    .spotlight-card h3 {
+      font-size: .98rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text);
+    }
+    .spotlight-card .sc-price {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    /* ── About ───────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: var(--r-lg);
+      border: 1px solid rgba(212,168,67,.2);
+      box-shadow: 0 18px 50px rgba(0,0,0,.45);
+    }
+    .about-content h2 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .about-role {
+      font-size: .8rem;
+      color: var(--orange);
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .about-content p {
+      font-size: .92rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .about-socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 18px;
+    }
+    .about-socials a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 13px;
+      border-radius: var(--r-sm);
+      border: 1px solid rgba(212,168,67,.2);
+      background: rgba(255,255,255,.03);
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: background .18s, border-color .18s;
+    }
+    .about-socials a:hover {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(232,97,42,.35);
+    }
+    @media (max-width: 700px) {
+      .about-grid { grid-template-columns: 1fr; text-align: center; }
+      .about-photo { max-width: 200px; margin: 0 auto; }
+      .about-socials { justify-content: center; }
+    }
+
+    /* ── Signup card ─────────────────────────────── */
+    .signup-card {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 26px 24px;
+      border-radius: var(--r-lg);
+      background: rgba(10,14,22,.75);
+      border: 1px solid var(--stroke2);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow-md);
+    }
+    .signup-card h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .signup-card p { font-size: .9rem; color: var(--muted); margin-bottom: 18px; }
+    .signup-form {
+      display: grid;
+      gap: 12px;
+    }
+    @media (min-width: 640px) {
+      .signup-form { grid-template-columns: 1fr 1fr; }
+      .signup-form .btn, .signup-form .fine { grid-column: 1/-1; }
+    }
+    .field label {
+      display: block;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .field input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--stroke2);
+      background: rgba(0,0,0,.3);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: .9rem;
+      outline: none;
+      transition: border-color .18s;
+    }
+    .field input:focus { border-color: rgba(212,168,67,.45); }
+    .field input::placeholder { color: rgba(255,255,255,.35); }
+    .fine { font-size: .76rem; color: var(--muted); opacity: .75; }
+
+    /* ── Amazon callout ──────────────────────────── */
+    .amazon-callout {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 28px 24px;
+      border-radius: var(--r-lg);
+      border: 1px solid var(--stroke);
+      background: var(--card);
+      box-shadow: var(--shadow-md);
+    }
+    .amazon-callout h2 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .amazon-callout p { font-size: .9rem; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
+    .amazon-callout-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ── Welcome video ───────────────────────────── */
+    .welcome-video {
+      width: 100%;
+      border-radius: var(--r-lg);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow-lg);
+      display: block;
+      max-height: 480px;
+      object-fit: cover;
+    }
+
+    /* ── Footer ──────────────────────────────────── */
+    footer {
+      background: rgba(6,8,15,.95);
+      border-top: 1px solid var(--stroke);
+      padding: 48px 0 24px;
+      margin-top: 60px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+    footer h3 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    footer p, footer li {
+      font-size: .86rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    footer ul { display: flex; flex-direction: column; gap: 6px; }
+    footer a { color: var(--muted); transition: color .18s; }
+    footer a:hover { color: var(--gold); }
+    .footer-socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .footer-socials a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 11px;
+      border-radius: var(--r-sm);
+      border: 1px solid rgba(212,168,67,.16);
+      background: rgba(255,255,255,.03);
+      font-size: .76rem;
+      font-weight: 600;
+    }
+    .footer-socials a:hover { border-color: rgba(232,97,42,.35); color: var(--text); }
+    .footer-copy {
+      text-align: center;
+      font-size: .76rem;
+      color: var(--muted);
+      opacity: .65;
+      border-top: 1px solid var(--stroke);
+      padding-top: 20px;
+    }
+    @media (max-width: 700px) {
+      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+    /* ── Chapter preview modal ───────────────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.88);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--bg1);
+      border: 1px solid rgba(212,168,67,.28);
+      border-radius: var(--r-lg);
+      max-width: 680px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 32px 28px 28px;
+      box-shadow: 0 32px 88px rgba(0,0,0,.65);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(212,168,67,.2);
+      color: var(--text);
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background .18s;
+    }
+    .modal-close:hover { background: rgba(232,97,42,.2); }
+    .modal-box h3 {
+      font-family: var(--font-display);
+      color: var(--gold);
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+      padding-right: 40px;
+    }
+    .modal-chapter-label {
+      font-size: .72rem;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    .modal-text {
+      font-size: .92rem;
+      line-height: 1.88;
+      color: var(--text);
+      white-space: pre-line;
+    }
+    .modal-cta {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--stroke);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .modal-hook {
+      font-size: .84rem;
+      color: var(--muted);
+      font-style: italic;
+      flex: 1;
+    }
+
+    /* padding buffer for mobile sticky CTA */
+    @media (max-width: 600px) {
+      main { padding-bottom: 68px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Exclusive banner -->
+<div class="excl-banner">
+  🎧 Exclusive Audiobooks — <strong>Only at SumnuBooks.com</strong> — Not on Amazon, Audible, or anywhere else &nbsp;<a href="audiobooks.html">Get them here →</a>
+</div>
+
+<!-- Header -->
+<header class="site-header">
+  <div class="container">
+    <nav class="navbar">
+      <div>
+        <div class="brand-name">Sumnu Books</div>
+        <div class="brand-tag">Sci-Fi · Thriller · Urban Fiction · Las Vegas Night Vision</div>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a class="active" href="index.html">Home</a></li>
+        <li><a href="books.html">Books</a></li>
+        <li><a href="music.html">Music</a></li>
+        <li><a href="video.html">Videos</a></li>
+        <li><a href="audiobooks.html">🎧 Audiobooks</a></li>
+        <li><a href="vip-audio-dramas_netflix_mobile.html" class="nav-vip">🔒 VIP Series</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Mobile sticky CTA -->
+<div class="mobile-cta">
+  <a class="btn btn-primary btn-lg" href="audiobooks.html">🎧 Get Audiobooks — $12.99</a>
+</div>
+
+<main>
+
+  <!-- ── Hero ──────────────────────────────────────── -->
+  <section class="home-hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <h1>Sci-Fi. Thriller.<br/>Real Stories. No Filter.</h1>
+          <p class="sub">E.D. Lewis writes the kind of books that keep you up at night — and produces music that hits just as hard. 25 novels. 8 albums. 2 exclusive audiobooks you can only get right here.</p>
+          <div class="hero-cta-row">
+            <a class="btn btn-primary btn-lg" href="audiobooks.html">🎧 Get Audiobooks — $12.99</a>
+            <a class="btn btn-secondary btn-lg" href="books.html">Browse All 25 Books</a>
+          </div>
+          <div class="hero-badges">
+            <span class="hero-badge"><strong>25</strong> Novels</span>
+            <span class="hero-badge"><strong>8</strong> Albums</span>
+            <span class="hero-badge"><strong>2</strong> Exclusive Audiobooks</span>
+            <span class="hero-badge"><strong>1</strong> Live VIP Series</span>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img class="hero-author-img" src="images/author-edlewis.jpg" alt="E.D. Lewis — Author and Producer"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Stat bar ───────────────────────────────────── -->
+  <div class="container">
+    <div class="stat-bar reveal">
+      <div class="stat-item"><div class="stat-num">25</div><div class="stat-label">Published Novels</div></div>
+      <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Music Albums</div></div>
+      <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Exclusive Audiobooks</div></div>
+      <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Live VIP Series</div></div>
+    </div>
+  </div>
+
+  <!-- ── Reviews ────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2>What Readers Are Saying</h2>
+          <p>Real reactions from real readers</p>
+        </div>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">"I loved it. The story was excellent. Couldn't put it down from the first chapter."</p>
+          <div class="review-source">Amazon Reader — A Penny For My Thoughts</div>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">"It's heartbreaking and powerful and caustic all at the same time. Proceed with caution but do proceed."</p>
+          <div class="review-source">Reader Review — Road to Nowhere</div>
+        </div>
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-quote">"Raw, unfiltered urban fiction that explores power, survival, love, and identity. His stories hit hard and stay with you."</p>
+          <div class="review-source">Amazon Author Bio</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Featured releases ──────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <h2>Featured Releases</h2>
+          <p>Sci-fi, thriller, and street fiction — sample and dive in</p>
+        </div>
+        <a class="btn btn-secondary btn-sm" href="books.html">View all 25 →</a>
+      </div>
+      <div class="products-grid">
+
+        <article class="product-card reveal">
+          <div class="product-cover">
+            <img src="images/books/book1.jpg" alt="A PENNY For My Thoughts" loading="lazy">
+          </div>
+          <div class="product-body">
+            <div class="product-title">A PENNY For My Thoughts</div>
+            <div class="product-desc">A raw crime thriller with supernatural undertones. Armed robbery, betrayal, and a woman named Penny who changes everything.</div>
+            <div class="product-actions">
+              <a class="btn btn-primary btn-sm" href="audiobooks.html#ab1">🎧 Audiobook</a>
+              <button class="btn btn-secondary btn-sm" onclick="openModal('penny')">📖 Read Ch. 1</button>
+              <a class="btn btn-secondary btn-sm" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks" target="_blank" rel="noopener">Amazon</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <div class="product-cover">
+            <img src="images/books/book2.jpg" alt="Unplugged: 30 Days of Chaos" loading="lazy">
+          </div>
+          <div class="product-body">
+            <div class="product-title">Unplugged: 30 Days of Chaos</div>
+            <div class="product-desc">Every digital network goes dark overnight. Reggie Hayes wakes up to a world already falling apart. Survival starts now.</div>
+            <div class="product-actions">
+              <a class="btn btn-primary btn-sm" href="audiobooks.html#ab2">🎧 Audiobook</a>
+              <button class="btn btn-secondary btn-sm" onclick="openModal('unplugged')">📖 Read Ch. 1</button>
+              <a class="btn btn-secondary btn-sm" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks" target="_blank" rel="noopener">Amazon</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card reveal">
+          <div class="product-cover">
+            <img src="images/music/album2.jpg" alt="The May Tricks" loading="lazy">
+          </div>
+          <div class="product-body">
+            <div class="product-title">The May Tricks (Album)</div>
+            <div class="product-desc">New heat from Las Vegas Night Vision Productions. Stream tracks and buy direct.</div>
+            <div class="product-actions">
+              <a class="btn btn-primary btn-sm" href="music.html">🎵 Listen Now</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Exclusive Audiobooks spotlight ─────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="spotlight reveal">
+        <h2>🎧 Exclusive Audiobooks — Only at SumnuBooks.com</h2>
+        <p>These audiobooks are NOT on Amazon, Audible, Spotify, or anywhere else. Direct from the author. $12.99 each. Instant access after payment.</p>
+        <div class="spotlight-cards">
+          <div class="spotlight-card">
+            <span class="sc-eyebrow">🔒 Exclusive — Not on Amazon</span>
+            <h3>A Penny For My Thoughts</h3>
+            <div class="sc-price">$12.99</div>
+            <a class="btn btn-primary btn-sm" href="audiobooks.html#ab1">🎧 Listen &amp; Buy</a>
+          </div>
+          <div class="spotlight-card">
+            <span class="sc-eyebrow">🔒 Exclusive — Not on Amazon</span>
+            <h3>Unplugged: 30 Days of Chaos</h3>
+            <div class="sc-price">$12.99</div>
+            <a class="btn btn-primary btn-sm" href="audiobooks.html#ab2">🎧 Listen &amp; Buy</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VIP Series spotlight ───────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="spotlight reveal">
+        <h2>🔒 VIP Audio Series</h2>
+        <p>Enter the VIP shelf, pick a series, and get a full streaming-quality page. <em>Other Man</em> and <em>Before Our Water Breaks</em> are live now — first 4 episodes always free.</p>
+        <div class="spotlight-cards">
+          <div class="spotlight-card">
+            <span class="sc-eyebrow">Free Start · Then Unlock</span>
+            <h3>Other Man — Psychological Thriller</h3>
+            <div class="sc-price">Episodes 1–4 Free</div>
+            <a class="btn btn-primary btn-sm" href="vip-other-man_netflix_mobile.html">Start Series</a>
+          </div>
+          <div class="spotlight-card">
+            <span class="sc-eyebrow">Free Start · Then Unlock</span>
+            <h3>Before Our Water Breaks — Drama</h3>
+            <div class="sc-price">Episodes 1–4 Free</div>
+            <a class="btn btn-primary btn-sm" href="before-our-water-breaks-vip.html">Start Series</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Welcome video ──────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="reveal" style="text-align:center; max-width:760px; margin:0 auto;">
+        <h2 style="font-family:var(--font-display); color:var(--gold); font-size:1.4rem; margin-bottom:6px;">Welcome to SumnuBooks</h2>
+        <p style="color:var(--muted); font-size:.88rem; margin-bottom:16px;">Meet E.D. Lewis — Author of 25 Novels &amp; Producer at Las Vegas Night Vision Productions</p>
+        <video autoplay muted loop playsinline controls class="welcome-video">
+          <source src="video/unplugged/welcome_video_1.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About E.D. Lewis ───────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="about-grid reveal">
+        <img class="about-photo" src="images/author-edlewis.jpg" alt="E.D. Lewis — Author and Producer"/>
+        <div class="about-content">
+          <h2>About E.D. Lewis</h2>
+          <div class="about-role">Author · Producer (EMC / E-MAC) · SumnuVision LLC</div>
+          <p>Eric Lewis writes raw, unfiltered urban fiction and thought-provoking literary work that explores power, survival, love, and identity. From the streets to the supernatural, his stories hit hard and stay with you.</p>
+          <p>With 25 published novels spanning sci-fi, thriller, urban fiction, and nonfiction, plus 8 music albums from <strong>Las Vegas Night Vision Productions</strong>, everything here is independent — built, published, and sold direct. No middlemen. No gatekeepers.</p>
+          <p>His work includes the crime thriller <em>A Penny For My Thoughts</em>, the survival epic <em>Unplugged: 30 Days of Chaos</em>, the supernatural series <em>The Echo</em>, and the black female superhero saga <em>Chandra: Forbidden Obsession</em>.</p>
+          <div class="about-socials">
+            <a href="https://www.facebook.com/profile.php?id=61588357454272" target="_blank" rel="noopener">📘 SumnuBooks Facebook</a>
+            <a href="https://www.facebook.com/lvnvproductions" target="_blank" rel="noopener">🎵 LVNV Productions</a>
+            <a href="https://www.tiktok.com/@sumnuvisionllc" target="_blank" rel="noopener">🎬 TikTok</a>
+            <a href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks" target="_blank" rel="noopener">📚 Amazon Author Page</a>
+            <a href="contact.html">✉ Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Amazon callout ─────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="amazon-callout reveal">
+        <h2>All 25 Novels on Amazon</h2>
+        <p>Paperback and Kindle editions available on Amazon. But if you want the <strong>audiobooks</strong>, you can only get those right here.</p>
+        <div class="amazon-callout-btns">
+          <a class="btn btn-secondary" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks" target="_blank" rel="noopener">Shop Amazon →</a>
+          <a class="btn btn-primary" href="audiobooks.html">Get Exclusive Audiobooks →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Email signup ───────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <div class="signup-card reveal">
+        <h2>Join the Sumnu Books &amp; Music List</h2>
+        <p>Get a <strong>free ebook or music CD of your choice</strong> + updates on new releases and exclusive drops.</p>
+        <form name="ebook-giveaway" method="POST" data-netlify="true" action="/thanks.html" class="signup-form">
+          <input type="hidden" name="form-name" value="ebook-giveaway"/>
+          <div class="field">
+            <label for="sig-email">Email</label>
+            <input id="sig-email" type="email" name="email" placeholder="your@email.com" required/>
+          </div>
+          <div class="field">
+            <label for="sig-item">What do you want free?</label>
+            <input id="sig-item" type="text" name="requested_item" list="freebie-options" placeholder="Type a title (ebook or music CD)" required/>
+            <datalist id="freebie-options">
+              <option value="A Penny For My Thoughts (ebook)"></option>
+              <option value="Unplugged: 30 Days of Chaos (ebook)"></option>
+              <option value="The Echo: Origins (ebook)"></option>
+              <option value="The Jailhouse Lawyer (ebook)"></option>
+              <option value="EMC (music CD)"></option>
+              <option value="Night Vision (music CD)"></option>
+            </datalist>
+          </div>
+          <button type="submit" class="btn btn-primary">Get Free Access</button>
+          <div class="fine">No spam. Unsubscribe anytime.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Footer ─────────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h3>Sumnu Books</h3>
+        <p>Sci-Fi · Thriller · Urban Fiction</p>
+        <p style="margin-top:6px; font-size:.8rem; color:var(--gold); font-weight:700;">🎧 Exclusive Audiobooks — Only Here</p>
+        <div class="footer-socials">
+          <a href="https://www.facebook.com/profile.php?id=61588357454272" target="_blank" rel="noopener">📘 Facebook</a>
+          <a href="https://www.tiktok.com/@sumnuvisionllc" target="_blank" rel="noopener">🎬 TikTok</a>
+          <a href="https://www.facebook.com/lvnvproductions" target="_blank" rel="noopener">🎵 LVNV Productions</a>
+        </div>
+      </div>
+      <div>
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="books.html">Books (25 titles)</a></li>
+          <li><a href="music.html">Music (8 albums)</a></li>
+          <li><a href="video.html">Videos</a></li>
+          <li><a href="audiobooks.html">🎧 Audiobooks — Exclusive</a></li>
+          <li><a href="vip-audio-dramas_netflix_mobile.html">🔒 VIP Audio Series</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Connect</h3>
+        <p>Sales: <a href="mailto:sales@sumnubooks.com">sales@sumnubooks.com</a></p>
+        <p style="margin-top:6px;">General: <a href="mailto:info@sumnuvision.com">info@sumnuvision.com</a></p>
+        <p style="margin-top:10px;">© 2026 SumnuVision LLC / Las Vegas Night Vision Productions</p>
+        <p style="margin-top:6px; font-size:.76rem; opacity:.5;">🔒 Secure payments via PayPal · DRM-free audiobooks · Instant delivery</p>
+      </div>
+    </div>
+    <div class="footer-copy">SumnuBooks.com — Independent. Direct. Real.</div>
+  </div>
+</footer>
+
+<!-- ── Chapter preview modals ──────────────────────── -->
+<div class="modal-overlay" id="modal-penny">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('penny')" aria-label="Close">✕</button>
+    <h3>A PENNY For My Thoughts</h3>
+    <div class="modal-chapter-label">Chapter 1 — Free Preview</div>
+    <div class="modal-text">April 2013 — Washington State
+
+Armed robbery comes with a rush that's hard to explain to anyone who hasn't lived it, a violent surge that sharpens every sense at once until your heartbeat pounds in your throat and your thoughts narrow down to one thing—control.
+
+You either have it, or you don't.
+
+Mine was steady.
+
+Curtis' wasn't.
+
+I could feel the difference between us even before anything went wrong, the tension sitting just beneath his surface like something waiting for an excuse.
+
+Sweat soaked through my clothes, trapped beneath the Kevlar vest under my Nike sweats, while the ski mask pressed tight against my face and made every breath feel heavier than it should have. Still, I kept my Glock steady, scanning the room, reading movement, watching hands, tracking fear the way I'd learned to trust.
+
+Five employees lay stretched across the grimy carpet—three women, two men, all white, all silent, all completely under our control.
+
+Just minutes ago, they had been moving like it was any other morning.
+
+Now they weren't moving at all.
+
+Curtis worked behind me, quick and efficient as he cleared the safe, stuffing stacks of cash into a duffle bag with practiced speed. He was good at that part—fast hands, no hesitation—but there was always something just beneath it, something that didn't belong to the job itself.
+
+Something waiting.
+
+I kept the room covered, sweeping angles, checking corners, staying ahead of anything that might shift.
+
+"It's been four minutes. Let's move."
+
+"Yeah, yeah… I'm done," Curtis muttered, though there was something in his tone that didn't match the words, like he wasn't quite ready for it to end.
+
+That was Curtis.
+
+He didn't just do the job.
+
+He fed off it.
+
+I stepped toward the exit, positioning myself to clear the door with my grip firm on the Glock, while Curtis followed close behind with the duffle bag slung over his shoulder. For a brief second, everything felt exactly how it was supposed to feel—tight, controlled, finished.
+
+Then it broke.
+
+One of the male employees lunged forward and grabbed Curtis by the ankle with desperate strength, and just like that, the balance shifted.
+
+Curtis went down hard, crashing into me as we slammed against the wall beside the door.
+
+The man moved faster than I expected—faster than fear usually allows—as he pulled a snub-nosed .38 from an ankle holster and rolled beneath a desk, trying to create space.
+
+I didn't hesitate.
+
+I fired twice, both rounds landing center mass before he could even bring the weapon up, his body collapsing as the gun slipped from his hand.
+
+But I didn't trust "down."
+
+I stepped forward and put one more round through his forehead, making sure it was finished.
+
+Behind me, Curtis snapped—but it wasn't panic or fear.
+
+It was something else…</div>
+    <div class="modal-cta">
+      <span class="modal-hook">What happens next changes everything…</span>
+      <a class="btn btn-primary btn-sm" href="audiobooks.html#ab1">🎧 Get the Audiobook — $12.99</a>
+      <a class="btn btn-secondary btn-sm" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks" target="_blank" rel="noopener">Buy on Amazon</a>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-unplugged">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('unplugged')" aria-label="Close">✕</button>
+    <h3>Unplugged: 30 Days of Chaos</h3>
+    <div class="modal-chapter-label">Chapter 1 — Free Preview</div>
+    <div class="modal-text">Reggie Hayes woke up with that same fucked-up feeling he always got when his alarm hadn't gone off but his body knew he was already late.
+
+Sunlight blasted through the cheap plastic blinds he'd been meaning to replace for three years now. Dust drifted lazily through the beam like slow snow.
+
+Forty-seven years old and still waking up in an apartment that looked like temporary living.
+
+No woman beside him. No kids down the hall.
+
+Just the low hum of Fish's tank filter and Arnold's fat orange body sprawled across the foot of the bed like he owned the place.
+
+"Move, you heavyweight," Reggie muttered.
+
+The cat opened one lazy eye, unimpressed.
+
+Twenty pounds of fur and attitude. Arnold stayed because Reggie kept the bowl full. That was the entire relationship.
+
+Reggie shoved the blankets aside and reached for his phone.
+
+7:43.
+
+"Shit."
+
+He was supposed to be at the warehouse by eight. Third time late this month meant Eddie's disappointed face. That quiet look that said I stuck my neck out for you, Reg.
+
+Reggie jumped up and rushed through his morning routine on autopilot. Shower. Polo. Khakis. Keys. Coffee.
+
+Coffee always came first.
+
+He dumped two heavy scoops of sugar into the mug. No cream. Diabetes had already taken enough people in his family.
+
+The first sip burned his tongue but woke up his brain.
+
+While drinking, he flipped open his laptop—habit more than necessity. Reggie always checked traffic before heading out.
+
+He clicked the browser.
+
+Nothing happened.
+
+"No internet?" he muttered.
+
+He checked the router. Lights were on.
+
+Weird.
+
+He grabbed his phone.
+
+Instagram wouldn't load. Twitter wouldn't load. His banking app returned an error. The text message he sent to Mike sat there undelivered.
+
+Reggie frowned.
+
+"That ain't right."
+
+Cell service didn't just disappear.
+
+A faint unease crept into his chest.
+
+He grabbed the remote and turned on the TV.
+
+A news broadcast flickered onto the screen. The anchor looked tense, her professional smile gone.
+
+"—reports are coming in from across the country that major digital networks have gone offline—"
+
+The screen flickered. She glanced off camera.
+
+"—we are being told this disruption is affecting communications infrastructure nationwide—"
+
+Static swallowed the broadcast. The image returned for a split second. Then disappeared again.
+
+Now the screen showed a government seal.
+
+A voice crackled through the speaker.
+
+"This is a federal emergency broadcast. All citizens are advised to remain inside their homes until further instruction."
+
+The signal cut out.
+
+Dead air.
+
+Reggie stared at the screen.
+
+"The hell?"
+
+He flipped channels. Same message. Or nothing. Just static.
+
+No internet. No cell signal. Now emergency broadcasts.
+
+A cold knot formed in his stomach…</div>
+    <div class="modal-cta">
+      <span class="modal-hook">Day 1 of 30. The chaos is just beginning…</span>
+      <a class="btn btn-primary btn-sm" href="audiobooks.html#ab2">🎧 Get the Audiobook — $12.99</a>
+      <a class="btn btn-secondary btn-sm" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks" target="_blank" rel="noopener">Buy on Amazon</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// Nav toggle
+const toggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+toggle.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open);
+});
+
+// Modals
+function openModal(id) {
+  document.getElementById('modal-' + id).classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id) {
+  document.getElementById('modal-' + id).classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('.modal-overlay').forEach(el => {
+  el.addEventListener('click', e => {
+    if (e.target === el) {
+      el.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.open').forEach(el => {
+      el.classList.remove('open');
     });
-  }, {threshold: 0.12});
-  els.forEach(e=>io.observe(e));
-})();
+    document.body.style.overflow = '';
+  }
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
 </html>

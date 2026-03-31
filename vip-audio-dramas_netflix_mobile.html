@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIP Series — Sumnu Books</title>
+  <link rel="stylesheet" href="css/sumnu.css" />
+  <style>
+    /* ── Page-specific ───────────────────────────────────── */
+    body {
+      background:
+        radial-gradient(ellipse 80% 40% at 10% -10%, rgba(232,97,42,.12), transparent),
+        radial-gradient(ellipse 60% 35% at 90% 5%, rgba(212,168,67,.08), transparent),
+        var(--bg);
+    }
+
+    /* ── Top bar ─────────────────────────────────────────── */
+    .topbar {
+      padding: 18px 0 12px;
+      border-bottom: 1px solid var(--stroke);
+    }
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .site-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .site-brand .name {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: .04em;
+    }
+    .site-brand .tag {
+      font-size: .72rem;
+      color: var(--muted);
+      letter-spacing: .06em;
+    }
+    .topbar-nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .topbar-nav a {
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color .18s ease, background .18s ease;
+    }
+    .topbar-nav a:hover { color: var(--text); background: rgba(255,255,255,.05); }
+    .topbar-nav a.active { color: var(--gold); background: rgba(212,168,67,.08); }
+
+    /* ── Page hero ───────────────────────────────────────── */
+    .vip-hero {
+      padding: 40px 0 28px;
+    }
+    .vip-hero-inner {
+      max-width: 680px;
+    }
+    .vip-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 7vw, 3.8rem);
+      line-height: 1.03;
+      color: var(--gold);
+      margin: 14px 0 12px;
+    }
+    .vip-hero p {
+      font-size: .98rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 0;
+    }
+
+    /* ── Shelf heading ───────────────────────────────────── */
+    .shelf-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .shelf-head h2 {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      color: var(--gold);
+    }
+    .shelf-head p { font-size: .84rem; color: var(--muted); }
+
+    /* ── Series shelf ────────────────────────────────────── */
+    .shelf {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    /* ── Series card ─────────────────────────────────────── */
+    .series-card {
+      display: block;
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      border: 1px solid var(--stroke);
+      background: var(--card);
+      box-shadow: var(--shadow-md);
+      text-decoration: none;
+      color: inherit;
+      transition: transform .22s ease, border-color .22s ease, box-shadow .22s ease;
+    }
+    .series-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(232,97,42,.3);
+      box-shadow: 0 30px 72px rgba(0,0,0,.5);
+    }
+    .series-card.coming-soon {
+      opacity: .55;
+      pointer-events: none;
+    }
+
+    .poster {
+      position: relative;
+      aspect-ratio: 2/3;
+      overflow: hidden;
+      background: var(--bg1);
+    }
+    .poster img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .45s ease;
+    }
+    .series-card:hover .poster img { transform: scale(1.04); }
+    .poster::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+        rgba(6,8,15,.97) 0%,
+        rgba(6,8,15,.2) 48%,
+        transparent 100%);
+    }
+    .poster-badge {
+      position: absolute;
+      z-index: 2;
+      top: 12px; left: 12px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(6px);
+    }
+    .poster-badge.live {
+      background: rgba(212,168,67,.18);
+      border: 1px solid rgba(212,168,67,.35);
+      color: var(--gold-lt);
+    }
+    .poster-badge.upcoming {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.14);
+      color: var(--muted);
+    }
+    .poster-free-tag {
+      position: absolute;
+      z-index: 2;
+      top: 12px; right: 12px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      background: rgba(0,0,0,.5);
+      border: 1px solid rgba(255,255,255,.14);
+      color: #fff;
+      backdrop-filter: blur(6px);
+    }
+    .poster-copy {
+      position: absolute;
+      z-index: 2;
+      left: 16px; right: 16px; bottom: 16px;
+    }
+    .poster-copy .genre {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 5px;
+    }
+    .poster-copy h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      line-height: 1.05;
+      color: #fff;
+    }
+    .poster-copy .meta {
+      margin-top: 6px;
+      font-size: .8rem;
+      color: rgba(255,255,255,.7);
+    }
+    .poster-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: .85rem;
+      background: var(--bg2);
+    }
+    .poster-placeholder .ph-icon {
+      font-size: 2.4rem;
+      opacity: .3;
+    }
+
+    .poster-teaser {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 22% 18%, rgba(212,168,67,.28), transparent 26%),
+        radial-gradient(circle at 78% 78%, rgba(232,97,42,.20), transparent 24%),
+        linear-gradient(160deg, #110d14 0%, #05070f 46%, #0c1530 100%);
+    }
+    .poster-teaser::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to top, rgba(4,6,10,.94) 0%, rgba(4,6,10,.3) 48%, transparent 100%),
+        linear-gradient(125deg, rgba(255,255,255,.05), transparent 35%);
+    }
+    .poster-teaser::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(212,168,67,.18);
+      pointer-events: none;
+    }
+    .teaser-stack {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 18px 16px;
+    }
+    .teaser-topline {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: .66rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold-lt);
+      background: rgba(0,0,0,.38);
+      border: 1px solid rgba(212,168,67,.28);
+      backdrop-filter: blur(6px);
+    }
+    .teaser-mid {
+      margin-top: auto;
+    }
+    .teaser-kicker {
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .teaser-title {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      line-height: 1.02;
+      color: #fff;
+      margin-bottom: 10px;
+      max-width: 10ch;
+    }
+    .teaser-sub {
+      font-size: .82rem;
+      line-height: 1.55;
+      color: rgba(255,255,255,.72);
+      max-width: 28ch;
+    }
+    .teaser-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: .74rem;
+      color: rgba(255,255,255,.7);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    
+
+    .series-body {
+      padding: 14px 16px 16px;
+    }
+    .series-body p {
+      font-size: .87rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 14px;
+      min-height: 66px;
+    }
+    .series-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .84rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+    .series-footer .arrow {
+      font-size: 1rem;
+      transition: transform .18s ease;
+    }
+    .series-card:hover .series-footer .arrow { transform: translateX(4px); }
+
+    /* ── Social links ────────────────────────────────────── */
+    .social-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-top: 20px;
+      margin-top: 28px;
+      border-top: 1px solid var(--stroke);
+    }
+    .social-strip a {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 16px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--stroke2);
+      background: rgba(255,255,255,.04);
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: background .18s ease, border-color .18s ease;
+    }
+    .social-strip a:hover {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(212,168,67,.25);
+    }
+
+    /* ── Responsive ──────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .shelf { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .shelf {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+      }
+      .shelf::-webkit-scrollbar { height: 4px; }
+      .shelf::-webkit-scrollbar-thumb {
+        background: rgba(255,255,255,.14);
+        border-radius: 999px;
+      }
+      .series-card {
+        min-width: 75vw;
+        scroll-snap-align: start;
+      }
+      .topbar-nav { display: none; }
+      .vip-hero h1 { font-size: 2rem; }
+      .social-strip a { font-size: .8rem; padding: 8px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="container">
+      <div class="topbar-inner">
+        <div class="site-brand">
+          <div class="name">Sumnu Books</div>
+          <div class="tag">Urban Fiction · Hip Hop Culture · Las Vegas Night Vision</div>
+        </div>
+        <nav class="topbar-nav">
+          <a href="index.html">Home</a>
+          <a href="vip-audio-dramas_netflix_mobile.html" class="active">VIP Series</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- Hero -->
+    <section class="vip-hero">
+      <div class="container">
+        <div class="vip-hero-inner reveal">
+          <div class="eyebrow">🎧 VIP Audio Drama</div>
+          <h1>Choose a series.</h1>
+          <p>Enter the shelf, pick a title, and open a dedicated series page built like a streaming drop. Live titles open instantly — first 4 episodes always free. Unlock the rest for $5.</p>
+          <div class="pill-row">
+            <span class="pill">Mobile-first</span>
+            <span class="pill">Streaming shelf</span>
+            <span class="pill">Episodes 1–4 free</span>
+            <span class="pill">Unlock the rest</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Shelf -->
+    <section class="section">
+      <div class="container">
+        <div class="shelf-head reveal">
+          <div>
+            <h2>Live Now</h2>
+            <p>Tap a cover to enter the series page</p>
+          </div>
+        </div>
+        <div class="shelf">
+
+          <!-- Other Man -->
+          <a class="series-card reveal" href="vip-other-man_netflix_mobile.html">
+            <div class="poster">
+              <img src="images/other-man/other-man-cover.jpg" alt="Other Man series cover">
+              <div class="poster-badge live">Live Now</div>
+              <div class="poster-free-tag">4 Free Episodes</div>
+              <div class="poster-copy">
+                <div class="genre">Psychological Thriller</div>
+                <h3>Other Man</h3>
+                <div class="meta">Season 1 · 8 Episodes</div>
+              </div>
+            </div>
+            <div class="series-body">
+              <p>Twin brothers. One stolen life. One woman who knows something is wrong long before she can prove it.</p>
+              <div class="series-footer">
+                <span>Open series page</span>
+                <span class="arrow">→</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Before Our Water Breaks -->
+          <a class="series-card reveal" href="before-our-water-breaks-vip.html">
+            <div class="poster">
+              <img src="images/before-our-water-breaks/before-our-water-breaks-cover.jpg" alt="Before Our Water Breaks cover">
+              <div class="poster-badge live">Live Now</div>
+              <div class="poster-free-tag">4 Free Episodes</div>
+              <div class="poster-copy">
+                <div class="genre">Drama</div>
+                <h3>Before Our Water Breaks</h3>
+                <div class="meta">Season 1 · 8 Episodes</div>
+              </div>
+            </div>
+            <div class="series-body">
+              <p>Two sisters. One husband. Two pregnancies. One truth too big to stay buried.</p>
+              <div class="series-footer">
+                <span>Open series page</span>
+                <span class="arrow">→</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Coming soon -->
+          <div class="series-card coming-soon">
+            <div class="poster">
+              <div class="poster-teaser">
+                <div class="teaser-stack">
+                  <div class="teaser-topline">In Production</div>
+                  <div class="teaser-mid">
+                    <div class="teaser-kicker">Next Drop</div>
+                    <div class="teaser-title">Coming Soon</div>
+                    <div class="teaser-sub">A new SumnuBooks mini-series is already in motion. Cover art and first episodes are on deck.</div>
+                  </div>
+                  <div class="teaser-footer">
+                    <span>New series loading</span>
+                    <span>VIP shelf</span>
+                  </div>
+                </div>
+              </div>
+              <div class="poster-badge upcoming">Upcoming</div>
+              <div class="poster-copy">
+                <div class="genre">Next Original</div>
+                <h3>Coming Soon</h3>
+                <div class="meta">Artwork in progress</div>
+              </div>
+            </div>
+            <div class="series-body">
+              <p></p>
+              <div class="series-footer">
+                <span>New series in production</span>
+                <span>•</span>
+              </div>
+            </div>
+          </div>
+        </div>
+            </div>
+            <div class="series-body">
+              <p></p>
+              <div class="series-footer">
+                <span></span>
+                <span>•</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Social strip -->
+        <div class="social-strip reveal">
+          <a href="https://www.facebook.com/profile.php?id=61588357454272" target="_blank" rel="noopener">📘 SumnuBooks Facebook</a>
+          <a href="https://www.facebook.com/lvnvproductions" target="_blank" rel="noopener">🎵 LVNV Facebook</a>
+          <a href="https://www.tiktok.com/@sumnuvisionllc" target="_blank" rel="noopener">🎬 SumnuVision TikTok</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Scroll reveal
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
