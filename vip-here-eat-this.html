@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Here... Eat This — VIP Series · Sumnu Books</title>
+  <link rel="stylesheet" href="css/sumnu.css" />
+
+  <style>
+    body {
+      background:
+        radial-gradient(ellipse 70% 35% at 5% -5%, rgba(232,97,42,.1), transparent),
+        radial-gradient(ellipse 55% 30% at 95% 5%, rgba(212,168,67,.07), transparent),
+        var(--bg);
+    }
+    .series-top-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 14px;
+    }
+    .series-top-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(212,168,67,.28);
+      background: rgba(12,14,26,.72);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .series-top-nav a:hover,
+    .series-top-nav a:focus-visible {
+      border-color: rgba(212,168,67,.55);
+      color: var(--gold);
+    }
+    .episode-card.locked.unlock-link { cursor: pointer; }
+    .episode-card.locked.unlock-link:focus-visible {
+      outline: 2px solid rgba(212,168,67,.8);
+      outline-offset: 3px;
+    }
+    .notice-bar {
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(212,168,67,.25);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+    }
+  </style>
+
+  <script>
+    const HERE_EAT_THIS_UNLOCK_KEY = "here-eat-this-unlocked";
+    if (localStorage.getItem(HERE_EAT_THIS_UNLOCK_KEY) === "true") {
+      window.location.href = "here-eat-this-unlocked.html";
+    }
+  </script>
+</head>
+<body>
+  <main class="page-wrap">
+    <div class="container">
+
+      <div class="series-top-nav reveal">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="audiobooks.html">Audiobooks</a>
+        <a href="music.html">Music</a>
+        <a href="vip-audio-dramas_netflix_mobile.html">VIP Hub</a>
+      </div>
+
+      <a class="back-link" href="vip-audio-dramas_netflix_mobile.html">← Back to VIP Series</a>
+
+      <section class="series-hero reveal">
+        <div class="cover-box">
+          <img src="images/here-eat-this/here-eat-this-cover.jpg" alt="Here... Eat This series cover" loading="lazy" decoding="async">
+        </div>
+        <div class="card-glass hero-copy">
+          <div class="eyebrow">Suspense Drama</div>
+          <h1>Here... Eat This</h1>
+          <p class="tagline">A dinner table. A pressure chamber. A story built on suspicion, betrayal, and what gets served when trust is already dead. Start with the first 4 episodes free — unlock the rest when you’re ready to finish the season.</p>
+          <div class="pill-row">
+            <span class="pill">8-Episode Audio Series</span>
+            <span class="pill">Episodes 1–4 Free</span>
+            <span class="pill">$5 Full Unlock</span>
+            <span class="pill">Mobile-First</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="episodes-grid">
+
+        <article class="episode-card reveal">
+          <div class="episode-art">
+            <img src="images/here-eat-this/here-eat-this-ep1.jpg" alt="Episode 1" loading="lazy" decoding="async">
+            <div class="ep-badge">FREE · EP 1</div>
+          </div>
+          <div class="episode-copy">
+            <h3>Episode 1 — First Course</h3>
+            <p>The table is set, but nothing about this meeting feels innocent. Every word lands like a warning.</p>
+            <audio controls preload="none">
+              <source src="audio/here-eat-this/here-eat-this-ep1.mp3" type="audio/mpeg">
+            </audio>
+          </div>
+        </article>
+
+        <article class="episode-card reveal">
+          <div class="episode-art">
+            <img src="images/here-eat-this/here-eat-this-ep2.jpg" alt="Episode 2" loading="lazy" decoding="async">
+            <div class="ep-badge">FREE · EP 2</div>
+          </div>
+          <div class="episode-copy">
+            <h3>Episode 2 — Bite Back</h3>
+            <p>The conversation turns sharper. A small detail on the plate starts to feel like a threat.</p>
+            <audio controls preload="none">
+              <source src="audio/here-eat-this/here-eat-this-ep2.mp3" type="audio/mpeg">
+            </audio>
+          </div>
+        </article>
+
+        <article class="episode-card reveal">
+          <div class="episode-art">
+            <img src="images/here-eat-this/here-eat-this-ep3.jpg" alt="Episode 3" loading="lazy" decoding="async">
+            <div class="ep-badge">FREE · EP 3</div>
+          </div>
+          <div class="episode-copy">
+            <h3>Episode 3 — The Taste of Doubt</h3>
+            <p>Every answer opens a worse question, and the meal becomes impossible to separate from the motive.</p>
+            <audio controls preload="none">
+              <source src="audio/here-eat-this/here-eat-this-ep3.mp3" type="audio/mpeg">
+            </audio>
+          </div>
+        </article>
+
+        <article class="episode-card reveal">
+          <div class="episode-art">
+            <img src="images/here-eat-this/here-eat-this-ep4.jpg" alt="Episode 4" loading="lazy" decoding="async">
+            <div class="ep-badge">FREE · EP 4</div>
+          </div>
+          <div class="episode-copy">
+            <h3>Episode 4 — Check, Please</h3>
+            <p>By the end of the free set, the table is no longer neutral ground and somebody is already trapped.</p>
+            <audio controls preload="none">
+              <source src="audio/here-eat-this/here-eat-this-ep4.mp3" type="audio/mpeg">
+            </audio>
+          </div>
+        </article>
+
+        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes with PayPal" data-unlock-paypal="unlock-paypal-form">
+          <div class="episode-art">
+            <img src="images/here-eat-this/here-eat-this-ep5.jpg" alt="Episode 5" loading="lazy" decoding="async">
+            <div class="ep-badge locked">VIP · EP 5</div>
+            <div class="locked-overlay"><div class="lock-icon">🔒</div></div>
+          </div>
+          <div class="episode-copy">
+            <h3>Episode 5 — Served Cold</h3>
+            <p>The version of the story on the table starts to crack. Someone came to dinner with a different agenda.</p>
+            <div class="locked-panel"><span>🔒 Locked after Episode 4</span><span>Premium</span></div>
+          </div>
+        </article>
+
+        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes with PayPal" data-unlock-paypal="unlock-paypal-form">
+          <div class="episode-art">
+            <img src="images/here-eat-this/here-eat-this-ep6.jpg" alt="Episode 6" loading="lazy" decoding="async">
+            <div class="ep-badge locked">VIP · EP 6</div>
+            <div class="locked-overlay"><div class="lock-icon">🔒</div></div>
+          </div>
+          <div class="episode-copy">
+            <h3>Episode 6 — Open Flame</h3>
+            <p>Tension escalates and every gesture feels rehearsed. The meal starts to look like a setup.</p>
+            <div class="locked-panel"><span>🔒 Locked after Episode 4</span><span>Premium</span></div>
+          </div>
+        </article>
+
+        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes with PayPal" data-unlock-paypal="unlock-paypal-form">
+          <div class="episode-art">
+            <img src="images/here-eat-this/here-eat-this-ep7.jpg" alt="Episode 7" loading="lazy" decoding="async">
+            <div class="ep-badge locked">VIP · EP 7</div>
+            <div class="locked-overlay"><div class="lock-icon">🔒</div></div>
+          </div>
+          <div class="episode-copy">
+            <h3>Episode 7 — Dirty Plate</h3>
+            <p>The truth is almost visible now, but getting to it may cost more than either of them expected.</p>
+            <div class="locked-panel"><span>🔒 Locked after Episode 4</span><span>Premium</span></div>
+          </div>
+        </article>
+
+        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes with PayPal" data-unlock-paypal="unlock-paypal-form">
+          <div class="episode-art">
+            <img src="images/here-eat-this/here-eat-this-ep8.jpg" alt="Episode 8" loading="lazy" decoding="async">
+            <div class="ep-badge locked">VIP · EP 8</div>
+            <div class="locked-overlay"><div class="lock-icon">🔒</div></div>
+          </div>
+          <div class="episode-copy">
+            <h3>Episode 8 — Last Supper</h3>
+            <p>The season closes with the kind of ending that makes the whole dinner feel premeditated from the start.</p>
+            <div class="locked-panel"><span>🔒 Locked after Episode 4</span><span>Premium</span></div>
+          </div>
+        </article>
+
+      </section>
+
+      <form id="unlock-paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display:none;">
+        <input type="hidden" name="cmd" value="_xclick" />
+        <input type="hidden" name="business" value="sales@sumnubooks.com" />
+        <input type="hidden" name="item_name" value="HERE... EAT THIS — Full Season Unlock" />
+        <input type="hidden" name="amount" value="5.00" />
+        <input type="hidden" name="currency_code" value="USD" />
+        <input type="hidden" name="return" value="https://sumnubooks.com/here-eat-this-unlocked.html" />
+        <input type="hidden" name="cancel_return" value="https://sumnubooks.com/vip-here-eat-this.html" />
+      </form>
+    </div>
+  </main>
+
+  <script>
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    const unlockForm = document.getElementById('unlock-paypal-form');
+    document.querySelectorAll('[data-unlock-paypal]').forEach(card => {
+      const openCheckout = () => { if (unlockForm) unlockForm.submit(); };
+      card.addEventListener('click', openCheckout);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openCheckout();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

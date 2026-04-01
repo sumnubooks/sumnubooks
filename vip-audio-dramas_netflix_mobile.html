@@ -390,32 +390,27 @@
             </div>
           </a>
 
-          <!-- Coming soon -->
-          <div class="series-card coming-soon">
+          <!-- Here... Eat This -->
+          <a class="series-card reveal" href="vip-here-eat-this.html">
             <div class="poster">
-              <div class="poster-placeholder">
-                <div class="ph-icon">🎬</div>
-                <span>Coming Soon</span>
-              </div>
-              <div class="poster-badge upcoming">Upcoming</div>
+              <img src="images/here-eat-this/here-eat-this-cover.jpg" alt="Here... Eat This cover">
+              <div class="poster-badge live">Series Page Ready</div>
+              <div class="poster-free-tag">8-Episode Audio Series</div>
               <div class="poster-copy">
-                <div class="genre">Coming Soon</div>
-                <h3>Series 3</h3>
-                <div class="meta">Not live yet</div>
+                <div class="genre">Suspense Drama</div>
+                <h3>Here... Eat This</h3>
+                <div class="meta">Season 1 · 8 Episodes</div>
               </div>
             </div>
             <div class="series-body">
-              <p>Your next original series will live here until it's ready to drop.</p>
+              <p>A dinner table, a power struggle, and a story built on suspicion, betrayal, and what gets served when trust is already dead.</p>
               <div class="series-footer">
-                <span>Not live yet</span>
-                <span>•</span>
+                <span>Open series page</span>
+                <span class="arrow">→</span>
               </div>
             </div>
-          </div>
+          </a>
 
-        </div>
-
-        <!-- Social strip -->
         <div class="social-strip reveal">
           <a href="https://www.facebook.com/profile.php?id=61588357454272" target="_blank" rel="noopener">📘 SumnuBooks Facebook</a>
           <a href="https://www.facebook.com/lvnvproductions" target="_blank" rel="noopener">🎵 LVNV Facebook</a>
@@ -432,37 +427,5 @@
     }, { threshold: 0.08 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   </script>
-
-  <script>
-    try {
-      if (localStorage.getItem('otherman_unlocked') === 'true') {
-        document.querySelectorAll('a[href="vip-other-man_netflix_mobile.html"]').forEach(a => {
-          a.setAttribute('href', 'vip-other-man-unlocked.html');
-          if (!a.dataset.unlockBadgeApplied) {
-            a.dataset.unlockBadgeApplied = 'true';
-            const badge = document.createElement('span');
-            badge.textContent = ' • Unlocked';
-            badge.style.color = '#d4a843';
-            badge.style.fontWeight = '800';
-            a.appendChild(badge);
-          }
-        });
-      }
-      if (localStorage.getItem('beforeourwaterbreaks_unlocked') === 'true') {
-        document.querySelectorAll('a[href="before-our-water-breaks-vip.html"]').forEach(a => {
-          a.setAttribute('href', 'before-our-water-breaks-unlocked.html');
-          if (!a.dataset.unlockBadgeApplied) {
-            a.dataset.unlockBadgeApplied = 'true';
-            const badge = document.createElement('span');
-            badge.textContent = ' • Unlocked';
-            badge.style.color = '#d4a843';
-            badge.style.fontWeight = '800';
-            a.appendChild(badge);
-          }
-        });
-      }
-    } catch (e) {}
-  </script>
-
 </body>
 </html>

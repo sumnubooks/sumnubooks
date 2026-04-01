@@ -176,7 +176,7 @@
         <h2>Unlock the rest of Season 1</h2>
         <p>You've got the first 4 episodes free. Unlock Episodes 5–8 for one price and finish the full season.</p>
         <div class="unlock-price">$5</div>
-        <form id="unlock-paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
           <input type="hidden" name="cmd" value="_xclick">
           <input type="hidden" name="business" value="sales@sumnubooks.com">
           <input type="hidden" name="item_name" value="Other Man Season 1 Unlock (Episodes 5-8)">
@@ -192,41 +192,11 @@
     </div>
   </main>
 
-  
   <script>
-    const STORAGE_KEY = "otherman_unlocked";
-    const UNLOCKED_PAGE = "vip-other-man-unlocked.html";
-
-    try {
-      if (localStorage.getItem(STORAGE_KEY) === 'true') {
-        window.location.replace(UNLOCKED_PAGE);
-      }
-    } catch (e) {}
-
     const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          obs.unobserve(e.target);
-        }
-      });
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
     }, { threshold: 0.06 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-    const unlockForm = document.getElementById('unlock-paypal-form');
-    document.querySelectorAll('[data-unlock-paypal], .episode-card.locked.unlock-link, .locked-trigger').forEach(card => {
-      const openCheckout = () => {
-        if (unlockForm) unlockForm.submit();
-      };
-      card.addEventListener('click', openCheckout);
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openCheckout();
-        }
-      });
-    });
   </script>
-
 </body>
 </html>
