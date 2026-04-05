@@ -1125,7 +1125,7 @@ if (isVip()) {
   });
 }
 // Re-render once Outseta confirms paid status
-window.addEventListener("outseta:ready", function() {
+function applyVipState() {
   renderShelves();
   var vip = isVip();
   ["heroUnlockBtn","vipCtaBtn","mobileUnlockBtn"].forEach(function(id) {
@@ -1143,8 +1143,18 @@ window.addEventListener("outseta:ready", function() {
       el.href = "unlock.html";
     }
   });
+}
+window.addEventListener("outseta:ready", function() {
+  applyVipState();
+  // Re-check after short delay in case subscription data loads after ready event
+  setTimeout(applyVipState, 800);
+  setTimeout(applyVipState, 2000);
 });
-window.addEventListener("outseta:login", function() { renderShelves(); });
+window.addEventListener("outseta:login", function() {
+  applyVipState();
+  setTimeout(applyVipState, 800);
+});
+window.addEventListener("outseta:refresh", function() { applyVipState(); });
 </script>
 </body>
 </html>
