@@ -1,41 +1,30 @@
-(function (window) {
-  const LOGIN_PAGE = 'login.html';
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('preview') === '1') return;
+// SIMPLE GLOBAL ACCESS GATE
 
-  function redirectToLogin() {
-    const target = window.location.pathname + window.location.search + window.location.hash;
-    window.location.replace(LOGIN_PAGE + '?redirect=' + encodeURIComponent(target));
-  }
+if (window.netlifyIdentity) {
 
-  function allow() {
-    document.documentElement.dataset.gate = 'open';
-  }
-
-  function block() {
-    document.documentElement.dataset.gate = 'locked';
-    redirectToLogin();
-  }
-
-  function checkNow() {
-    const auth = window.SumnuAuth;
-    const user = auth && typeof auth.currentUser === 'function' ? auth.currentUser() : null;
-    const hasVip = auth && typeof auth.readVip === 'function' ? auth.readVip() : false;
-    if (user || hasVip) {
-      if (auth && typeof auth.writeVip === 'function') auth.writeVip(true);
-      allow();
-      return;
-    }
-    block();
-  }
-
-  if (window.SumnuAuth && window.SumnuAuth.ready) {
-    window.SumnuAuth.ready.then(checkNow).catch(block);
-  } else {
-    block();
-  }
-
-  window.addEventListener('sumnu:auth', function (event) {
-    if (event.detail && event.detail.isVip) allow();
+  netlifyIdentity.on("init", user => {
+    checkAccess(user);
   });
-})(window);
+
+  netlifyIdentity.on("login", user => {
+    checkAccess(user);
+  });
+
+  netlifyIdentity.on("logout", () => {
+    window.location.href = "/login.html";
+  });
+
+}
+
+function checkAccess(user) {
+
+  const path = window.location.pathname.toLowerCase();
+
+  const protectedPage =
+    path.includes("vip") ||
+    path.includes("unlocked");
+
+  if (protectedPage && !user) {
+    window.location.href = "/login.html?redirect=" + encodeURIComponent(window.location.href);
+  }
+}

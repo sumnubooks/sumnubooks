@@ -252,5 +252,19 @@
     if (paypalReturn) paypalReturn.value = 'https://sumnubooks.com/login.html?paid=true&redirect=' + encodeURIComponent('/' + target.replace(/^\//, ''));
     if (paypalCancel) paypalCancel.value = 'https://sumnubooks.com/unlock.html?from=' + encodeURIComponent(target);
   </script>
+<script>
+if (window.netlifyIdentity) {
+  netlifyIdentity.on("login", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const redirect = urlParams.get("redirect");
+
+    if (redirect) {
+      window.location.href = redirect;
+    } else {
+      window.location.href = "/vip-audio-dramas_netflix_mobile.html";
+    }
+  });
+}
+</script>
 </body>
 </html>

@@ -94,30 +94,22 @@
         </p>
 
         <div class="auth-tabs" id="authTabs">
-          <button class="auth-tab active" type="button" data-auth-tab="signup">Create account</button>
-          <button class="auth-tab" type="button" data-auth-tab="login">Already have one</button>
-          <button class="auth-tab" type="button" data-auth-tab="reset">Reset password</button>
+          <button class="auth-tab active" type="button" data-auth-action="signup">Create account</button>
+          <button class="auth-tab" type="button" data-auth-action="login">Already have one</button>
+          <button class="auth-tab" type="button" data-auth-action="reset">Reset password</button>
         </div>
 
-        <form class="auth-form active" id="signupForm">
-          <div class="field"><label for="signupEmail">Email</label><input id="signupEmail" type="email" autocomplete="email" placeholder="you@email.com" required /></div>
-          <div class="field"><label for="signupPassword">Password</label><input id="signupPassword" type="password" autocomplete="new-password" placeholder="Choose a password" required /></div>
-          <div class="form-actions"><button class="btn btn-primary" type="submit">Create account &amp; save access</button></div>
-        </form>
-
-        <form class="auth-form" id="loginForm">
-          <div class="field"><label for="loginEmail">Email</label><input id="loginEmail" type="email" autocomplete="email" placeholder="you@email.com" required /></div>
-          <div class="field"><label for="loginPassword">Password</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Your password" required /></div>
+        <div class="auth-form active" id="widgetActions">
+          <div class="field"><label>Email</label><input id="prefillEmail" type="email" autocomplete="email" placeholder="you@email.com" /></div>
+          <div class="field"><label>Password</label><input id="prefillPassword" type="password" autocomplete="current-password" placeholder="Use this to prefill signup or login" /></div>
           <div class="form-actions">
-            <button class="btn btn-primary" type="submit">Log in</button>
-            <a class="helper-link" href="#" data-switch-tab="reset">Forgot password?</a>
+            <button class="btn btn-primary" type="button" id="primaryAuthBtn">Open signup</button>
+            <button class="btn btn-secondary" type="button" id="secondaryAuthBtn">Open login</button>
           </div>
-        </form>
-
-        <form class="auth-form" id="resetForm">
-          <div class="field"><label for="resetEmail">Email</label><input id="resetEmail" type="email" autocomplete="email" placeholder="you@email.com" required /></div>
-          <div class="form-actions"><button class="btn btn-primary" type="submit">Send reset link</button></div>
-        </form>
+          <p class="auth-sub" style="margin-top:14px; margin-bottom:0; font-size:.9rem;">
+            A secure Netlify popup will handle account creation and login. For password reset, click <strong>Reset password</strong> and then use the recovery option in the popup.
+          </p>
+        </div>
 
         <div class="status" id="authStatus"></div>
 
@@ -172,10 +164,15 @@
     const fromPayment = params.get('vip') === 'true' || params.get('paid') === 'true';
 
     const tabs = document.querySelectorAll('.auth-tab');
-    const forms = document.querySelectorAll('.auth-form');
+    const widgetActions = document.getElementById('widgetActions');
     const statusEl = document.getElementById('authStatus');
     const continueLink = document.querySelector('#accountBox a.btn.btn-primary');
     const skipLink = document.getElementById('skipLink');
+    const prefillEmail = document.getElementById('prefillEmail');
+    const prefillPassword = document.getElementById('prefillPassword');
+    const primaryAuthBtn = document.getElementById('primaryAuthBtn');
+    const secondaryAuthBtn = document.getElementById('secondaryAuthBtn');
+    let activeAction = 'signup';
 
     continueLink.setAttribute('href', redirectTarget);
     continueLink.textContent = 'Continue →';
@@ -191,21 +188,27 @@
       history.replaceState(null, '', 'login.html?redirect=' + encodeURIComponent(redirectTarget));
     }
 
-    function switchTab(name) {
-      tabs.forEach(t => t.classList.toggle('active', t.dataset.authTab === name));
-      forms.forEach(f => {
-        const id = f.id.replace('Form', '').toLowerCase();
-        f.classList.toggle('active', id === name);
-      });
-    }
-    tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.authTab)));
-    document.querySelectorAll('[data-switch-tab]').forEach(a => {
-      a.addEventListener('click', e => { e.preventDefault(); switchTab(a.dataset.switchTab); });
-    });
-
     function showStatus(msg, type = 'info') {
       statusEl.className = `status ${type} show`;
       statusEl.textContent = msg;
+    }
+
+    function setAction(name) {
+      activeAction = name;
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.authAction === name));
+      if (name === 'signup') {
+        primaryAuthBtn.textContent = 'Open signup';
+        secondaryAuthBtn.textContent = 'Open login';
+        showStatus('Create your account in the secure popup.', 'info');
+      } else if (name === 'login') {
+        primaryAuthBtn.textContent = 'Open login';
+        secondaryAuthBtn.textContent = 'Open signup';
+        showStatus('Log in in the secure popup. You will be sent back automatically.', 'info');
+      } else {
+        primaryAuthBtn.textContent = 'Open recovery';
+        secondaryAuthBtn.textContent = 'Open login';
+        showStatus('Use the secure popup, then click the forgot-password link inside it.', 'info');
+      }
     }
 
     function showAccountBox(user) {
@@ -213,21 +216,26 @@
       document.getElementById('accountTitle').textContent = 'Signed in as ' + (user.email || 'member');
       document.getElementById('skipLink').classList.add('hidden');
       document.getElementById('authTabs').style.display = 'none';
-      forms.forEach(f => f.style.display = 'none');
+      widgetActions.classList.add('hidden');
     }
 
     function showForms() {
       document.getElementById('accountBox').classList.add('hidden');
       document.getElementById('skipLink').classList.remove('hidden');
       document.getElementById('authTabs').style.display = '';
-      forms.forEach(f => f.style.display = '');
+      widgetActions.classList.remove('hidden');
+      setAction('login');
     }
+
+    tabs.forEach(t => t.addEventListener('click', () => setAction(t.dataset.authAction)));
 
     window.SumnuAuth.ready.then(ni => {
       ni.on('init', user => {
         if (user) {
           try { localStorage.setItem(VIP_KEY, 'true'); } catch(e) {}
           showAccountBox(user);
+        } else {
+          setAction(activeAction);
         }
       });
 
@@ -238,44 +246,49 @@
         window.setTimeout(() => { window.location.href = redirectTarget; }, 350);
       });
 
+      ni.on('signup', () => {
+        showStatus('Account created. Check your email if confirmation is required, then log in.', 'success');
+        setAction('login');
+      });
+
+      ni.on('error', err => {
+        showStatus((err && err.message) || 'Authentication failed. Please try again.', 'error');
+      });
+
       ni.on('logout', () => {
         try { localStorage.removeItem(VIP_KEY); } catch(e) {}
         showForms();
-        switchTab('login');
       });
 
-      document.getElementById('signupForm').addEventListener('submit', e => {
-        e.preventDefault();
-        showStatus('Creating account…', 'info');
-        ni.signup(
-          document.getElementById('signupEmail').value,
-          document.getElementById('signupPassword').value
-        ).then(() => {
-          showStatus('Account created. Check your email if confirmation is required, then log in.', 'success');
-          switchTab('login');
-          document.getElementById('loginEmail').value = document.getElementById('signupEmail').value;
-        }).catch(err => {
-          showStatus(err.message || 'Signup failed. Please try again.', 'error');
-        });
+      function prefill() {
+        const meta = {};
+        const email = (prefillEmail.value || '').trim();
+        const password = prefillPassword.value || '';
+        if (email) meta.email = email;
+        if (password) meta.password = password;
+        return meta;
+      }
+
+      primaryAuthBtn.addEventListener('click', () => {
+        const meta = prefill();
+        if (activeAction === 'signup') {
+          showStatus('Opening secure signup…', 'info');
+          ni.open('signup', meta);
+        } else {
+          showStatus(activeAction === 'reset' ? 'Opening recovery login…' : 'Opening secure login…', 'info');
+          ni.open('login', meta);
+        }
       });
 
-      document.getElementById('loginForm').addEventListener('submit', e => {
-        e.preventDefault();
-        showStatus('Signing in…', 'info');
-        ni.login(
-          document.getElementById('loginEmail').value,
-          document.getElementById('loginPassword').value
-        ).catch(err => {
-          showStatus(err.message || 'Login failed. Check your email and password.', 'error');
-        });
-      });
-
-      document.getElementById('resetForm').addEventListener('submit', e => {
-        e.preventDefault();
-        showStatus('Sending reset link…', 'info');
-        ni.requestPasswordRecovery(document.getElementById('resetEmail').value)
-          .then(() => showStatus('Reset link sent. Check your inbox.', 'success'))
-          .catch(err => showStatus(err.message || 'Password reset failed. Please try again.', 'error'));
+      secondaryAuthBtn.addEventListener('click', () => {
+        const meta = prefill();
+        if (activeAction === 'signup') {
+          showStatus('Opening secure login…', 'info');
+          ni.open('login', meta);
+        } else {
+          showStatus('Opening secure signup…', 'info');
+          ni.open('signup', meta);
+        }
       });
 
       document.getElementById('logoutBtn').addEventListener('click', () => {

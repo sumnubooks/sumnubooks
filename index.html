@@ -6,6 +6,7 @@
   <title>Sumnu Books VIP — Stream Series, Audiobooks & Music</title>
   <meta name="description" content="A Netflix-style premium audio experience from Sumnu Books. Start free with sample episodes, audiobook samples, and Sumnu Radio. Unlock full access across the site." />
   <link href="css/site.css" rel="stylesheet"/>
+  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <style>
     .shelf-start { padding-top: 26px; }
@@ -358,8 +359,148 @@
     }
   </style>
 
+
+  <style>
+    /* Built-in splash overlay */
+    .site-splash {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 50% 36%, rgba(212,168,67,.14), transparent 18%),
+        radial-gradient(circle at 50% 48%, rgba(212,168,67,.08), transparent 34%),
+        linear-gradient(180deg,#040608 0%,#020305 100%);
+      color: rgba(255,255,255,.82);
+      overflow: hidden;
+      transition: opacity .55s ease, visibility .55s ease;
+    }
+
+    .site-splash.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .site-splash-aura {
+      position: absolute;
+      width: min(86vw,820px);
+      height: min(86vw,820px);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,168,67,.10), transparent 56%);
+      filter: blur(10px);
+      animation: splashPulse 2s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    .site-splash-rays {
+      position: absolute;
+      width: min(78vw,760px);
+      height: min(78vw,760px);
+      border-radius: 50%;
+      background:
+        conic-gradient(from 0deg,
+          transparent 0deg 8deg,
+          rgba(212,168,67,.18) 8deg 9deg,
+          transparent 9deg 18deg,
+          rgba(212,168,67,.14) 18deg 19deg,
+          transparent 19deg 27deg,
+          rgba(212,168,67,.16) 27deg 28deg,
+          transparent 28deg 36deg,
+          rgba(212,168,67,.12) 36deg 37deg,
+          transparent 37deg 45deg,
+          rgba(212,168,67,.18) 45deg 46deg,
+          transparent 46deg 54deg,
+          rgba(212,168,67,.12) 54deg 55deg,
+          transparent 55deg 63deg,
+          rgba(212,168,67,.16) 63deg 64deg,
+          transparent 64deg 72deg,
+          rgba(212,168,67,.12) 72deg 73deg,
+          transparent 73deg 81deg,
+          rgba(212,168,67,.16) 81deg 82deg,
+          transparent 82deg 360deg);
+      -webkit-mask: radial-gradient(circle, transparent 0 24%, #000 25% 68%, transparent 69%);
+      mask: radial-gradient(circle, transparent 0 24%, #000 25% 68%, transparent 69%);
+      opacity: .7;
+      animation: splashSpin 18s linear infinite;
+      z-index: 0;
+    }
+
+    .site-splash-core {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 24px;
+      gap: 16px;
+    }
+
+    .site-splash-logo {
+      width: min(72vw, 420px);
+      max-width: 420px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 18px rgba(212,168,67,.18));
+      animation: splashFloat 2.2s ease-in-out infinite alternate;
+    }
+
+    .site-splash-text {
+      font-size: .88rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.74);
+    }
+
+    .site-splash-text strong {
+      color: var(--gold);
+    }
+
+    @keyframes splashPulse {
+      from { transform: scale(1); opacity: .75; }
+      to { transform: scale(1.06); opacity: 1; }
+    }
+
+    @keyframes splashSpin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes splashFloat {
+      from { transform: translateY(-4px); }
+      to { transform: translateY(6px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .site-splash,
+      .site-splash-aura,
+      .site-splash-rays,
+      .site-splash-logo {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+
 </head>
 <body>
+<div id="siteSplash" class="site-splash" aria-hidden="true">
+  <div class="site-splash-aura"></div>
+  <div class="site-splash-rays"></div>
+
+  <div class="site-splash-core">
+    <img
+      src="images/logos/sumnu-books-logo.png"
+      alt="Sumnu Books"
+      class="site-splash-logo"
+    />
+    <div class="site-splash-text">
+      Tap anywhere or wait a moment to <strong>enter</strong>
+    </div>
+  </div>
+</div>
+
 
 <header class="site-header">
     <div class="container navbar navbar-shell">
@@ -465,8 +606,44 @@
 const VIP_KEY = 'vipUnlocked';
 const LAST_PLAY_KEY = 'sumnuLastPlayed';
 
-// ── Splash: mark that we've visited so splash.html skips on back-nav ──
-try { sessionStorage.setItem('splashSeen', '1'); } catch(e) {}
+/* ── Built-in splash for index.html ───────────────────── */
+(function initBuiltInSplash() {
+  const splash = document.getElementById('siteSplash');
+  if (!splash) return;
+
+  const SPLASH_KEY = 'splashSeen';
+  const SPLASH_DELAY = 2200;
+  let dismissed = false;
+
+  function removeSplash() {
+    if (splash && splash.parentNode) splash.parentNode.removeChild(splash);
+  }
+
+  function hideSplash() {
+    if (dismissed) return;
+    dismissed = true;
+
+    try { sessionStorage.setItem(SPLASH_KEY, '1'); } catch (e) {}
+
+    splash.classList.add('is-hidden');
+    window.setTimeout(removeSplash, 650);
+  }
+
+  let seen = false;
+  try {
+    seen = sessionStorage.getItem(SPLASH_KEY) === '1';
+  } catch (e) {}
+
+  if (seen) {
+    splash.classList.add('is-hidden');
+    window.setTimeout(removeSplash, 10);
+    return;
+  }
+
+  splash.addEventListener('click', hideSplash);
+  splash.addEventListener('touchstart', hideSplash, { passive: true });
+  window.setTimeout(hideSplash, SPLASH_DELAY);
+})();
 
 // ── VIP restore: PayPal returns with ?vip=true ──
 // Also restore from Netlify Identity account role if widget is present
@@ -971,7 +1148,5 @@ if (isVip()) {
   });
 }
 </script>
-
-  <script src="js/auth.js"></script>
 </body>
 </html>
