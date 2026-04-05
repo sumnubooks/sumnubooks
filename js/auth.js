@@ -1,32 +1,22 @@
 /* ============================================================
    SUMNU BOOKS — auth.js  (Outseta edition)
-   Replaces the old Netlify Identity auth.js entirely.
 
-   What this does:
-   - Loads the Outseta JS widget from their CDN
-   - Exposes window.SumnuAuth for any page that needs to check status
-   - Fires a custom event 'sumnu:auth' so pages can react to login/logout
-   - Does NOT do any localStorage VIP logic — access is server-verified
+   IMPORTANT: This file no longer loads the Outseta script.
+   The Outseta script tag must be placed directly in the <head>
+   of every HTML page BEFORE this file is loaded.
+
+   Add this to the <head> of every page, as the FIRST script:
+
+   <script>
+     window.outsetaOptions = { domain: 'sumnuvision-llc.outseta.com' };
+   </script>
+   <script src="https://cdn.outseta.com/outseta.min.js"></script>
+
+   This file then provides the SumnuAuth helper API and fires
+   the sumnu:auth event when Outseta is ready.
    ============================================================ */
 
 (function (window, document) {
-
-  // ── 1. YOUR OUTSETA CONFIG ──────────────────────────────────
-  var OUTSETA_DOMAIN = 'sumnuvision-llc.outseta.com';
-
-  // ── 2. OUTSETA WIDGET BOOTSTRAP ────────────────────────────
-  // Outseta requires window.outsetaOptions to be set BEFORE the
-  // script tag loads. This is the correct initialization method.
-  window.outsetaOptions = {
-    domain: OUTSETA_DOMAIN
-  };
-
-  var o = document.createElement('script');
-  o.type = 'text/javascript';
-  o.async = true;
-  o.src = 'https://cdn.outseta.com/outseta.min.js';
-  var s = document.getElementsByTagName('script')[0];
-  s.parentNode.insertBefore(o, s);
 
   // ── 3. HELPER: is the current user on an active paid plan? ──
   // Outseta exposes Outseta.getUser() after the widget loads.
