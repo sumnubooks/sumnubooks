@@ -15,16 +15,16 @@
   var OUTSETA_DOMAIN = 'sumnuvision-llc.outseta.com';
 
   // ── 2. OUTSETA WIDGET BOOTSTRAP ────────────────────────────
-  // This is the standard Outseta embed snippet.
-  // It must run before any o-* web components are used on the page.
+  // Outseta requires window.outsetaOptions to be set BEFORE the
+  // script tag loads. This is the correct initialization method.
+  window.outsetaOptions = {
+    domain: OUTSETA_DOMAIN
+  };
+
   var o = document.createElement('script');
   o.type = 'text/javascript';
   o.async = true;
   o.src = 'https://cdn.outseta.com/outseta.min.js';
-  o.setAttribute('data-options', JSON.stringify({
-    domain: OUTSETA_DOMAIN,
-    load: 'auth,profile'
-  }));
   var s = document.getElementsByTagName('script')[0];
   s.parentNode.insertBefore(o, s);
 
