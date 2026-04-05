@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>My Account — Sumnu Books</title>
   <link href="css/site.css" rel="stylesheet" />
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     .site-header{
       position:sticky;top:0;z-index:50;
@@ -14,39 +13,24 @@
       border-bottom:1px solid rgba(255,255,255,.06);
     }
     .navbar-shell{
-      min-height:64px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      min-height:64px;display:flex;
+      align-items:center;justify-content:center;
     }
     .nav-links-shell{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      flex-wrap:nowrap;
-      overflow-x:auto;
-      overflow-y:hidden;
-      width:100%;
-      justify-content:center;
-      scrollbar-width:none;
-      -webkit-overflow-scrolling:touch;
-      padding:8px 0;
+      display:flex;align-items:center;gap:10px;
+      flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+      width:100%;justify-content:center;scrollbar-width:none;
+      -webkit-overflow-scrolling:touch;padding:8px 0;
     }
     .nav-links-shell::-webkit-scrollbar{display:none;}
     .nav-links-shell a{
-      flex:0 0 auto;
-      white-space:nowrap;
-      padding:10px 14px;
-      border-radius:999px;
-      color:var(--muted,#9aa3b7);
-      font-weight:700;
-      font-size:.92rem;
-      text-decoration:none;
+      flex:0 0 auto;white-space:nowrap;padding:10px 14px;
+      border-radius:999px;color:var(--muted,#9aa3b7);
+      font-weight:700;font-size:.92rem;text-decoration:none;
     }
     .nav-links-shell a:hover,
     .nav-links-shell a.active{
-      color:var(--text,#fff);
-      background:rgba(255,255,255,.06);
+      color:var(--text,#fff);background:rgba(255,255,255,.06);
     }
     .nav-links-shell .nav-cta{
       border:1px solid rgba(212,168,67,.28);
@@ -55,169 +39,143 @@
     .logo-band{padding:14px 0 8px;}
     .logo-band-inner{display:flex;align-items:center;justify-content:center;}
     .hero-logo-img{
-      display:block;
-      width:min(64vw,320px);
-      max-width:320px;
-      height:auto;
-      object-fit:contain;
+      display:block;width:min(64vw,320px);max-width:320px;
+      height:auto;object-fit:contain;
       filter:drop-shadow(0 0 12px rgba(212,168,67,.12));
     }
 
-    .account-page{
-      min-height:calc(100vh - 130px);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px 16px 48px;
+    .account-page {
+      min-height: calc(100vh - 130px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px 56px;
       background:
         radial-gradient(circle at 50% 10%, rgba(212,168,67,.11), transparent 34%),
         linear-gradient(180deg,#030507 0%,#060914 100%);
     }
-    .account-shell{
-      width:min(100%,920px);
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      gap:18px;
+    .account-shell {
+      width: min(100%, 900px);
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 20px;
     }
-    .account-card,.account-side{
-      border:1px solid rgba(212,168,67,.16);
-      border-radius:28px;
-      background:linear-gradient(180deg, rgba(9,14,28,.94), rgba(7,10,20,.98));
-      box-shadow:0 12px 32px rgba(0,0,0,.35);
+    .account-card, .account-side {
+      border: 1px solid rgba(212,168,67,.16);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(9,14,28,.94), rgba(7,10,20,.98));
+      box-shadow: 0 12px 32px rgba(0,0,0,.35);
     }
-    .account-card{padding:28px 24px 24px;}
-    .account-side{padding:28px 24px;}
+    .account-card { padding: 28px 24px 24px; }
+    .account-side  { padding: 28px 24px; }
 
-    .kicker{
-      color:var(--gold,#d4a843);
-      font-size:.76rem;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      font-weight:800;
-      margin-bottom:10px;
+    .kicker {
+      color: var(--gold,#d4a843);
+      font-size: .74rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 10px;
     }
-    h1{
-      margin:0 0 10px;
-      color:var(--gold,#d4a843);
-      font-family:var(--font-display,Georgia,serif);
-      line-height:1;
-      font-size:clamp(1.7rem,4vw,2.5rem);
+    h1 {
+      margin: 0 0 10px;
+      color: var(--gold,#d4a843);
+      font-family: var(--font-display,Georgia,serif);
+      font-size: clamp(1.7rem,4vw,2.4rem);
+      line-height: 1;
     }
-    h2{
-      margin:0 0 10px;
-      color:var(--gold,#d4a843);
-      font-family:var(--font-display,Georgia,serif);
-      line-height:1;
-      font-size:1.35rem;
+    h2 {
+      margin: 0 0 10px;
+      color: var(--gold,#d4a843);
+      font-family: var(--font-display,Georgia,serif);
+      font-size: 1.3rem;
     }
-    .sub,.account-side p{
-      color:var(--muted,#aeb6c8);
-      line-height:1.65;
-      margin:0 0 18px;
-      font-size:.96rem;
+    .sub, .account-side p {
+      color: var(--muted,#aeb6c8);
+      line-height: 1.65;
+      margin: 0 0 18px;
+      font-size: .95rem;
     }
-    .action-stack{
-      display:grid;
-      gap:12px;
-      margin-top:18px;
+    .action-stack { display: grid; gap: 12px; margin-top: 18px; }
+    .btn-wide { width: 100%; }
+
+    /* Signed-in state */
+    .panel { display: none; }
+    .panel.show { display: block; }
+
+    .signed-in-box {
+      padding: 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(73,180,110,.22);
+      background: rgba(73,180,110,.06);
+      margin-bottom: 18px;
     }
-    .action-row{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
+    .signed-in-box p {
+      color: #dcffe5;
+      font-size: .93rem;
+      margin: 0 0 14px;
+      line-height: 1.55;
     }
-    .btn-wide{
-      min-width:180px;
-      justify-content:center;
+    .signed-in-box strong { color: #a8f5bf; }
+
+    .signed-out-box .sub {
+      color: var(--muted,#aeb6c8);
     }
-    .status{
-      display:none;
-      margin-top:16px;
-      padding:12px 14px;
-      border-radius:16px;
-      line-height:1.55;
-      font-size:.94rem;
+
+    .btn-primary-full {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: .97rem;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, var(--gold,#d4a843), var(--orange,#e8612a));
+      color: #09101a;
+      width: 100%;
+      text-decoration: none;
+      transition: opacity .18s ease;
     }
-    .status.show{display:block;}
-    .status.info{
-      background:rgba(82,142,255,.12);
-      border:1px solid rgba(82,142,255,.20);
-      color:#d8e5ff;
+    .btn-primary-full:hover { opacity: .88; }
+
+    .btn-secondary-full {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: .93rem;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: var(--text,#fff);
+      cursor: pointer;
+      width: 100%;
+      transition: background .18s ease;
     }
-    .status.success{
-      background:rgba(73,180,110,.12);
-      border:1px solid rgba(73,180,110,.22);
-      color:#dcffe5;
+    .btn-secondary-full:hover { background: rgba(255,255,255,.08); }
+
+    .benefits { display: grid; gap: 10px; margin-top: 18px; }
+    .benefits div {
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.03);
+      color: var(--text,#fff);
+      font-size: .91rem;
+      line-height: 1.5;
     }
-    .status.error{
-      background:rgba(255,87,87,.12);
-      border:1px solid rgba(255,87,87,.22);
-      color:#ffe0e0;
+
+    /* Outseta profile widget container */
+    #outseta-profile-wrap {
+      margin-top: 16px;
     }
-    .signed-in{
-      display:none;
-      margin-top:18px;
-      padding:16px;
-      border-radius:20px;
-      border:1px solid rgba(73,180,110,.22);
-      background:rgba(73,180,110,.06);
-    }
-    .signed-in.show{display:block;}
-    .signed-in strong{
-      display:block;
-      margin-bottom:6px;
-      color:#dcffe5;
-    }
-    .signed-in p{
-      color:var(--muted,#aeb6c8);
-      font-size:.92rem;
-      margin:0 0 12px;
-    }
-    .benefits{
-      display:grid;
-      gap:10px;
-      margin-top:18px;
-    }
-    .benefits div{
-      padding:12px 14px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.06);
-      background:rgba(255,255,255,.03);
-      color:var(--text,#fff);
-      line-height:1.5;
-      font-size:.92rem;
-    }
-    .skip-link{
-      display:block;
-      text-align:center;
-      margin-top:16px;
-      color:var(--muted,#aeb6c8);
-      font-size:.9rem;
-      text-decoration:none;
-    }
-    .skip-link:hover{color:var(--text,#fff);}
-    .payment-confirmed{
-      display:none;
-      padding:14px 16px;
-      border-radius:16px;
-      border:1px solid rgba(212,168,67,.3);
-      background:rgba(212,168,67,.07);
-      color:var(--gold,#d4a843);
-      font-weight:700;
-      font-size:.92rem;
-      margin-bottom:18px;
-      text-align:center;
-    }
-    .payment-confirmed.show{display:block;}
-    .helper-note{
-      margin-top:10px;
-      color:var(--muted,#aeb6c8);
-      font-size:.9rem;
-      line-height:1.6;
-    }
-    @media (max-width:900px){
-      .account-shell{grid-template-columns:1fr;}
-      .account-side{display:none;}
+
+    @media (max-width: 860px) {
+      .account-shell { grid-template-columns: 1fr; }
+      .account-side { display: none; }
     }
   </style>
 </head>
@@ -231,7 +189,7 @@
         <a href="video.html">Videos</a>
         <a href="audiobooks.html">Audiobooks</a>
         <a href="contact.html">Contact</a>
-        <a href="login.html" class="active nav-cta">My Account</a>
+        <a href="unlock.html" class="nav-cta">VIP Access</a>
       </nav>
     </div>
   </header>
@@ -239,203 +197,168 @@
   <section class="logo-band">
     <div class="container logo-band-inner">
       <a href="index.html" aria-label="Sumnu Books home">
-        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
+        <img src="images/logos/sumnu-books-logo.png"
+             alt="Sumnu Books logo" class="hero-logo-img">
       </a>
     </div>
   </section>
 
   <main class="account-page">
     <div class="account-shell">
+
       <section class="account-card">
-        <div class="payment-confirmed" id="paymentConfirmed">
-          ✅ Payment received — your access is active in this browser now.
-        </div>
+        <div class="kicker">Member Account</div>
+        <h1 id="pageHeadline">My Account</h1>
 
-        <div class="kicker" id="pageKicker">Member Access</div>
-        <h1 id="pageHeadline">Save your access</h1>
-        <p class="sub" id="pageSub">
-          Use a free account only to save your access across devices. No puzzle, no extra form on this page.
-        </p>
-
-        <div class="action-stack" id="actionStack">
-          <div class="action-row">
-            <button class="btn btn-primary btn-wide" id="createBtn" type="button">Create account</button>
-            <button class="btn btn-secondary btn-wide" id="loginBtn" type="button">Log in</button>
-          </div>
-          <div class="action-row">
-            <button class="btn btn-secondary btn-wide" id="resetBtn" type="button">Reset password</button>
-          </div>
-          <p class="helper-note">
-            Password reset opens the Netlify login box. Click <strong>Forgot password?</strong> inside that box.
+        <!-- Signed OUT state -->
+        <div class="panel signed-out-box" id="signedOutPanel">
+          <p class="sub">
+            Log in to restore your VIP access on this device. Your access
+            follows your account — not your browser.
           </p>
-        </div>
-
-        <div class="status" id="statusBox"></div>
-
-        <div class="signed-in" id="signedInBox">
-          <strong id="signedInTitle">Signed in</strong>
-          <p>Your browser access and account access are both ready.</p>
-          <div class="action-row">
-            <a class="btn btn-primary btn-wide" id="continueBtn" href="index.html">Continue</a>
-            <button class="btn btn-secondary btn-wide" id="logoutBtn" type="button">Log out</button>
+          <div class="action-stack">
+            <button class="btn-primary-full" id="loginBtn">
+              Log in to my account
+            </button>
+            <a class="btn-secondary-full" href="unlock.html">
+              Not a member yet? Start free trial →
+            </a>
           </div>
         </div>
 
-        <a class="skip-link" id="skipLink" href="index.html">Skip for now — continue browsing</a>
+        <!-- Signed IN + VIP state -->
+        <div class="panel" id="signedInVipPanel">
+          <div class="signed-in-box">
+            <p>✅ Signed in as <strong id="memberEmail">—</strong></p>
+            <p>Your VIP access is active. All content is unlocked.</p>
+            <a class="btn-primary-full" href="index.html"
+               style="margin-bottom:12px;">▶ Go to your content</a>
+          </div>
+          <!-- Outseta self-service profile widget -->
+          <!-- Members can update billing, cancel, change password here -->
+          <div id="outseta-profile-wrap">
+            <p style="color:var(--muted,#aeb6c8);font-size:.88rem;margin-bottom:8px;">
+              Manage your subscription, billing, and password:
+            </p>
+            <!-- Outseta profile embed — renders automatically when widget loads -->
+            <div data-o-profile="true"></div>
+          </div>
+          <div style="margin-top:16px;">
+            <button class="btn-secondary-full" id="logoutBtn">
+              Log out
+            </button>
+          </div>
+        </div>
+
+        <!-- Signed IN but NOT paid state -->
+        <div class="panel" id="signedInFreePanel">
+          <div class="signed-in-box" style="border-color:rgba(212,168,67,.22);background:rgba(212,168,67,.05);">
+            <p style="color:var(--gold,#d4a843);">
+              Signed in as <strong id="freeEmail">—</strong> — but no active VIP plan found.
+            </p>
+            <p style="color:var(--muted,#aeb6c8);margin-bottom:0;">
+              Start a free trial to unlock all content.
+            </p>
+          </div>
+          <div class="action-stack" style="margin-top:16px;">
+            <button class="btn-primary-full" id="upgradeBtn">
+              🔓 Start Free Trial — $9.99/month
+            </button>
+            <button class="btn-secondary-full" id="logoutBtn2">
+              Log out
+            </button>
+          </div>
+        </div>
+
       </section>
 
       <aside class="account-side">
-        <div class="kicker">Why use an account?</div>
-        <h2>Your access, on every device.</h2>
+        <div class="kicker">Why create an account?</div>
+        <h2>Your access,<br>on every device.</h2>
         <p>
-          Payment should get people into the content fast. The account is just there to save access
-          across phones, browsers, and future visits.
+          Your VIP subscription is tied to your account — not to one
+          browser or device. Log in anywhere and your full access is
+          immediately restored.
         </p>
         <div class="benefits">
-          <div>✅ Fastest path: pay, then listen</div>
-          <div>✅ Account is only for saving access later</div>
-          <div>✅ Browser access and account access stay in sync</div>
-          <div>✅ Less friction for listeners</div>
+          <div>✅ Phone, tablet, laptop — all synced</div>
+          <div>✅ New browser? Log in and you're in</div>
+          <div>✅ Manage billing and cancel from your account</div>
+          <div>✅ New content drops automatically unlocked</div>
         </div>
       </aside>
+
     </div>
   </main>
 
+  <script src="js/auth.js"></script>
   <script>
-    const VIP_KEY = "vipUnlocked";
-    const COMPAT_KEYS = [
-      "vipUnlocked",
-      "here-eat-this-unlocked",
-      "beforeourwaterbreaks_unlocked",
-      "before-our-water-breaks-unlocked",
-      "other-man-unlocked",
-      "otherman_unlocked",
-      "vip-other-man-unlocked"
-    ];
+    var PLAN_UID       = 'jW70XZmq'; // ← replace this
+    var OUTSETA_DOMAIN = 'sumnuvision-llc.outseta.com';
+    var RETURN_URL     = 'https://sumnubooks.com/index.html';
 
-    function safeRedirect(raw) {
-      if (!raw) return "index.html";
-      try {
-        const decoded = decodeURIComponent(raw);
-        if (/^https?:/i.test(decoded)) return "index.html";
-        if (decoded.startsWith("/")) return decoded.replace(/^\//, "");
-        return decoded;
-      } catch (e) {
-        return "index.html";
-      }
+    function showPanel(id) {
+      ['signedOutPanel','signedInVipPanel','signedInFreePanel'].forEach(function(p) {
+        var el = document.getElementById(p);
+        if (el) el.classList.toggle('show', p === id);
+      });
     }
 
-    function grantBrowserAccess() {
-      try {
-        COMPAT_KEYS.forEach(key => localStorage.setItem(key, "true"));
-      } catch (e) {}
-    }
+    function applyState() {
+      var user = window.SumnuAuth ? window.SumnuAuth.currentUser() : null;
+      var vip  = window.SumnuAuth ? window.SumnuAuth.isVip()       : false;
 
-    function clearBrowserAccess() {
-      try {
-        COMPAT_KEYS.forEach(key => localStorage.removeItem(key));
-      } catch (e) {}
-    }
-
-    function showStatus(message, type) {
-      const box = document.getElementById("statusBox");
-      box.className = "status show " + (type || "info");
-      box.textContent = message;
-    }
-
-    function showSignedIn(user, redirectTarget) {
-      document.getElementById("actionStack").style.display = "none";
-      document.getElementById("skipLink").style.display = "none";
-      const signedInBox = document.getElementById("signedInBox");
-      signedInBox.classList.add("show");
-      document.getElementById("signedInTitle").textContent =
-        "Signed in as " + ((user && user.email) ? user.email : "member");
-      document.getElementById("continueBtn").href = redirectTarget;
-    }
-
-    function showSignedOut() {
-      document.getElementById("actionStack").style.display = "";
-      document.getElementById("skipLink").style.display = "";
-      document.getElementById("signedInBox").classList.remove("show");
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const params = new URLSearchParams(window.location.search);
-      const redirectTarget = safeRedirect(params.get("redirect") || params.get("from") || "index.html");
-      const fromPayment = params.get("paid") === "true" || params.get("vip") === "true";
-
-      document.getElementById("continueBtn").href = redirectTarget;
-      document.getElementById("skipLink").href = redirectTarget;
-
-      if (fromPayment) {
-        grantBrowserAccess();
-        document.getElementById("paymentConfirmed").classList.add("show");
-        document.getElementById("pageKicker").textContent = "Access Active";
-        document.getElementById("pageHeadline").textContent = "Your access is live";
-        document.getElementById("pageSub").textContent =
-          "You can continue right now. Create an account only if you want this access to follow you to another device later.";
-      }
-
-      if (!window.netlifyIdentity) {
-        showStatus("Login service unavailable right now. Refresh and try again.", "error");
+      if (!user) {
+        showPanel('signedOutPanel');
+        document.getElementById('pageHeadline').textContent = 'My Account';
         return;
       }
 
-      document.getElementById("createBtn").addEventListener("click", function () {
-        showStatus("Opening secure signup…", "info");
-        window.netlifyIdentity.open("signup");
-      });
+      var email = (user.Email || user.email || '');
+      if (vip) {
+        showPanel('signedInVipPanel');
+        document.getElementById('memberEmail').textContent = email;
+        document.getElementById('pageHeadline').textContent = 'Welcome back';
+      } else {
+        showPanel('signedInFreePanel');
+        document.getElementById('freeEmail').textContent = email;
+        document.getElementById('pageHeadline').textContent = 'My Account';
+      }
+    }
 
-      document.getElementById("loginBtn").addEventListener("click", function () {
-        showStatus("Opening secure login…", "info");
-        window.netlifyIdentity.open("login");
-      });
-
-      document.getElementById("resetBtn").addEventListener("click", function () {
-        showStatus("Opening login. Click 'Forgot password?' inside the popup.", "info");
-        window.netlifyIdentity.open("login");
-      });
-
-      document.getElementById("logoutBtn").addEventListener("click", function () {
-        window.netlifyIdentity.logout();
-      });
-
-      window.netlifyIdentity.on("init", function (user) {
-        if (user) {
-          grantBrowserAccess();
-          showSignedIn(user, redirectTarget);
-          showStatus("You are already signed in.", "success");
-        } else {
-          showSignedOut();
-        }
-      });
-
-      window.netlifyIdentity.on("signup", function () {
-        grantBrowserAccess();
-        showStatus("Account created. Now log in in the popup to continue.", "success");
-      });
-
-      window.netlifyIdentity.on("login", function (user) {
-        grantBrowserAccess();
-        showSignedIn(user, redirectTarget);
-        showStatus("Signed in. Sending you back now…", "success");
-        setTimeout(function () {
-          window.location.href = redirectTarget;
-        }, 350);
-      });
-
-      window.netlifyIdentity.on("logout", function () {
-        clearBrowserAccess();
-        showSignedOut();
-        showStatus("You have been logged out.", "info");
-      });
-
-      window.netlifyIdentity.on("error", function (err) {
-        showStatus((err && err.message) ? err.message : "Authentication failed. Please try again.", "error");
-      });
-
-      window.netlifyIdentity.init();
+    // Login button
+    document.getElementById('loginBtn').addEventListener('click', function () {
+      if (window.Outseta && window.Outseta.auth) {
+        window.Outseta.auth.open({
+          widgetMode: 'login',
+          redirectUri: window.location.href
+        });
+      }
     });
+
+    // Upgrade button (free user → pay)
+    document.getElementById('upgradeBtn').addEventListener('click', function () {
+      if (window.Outseta && window.Outseta.auth) {
+        window.Outseta.auth.open({
+          widgetMode: 'register|login',
+          planUid: PLAN_UID,
+          redirectUri: RETURN_URL
+        });
+      }
+    });
+
+    // Logout buttons
+    ['logoutBtn','logoutBtn2'].forEach(function(id) {
+      var btn = document.getElementById(id);
+      if (btn) btn.addEventListener('click', function () {
+        if (window.SumnuAuth) window.SumnuAuth.logout();
+      });
+    });
+
+    // React to auth state changes
+    window.addEventListener('outseta:ready',  applyState);
+    window.addEventListener('outseta:login',  applyState);
+    window.addEventListener('outseta:logout', function () { showPanel('signedOutPanel'); });
   </script>
 </body>
 </html>
