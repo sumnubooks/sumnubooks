@@ -5,7 +5,7 @@
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Books — Sumnu Books | Sci-Fi, Thriller &amp; Urban Fiction</title>
 <meta name="description" content="25 novels by E.D. Lewis — sci-fi, thriller, urban fiction, and nonfiction. Buy on Amazon. Exclusive audiobooks only at SumnuBooks.com."/>
-<link href="css/style.v6.css" rel="stylesheet"/>
+<link href="css/site.css" rel="stylesheet"/>
 <style>
   .exclusive-banner {
     background: linear-gradient(90deg,#b8860b 0%,#ffd700 50%,#b8860b 100%);
@@ -15,42 +15,133 @@
   }
   .exclusive-banner a { color:#000; text-decoration:underline; font-weight:800; }
 </style>
+
+  <style>
+    /* Unified shell */
+    .site-header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(6,8,15,.90);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .navbar-shell{
+      min-height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .nav-links-shell{
+      display:flex !important;
+      align-items:center;
+      gap:10px;
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      overflow-y:hidden;
+      width:100%;
+      justify-content:center;
+      scrollbar-width:none;
+      -webkit-overflow-scrolling:touch;
+      padding:8px 0 !important;
+      background:transparent !important;
+      border:0 !important;
+      border-radius:0 !important;
+      position:static !important;
+    }
+    .nav-links-shell::-webkit-scrollbar{display:none;}
+    .nav-links-shell a{
+      flex:0 0 auto;
+      white-space:nowrap;
+      padding:10px 14px;
+      border-radius:999px;
+      color:var(--muted,#9aa3b7);
+      font-weight:700;
+      font-size:.92rem;
+      text-decoration:none;
+    }
+    .nav-links-shell a:hover,
+    .nav-links-shell a.active{
+      color:var(--text,#fff);
+      background:rgba(255,255,255,.06);
+    }
+    .nav-links-shell .nav-cta{
+      border:1px solid rgba(212,168,67,.28);
+      color:var(--gold,#d4a843) !important;
+      background:transparent !important;
+    }
+    .logo-band{
+      padding:18px 0 10px;
+    }
+    .logo-band-inner{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero-logo-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      line-height:0;
+    }
+    .hero-logo-img{
+      display:block;
+      width:min(64vw,360px);
+      max-width:360px;
+      height:auto;
+      object-fit:contain;
+      filter:drop-shadow(0 0 12px rgba(212,168,67,.12));
+    }
+    .site-logo-header,
+    .exclusive-banner,
+    .mobile-sticky-cta,
+    .nav-toggle,
+    .brand,
+    .brand-title,
+    .brand-sub{
+      display:none !important;
+    }
+
+    @media (max-width:760px){
+      .navbar-shell{min-height:58px;}
+      .nav-links-shell{justify-content:flex-start;}
+      .nav-links-shell a{
+        font-size:.82rem;
+        padding:8px 12px;
+      }
+      .logo-band{
+        padding:14px 0 8px;
+      }
+      .hero-logo-img{
+        width:min(76vw,290px);
+      }
+    }
+  </style>
+
 </head>
 <body class="page-books">
 
-<div class="exclusive-banner">
-  🎧 Audiobooks are ONLY at SumnuBooks.com — not on Amazon &nbsp;<a href="audiobooks.html">Get them here →</a>
-</div>
-
-<div class="site-logo-header">
-  <div class="container">
-    <a aria-label="Go to homepage" href="index.html">
-      <img alt="Sumnu Books logo" src="images/logos/your-logo.png"/>
-    </a>
-  </div>
-</div>
-
-<header>
-  <div class="container navbar">
-    <div aria-label="Site name" class="brand">
-      <div class="name">SUMNU BOOKS</div>
-      <div class="tag">Sci-Fi • Thriller • Urban Fiction • Las Vegas Night Vision</div>
+<header class="site-header">
+    <div class="container navbar navbar-shell">
+      <nav class="nav-links nav-links-shell" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="books.html" class="active">Books</a>
+        <a href="music.html">Music</a>
+        <a href="video.html">Videos</a>
+        <a href="audiobooks.html">Audiobooks</a>
+        <a href="contact.html">Contact</a>
+        <a href="unlock.html?from=books.html" class="vip-link nav-cta">Unlock</a>
+      </nav>
     </div>
-    <button aria-expanded="false" aria-label="Open menu" class="nav-toggle" data-nav-toggle="">☰</button>
-    <ul class="nav-links" data-nav-links="">
-      <li><a href="index.html">Home</a></li>
-      <li><a class="active" href="books.html">Books</a></li>
-      <li><a href="music.html">Music</a></li>
-      <li><a href="video.html">Videos</a></li>
-      <li><a href="audiobooks.html">🎧 Audiobooks</a></li>
-      <li><a href="vip-audio-dramas.html">&#128274; VIP Series</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </div>
-</header>
+  </header>
 
-<div class="mobile-sticky-cta">
-  <a class="btn btn-primary" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab">🛒 Buy on Amazon</a>
+  <section class="logo-band">
+    <div class="container logo-band-inner">
+      <a href="index.html" class="hero-logo-link" aria-label="Sumnu Books home">
+        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
+      </a>
+    </div>
+  </section>
+
+
 </div>
 
 <main>

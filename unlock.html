@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unlock VIP — Sumnu Books</title>
+  <link href="css/site.css" rel="stylesheet" />
+  <style>
+    .site-header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(6,8,15,.90);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .navbar-shell{
+      min-height:64px;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .nav-links-shell{
+      display:flex;align-items:center;gap:10px;flex-wrap:nowrap;
+      overflow-x:auto;overflow-y:hidden;width:100%;justify-content:center;
+      scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:8px 0;
+    }
+    .nav-links-shell::-webkit-scrollbar{display:none;}
+    .nav-links-shell a{
+      flex:0 0 auto;white-space:nowrap;padding:10px 14px;border-radius:999px;
+      color:var(--muted,#9aa3b7);font-weight:700;font-size:.92rem;text-decoration:none;
+    }
+    .nav-links-shell a:hover,.nav-links-shell a.active{
+      color:var(--text,#fff);background:rgba(255,255,255,.06);
+    }
+    .nav-links-shell .nav-cta{
+      border:1px solid rgba(212,168,67,.28);color:var(--gold,#d4a843)!important;
+    }
+    .logo-band{padding:14px 0 8px;}
+    .logo-band-inner{display:flex;align-items:center;justify-content:center;}
+    .hero-logo-img{
+      display:block;width:min(64vw,340px);max-width:340px;height:auto;object-fit:contain;
+      filter:drop-shadow(0 0 12px rgba(212,168,67,.12));
+    }
+
+    .paywall{
+      min-height:calc(100vh - 130px);
+      display:flex;align-items:center;justify-content:center;
+      padding:22px 20px 48px;
+      background:
+        radial-gradient(circle at 50% 16%, rgba(212,168,67,.12), transparent 30%),
+        linear-gradient(180deg,#020305 0%,#050812 100%);
+    }
+    .paywall-box{
+      width:min(100%,760px);
+      text-align:center;
+      border:1px solid rgba(212,168,67,.18);
+      background:linear-gradient(180deg, rgba(9,14,28,.94), rgba(7,10,20,.98));
+      border-radius:30px;
+      box-shadow:var(--shadow-md);
+      padding:34px 28px 30px;
+    }
+    .paywall-kicker{
+      color:var(--gold,#d4a843);
+      font-weight:800;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      font-size:.76rem;
+      margin-bottom:10px;
+    }
+    .paywall h1{
+      margin:0 0 12px;
+      color:var(--gold,#d4a843);
+      font-family:var(--font-display, Georgia, serif);
+      font-size:clamp(2.2rem,5vw,3.5rem);
+      line-height:1;
+    }
+    .paywall-sub{
+      max-width:620px;
+      margin:0 auto 24px;
+      color:var(--muted,#aeb6c8);
+      font-size:1.05rem;
+      line-height:1.65;
+    }
+    .benefits{
+      display:grid;
+      gap:10px;
+      text-align:left;
+      max-width:540px;
+      margin:0 auto 24px;
+      color:var(--text,#fff);
+    }
+    .benefits div{
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.06);
+      background:rgba(255,255,255,.03);
+    }
+    .price{
+      margin:6px 0 20px;
+      color:var(--gold,#d4a843);
+      font-weight:900;
+      font-size:clamp(2rem,4vw,2.8rem);
+      line-height:1;
+    }
+    .pay-actions{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+    .paypal-form{margin:0;}
+    .btn-pay{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      min-width:260px;
+      padding:16px 28px;
+      border-radius:999px;
+      font-weight:800;
+      font-size:1rem;
+      letter-spacing:.04em;
+      cursor:pointer;
+      border:0;
+      background:linear-gradient(135deg,#ff8a2a,#e6b34a);
+      color:#000;
+      box-shadow:0 10px 30px rgba(0,0,0,.38);
+    }
+    .btn-pay:hover{transform:translateY(-1px);}
+    .back-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:220px;
+      padding:16px 28px;
+      border-radius:999px;
+      font-weight:700;
+      text-decoration:none;
+      color:var(--muted,#aeb6c8);
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+    }
+    .pay-note{
+      margin-top:18px;
+      color:rgba(255,255,255,.56);
+      font-size:.9rem;
+    }
+
+    @media (max-width:760px){
+      .nav-links-shell{justify-content:flex-start;}
+      .nav-links-shell a{font-size:.82rem;padding:8px 12px;}
+      .hero-logo-img{width:min(76vw,280px);}
+      .paywall{padding:14px 14px 36px;}
+      .paywall-box{padding:24px 16px 22px;border-radius:24px;}
+      .pay-actions{flex-direction:column;}
+      .btn-pay,.back-link{width:100%;min-width:0;}
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container navbar-shell">
+      <nav class="nav-links-shell">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="music.html">Music</a>
+        <a href="video.html">Videos</a>
+        <a href="audiobooks.html">Audiobooks</a>
+        <a href="contact.html">Contact</a>
+        <a href="unlock.html" class="active nav-cta">Unlock</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="logo-band">
+    <div class="container logo-band-inner">
+      <a href="index.html" aria-label="Sumnu Books home">
+        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
+      </a>
+    </div>
+  </section>
+
+  <main class="paywall">
+    <section class="paywall-box">
+      <div class="paywall-kicker">VIP Access</div>
+      <h1>Unlimited Access</h1>
+      <p class="paywall-sub">
+        One unlock gives you full access to every series, audiobook, and album across the site.
+      </p>
+
+      <div class="benefits">
+        <div>Full audio series — all locked episodes open</div>
+        <div>Complete audiobooks — no chapter limits</div>
+        <div>Full music albums — all tracks available</div>
+        <div>New content added regularly</div>
+      </div>
+
+      <div class="price">$5.00</div>
+
+      <div class="pay-actions">
+        <form class="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+          <input type="hidden" name="cmd" value="_xclick">
+          <input type="hidden" name="business" value="sales@sumnubooks.com">
+          <input type="hidden" name="item_name" value="Sumnu Books VIP All Access Unlock">
+          <input type="hidden" name="amount" value="5.00">
+          <input type="hidden" name="currency_code" value="USD">
+          <input type="hidden" name="return" value="https://sumnubooks.com/index.html?vip=true">
+          <input type="hidden" name="cancel_return" value="https://sumnubooks.com/unlock.html">
+          <button class="btn-pay" type="submit">Unlock All Access</button>
+        </form>
+
+        <a class="back-link" href="index.html">Continue Browsing</a>
+      </div>
+
+      <div class="pay-note">Secure checkout through PayPal. Instant access after payment.</div>
+    </section>
+  </main>
+</body>
+</html>

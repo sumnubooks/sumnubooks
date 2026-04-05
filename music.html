@@ -1,747 +1,356 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Music — Las Vegas Night Vision Productions</title>
-<link href="css/style.v6.css" rel="stylesheet"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Music — Sumnu Books</title>
+  <meta name="description" content="Albums, tracks, video links, and direct album purchase from Sumnu Books." />
+  <link href="css/site.css" rel="stylesheet" />
+  <style>
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(6,8,15,.90);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .navbar-shell {
+      min-height: 64px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .nav-links-shell {
+      display:flex; align-items:center; gap:10px; flex-wrap:nowrap;
+      overflow-x:auto; overflow-y:hidden; width:100%; justify-content:center;
+      scrollbar-width:none; -webkit-overflow-scrolling:touch; padding:8px 0;
+    }
+    .nav-links-shell::-webkit-scrollbar{display:none;}
+    .nav-links-shell a {
+      flex:0 0 auto; white-space:nowrap; padding:10px 14px; border-radius:999px;
+      color:var(--muted,#9aa3b7); font-weight:700; font-size:.92rem; text-decoration:none;
+    }
+    .nav-links-shell a:hover, .nav-links-shell a.active {
+      color:var(--text,#fff); background:rgba(255,255,255,.06);
+    }
+    .nav-links-shell .nav-cta {
+      border:1px solid rgba(212,168,67,.28); color:var(--gold,#d4a843)!important;
+    }
+    .logo-band { padding: 14px 0 8px; }
+    .logo-band-inner { display:flex; justify-content:center; }
+    .hero-logo-img { width:min(62vw,300px); max-width:300px; height:auto; object-fit:contain; filter:drop-shadow(0 0 12px rgba(212,168,67,.12)); }
+
+    .music-page { padding: 8px 0 48px; }
+    .page-head { margin: 8px 0 18px; }
+    .page-head h1 {
+      margin:0; color:var(--gold,#d4a843); font-family:var(--font-display, Georgia, serif);
+      font-size: clamp(2rem, 4vw, 3rem); line-height:1;
+    }
+    .page-head p { margin:8px 0 0; color:var(--muted,#aeb6c8); }
+    .radio-dock {
+      margin:0 0 24px; display:grid; grid-template-columns:86px 1fr auto; gap:14px; align-items:center;
+      border:1px solid rgba(212,168,67,.18); background:rgba(10,14,28,.92);
+      border-radius:22px; padding:14px; box-shadow: var(--shadow-md);
+    }
+    .radio-art {
+      width:86px; height:86px; border-radius:18px; overflow:hidden;
+      background:linear-gradient(180deg, rgba(212,168,67,.18), rgba(72,112,255,.14));
+      border:1px solid rgba(212,168,67,.16); display:flex; align-items:center; justify-content:center;
+    }
+    .radio-art img { width:100%; height:100%; object-fit:cover; display:block; }
+    .radio-art.fallback::before { content:'▶'; color:var(--gold); font-weight:800; font-size:1.7rem; }
+    .radio-meta small { display:block; color:var(--gold); text-transform:uppercase; letter-spacing:.12em; font-weight:800; margin-bottom:4px; }
+    .radio-meta strong { display:block; font-size:1.1rem; line-height:1.2; }
+    .radio-meta span { color:var(--muted); display:block; margin-top:4px; }
+    .radio-controls { display:flex; gap:10px; flex-wrap:wrap; }
+
+    .albums-head { display:flex; align-items:end; justify-content:space-between; gap:16px; margin-bottom:14px; }
+    .albums-head h2 { margin:0; color:var(--gold,#d4a843); font-family:var(--font-display, Georgia, serif); font-size:1.8rem; }
+    .albums-grid { display:grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap:16px; }
+    .album-card {
+      position:relative; display:block; border-radius:24px; border:1px solid var(--stroke, rgba(255,255,255,.08));
+      overflow:hidden; background:rgba(11,17,32,.92); box-shadow:var(--shadow-md);
+      cursor:pointer; transition: transform .18s ease, border-color .18s ease;
+    }
+    .album-card:hover { transform:translateY(-4px); border-color:rgba(212,168,67,.24); }
+    .album-cover { position:relative; aspect-ratio:1/1; overflow:hidden; background:var(--bg1, #0b1222); }
+    .album-cover img { width:100%; height:100%; object-fit:cover; display:block; }
+    .album-cover::after {
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(6,8,15,.92) 0%, rgba(6,8,15,.14) 58%, transparent 100%);
+    }
+    .album-badge, .album-lock {
+      position:absolute; top:12px; z-index:2; padding:6px 12px; border-radius:999px; font-weight:800; font-size:.76rem;
+    }
+    .album-badge { left:12px; background:rgba(8,12,22,.86); color:var(--text); border:1px solid rgba(255,255,255,.08); }
+    .album-lock { right:12px; background:rgba(8,12,22,.92); color:var(--gold); border:1px solid rgba(212,168,67,.18); }
+    .album-copy { position:absolute; inset:auto 0 0 0; z-index:2; padding:14px; }
+    .album-title { font-size:1.12rem; font-weight:800; line-height:1.15; margin-top:4px; }
+    .album-meta { color:var(--muted); font-size:.9rem; margin-top:4px; }
+
+    .album-panel {
+      margin-top:22px; display:none; grid-template-columns:280px 1fr; gap:18px;
+      border:1px solid rgba(212,168,67,.18); background:rgba(10,14,28,.92);
+      border-radius:24px; padding:18px; box-shadow:var(--shadow-md);
+    }
+    .album-panel.open { display:grid; }
+    .panel-cover { width:100%; max-width:320px; aspect-ratio:1/1; overflow:hidden; border-radius:20px; background:var(--bg1,#0b1222); border:1px solid var(--stroke, rgba(255,255,255,.08)); }
+    .panel-cover img { width:100%; height:100%; object-fit:cover; display:block; }
+    .panel-meta h3 { margin:0 0 6px; font-family:var(--font-display, Georgia, serif); color:var(--gold); font-size:2rem; line-height:1; }
+    .panel-sub { color:var(--muted); margin-bottom:12px; }
+    .panel-message { color:var(--muted); margin-bottom:12px; }
+    .panel-actions { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+
+    .tracklist { display:grid; gap:10px; max-height:620px; overflow:auto; padding-right:4px; }
+    .track-row {
+      display:grid; grid-template-columns:48px 1fr auto auto; gap:12px; align-items:center;
+      padding:10px 12px; border-radius:16px; background:rgba(255,255,255,.035); border:1px solid rgba(255,255,255,.06);
+    }
+    .track-num { color:var(--gold); font-weight:800; text-align:center; }
+    .track-name { font-weight:700; line-height:1.3; }
+    .track-actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .track-audio audio { width:280px; max-width:100%; }
+    .chip-btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width:94px; padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(212,168,67,.22); background:rgba(255,255,255,.04);
+      color:var(--text); font-size:.8rem; font-weight:800; text-transform:uppercase; text-decoration:none;
+      letter-spacing:.05em;
+    }
+    .chip-btn:hover { border-color:rgba(212,168,67,.38); }
+    .chip-btn.is-hidden { display:none; }
+    .footer-links { display:flex; gap:12px; flex-wrap:wrap; margin-top:20px; }
+
+    @media (max-width:1180px) { .albums-grid { grid-template-columns: repeat(4,minmax(0,1fr)); } }
+    @media (max-width:900px) {
+      .nav-links-shell { justify-content:flex-start; }
+      .albums-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+      .album-panel { grid-template-columns:1fr; }
+      .radio-dock { grid-template-columns:72px 1fr; }
+      .radio-controls { grid-column:1 / -1; }
+    }
+    @media (max-width:680px) {
+      .albums-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .track-row { grid-template-columns:36px 1fr; }
+      .track-actions { grid-column:1 / -1; }
+      .track-audio audio { width:100%; }
+      .panel-actions .btn { flex:1 1 0; }
+    }
+  </style>
 </head>
-<body class="page-music">
-<div class="site-logo-header">
-<div class="container">
-<a aria-label="Go to homepage" href="index.html">
-<img alt="Sumnu Books logo" src="images/logos/LVNV Logo.png"/>
-</a>
-</div>
-</div>
-<header>
-<div class="container navbar">
-<div aria-label="Site name" class="brand">
-<div class="name">SUMNU BOOKS</div>
-<div class="tag">Urban Fiction • Hip Hop Culture • Las Vegas Night Vision</div>
-</div>
-<button aria-expanded="false" aria-label="Open menu" class="nav-toggle" data-nav-toggle="">☰</button>
-<ul class="nav-links" data-nav-links="">
-<li><a href="index.html">Home</a></li>
-<li><a href="books.html">Books</a></li>
-<li><a class="active" href="music.html">Music</a></li>
-<li><a href="video.html">Videos</a></li>
-<li><a href="audiobooks.html">&#127911; Audiobooks</a></li>
-<li><a href="vip-audio-dramas.html">&#128274; VIP Series</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-</div>
-</header>
-
-<main>
-<section class="page-hero page-hero--compact">
-<div class="container">
-<div class="hero-kicker">Las Vegas Night Vision Productions</div>
-<h1 class="hero-title">Albums &amp; Tracks</h1>
-<p class="hero-subtitle">Tap an album cover to expand the player links and tracklist.</p>
-</div>
-</section>
-
-<!-- ✅ NEW: Sumnu Radio -->
-<section class="section">
-  <div class="container">
-    <div class="card card-pad">
-      <h2>Sumnu Radio</h2>
-      <p style="margin:6px 0 12px; color: var(--muted); line-height:1.7;">
-        Hit play for a random shuffle across the whole catalog. Tap Next to skip.
-      </p>
-
-      <div class="radio-now" style="margin:10px 0 12px; font-weight:700;">
-        Now Playing: <span id="radioNowTitle">—</span>
-      </div>
-
-      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-        <button class="btn btn-secondary btn-small" type="button" id="radioToggle">▶ Play</button>
-        <button class="btn btn-primary btn-small" type="button" id="radioNext">⏭ Next</button>
-      </div>
-
-      <audio id="radioAudio" preload="none" style="width:100%; margin-top:12px;"></audio>
+<body>
+  <header class="site-header">
+    <div class="container navbar-shell">
+      <nav class="nav-links-shell">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="music.html" class="active">Music</a>
+        <a href="video.html">Videos</a>
+        <a href="audiobooks.html">Audiobooks</a>
+        <a href="contact.html">Contact</a>
+        <a href="unlock.html?from=music.html" class="nav-cta">Unlock</a>
+      </nav>
     </div>
-  </div>
-</section>
+  </header>
 
-<section class="section">
-<div class="container">
-<div class="section-title-row">
-<h2 class="section-title">Albums</h2>
-<p class="section-subtitle">Clean cover grid • one expanded album at a time</p>
-</div>
+  <section class="logo-band">
+    <div class="container logo-band-inner">
+      <a href="index.html" aria-label="Sumnu Books home">
+        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
+      </a>
+    </div>
+  </section>
 
-<div class="album-grid" data-album-grid="">
-<!-- Album 1 -->
-<article class="album-card" data-album="album1" data-stream="https://distrokid.com/hyperfollow/emc2/the-profit-e-2">
-<button aria-expanded="false" class="album-cover-btn" data-album-toggle="" type="button">
-<img alt="The Profit E cover" loading="lazy" src="images/music/album1.jpg"/>
-<span class="album-cover-caption">
-<span class="t">The Profit E</span>
-<span class="m">EMC • 2024</span>
-</span>
-</button>
+  <main class="music-page">
+    <div class="container">
+      <div class="page-head">
+        <h1>Music</h1>
+        <p>Click a cover to open the full album, play tracks, view videos, or buy the album direct.</p>
+      </div>
 
-<div class="album-expand" data-album-panel="">
-<div class="album-expand-head">
-<img alt="The Profit E cover" class="album-mini" loading="lazy" src="images/music/album1.jpg"/>
-<div class="album-meta">
-<h3>The Profit E</h3>
-<div class="album-meta-line">EMC • 2024</div>
-<div class="album-links">
-  <!-- ✅ ONE button now -->
-  <a class="chip-btn chip-btn--gold" href="#" rel="noopener" target="_blank" data-stream-link="">STREAM</a>
-</div>
-</div>
-<button aria-label="Close album" class="album-close" data-album-close="" type="button">✕</button>
-</div>
+      <section class="radio-dock">
+        <div class="radio-art fallback" id="radioArt"></div>
+        <div class="radio-meta">
+          <small>Sumnu Radio</small>
+          <strong id="radioTitle">Ready to play</strong>
+          <span id="radioSubtitle">Free shuffle playback across the catalog</span>
+        </div>
+        <div class="radio-controls">
+          <button class="btn btn-primary" id="radioPlayBtn">▶ Play radio</button>
+          <button class="btn btn-secondary" id="radioNextBtn">⏭ Next</button>
+        </div>
+        <audio id="radioAudio" preload="none"></audio>
+      </section>
 
-<ol class="tracklist">
-<li class="track" data-video="">
-  <span class="track-num">1.</span>
-  <span class="track-name">Rest In Unpeace</span>
-  <audio controls preload="none">
-    <source src="audio/album1/01 Rest In Unpeace.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
+      <section>
+        <div class="albums-head">
+          <h2>Albums</h2>
+        </div>
+        <div class="albums-grid" id="albumsGrid"></div>
+        <div class="album-panel" id="albumPanel"></div>
 
-<li class="track" data-video="">
-  <span class="track-num">2.</span>
-  <span class="track-name">The Profit</span>
-  <audio controls preload="none">
-    <source src="audio/album1/02 The Profit.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
+        <div class="footer-links">
+          <a class="btn btn-secondary" href="https://www.facebook.com/profile.php?id=61588357454272" target="_blank" rel="noopener">SumnuBooks Facebook</a>
+          <a class="btn btn-secondary" href="https://www.facebook.com/lvnvproductions" target="_blank" rel="noopener">LVNV Productions Facebook</a>
+        </div>
+      </section>
+    </div>
+  </main>
 
-<li class="track" data-video="">
-  <span class="track-num">3.</span>
-  <span class="track-name">Light 2 Da Dark</span>
-  <audio controls preload="none">
-    <source src="audio/album1/03 Light 2 Da Dark.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
+  <script>
+    const VIP_KEY = 'vipUnlocked';
+    const MUSIC_DATA = [{"slug": "chapter-7", "title": "Chapter 7", "artist": "EMC", "year": "—", "cover": "images/music/chapter-7.jpg", "buy": "", "tracks": [{"title": "Chapter 7 Intro", "audio": "audio/music/chapter-7/1-Chapter 7 Intro.mp3", "video": ""}, {"title": "Pretty Close", "audio": "audio/music/chapter-7/2-Pretty Close.mp3", "video": ""}, {"title": "At Least I Tried", "audio": "audio/music/chapter-7/3-At Least I Tried.mp3", "video": ""}, {"title": "I've Seen", "audio": "audio/music/chapter-7/4-I've Seen.mp3", "video": ""}, {"title": "Uncrowned King", "audio": "audio/music/chapter-7/5-Uncrowned King.mp3", "video": ""}, {"title": "Nobody Told Me", "audio": "audio/music/chapter-7/6-Nobody Told Me.mp3", "video": ""}, {"title": "Still Kinda Ballin", "audio": "audio/music/chapter-7/7-Still Kinda Ballin.mp3", "video": ""}, {"title": "My Homies And I", "audio": "audio/music/chapter-7/8-My Homies And I.mp3", "video": ""}, {"title": "Brain Damaged", "audio": "audio/music/chapter-7/9-Brain Damaged.mp3", "video": ""}, {"title": "Break a Punks Jaw...Again", "audio": "audio/music/chapter-7/10-Break_a_Punks_Jaw...Again.mp3", "video": ""}, {"title": "Summertime Groove", "audio": "audio/music/chapter-7/11-Summertime Groove.mp3", "video": ""}]}, {"slug": "the-profit-e", "title": "The Profit E", "artist": "EMC", "year": "2024", "cover": "images/music/the-profit-e.jpg", "buy": "https://payhip.com/b/DJInH", "tracks": [{"title": "Rest In Unpeace", "audio": "audio/music/the-profit-e/01 Rest In Unpeace.mp3", "video": ""}, {"title": "The Profit", "audio": "audio/music/the-profit-e/02 The Profit.mp3", "video": ""}, {"title": "Light 2 Da Dark", "audio": "audio/music/the-profit-e/03 Light 2 Da Dark.mp3", "video": ""}, {"title": "Don't Die", "audio": "audio/music/the-profit-e/04 Don't Die.mp3", "video": "https://youtu.be/F_Y7pFTPvbI?si=qmnmF3rK9d6JlwIz"}, {"title": "I Am", "audio": "audio/music/the-profit-e/05 I Am.mp3", "video": ""}, {"title": "Time Bomb", "audio": "audio/music/the-profit-e/06 Time Bomb.mp3", "video": ""}, {"title": "Dark Side (feat Julian Lamont)", "audio": "audio/music/the-profit-e/07 Dark Side (feat Julian Lamont).mp3", "video": ""}, {"title": "Vibrations", "audio": "audio/music/the-profit-e/08 Vibrations.mp3", "video": ""}, {"title": "The Profit (feat Aaron Neville)", "audio": "audio/music/the-profit-e/09 The Profit (feat Aaron Neville).mp3", "video": ""}, {"title": "DarkSide mellow mix", "audio": "audio/music/the-profit-e/10 DarkSide mellow mix.mp3", "video": ""}, {"title": "Rest in Unpeace remix", "audio": "audio/music/the-profit-e/11 Rest in Unpeace remix.mp3", "video": ""}]}, {"slug": "the-maytricks", "title": "The May Tricks", "artist": "EMC", "year": "2024", "cover": "images/music/the-maytricks.jpg", "buy": "https://payhip.com/b/t86GU", "tracks": [{"title": "The Beginning", "audio": "audio/music/the-maytricks/The May Tricks 01 The Beginning.mp3", "video": "https://youtu.be/YBwtELTyw5w?si=_L9dYoz22vVfWePI"}, {"title": "The MayTricks", "audio": "audio/music/the-maytricks/The May Tricks 02 MayTricks.mp3", "video": "https://youtu.be/SpiCwtT3BHY?si=AwUSQlBbhbpiRomc"}, {"title": "Journey", "audio": "audio/music/the-maytricks/The May Tricks 03 Journey.mp3", "video": "https://youtu.be/kCIsP_-wY88?si=qC6PO6tRwTmHe8DU"}, {"title": "Sorry That I Left The Game", "audio": "audio/music/the-maytricks/The May Tricks 04 Sorry.mp3", "video": "https://youtu.be/Ebkggvv8CiU?si=AsgHtUiFwUnEkWWv"}, {"title": "Dust N The Wind", "audio": "audio/music/the-maytricks/The May Tricks 05 Dust N The Wind.mp3", "video": ""}, {"title": "Going Higher", "audio": "audio/music/the-maytricks/The May Tricks 06 Going Higher.mp3", "video": "https://youtu.be/o4hQ8uNENZk?si=YtOtSmT0RxN_X_-A"}, {"title": "Walking N The Rain", "audio": "audio/music/the-maytricks/The May Tricks 07 Walking N the Rain.mp3", "video": ""}, {"title": "Green Eggs N Ham", "audio": "audio/music/the-maytricks/The May Tricks 09 Green Eggs N Ham.mp3", "video": ""}, {"title": "The 90's", "audio": "audio/music/the-maytricks/The May Tricks 10 The 90's.mp3", "video": ""}]}, {"slug": "list-complete", "title": "List Complete", "artist": "EMC", "year": "2019", "cover": "images/music/list-complete.jpg", "buy": "https://payhip.com/b/WNs4l", "tracks": [{"title": "Forgot All About Me", "audio": "audio/music/list-complete/01 Forgot All About Me.mp3", "video": "https://youtu.be/D8qX0lFDhO4?si=AJNJ-JXkrqVtCTBr"}, {"title": "Cum In Your Mind", "audio": "audio/music/list-complete/02 Cum In Your Mind.mp3", "video": ""}, {"title": "Cum In Your Mind (remix)", "audio": "audio/music/list-complete/02 Cum In Your Mind remix.mp3", "video": ""}, {"title": "EMC & DJ Regg1210", "audio": "audio/music/list-complete/03 EMC & DJ Regg1210.mp3", "video": "https://youtu.be/cbetQV8MayY?si=y94FriNUMoCuY6wV"}, {"title": "Cloned Brother", "audio": "audio/music/list-complete/04 Cloned Brother.mp3", "video": ""}, {"title": "I Do Believe", "audio": "audio/music/list-complete/05 I Do Believe final jne 22 2019mix.mp3", "video": "https://youtu.be/_niPQMGwqRI?si=F40Xp5VfQH16qERI"}, {"title": "Act Right", "audio": "audio/music/list-complete/06 Act Right.mp3", "video": ""}, {"title": "Truth", "audio": "audio/music/list-complete/07 Truth.mp3", "video": ""}, {"title": "It's Been A Minute", "audio": "audio/music/list-complete/08 It's Been A Minute.mp3", "video": ""}, {"title": "Preception (part one)", "audio": "audio/music/list-complete/09 Preception.mp3", "video": ""}, {"title": "Porn Star", "audio": "audio/music/list-complete/10 Porn Star.mp3", "video": ""}, {"title": "You Can Ride With Me", "audio": "audio/music/list-complete/11 You Can Ride With Me.mp3", "video": ""}, {"title": "Stand, Stump", "audio": "audio/music/list-complete/12 Stand, Stump.mp3", "video": ""}, {"title": "Perception (part two)", "audio": "audio/music/list-complete/Fuk EMC2.mp3", "video": ""}, {"title": "I Do Believe (hip hop mix)", "audio": "audio/music/list-complete/i do Believe hip hop mix.mp3", "video": ""}, {"title": "I Do Believe (Hip-Hop Remix)", "audio": "audio/music/list-complete/I Do Believe Hip-Hop Remix (2).mp3", "video": ""}]}, {"slug": "still-pimpin", "title": "Still Pimpin", "artist": "EMC", "year": "2002", "cover": "images/music/still-pimpin.jpg", "buy": "https://payhip.com/b/VygoG", "tracks": [{"title": "Intro", "audio": "audio/music/still-pimpin/01 Intro.mp3", "video": ""}, {"title": "Payback", "audio": "audio/music/still-pimpin/02 Payback.mp3", "video": ""}, {"title": "Still Pimpin", "audio": "audio/music/still-pimpin/03 Still Pimpin.mp3", "video": ""}, {"title": "Yes You Can", "audio": "audio/music/still-pimpin/04 Yes You Can.mp3", "video": ""}, {"title": "Track 5 (add title)", "audio": "", "video": ""}, {"title": "Get Rich", "audio": "audio/music/still-pimpin/06 Get Rich.mp3", "video": ""}, {"title": "Pimp Shit", "audio": "audio/music/still-pimpin/07 Pimp Shit.mp3", "video": ""}, {"title": "Pussie Seller", "audio": "audio/music/still-pimpin/08 Pussie Seller.mp3", "video": ""}, {"title": "I'm A Celebrity", "audio": "audio/music/still-pimpin/09 I'm A Celebrity.mp3", "video": ""}, {"title": "I Talk Shit", "audio": "audio/music/still-pimpin/10 ITalk Shit.mp3", "video": ""}, {"title": "BitchesHoes&Sluts", "audio": "audio/music/still-pimpin/11 BitchesHoes&Sluts.mp3", "video": ""}, {"title": "Backstabbers", "audio": "audio/music/still-pimpin/12 Backstabbers.mp3", "video": ""}, {"title": "The Remix", "audio": "audio/music/still-pimpin/13 The Remix.mp3", "video": ""}, {"title": "Don't Step To This", "audio": "audio/music/still-pimpin/14 Don't Step To This.mp3", "video": ""}, {"title": "That's How It Goes", "audio": "audio/music/still-pimpin/15 That's How It Goes.mp3", "video": ""}, {"title": "Step Up", "audio": "audio/music/still-pimpin/16 Step Up.mp3", "video": ""}, {"title": "Get Out", "audio": "audio/music/still-pimpin/17 Get Out.mp3", "video": ""}, {"title": "All I Need Is Air", "audio": "audio/music/still-pimpin/18 ALL I NEED IS AIR.mp3", "video": ""}, {"title": "Protect Yoseflf", "audio": "audio/music/still-pimpin/19 Protect Yoseflf.mp3", "video": ""}]}, {"slug": "night-vision", "title": "Night Vision", "artist": "EMC", "year": "2001", "cover": "images/music/night-vision.jpg", "buy": "https://payhip.com/b/hFD63", "tracks": [{"title": "Night Vision", "audio": "audio/music/night-vision/01 Night Vision.mp3", "video": ""}, {"title": "I'm Bad", "audio": "audio/music/night-vision/02 I'm Bad.mp3", "video": ""}, {"title": "Tell Me bout Yo Hood", "audio": "audio/music/night-vision/03 Tell Me bout Yo Hood.mp3", "video": ""}, {"title": "Old School", "audio": "audio/music/night-vision/04 Old School.mp3", "video": ""}, {"title": "When You Cum", "audio": "audio/music/night-vision/05 When You Cum.mp3", "video": ""}, {"title": "Smack That Ass", "audio": "audio/music/night-vision/06 Smack That Ass.mp3", "video": ""}, {"title": "Sneeky Bitch", "audio": "audio/music/night-vision/07 Sneeky Bitch.mp3", "video": ""}, {"title": "Pussy", "audio": "audio/music/night-vision/08 Pussy.mp3", "video": ""}, {"title": "Cums from Pimpin", "audio": "audio/music/night-vision/09 Cums from Pimpin.mp3", "video": ""}, {"title": "Never Shed A Tear", "audio": "audio/music/night-vision/10 Never Shed A Tear.mp3", "video": ""}, {"title": "Sunshine", "audio": "audio/music/night-vision/11 Sunshine.mp3", "video": ""}, {"title": "DJ Reg Cuttin Up", "audio": "audio/music/night-vision/12 DJ Reg Cuttin Up.mp3", "video": ""}, {"title": "Wanna Fuk", "audio": "audio/music/night-vision/13 Wanna Fuk.mp3", "video": ""}, {"title": "Bad Water", "audio": "audio/music/night-vision/14 Bad Water.mp3", "video": ""}, {"title": "Who Ya'll Spossed To Be", "audio": "audio/music/night-vision/15 Who Ya'll Spossed To Be.mp3", "video": ""}, {"title": "If You Never Been A Player", "audio": "audio/music/night-vision/16 If You Never Been A Player.mp3", "video": ""}]}, {"slug": "destiny", "title": "Destiny", "artist": "E-Mac", "year": "1998", "cover": "images/music/destiny.jpg", "buy": "https://payhip.com/b/osZu1", "tracks": [{"title": "The Hit Skit", "audio": "audio/music/destiny/01-The Hit Skit.mp3", "video": ""}, {"title": "Shit-List", "audio": "audio/music/destiny/02-Shit-List.mp3", "video": ""}, {"title": "Inside My Mind", "audio": "audio/music/destiny/03-Inside My Mind.mp3", "video": ""}, {"title": "Destiny", "audio": "audio/music/destiny/04-Destiny.mp3", "video": ""}, {"title": "The D-Sucker (skit)", "audio": "audio/music/destiny/05-The D-Sucker (skit).mp3", "video": ""}, {"title": "I Like", "audio": "audio/music/destiny/06-I Like.mp3", "video": ""}, {"title": "More Game", "audio": "audio/music/destiny/07-More Game.mp3", "video": ""}, {"title": "Money", "audio": "audio/music/destiny/08-Money.mp3", "video": ""}, {"title": "Straight Mackin", "audio": "audio/music/destiny/09-Straight Mackin.mp3", "video": ""}, {"title": "The Message (skit)", "audio": "audio/music/destiny/10-The Message (skit).mp3", "video": ""}, {"title": "The Target", "audio": "audio/music/destiny/11-The Target.mp3", "video": ""}, {"title": "That's All She Wrote", "audio": "audio/music/destiny/12-That's All She Wrote.mp3", "video": ""}, {"title": "Brother", "audio": "audio/music/destiny/13-Brother.mp3", "video": ""}, {"title": "Never Shed A Tear", "audio": "audio/music/destiny/14-Never Shed A Tear.mp3", "video": ""}, {"title": "Bar Scene (skit)", "audio": "audio/music/destiny/15-Bar Scene (skit).mp3", "video": ""}, {"title": "Track 16 (add title)", "audio": "", "video": ""}, {"title": "Until It's Time", "audio": "audio/music/destiny/17-Until It's Time.mp3", "video": ""}, {"title": "More Game (SinCity Mix)", "audio": "audio/music/destiny/18-More Game (SinCity Mix).mp3", "video": ""}, {"title": "Track 19 (add title)", "audio": "", "video": ""}, {"title": "Track 20 (add title)", "audio": "", "video": ""}, {"title": "Track 21 (add title)", "audio": "", "video": ""}, {"title": "Track 22 (add title)", "audio": "", "video": ""}, {"title": "Brain Damaged", "audio": "audio/music/destiny/23-Brain Damaged.mp3", "video": ""}]}, {"slug": "nocternal-life", "title": "Nocternal Life", "artist": "iNSTiiNC", "year": "2005", "cover": "images/music/nocternal-life.jpg", "buy": "", "tracks": [{"title": "Intro", "audio": "audio/music/nocternal-life/01 INTRO.mp3", "video": ""}, {"title": "The Don", "audio": "audio/music/nocternal-life/02 THE DON.mp3", "video": ""}, {"title": "No Drama", "audio": "audio/music/nocternal-life/03 NO DRAMA.mp3", "video": ""}, {"title": "All For You", "audio": "audio/music/nocternal-life/04 ALL FOR YOU.mp3", "video": ""}, {"title": "FUCK THE DON", "audio": "audio/music/nocternal-life/06 FUCK THE DON.mp3", "video": ""}, {"title": "1 On 1", "audio": "audio/music/nocternal-life/07 1 ON 1.mp3", "video": ""}, {"title": "Nocturnal Life", "audio": "audio/music/nocternal-life/08 NOCTURNAL LIFE.mp3", "video": ""}, {"title": "Shut Um Down", "audio": "audio/music/nocternal-life/09 SHUT UM DOWN.mp3", "video": ""}, {"title": "Shame", "audio": "audio/music/nocternal-life/11 SHAME.mp3", "video": ""}, {"title": "Black Mask", "audio": "audio/music/nocternal-life/13 BLACK MASK.mp3", "video": ""}, {"title": "Ride (Remix)", "audio": "audio/music/nocternal-life/15 RIDE (REMIX).mp3", "video": ""}, {"title": "Roll Up", "audio": "audio/music/nocternal-life/16 ROLL UP.mp3", "video": ""}]}, {"slug": "lost-and-found", "title": "Lost And Found", "artist": "Playa Partnas", "year": "2004", "cover": "images/music/lost-and-found.jpg", "buy": "", "tracks": [{"title": "Step Up", "audio": "audio/music/lost-and-found/Step Up.mp3", "video": ""}, {"title": "Take a Ride With Me", "audio": "audio/music/lost-and-found/Take a Ride With Me.mp3", "video": ""}, {"title": "Playa Partnas", "audio": "audio/music/lost-and-found/Playa Partnas.mp3", "video": ""}, {"title": "Show Ya Gold", "audio": "audio/music/lost-and-found/Show Ya Gold.mp3", "video": ""}, {"title": "Show Yo Golds (Chopped and Screwed)", "audio": "audio/music/lost-and-found/Show Yo Golds (Chopped and Screwed).mp3", "video": ""}, {"title": "Holla Back Remix", "audio": "audio/music/lost-and-found/Holla Back Remix.mp3", "video": ""}, {"title": "Holla Back", "audio": "audio/music/lost-and-found/Holla Back.mp3", "video": ""}, {"title": "I Wanna", "audio": "audio/music/lost-and-found/I Wanna.mp3", "video": ""}, {"title": "Fo Sho", "audio": "audio/music/lost-and-found/Fo Sho.mp3", "video": ""}, {"title": "Get High To This", "audio": "audio/music/lost-and-found/Get High To This.mp3", "video": ""}, {"title": "Hater Hateing", "audio": "audio/music/lost-and-found/Hater Hateing.mp3", "video": ""}, {"title": "Ho", "audio": "audio/music/lost-and-found/Ho.mp3", "video": ""}, {"title": "Call From EMC", "audio": "audio/music/lost-and-found/Call From EMC.mp3", "video": ""}]}, {"slug": "rdm", "title": "RDM", "artist": "R&B Pop", "year": "—", "cover": "images/music/rdm.jpg", "buy": "https://payhip.com/b/q03cp", "tracks": [{"title": "Never Felt the Way I Feel For You", "audio": "audio/music/rdm/01 Never Felt the Way I Feel For You.mp3", "video": ""}, {"title": "Making Love", "audio": "audio/music/rdm/02 Making Love.mp3", "video": ""}, {"title": "Pretty Green Eyes", "audio": "audio/music/rdm/03 Pretty Green Eyes.mp3", "video": ""}, {"title": "Lets Try Again", "audio": "audio/music/rdm/04 Lets Try Again.mp3", "video": ""}, {"title": "You Use To Be Mine", "audio": "audio/music/rdm/05 You Use To Be Mine.mp3", "video": ""}, {"title": "When In Love", "audio": "audio/music/rdm/06 When In Love.mp3", "video": ""}, {"title": "Cheating On You", "audio": "audio/music/rdm/07 Cheating On You.mp3", "video": ""}]}];
+    const $ = (s, root = document) => root.querySelector(s);
+    const $$ = (s, root = document) => Array.from(root.querySelectorAll(s));
+    const isVip = () => localStorage.getItem(VIP_KEY) === 'true';
 
-<li class="track" data-video="https://youtu.be/F_Y7pFTPvbI?si=qmnmF3rK9d6JlwIz">
-  <span class="track-num">4.</span>
-  <span class="track-name">Don't Die</span>
-  <audio controls preload="none">
-    <source src="audio/album1/04 Don't Die.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
+    function setUnlockLabel() {
+      const link = document.querySelector('.nav-cta');
+      if (!link) return;
+      if (isVip()) {
+        link.textContent = 'VIP Unlocked';
+        link.href = '#';
+      }
+    }
 
-<li class="track" data-video="">
-  <span class="track-num">5.</span>
-  <span class="track-name">I Am</span>
-  <audio controls preload="none">
-    <source src="audio/album1/05 I Am.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
+    function renderAlbums() {
+      $('#albumsGrid').innerHTML = MUSIC_DATA.map(album => `
+        <article class="album-card" data-slug="${album.slug}" tabindex="0" role="button" aria-label="Open ${album.title}">
+          <div class="album-cover">
+            <img src="${album.cover}" alt="${album.title} cover" loading="lazy">
+            <div class="album-badge">ALBUM</div>
+            ${isVip() ? '' : '<div class="album-lock">VIP</div>'}
+            <div class="album-copy">
+              <div class="album-title">${album.title}</div>
+              <div class="album-meta">${album.artist}${album.year && album.year !== '—' ? ' • ' + album.year : ''}</div>
+            </div>
+          </div>
+        </article>
+      `).join('');
 
-<li class="track" data-video="">
-  <span class="track-num">6.</span>
-  <span class="track-name">Time Bomb</span>
-  <audio controls preload="none">
-    <source src="audio/album1/06 Time Bomb.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
+      $$('.album-card').forEach(card => {
+        card.addEventListener('click', () => openAlbum(card.dataset.slug));
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openAlbum(card.dataset.slug);
+          }
+        });
+      });
+    }
 
-<li class="track" data-video="">
-  <span class="track-num">7.</span>
-  <span class="track-name">Dark Side (feat Julian Lamont)</span>
-  <audio controls preload="none">
-    <source src="audio/album1/07 Dark Side (feat Julian Lamont).mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
+    function openAlbum(slug) {
+      const album = MUSIC_DATA.find(a => a.slug === slug);
+      if (!album) return;
+      if (!isVip()) {
+        window.location.href = 'unlock.html?from=music.html';
+        return;
+      }
 
-<li class="track" data-video="">
-  <span class="track-num">8.</span>
-  <span class="track-name">Vibrations</span>
-  <audio controls preload="none">
-    <source src="audio/album1/08 Vibrations.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
+      $('#albumPanel').innerHTML = `
+        <div class="panel-cover">
+          <img src="${album.cover}" alt="${album.title} cover" loading="lazy">
+        </div>
+        <div class="panel-meta">
+          <h3>${album.title}</h3>
+          <div class="panel-sub">${album.artist}${album.year && album.year !== '—' ? ' • ' + album.year : ''}</div>
+          <div class="panel-message">Full album access is open.</div>
 
-<li class="track" data-video="">
-  <span class="track-num">9.</span>
-  <span class="track-name">The Profit (feat Aaron Neville)</span>
-  <audio controls preload="none">
-    <source src="audio/album1/09 The Profit (feat Aaron Neville).mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
+          <div class="panel-actions">
+            ${album.buy ? `<a class="btn btn-primary" href="${album.buy}" target="_blank" rel="noopener">Buy Album — $10.00</a>` : ""}
+          </div>
 
-<li class="track" data-video="">
-  <span class="track-num">10.</span>
-  <span class="track-name">DarkSide mellow mix</span>
-  <audio controls preload="none">
-    <source src="audio/album1/10 DarkSide mellow mix.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
+          <div class="tracklist">
+            ${album.tracks.map((track, i) => `
+              <div class="track-row">
+                <div class="track-num">${i+1}</div>
+                <div class="track-name">${track.title}</div>
+                <div class="track-actions">
+                  <div class="track-audio">
+                    <audio controls preload="none">
+                      <source src="${track.audio}" type="audio/mpeg">
+                    </audio>
+                  </div>
+                  <a class="chip-btn ${track.video ? '' : 'is-hidden'}" href="${track.video || '#'}" target="_blank" rel="noopener">Video</a>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      $('#albumPanel').classList.add('open');
+      $('#albumPanel').scrollIntoView({ behavior:'smooth', block:'start' });
+      bindSingleAudio();
+    }
 
-<li class="track" data-video="">
-  <span class="track-num">11.</span>
-  <span class="track-name">Rest in Unpeace remix</span>
-  <audio controls preload="none">
-    <source src="audio/album1/11 Rest in Unpeace remix.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-</ol>
-</div>
-</article>
+    function bindSingleAudio() {
+      const audios = $$('audio');
+      audios.forEach(audio => {
+        if (audio.dataset.boundSingle === '1') return;
+        audio.dataset.boundSingle = '1';
+        audio.addEventListener('play', () => {
+          audios.forEach(other => { if (other !== audio) try { other.pause(); } catch(e){} });
+        });
+      });
+    }
 
-<!-- Album 2 -->
-<article class="album-card" data-album="album2" data-stream="#">
-<button aria-expanded="false" class="album-cover-btn" data-album-toggle="" type="button">
-<img alt="The May Tricks cover" loading="lazy" src="images/music/album2.jpg"/>
-<span class="album-cover-caption">
-<span class="t">The May Tricks</span>
-<span class="m">EMC • 2024</span>
-</span>
-</button>
+    const radioAudio = $('#radioAudio');
+    const radioArt = $('#radioArt');
+    const radioTitle = $('#radioTitle');
+    const radioSubtitle = $('#radioSubtitle');
+    const radioPlayBtn = $('#radioPlayBtn');
+    const radioNextBtn = $('#radioNextBtn');
+    const radioTracks = MUSIC_DATA.flatMap(album => album.tracks.map(track => ({
+      album: album.title, cover: album.cover, title: track.title, src: track.audio
+    })));
+    let radioOn = false;
+    let lastIndex = -1;
 
-<div class="album-expand" data-album-panel="">
-<div class="album-expand-head">
-<img alt="The May Tricks cover" class="album-mini" loading="lazy" src="images/music/album2.jpg"/>
-<div class="album-meta">
-<h3>The May Tricks</h3>
-<div class="album-meta-line">EMC • 2024</div>
-<div class="album-links">
-  <a class="chip-btn chip-btn--gold" href="#" rel="noopener" target="_blank" data-stream-link="">STREAM</a>
-</div>
-</div>
-<button aria-label="Close album" class="album-close" data-album-close="" type="button">✕</button>
-</div>
+    function pickRadioTrack() {
+      if (!radioTracks.length) return null;
+      let i;
+      do { i = Math.floor(Math.random() * radioTracks.length); } while (radioTracks.length > 1 && i === lastIndex);
+      lastIndex = i;
+      return radioTracks[i];
+    }
 
-<ol class="tracklist">
-<li class="track" data-video="https://youtu.be/YBwtELTyw5w?si=_L9dYoz22vVfWePI">
-  <span class="track-title">The Beginning</span>
-  <audio controls="" preload="none">
-    <source src="audio/album2/The May Tricks 01 The Beginning.mp3" type="audio/mpeg"/>
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video="https://youtu.be/SpiCwtT3BHY?si=AwUSQlBbhbpiRomc">
-  <span class="track-title">The MayTricks</span>
-  <audio controls="" preload="none">
-    <source src="audio/album2/The May Tricks 02 MayTricks.mp3" type="audio/mpeg"/>
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video="https://youtu.be/kCIsP_-wY88?si=qC6PO6tRwTmHe8DU">
-  <span class="track-title">Journey</span>
-  <audio controls="" preload="none">
-    <source src="audio/album2/The May Tricks 03 Journey.mp3" type="audio/mpeg"/>
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video="https://youtu.be/Ebkggvv8CiU?si=AsgHtUiFwUnEkWWv">
-  <span class="track-title">Sorry That I Left The Game</span>
-  <audio controls="" preload="none">
-    <source src="audio/album2/The May Tricks 04 Sorry.mp3" type="audio/mpeg"/>
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video="">
-  <span class="track-title">Dust N The Wind</span>
-  <audio controls="" preload="none">
-    <source src="audio/album2/The May Tricks 05 Dust N The Wind.mp3" type="audio/mpeg"/>
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video="https://youtu.be/o4hQ8uNENZk?si=YtOtSmT0RxN_X_-A">
-  <span class="track-title">Going Higher</span>
-  <audio controls preload="none">
-    <source src="audio/album2/The May Tricks 06 Going Higher.mp3" type="audio/mpeg"/>
-  </audio>
-  <a class="chip-btn" href="#" data-video-btn target="_blank"
-     style="display:none; margin-left:10px;">Video</a>
-</li>
+    function updateRadioUi(track) {
+      if (!track) return;
+      radioArt.classList.remove('fallback');
+      radioArt.innerHTML = `<img src="${track.cover}" alt="${track.album} cover">`;
+      radioTitle.textContent = track.title;
+      radioSubtitle.textContent = track.album;
+    }
 
-<li class="track" data-video="">
-  <span class="track-title">Walking N The Rain</span>
-  <audio controls preload="none">
-    <source src="audio/album2/The May Tricks 07 Walking N the Rain.mp3" type="audio/mpeg"/>
-  </audio>
-  <a class="chip-btn" href="#" data-video-btn target="_blank
-     style="display:none; margin-left:10px;">Video</a>
-</li>
+    function playRadioTrack() {
+      const track = pickRadioTrack();
+      if (!track) return;
+      radioAudio.src = track.src;
+      updateRadioUi(track);
+      radioAudio.play().catch(() => {});
+      bindSingleAudio();
+    }
 
-<li class="track" data-video="">
-  <span class="track-title">Green Eggs N Ham</span>
-  <audio controls preload="none">
-    <source src="audio/album2/The May Tricks 09 Green Eggs N Ham.mp3" type="audio/mpeg"/>
-  </audio>
-  <a class="chip-btn" href="#" data-video-btn target="_blank"
-     style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video="">
-  <span class="track-title">The 90's</span>
-  <audio controls preload="none">
-    <source src="audio/album2/The May Tricks 10 The 90's.mp3" type="audio/mpeg"/>
-  </audio>
-  <a class="chip-btn" href="#" data-video-btn target="_blank"
-     style="display:none; margin-left:10px;">Video</a>
-</li>
-</ol>
-</div>
-</article>
+    radioPlayBtn.addEventListener('click', () => {
+      if (!radioOn) {
+        radioOn = true;
+        radioPlayBtn.textContent = '⏸ Pause radio';
+        playRadioTrack();
+      } else if (radioAudio.paused) {
+        radioAudio.play().catch(() => {});
+        radioPlayBtn.textContent = '⏸ Pause radio';
+      } else {
+        radioAudio.pause();
+        radioPlayBtn.textContent = '▶ Play radio';
+      }
+    });
+    radioNextBtn.addEventListener('click', () => {
+      radioOn = true;
+      radioPlayBtn.textContent = '⏸ Pause radio';
+      playRadioTrack();
+    });
+    radioAudio.addEventListener('ended', () => { if (radioOn) playRadioTrack(); });
 
-<!-- Album 3 -->
-<article class="album-card" data-album="album3" data-stream="https://distrokid.com/hyperfollow/emc2/list-complete-3?ref=release">
-<button aria-expanded="false" class="album-cover-btn" data-album-toggle="" type="button">
-<img alt="List Complete cover" loading="lazy" src="images/music/album3.jpg"/>
-<span class="album-cover-caption">
-<span class="t">List Complete</span>
-<span class="m">EMC • 2018</span>
-</span>
-</button>
-
-<div class="album-expand" data-album-panel="">
-<div class="album-expand-head">
-<img alt="List Complete cover" class="album-mini" loading="lazy" src="images/music/album3.jpg"/>
-<div class="album-meta">
-<h3>List Complete</h3>
-<div class="album-meta-line">EMC • 2018</div>
-<div class="album-links">
-  <a class="chip-btn chip-btn--gold" href="#" rel="noopener" target="_blank" data-stream-link="">STREAM</a>
-</div>
-</div>
-<button aria-label="Close album" class="album-close" data-album-close="" type="button">✕</button>
-</div>
-
-<ol class="tracklist">
-<li class="track" data-video="https://youtu.be/D8qX0lFDhO4?si=AJNJ-JXkrqVtCTBr"><span class="track-num">1.</span><span class="track-name">Forgot All About Me</span>
-<audio controls="" preload="none"><source src="audio/album3/01 Forgot All About Me.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">2.</span><span class="track-name">Cum In Your Mind</span>
-<audio controls="" preload="none"><source src="audio/album3/02 Cum In Your Mind.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">3.</span><span class="track-name">Cum In Your Mind (remix)</span>
-<audio controls="" preload="none"><source src="audio/album3/02 Cum In Your Mind remix.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video="https://youtu.be/cbetQV8MayY?si=y94FriNUMoCuY6wV"><span class="track-num">4.</span><span class="track-name">EMC & DJ Regg1210</span>
-<audio controls="" preload="none"><source src="audio/album3/03 EMC & DJ Regg1210.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">5.</span><span class="track-name">Cloned Brother</span>
-<audio controls="" preload="none"><source src="audio/album3/04 Cloned Brother.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video="https://youtu.be/_niPQMGwqRI?si=F40Xp5VfQH16qERI"><span class="track-num">6.</span><span class="track-name">I Do Believe</span>
-<audio controls="" preload="none"><source src="audio/album3/05 I Do Believe final jne 22 2019mix.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">7.</span><span class="track-name">Act Right</span>
-<audio controls="" preload="none"><source src="audio/album3/06 Act Right.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">8.</span><span class="track-name">Truth</span>
-<audio controls="" preload="none"><source src="audio/album3/07 Truth.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">9.</span><span class="track-name">It's Been A Minute</span>
-<audio controls="" preload="none"><source src="audio/album3/08 It's Been A Minute.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">10.</span><span class="track-name">Preception (part one)</span>
-<audio controls="" preload="none"><source src="audio/album3/09 Preception.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">11.</span><span class="track-name">Porn Star</span>
-<audio controls="" preload="none"><source src="audio/album3/10 Porn Star.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">12.</span><span class="track-name">You Can Ride With Me</span>
-<audio controls="" preload="none"><source src="audio/album3/11 You Can Ride With Me.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">13.</span><span class="track-name">Stand, Stump</span>
-<audio controls="" preload="none"><source src="audio/album3/12 Stand, Stump.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">14.</span><span class="track-name">Perception (part two)</span>
-<audio controls="" preload="none"><source src="audio/album3/Fuk EMC2.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">15.</span><span class="track-name">I Do Believe (hip hop mix)</span>
-<audio controls="" preload="none"><source src="audio/album3/i do Believe hip hop mix.mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-<li class="track" data-video=""><span class="track-num">16.</span><span class="track-name">I Do Believe (Hip-Hop Remix)</span>
-<audio controls="" preload="none"><source src="audio/album3/I Do Believe Hip-Hop Remix (2).mp3" type="audio/mpeg"/></audio>
-<a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-</ol>
-</div>
-</article>
-
-<!-- Album 4 -->
-<article class="album-card" data-album="album4" data-stream="https://distrokid.com/hyperfollow/emc12/dOy1?ref=release">
-<button aria-expanded="false" class="album-cover-btn" data-album-toggle="" type="button">
-<img alt="Still Pimpin cover" loading="lazy" src="images/music/album4.jpg"/>
-<span class="album-cover-caption">
-<span class="t">Still Pimpin</span>
-<span class="m">EMC • 2014</span>
-</span>
-</button>
-<div class="album-expand" data-album-panel="">
-<div class="album-expand-head">
-<img alt="Still Pimpin cover" class="album-mini" loading="lazy" src="images/music/album4.jpg"/>
-<div class="album-meta">
-<h3>Still Pimpin</h3>
-<div class="album-meta-line">EMC • 2014</div>
-<div class="album-links">
-  <a class="chip-btn chip-btn--gold" href="#" rel="noopener" target="_blank" data-stream-link="">STREAM</a>
-</div>
-</div>
-<button aria-label="Close album" class="album-close" data-album-close="" type="button">✕</button>
-</div>
-<ol class="tracklist">
-<li class="track" data-video=""><span class="track-num">1.</span><span class="track-name">Intro</span><audio controls preload="none"><source src="audio/album4/01 Intro.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">2.</span><span class="track-name">Payback</span><audio controls preload="none"><source src="audio/album4/02 Payback.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">3.</span><span class="track-name">Still Pimpin</span><audio controls preload="none"><source src="audio/album4/03 Still Pimpin.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">4.</span><span class="track-name">Yes You Can</span><audio controls preload="none"><source src="audio/album4/04 Yes You Can.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track track-soon" data-video=""><span class="track-num">5.</span><span class="track-name">Track 5 (add title)</span><span class="soon-pill">Coming soon</span><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">6.</span><span class="track-name">Get Rich</span><audio controls preload="none"><source src="audio/album4/06 Get Rich.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">7.</span><span class="track-name">Pimp Shit</span><audio controls preload="none"><source src="audio/album4/07 Pimp Shit.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">8.</span><span class="track-name">Pussie Seller</span><audio controls preload="none"><source src="audio/album4/08 Pussie Seller.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">9.</span><span class="track-name">I'm A Celebrity</span><audio controls preload="none"><source src="audio/album4/09 I'm A Celebrity.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">10.</span><span class="track-name">I Talk Shit</span><audio controls preload="none"><source src="audio/album4/10 ITalk Shit.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">11.</span><span class="track-name">BitchesHoes&Sluts</span><audio controls preload="none"><source src="audio/album4/11 BitchesHoes&Sluts.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">12.</span><span class="track-name">Backstabbers</span><audio controls preload="none"><source src="audio/album4/12 Backstabbers.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">13.</span><span class="track-name">The Remix</span><audio controls preload="none"><source src="audio/album4/13 The Remix.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">14.</span><span class="track-name">Don't Step To This</span><audio controls preload="none"><source src="audio/album4/14 Don't Step To This.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">15.</span><span class="track-name">That's How It Goes</span><audio controls preload="none"><source src="audio/album4/15 That's How It Goes.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">16.</span><span class="track-name">Step Up</span><audio controls preload="none"><source src="audio/album4/16 Step Up.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">17.</span><span class="track-name">Get Out</span><audio controls preload="none"><source src="audio/album4/17 Get Out.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">18.</span><span class="track-name">All I Need Is Air</span><audio controls preload="none"><source src="audio/album4/18 ALL I NEED IS AIR.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">19.</span><span class="track-name">Protect Yoseflf</span><audio controls preload="none"><source src="audio/album4/19 Protect Yoseflf.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-</ol>
-</div>
-</article>
-
-<!-- Album 5 -->
-<article class="album-card" data-album="album5" data-stream="https://distrokid.com/hyperfollow/emc12/dMXl?ref=release">
-<button aria-expanded="false" class="album-cover-btn" data-album-toggle="" type="button">
-<img alt="Night Vision cover" loading="lazy" src="images/music/album5.jpg"/>
-<span class="album-cover-caption">
-<span class="t">Night Vision</span>
-<span class="m">EMC • 2001</span>
-</span>
-</button>
-<div class="album-expand" data-album-panel="">
-<div class="album-expand-head">
-<img alt="Night Vision cover" class="album-mini" loading="lazy" src="images/music/album5.jpg"/>
-<div class="album-meta">
-<h3>Night Vision</h3>
-<div class="album-meta-line">EMC • 2001</div>
-<div class="album-links">
-  <a class="chip-btn chip-btn--gold" href="#" rel="noopener" target="_blank" data-stream-link="">STREAM</a>
-</div>
-</div>
-<button aria-label="Close album" class="album-close" data-album-close="" type="button">✕</button>
-</div>
-<ol class="tracklist">
-<li class="track" data-video=""><span class="track-num">1.</span><span class="track-name">Night Vision</span><audio controls preload="none"><source src="audio/album5/01 Night Vision.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">2.</span><span class="track-name">I'm Bad</span><audio controls preload="none"><source src="audio/album5/02 I'm Bad.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">3.</span><span class="track-name">Tell Me bout Yo Hood</span><audio controls preload="none"><source src="audio/album5/03 Tell Me bout Yo Hood.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">4.</span><span class="track-name">Old School</span><audio controls preload="none"><source src="audio/album5/04 Old School.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">5.</span><span class="track-name">When You Cum</span><audio controls preload="none"><source src="audio/album5/05 When You Cum.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">6.</span><span class="track-name">Smack That Ass</span><audio controls preload="none"><source src="audio/album5/06 Smack That Ass.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">7.</span><span class="track-name">Sneeky Bitch</span><audio controls preload="none"><source src="audio/album5/07 Sneeky Bitch.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">8.</span><span class="track-name">Pussy</span><audio controls preload="none"><source src="audio/album5/08 Pussy.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">9.</span><span class="track-name">Cums from Pimpin</span><audio controls preload="none"><source src="audio/album5/09 Cums from Pimpin.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">10.</span><span class="track-name">Never Shed A Tear</span><audio controls preload="none"><source src="audio/album5/10 Never Shed A Tear.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">11.</span><span class="track-name">Sunshine</span><audio controls preload="none"><source src="audio/album5/11 Sunshine.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">12.</span><span class="track-name">DJ Reg Cuttin Up</span><audio controls preload="none"><source src="audio/album5/12 DJ Reg Cuttin Up.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">13.</span><span class="track-name">Wanna Fuk</span><audio controls preload="none"><source src="audio/album5/13 Wanna Fuk.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">14.</span><span class="track-name">Bad Water</span><audio controls preload="none"><source src="audio/album5/14 Bad Water.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">15.</span><span class="track-name">Who Ya'll Spossed To Be</span><audio controls preload="none"><source src="audio/album5/15 Who Ya'll Spossed To Be.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">16.</span><span class="track-name">If You Never Been A Player</span><audio controls preload="none"><source src="audio/album5/16 If You Never Been A Player.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-</ol>
-</div>
-</article>
-
-<!-- Album 6 -->
-<article class="album-card" data-album="album6" data-stream="https://distrokid.com/hyperfollow/emc12/d2zb?ref=release">
-<button aria-expanded="false" class="album-cover-btn" data-album-toggle="" type="button">
-<img alt="Destiny cover" loading="lazy" src="images/music/album6.jpg"/>
-<span class="album-cover-caption">
-<span class="t">Destiny</span>
-<span class="m">E-Mac • 1998</span>
-</span>
-</button>
-<div class="album-expand" data-album-panel="">
-<div class="album-expand-head">
-<img alt="Destiny cover" class="album-mini" loading="lazy" src="images/music/album6.jpg"/>
-<div class="album-meta">
-<h3>Destiny</h3>
-<div class="album-meta-line">E-Mac • 1998</div>
-<div class="album-links">
-  <a class="chip-btn chip-btn--gold" href="#" rel="noopener" target="_blank" data-stream-link="">STREAM</a>
-</div>
-</div>
-<button aria-label="Close album" class="album-close" data-album-close="" type="button">✕</button>
-</div>
-<ol class="tracklist">
-<li class="track" data-video=""><span class="track-num">1.</span><span class="track-name">The Hit Skit</span><audio controls preload="none"><source src="audio/album6/01-The Hit Skit.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">2.</span><span class="track-name">Shit-List</span><audio controls preload="none"><source src="audio/album6/02-Shit-List.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">3.</span><span class="track-name">Inside My Mind</span><audio controls preload="none"><source src="audio/album6/03-Inside My Mind.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">4.</span><span class="track-name">Destiny</span><audio controls preload="none"><source src="audio/album6/04-Destiny.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">5.</span><span class="track-name">The D-Sucker (skit)</span><audio controls preload="none"><source src="audio/album6/05-The D-Sucker (skit).mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">6.</span><span class="track-name">I Like</span><audio controls preload="none"><source src="audio/album6/06-I Like.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">7.</span><span class="track-name">More Game</span><audio controls preload="none"><source src="audio/album6/07-More Game.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">8.</span><span class="track-name">Money</span><audio controls preload="none"><source src="audio/album6/08-Money.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">9.</span><span class="track-name">Straight Mackin</span><audio controls preload="none"><source src="audio/album6/09-Straight Mackin.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">10.</span><span class="track-name">The Message (skit)</span><audio controls preload="none"><source src="audio/album6/10-The Message (skit).mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">11.</span><span class="track-name">The Target</span><audio controls preload="none"><source src="audio/album6/11-The Target.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">12.</span><span class="track-name">That's All She Wrote</span><audio controls preload="none"><source src="audio/album6/12-That's All She Wrote.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">13.</span><span class="track-name">Brother</span><audio controls preload="none"><source src="audio/album6/13-Brother.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">14.</span><span class="track-name">Never Shed A Tear</span><audio controls preload="none"><source src="audio/album6/14-Never Shed A Tear.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">15.</span><span class="track-name">Bar Scene (skit)</span><audio controls preload="none"><source src="audio/album6/15-Bar Scene (skit).mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track track-soon" data-video=""><span class="track-num">16.</span><span class="track-name">Track 16 (add title)</span><span class="soon-pill">Coming soon</span><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">17.</span><span class="track-name">Until It's Time</span><audio controls preload="none"><source src="audio/album6/17-Until It's Time.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">18.</span><span class="track-name">More Game (SinCity Mix)</span><audio controls preload="none"><source src="audio/album6/18-More Game (SinCity Mix).mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track track-soon" data-video=""><span class="track-num">19.</span><span class="track-name">Track 19 (add title)</span><span class="soon-pill">Coming soon</span><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track track-soon" data-video=""><span class="track-num">20.</span><span class="track-name">Track 20 (add title)</span><span class="soon-pill">Coming soon</span><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track track-soon" data-video=""><span class="track-num">21.</span><span class="track-name">Track 21 (add title)</span><span class="soon-pill">Coming soon</span><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track track-soon" data-video=""><span class="track-num">22.</span><span class="track-name">Track 22 (add title)</span><span class="soon-pill">Coming soon</span><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">23.</span><span class="track-name">Brain Damaged</span><audio controls preload="none"><source src="audio/album6/23-Brain Damaged.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-</ol>
-</div>
-</article>
-
-<!-- Album 7 -->
-<article class="album-card" data-album="album7" data-stream="#">
-<button aria-expanded="false" class="album-cover-btn" data-album-toggle="" type="button">
-<img alt="Nocternal Life cover" loading="lazy" src="images/music/album7.jpg"/>
-<span class="album-cover-caption">
-<span class="t">Nocternal Life</span>
-<span class="m">iNSTiiNC • 2005</span>
-</span>
-</button>
-<div class="album-expand" data-album-panel="">
-<div class="album-expand-head">
-<img alt="Nocternal Life cover" class="album-mini" loading="lazy" src="images/music/album7.jpg"/>
-<div class="album-meta">
-<h3>Nocternal Life</h3>
-<div class="album-meta-line">iNSTiiNC • 2005</div>
-<div class="album-links">
-  <a class="chip-btn chip-btn--gold" href="#" rel="noopener" target="_blank" data-stream-link="">STREAM</a>
-</div>
-</div>
-<button aria-label="Close album" class="album-close" data-album-close="" type="button">✕</button>
-</div>
-<ol class="tracklist">
-<li class="track" data-video=""><span class="track-num">1.</span><span class="track-name">Intro</span><audio controls preload="none"><source src="audio/album7/01 INTRO.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">2.</span><span class="track-name">The Don</span><audio controls preload="none"><source src="audio/album7/02 THE DON.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">3.</span><span class="track-name">No Drama</span><audio controls preload="none"><source src="audio/album7/03 NO DRAMA.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">4.</span><span class="track-name">All For You</span><audio controls preload="none"><source src="audio/album7/04 ALL FOR YOU.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">5.</span><span class="track-name">FUCK THE DON</span><audio controls preload="none"><source src="audio/album7/06 FUCK THE DON.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">6.</span><span class="track-name">1 On 1</span><audio controls preload="none"><source src="audio/album7/07 1 ON 1.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">7.</span><span class="track-name">Nocturnal Life</span><audio controls preload="none"><source src="audio/album7/08 NOCTURNAL LIFE.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">8.</span><span class="track-name">Shut Um Down</span><audio controls preload="none"><source src="audio/album7/09 SHUT UM DOWN.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">9.</span><span class="track-name">Shame</span><audio controls preload="none"><source src="audio/album7/11 SHAME.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">10.</span><span class="track-name">Black Mask</span><audio controls preload="none"><source src="audio/album7/13 BLACK MASK.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">11.</span><span class="track-name">Ride (Remix)</span><audio controls preload="none"><source src="audio/album7/15 RIDE (REMIX).mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">12.</span><span class="track-name">Roll Up</span><audio controls preload="none"><source src="audio/album7/16 ROLL UP.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-</ol>
-</div>
-</article>
-
-<!-- Album 8 -->
-<article class="album-card" data-album="album8" data-stream="#">
-<button aria-expanded="false" class="album-cover-btn" data-album-toggle="" type="button">
-<img alt="Lost And Found cover" loading="lazy" src="images/music/album8.jpg"/>
-<span class="album-cover-caption">
-<span class="t">Lost And Found</span>
-<span class="m">Playa Partnas • 2004</span>
-</span>
-</button>
-<div class="album-expand" data-album-panel="">
-<div class="album-expand-head">
-<img alt="Lost And Found cover" class="album-mini" loading="lazy" src="images/music/album8.jpg"/>
-<div class="album-meta">
-<h3>Lost And Found</h3>
-<div class="album-meta-line">Playa Partnas • 2004</div>
-<div class="album-links">
-  <a class="chip-btn chip-btn--gold" href="#" rel="noopener" target="_blank" data-stream-link="">STREAM</a>
-</div>
-</div>
-<button aria-label="Close album" class="album-close" data-album-close="" type="button">✕</button>
-</div>
-<ol class="tracklist">
-<li class="track" data-video=""><span class="track-num">1.</span><span class="track-name">Step Up</span><audio controls preload="none"><source src="audio/album8/Step Up.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">2.</span><span class="track-name">Take a Ride With Me</span><audio controls preload="none"><source src="audio/album8/Take a Ride With Me.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">3.</span><span class="track-name">Playa Partnas</span><audio controls preload="none"><source src="audio/album8/Playa Partnas.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">4.</span><span class="track-name">Show Ya Gold</span><audio controls preload="none"><source src="audio/album8/Show Ya Gold.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">5.</span><span class="track-name">Show Yo Golds (Chopped and Screwed)</span><audio controls preload="none"><source src="audio/album8/Show Yo Golds (Chopped and Screwed).mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">6.</span><span class="track-name">Holla Back Remix</span><audio controls preload="none"><source src="audio/album8/Holla Back Remix.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">7.</span><span class="track-name">Holla Back</span><audio controls preload="none"><source src="audio/album8/Holla Back.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">8.</span><span class="track-name">I Wanna</span><audio controls preload="none"><source src="audio/album8/I Wanna.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">9.</span><span class="track-name">Fo Sho</span><audio controls preload="none"><source src="audio/album8/Fo Sho.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">10.</span><span class="track-name">Get High To This</span><audio controls preload="none"><source src="audio/album8/Get High To This.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">11.</span><span class="track-name">Hater Hateing</span><audio controls preload="none"><source src="audio/album8/Hater Hateing.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">12.</span><span class="track-name">Ho</span><audio controls preload="none"><source src="audio/album8/Ho.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-<li class="track" data-video=""><span class="track-num">13.</span><span class="track-name">Call From EMC</span><audio controls preload="none"><source src="audio/album8/Call From EMC.mp3" type="audio/mpeg"></audio><a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a></li>
-</ol>
-</div>
-</article>
-
-<!-- Album 9 -->
-<article class="album-card" data-album="album9" data-stream="https://distrokid.com/hyperfollow/reddirtmercy/rdm?ref=release">
-<button aria-expanded="false" class="album-cover-btn" data-album-toggle="" type="button">
-<img alt="RDM cover" loading="lazy" src="images/music/album9.jpg"/>
-<span class="album-cover-caption">
-<span class="t">RDM</span>
-<span class="m">R&amp;B Pop • 2026</span>
-</span>
-</button>
-
-<div class="album-expand" data-album-panel="">
-<div class="album-expand-head">
-<img alt="RDM cover" class="album-mini" loading="lazy" src="images/music/album9.jpg"/>
-<div class="album-meta">
-<h3>RDM</h3>
-<div class="album-meta-line">R&amp;B Pop • 2026</div>
-<div class="album-links">
-  <a class="chip-btn chip-btn--gold" href="#" rel="noopener" target="_blank" data-stream-link="">STREAM</a>
-</div>
-</div>
-<button aria-label="Close album" class="album-close" data-album-close="" type="button">✕</button>
-</div>
-
-<ol class="tracklist">
-<li class="track" data-video="">
-  <span class="track-num">1.</span>
-  <span class="track-name">Never Felt the Way I Feel For You</span>
-  <audio controls preload="none">
-    <source src="audio/album9/01 Never Felt the Way I Feel For You.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-
-<li class="track" data-video="">
-  <span class="track-num">2.</span>
-  <span class="track-name">Making Love</span>
-  <audio controls preload="none">
-    <source src="audio/album9/02 Making Love.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-
-<li class="track" data-video="">
-  <span class="track-num">3.</span>
-  <span class="track-name">Pretty Green Eyes</span>
-  <audio controls preload="none">
-    <source src="audio/album9/03 Pretty Green Eyes.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-
-<li class="track" data-video="">
-  <span class="track-num">4.</span>
-  <span class="track-name">Lets Try Again</span>
-  <audio controls preload="none">
-    <source src="audio/album9/04 Lets Try Again.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-
-<li class="track" data-video="">
-  <span class="track-num">5.</span>
-  <span class="track-name">You Use To Be Mine</span>
-  <audio controls preload="none">
-    <source src="audio/album9/05 You Use To Be Mine.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-
-<li class="track" data-video="">
-  <span class="track-num">6.</span>
-  <span class="track-name">When In Love</span>
-  <audio controls preload="none">
-    <source src="audio/album9/06 When In Love.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-
-<li class="track" data-video="">
-  <span class="track-num">7.</span>
-  <span class="track-name">Cheating On You</span>
-  <audio controls preload="none">
-    <source src="audio/album9/07 Cheating On You.mp3" type="audio/mpeg">
-  </audio>
-  <a class="chip-btn" href="#" rel="noopener" target="_blank" data-video-btn="" style="display:none; margin-left:10px;">Video</a>
-</li>
-</ol>
-</div>
-</article>
-
-</div>
-</div>
-</section>
-
-<section class="section">
-<div class="container">
-<div class="card card-pad">
-<h2 style="margin:0 0 10px;">About Las Vegas Night Vision Productions</h2>
-<p style="margin:0; color: var(--muted); line-height:1.7;">
-Authentic hip hop beats and real street music — raw lyrics, hard production, and a catalog built over decades.
-Tap an album to explore tracks and links.
-</p>
-</div>
-</div>
-</section>
-</main>
-
-<footer>
-<div class="container footer-grid">
-<div>
-<div class="footer-title">Sumnu Books</div>
-<div class="footer-sub">Urban Fiction &amp; Hip Hop Culture</div>
-</div>
-<div>
-<div class="footer-title">Quick Links</div>
-<ul class="footer-links">
-<li><a href="index.html">Home</a></li>
-<li><a href="books.html">Books</a></li>
-<li><a href="music.html">Music</a></li>
-<li><a href="video.html">Videos</a></li>
-<li><a href="audiobooks.html">&#127911; Audiobooks</a></li>
-<li><a href="vip-audio-dramas.html">&#128274; VIP Series</a></li>
-<li><a href="contact.html">Contact</a></li>
-</ul>
-</div>
-<div>
-<div class="footer-title">Connect</div>
-<div style="display:flex;gap:10px;flex-wrap:wrap;margin:8px 0;">
-  <a href="https://www.facebook.com/profile.php?id=61588357454272" target="_blank" rel="noopener" style="font-size:.82rem;">&#128220; Facebook</a>
-  <a href="https://www.tiktok.com/@sumnuvisionllc" target="_blank" rel="noopener" style="font-size:.82rem;">&#127916; TikTok</a>
-  <a href="https://www.facebook.com/lvnvproductions" target="_blank" rel="noopener" style="font-size:.82rem;">&#127925; LVNV Productions</a>
-</div>
-<div class="footer-sub">&copy; 2026 Las Vegas Night Vision Productions</div>
-<div class="footer-sub">All Rights Reserved</div>
-</div>
-</div>
-</footer>
-
-<script src="js/data.js"></script>
-<script src="js/main.js"></script>
+    setUnlockLabel();
+    renderAlbums();
+    bindSingleAudio();
+  </script>
 </body>
 </html>

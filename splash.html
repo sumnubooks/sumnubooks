@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sumnu Books</title>
+  <meta name="description" content="Sumnu Books animated splash screen" />
+  <style>
+    :root{
+      --bg:#030507;
+      --gold:#d4a843;
+      --gold2:#f2d27a;
+      --text:rgba(255,255,255,.82);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;min-height:100%;background:var(--bg)}
+    body{
+      overflow:hidden;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 50% 36%, rgba(212,168,67,.14), transparent 18%),
+        radial-gradient(circle at 50% 48%, rgba(212,168,67,.08), transparent 34%),
+        linear-gradient(180deg,#040608 0%,#020305 100%);
+      color:var(--text);
+    }
+
+    .splash{
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      position:relative;
+      cursor:pointer;
+      isolation:isolate;
+    }
+
+    .aura{
+      position:absolute;
+      width:min(86vw,820px);
+      height:min(86vw,820px);
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(212,168,67,.10), transparent 56%);
+      filter:blur(10px);
+      animation:pulse 2s ease-in-out infinite alternate;
+      z-index:-2;
+    }
+
+    .rays{
+      position:absolute;
+      width:min(78vw,760px);
+      height:min(78vw,760px);
+      border-radius:50%;
+      background:
+        conic-gradient(from 0deg,
+          transparent 0deg 8deg,
+          rgba(212,168,67,.18) 8deg 9deg,
+          transparent 9deg 18deg,
+          rgba(212,168,67,.14) 18deg 19deg,
+          transparent 19deg 27deg,
+          rgba(212,168,67,.16) 27deg 28deg,
+          transparent 28deg 36deg,
+          rgba(212,168,67,.12) 36deg 37deg,
+          transparent 37deg 45deg,
+          rgba(212,168,67,.18) 45deg 46deg,
+          transparent 46deg 54deg,
+          rgba(212,168,67,.12) 54deg 55deg,
+          transparent 55deg 63deg,
+          rgba(212,168,67,.16) 63deg 64deg,
+          transparent 64deg 72deg,
+          rgba(212,168,67,.12) 72deg 73deg,
+          transparent 73deg 81deg,
+          rgba(212,168,67,.16) 81deg 82deg,
+          transparent 82deg 360deg);
+      mask: radial-gradient(circle, transparent 0 24%, #000 25% 79%, transparent 80%);
+      -webkit-mask: radial-gradient(circle, transparent 0 24%, #000 25% 79%, transparent 80%);
+      opacity:.82;
+      filter:blur(2px);
+      animation:rotateSlow 12s linear infinite;
+      z-index:-1;
+    }
+
+    .wrap{
+      display:grid;
+      place-items:center;
+      gap:18px;
+      padding:28px;
+      text-align:center;
+      animation:rise .9s ease forwards;
+    }
+
+    .logo-box{
+      position:relative;
+      display:grid;
+      place-items:center;
+      width:min(76vw,560px);
+    }
+
+    .logo-glow{
+      position:absolute;
+      inset:8% 10%;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(242,210,122,.18), transparent 60%);
+      filter:blur(22px);
+      animation:glow 1.8s ease-in-out infinite alternate;
+    }
+
+    .logo{
+      position:relative;
+      display:block;
+      width:100%;
+      height:auto;
+      object-fit:contain;
+      filter:
+        drop-shadow(0 0 14px rgba(212,168,67,.24))
+        drop-shadow(0 0 34px rgba(212,168,67,.10));
+      transform-origin:center center;
+      animation:logoFloat 2.1s ease-in-out infinite alternate;
+      user-select:none;
+      -webkit-user-drag:none;
+    }
+
+    .shine{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(110deg,
+        transparent 0%,
+        transparent 38%,
+        rgba(255,255,255,.08) 48%,
+        rgba(255,255,255,.22) 50%,
+        rgba(255,255,255,.08) 52%,
+        transparent 62%,
+        transparent 100%);
+      mix-blend-mode:screen;
+      transform:translateX(-120%);
+      animation:sweep 2.1s ease-in-out infinite;
+      pointer-events:none;
+    }
+
+    .loading{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:rgba(242,210,122,.92);
+      font-size:.8rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+    }
+
+    .dot{
+      width:7px;height:7px;border-radius:999px;
+      background:linear-gradient(180deg,var(--gold2),var(--gold));
+      box-shadow:0 0 14px rgba(212,168,67,.35);
+      animation:blink 1s ease-in-out infinite;
+    }
+    .dot:nth-child(2){animation-delay:.15s}
+    .dot:nth-child(3){animation-delay:.30s}
+
+    .skip{
+      position:absolute;
+      bottom:20px;
+      left:50%;
+      transform:translateX(-50%);
+      color:rgba(255,255,255,.60);
+      font-size:.82rem;
+      letter-spacing:.05em;
+    }
+
+    @keyframes rise{
+      from{opacity:0;transform:translateY(18px) scale(.985)}
+      to{opacity:1;transform:translateY(0) scale(1)}
+    }
+    @keyframes pulse{
+      from{transform:scale(.96);opacity:.7}
+      to{transform:scale(1.04);opacity:1}
+    }
+    @keyframes rotateSlow{
+      from{transform:rotate(0deg)}
+      to{transform:rotate(360deg)}
+    }
+    @keyframes glow{
+      from{opacity:.65;transform:scale(.96)}
+      to{opacity:1;transform:scale(1.04)}
+    }
+    @keyframes logoFloat{
+      from{transform:translateY(0) scale(.995)}
+      to{transform:translateY(-6px) scale(1.01)}
+    }
+    @keyframes sweep{
+      0%,35%{transform:translateX(-120%)}
+      60%{transform:translateX(120%)}
+      100%{transform:translateX(120%)}
+    }
+    @keyframes blink{
+      0%,80%,100%{opacity:.35;transform:translateY(0)}
+      40%{opacity:1;transform:translateY(-2px)}
+    }
+
+    @media (max-width:640px){
+      .logo-box{width:min(90vw,440px)}
+      .loading{font-size:.72rem;letter-spacing:.18em}
+      .skip{font-size:.76rem}
+    }
+  </style>
+</head>
+<body>
+  <main class="splash" id="splash">
+    <div class="aura"></div>
+    <div class="rays"></div>
+
+    <div class="wrap">
+      <div class="logo-box">
+        <div class="logo-glow"></div>
+        <img class="logo" src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo">
+        <div class="shine"></div>
+      </div>
+
+      <div class="loading" aria-hidden="true">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
+
+    <div class="skip">Tap anywhere to enter</div>
+  </main>
+
+  <script>
+    const target = 'index.html?fromSplash=1';
+    const delay = 2200;
+    let entered = false;
+
+    function enterSite() {
+      if (entered) return;
+      entered = true;
+      window.location.replace(target);
+    }
+
+    const splash = document.getElementById('splash');
+    splash.addEventListener('click', enterSite);
+    splash.addEventListener('touchstart', enterSite, { passive: true });
+    setTimeout(enterSite, delay);
+  </script>
+</body>
+</html>

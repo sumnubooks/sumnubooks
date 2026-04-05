@@ -1,1264 +1,948 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width,initial-scale=1" name="viewport"/>
-  <title>Sumnu Books — Sci-Fi, Thriller &amp; Urban Fiction by E.D. Lewis</title>
-  <meta name="description" content="25 novels by E.D. Lewis — sci-fi, thriller, urban fiction. Exclusive audiobooks only at SumnuBooks.com. Music from Las Vegas Night Vision Productions."/>
-  <link rel="stylesheet" href="css/sumnu.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sumnu Books VIP — Stream Series, Audiobooks & Music</title>
+  <meta name="description" content="A Netflix-style premium audio experience from Sumnu Books. Start free with sample episodes, audiobook samples, and Sumnu Radio. Unlock full access across the site." />
+  <link href="css/site.css" rel="stylesheet"/>
+
   <style>
-    /* ══════════════════════════════════════════════
-       PAGE-SPECIFIC HOMEPAGE STYLES
-    ══════════════════════════════════════════════ */
+    .shelf-start { padding-top: 26px; }
+    .compact-head { margin-bottom: 16px; }
+    .compact-head h2 { margin: 0; }
+    .compact-head p { display: none; }
+    .music-head { margin-bottom: 18px; }
 
-    /* Background atmosphere */
-    body {
-      background:
-        radial-gradient(ellipse 90% 50% at 15% -10%, rgba(232,97,42,.13), transparent),
-        radial-gradient(ellipse 70% 40% at 85% 5%,  rgba(212,168,67,.09), transparent),
-        var(--bg);
-    }
-
-    /* ── Exclusive banner ────────────────────────── */
-    .excl-banner {
-      background: linear-gradient(90deg, #9a7010 0%, #c8971f 40%, #d4a843 55%, #c8971f 70%, #9a7010 100%);
-      color: #06080f;
-      text-align: center;
-      padding: 9px 16px;
-      font-size: .84rem;
-      font-weight: 700;
-      letter-spacing: .03em;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
-    .excl-banner a {
-      color: #06080f;
-      text-decoration: underline;
-      font-weight: 800;
-      text-underline-offset: 2px;
-    }
-
-    /* ── Header / nav ────────────────────────────── */
-    .site-header {
-      position: sticky;
-      top: 34px;
-      z-index: 900;
-      background: rgba(6,8,15,.82);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--stroke);
-    }
-    .navbar {
+    .radio-dock {
+      margin-top: 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      min-height: 60px;
-    }
-    .brand-name {
-      font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--gold);
-      letter-spacing: .03em;
-      white-space: nowrap;
-    }
-    .brand-tag {
-      font-size: .68rem;
-      color: var(--muted);
-      letter-spacing: .06em;
-      margin-top: 2px;
-    }
-    .nav-links {
-      display: flex;
-      gap: 2px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .nav-links a {
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-size: .82rem;
-      font-weight: 600;
-      color: var(--muted);
-      transition: color .18s, background .18s;
-    }
-    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,.05); }
-    .nav-links a.active { color: var(--gold); background: rgba(212,168,67,.08); }
-    .nav-links a.nav-vip {
-      color: var(--gold);
-      border: 1px solid rgba(212,168,67,.25);
-    }
-    .nav-links a.nav-vip:hover {
-      background: rgba(212,168,67,.1);
-    }
-    /* mobile: collapse nav into a toggle */
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: 1px solid var(--stroke2);
-      color: var(--text);
-      padding: 7px 10px;
-      border-radius: var(--r-sm);
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-    @media (max-width: 760px) {
-      .nav-toggle { display: block; }
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0; right: 0;
-        background: rgba(6,8,15,.97);
-        border-bottom: 1px solid var(--stroke);
-        padding: 10px 16px 16px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-      }
-      .nav-links.open { display: flex; }
-      .nav-links a { width: 100%; padding: 10px 14px; }
-    }
-
-    /* Mobile sticky CTA */
-    .mobile-cta {
-      display: none;
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      padding: 10px 16px 14px;
-      background: rgba(6,8,15,.96);
-      border-top: 1px solid var(--stroke);
-      z-index: 800;
-      backdrop-filter: blur(10px);
-    }
-    .mobile-cta a { width: 100%; }
-    @media (max-width: 600px) { .mobile-cta { display: block; } }
-
-    /* ── Hero section ────────────────────────────── */
-    .home-hero {
-      padding: 54px 0 36px;
-      position: relative;
-      overflow: hidden;
-    }
-    .home-hero::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background:
-        radial-gradient(circle at 22% 30%, rgba(232,97,42,.18), transparent 52%),
-        radial-gradient(circle at 78% 22%, rgba(212,168,67,.14), transparent 52%);
-      filter: blur(14px);
-      animation: heroGlow 14s ease-in-out infinite alternate;
-      pointer-events: none;
-    }
-    @keyframes heroGlow {
-      from { transform: scale(1) translateY(-8px); }
-      to   { transform: scale(1.03) translateY(8px); }
-    }
-    .hero-inner {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 32px;
-      align-items: center;
-    }
-    .hero-text h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 5.5vw, 3.6rem);
-      line-height: 1.07;
-      color: var(--gold);
-      letter-spacing: -.01em;
-      margin-bottom: 16px;
-      text-shadow: 0 0 40px rgba(232,97,42,.18);
-    }
-    .hero-text .sub {
-      font-size: 1rem;
-      color: var(--muted);
-      line-height: 1.75;
-      max-width: 520px;
-      margin-bottom: 22px;
-    }
-    .hero-cta-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .hero-badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(212,168,67,.18);
-      font-size: .76rem;
-      font-weight: 600;
-      color: var(--muted);
-    }
-    .hero-badge strong { color: var(--gold-lt); }
-    .hero-visual {
-      display: flex;
-      justify-content: center;
-    }
-    .hero-author-img {
-      width: 270px;
-      height: 330px;
-      object-fit: cover;
-      object-position: top center;
-      border-radius: var(--r-lg);
-      border: 1px solid rgba(212,168,67,.25);
-      box-shadow: 0 24px 64px rgba(0,0,0,.55), 0 0 50px rgba(212,168,67,.08);
-    }
-    @media (max-width: 860px) {
-      .hero-inner { grid-template-columns: 1fr; text-align: center; }
-      .hero-text .sub { margin-inline: auto; }
-      .hero-cta-row { justify-content: center; }
-      .hero-badges { justify-content: center; }
-      .hero-visual { order: -1; }
-      .hero-author-img { width: 190px; height: 240px; }
-    }
-
-    /* ── Stat bar ─────────────────────────────────── */
-    .stat-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      border: 1px solid var(--stroke);
-      border-radius: var(--r-md);
-      background: rgba(17,24,38,.6);
-      backdrop-filter: blur(8px);
-      overflow: hidden;
-      margin: 0 0 44px;
-    }
-    .stat-item {
-      padding: 18px 12px;
-      text-align: center;
-      border-right: 1px solid var(--stroke);
-    }
-    .stat-item:last-child { border-right: none; }
-    .stat-num {
-      font-family: var(--font-display);
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: var(--gold);
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: .72rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-top: 5px;
-    }
-    @media (max-width: 560px) {
-      .stat-bar { grid-template-columns: repeat(2,1fr); }
-      .stat-item:nth-child(2) { border-right: none; }
-    }
-
-    /* ── Section header ──────────────────────────── */
-    .section-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-    .section-head h2 {
-      font-family: var(--font-display);
-      font-size: 1.55rem;
-      color: var(--gold);
-      margin-bottom: 4px;
-    }
-    .section-head p { font-size: .86rem; color: var(--muted); }
-
-    /* ── Reviews ─────────────────────────────────── */
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 16px;
-    }
-    .review-card {
-      position: relative;
-      padding: 22px 20px;
-      border-radius: var(--r-md);
-      border: 1px solid rgba(212,168,67,.15);
-      background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(0,0,0,.12));
-    }
-    .review-card::before {
-      content: '\201C';
-      position: absolute;
-      top: 10px; left: 16px;
-      font-family: Georgia, serif;
-      font-size: 3.5rem;
-      color: rgba(212,168,67,.18);
-      line-height: 1;
-    }
-    .review-stars { color: var(--orange); font-size: .86rem; margin-bottom: 8px; }
-    .review-quote {
-      font-size: .9rem;
-      line-height: 1.72;
-      color: var(--text);
-      font-style: italic;
-      margin-bottom: 12px;
-      padding-top: 8px;
-    }
-    .review-source {
-      font-size: .72rem;
-      color: var(--gold);
-      font-weight: 700;
-      letter-spacing: .07em;
-      text-transform: uppercase;
-    }
-    @media (max-width: 760px) { .reviews-grid { grid-template-columns: 1fr; } }
-
-    /* ── Featured products ───────────────────────── */
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .product-card {
-      border-radius: var(--r-lg);
-      border: 1px solid var(--stroke);
-      background: var(--card);
-      overflow: hidden;
-      box-shadow: var(--shadow-md);
-      transition: transform .2s ease, border-color .2s ease;
-    }
-    .product-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--stroke2);
-    }
-    .product-cover {
-      aspect-ratio: 2/3;
-      overflow: hidden;
-      background: var(--bg1);
-    }
-    .product-cover img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform .4s ease;
-    }
-    .product-card:hover .product-cover img { transform: scale(1.04); }
-    .product-body {
-      padding: 14px 16px 18px;
-    }
-    .product-title {
-      font-family: var(--font-display);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 7px;
-      line-height: 1.3;
-    }
-    .product-desc {
-      font-size: .85rem;
-      color: var(--muted);
-      line-height: 1.65;
-      margin-bottom: 14px;
-    }
-    .product-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    @media (max-width: 760px) { .products-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 460px) { .products-grid { grid-template-columns: 1fr; } }
-
-    /* ── Spotlight block ─────────────────────────── */
-    .spotlight {
-      border-radius: var(--r-lg);
-      border: 1px solid rgba(212,168,67,.2);
-      background: linear-gradient(135deg,
-        rgba(212,168,67,.08) 0%,
-        rgba(232,97,42,.04) 100%);
-      padding: 28px 24px;
-      margin-bottom: 0;
-    }
-    .spotlight h2 {
-      font-family: var(--font-display);
-      font-size: 1.35rem;
-      color: var(--gold);
-      margin-bottom: 6px;
-    }
-    .spotlight > p {
-      font-size: .88rem;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 18px;
-      max-width: 700px;
-    }
-    .spotlight-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
       gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid rgba(212,168,67,.16);
+      border-radius: 18px;
+      background: rgba(9,14,28,.88);
     }
-    .spotlight-card {
-      background: rgba(0,0,0,.32);
-      border: 1px solid rgba(212,168,67,.14);
-      border-radius: var(--r-md);
-      padding: 18px;
+    .radio-dock-copy {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 4px;
+      min-width: 0;
     }
-    .spotlight-card .sc-eyebrow {
-      font-size: .68rem;
-      font-weight: 700;
-      letter-spacing: .12em;
+    .radio-dock-copy strong {
+      color: var(--gold);
+      letter-spacing: .04em;
       text-transform: uppercase;
-      color: var(--gold);
-      opacity: .8;
-    }
-    .spotlight-card h3 {
-      font-size: .98rem;
-      font-weight: 700;
-      line-height: 1.3;
-      color: var(--text);
-    }
-    .spotlight-card .sc-price {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--gold);
-      line-height: 1;
-    }
-
-    /* ── About ───────────────────────────────────── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 28px;
-      align-items: start;
-    }
-    .about-photo {
-      width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      object-position: top center;
-      border-radius: var(--r-lg);
-      border: 1px solid rgba(212,168,67,.2);
-      box-shadow: 0 18px 50px rgba(0,0,0,.45);
-    }
-    .about-content h2 {
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      color: var(--gold);
-      margin-bottom: 4px;
-    }
-    .about-role {
-      font-size: .8rem;
-      color: var(--orange);
-      font-weight: 700;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-    }
-    .about-content p {
-      font-size: .92rem;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 12px;
-    }
-    .about-socials {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 9px;
-      margin-top: 18px;
-    }
-    .about-socials a {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 13px;
-      border-radius: var(--r-sm);
-      border: 1px solid rgba(212,168,67,.2);
-      background: rgba(255,255,255,.03);
-      font-size: .8rem;
-      font-weight: 600;
-      color: var(--text);
-      transition: background .18s, border-color .18s;
-    }
-    .about-socials a:hover {
-      background: rgba(255,255,255,.07);
-      border-color: rgba(232,97,42,.35);
-    }
-    @media (max-width: 700px) {
-      .about-grid { grid-template-columns: 1fr; text-align: center; }
-      .about-photo { max-width: 200px; margin: 0 auto; }
-      .about-socials { justify-content: center; }
-    }
-
-    /* ── Signup card ─────────────────────────────── */
-    .signup-card {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 26px 24px;
-      border-radius: var(--r-lg);
-      background: rgba(10,14,22,.75);
-      border: 1px solid var(--stroke2);
-      backdrop-filter: blur(8px);
-      box-shadow: var(--shadow-md);
-    }
-    .signup-card h2 {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      color: var(--gold);
-      margin-bottom: 6px;
-    }
-    .signup-card p { font-size: .9rem; color: var(--muted); margin-bottom: 18px; }
-    .signup-form {
-      display: grid;
-      gap: 12px;
-    }
-    @media (min-width: 640px) {
-      .signup-form { grid-template-columns: 1fr 1fr; }
-      .signup-form .btn, .signup-form .fine { grid-column: 1/-1; }
-    }
-    .field label {
-      display: block;
-      font-size: .8rem;
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-    .field input {
-      width: 100%;
-      padding: 10px 14px;
-      border-radius: var(--r-sm);
-      border: 1px solid var(--stroke2);
-      background: rgba(0,0,0,.3);
-      color: var(--text);
-      font-family: var(--font-body);
-      font-size: .9rem;
-      outline: none;
-      transition: border-color .18s;
-    }
-    .field input:focus { border-color: rgba(212,168,67,.45); }
-    .field input::placeholder { color: rgba(255,255,255,.35); }
-    .fine { font-size: .76rem; color: var(--muted); opacity: .75; }
-
-    /* ── Amazon callout ──────────────────────────── */
-    .amazon-callout {
-      text-align: center;
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 28px 24px;
-      border-radius: var(--r-lg);
-      border: 1px solid var(--stroke);
-      background: var(--card);
-      box-shadow: var(--shadow-md);
-    }
-    .amazon-callout h2 {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      color: var(--gold);
-      margin-bottom: 8px;
-    }
-    .amazon-callout p { font-size: .9rem; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
-    .amazon-callout-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
-    /* ── Welcome video ───────────────────────────── */
-    .welcome-video {
-      width: 100%;
-      border-radius: var(--r-lg);
-      border: 1px solid var(--stroke);
-      box-shadow: var(--shadow-lg);
-      display: block;
-      max-height: 480px;
-      object-fit: cover;
-    }
-
-    /* ── Footer ──────────────────────────────────── */
-    footer {
-      background: rgba(6,8,15,.95);
-      border-top: 1px solid var(--stroke);
-      padding: 48px 0 24px;
-      margin-top: 60px;
-    }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 32px;
-      margin-bottom: 36px;
-    }
-    footer h3 {
-      font-family: var(--font-display);
-      font-size: 1.05rem;
-      color: var(--gold);
-      margin-bottom: 10px;
-    }
-    footer p, footer li {
-      font-size: .86rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-    footer ul { display: flex; flex-direction: column; gap: 6px; }
-    footer a { color: var(--muted); transition: color .18s; }
-    footer a:hover { color: var(--gold); }
-    .footer-socials {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .footer-socials a {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      padding: 6px 11px;
-      border-radius: var(--r-sm);
-      border: 1px solid rgba(212,168,67,.16);
-      background: rgba(255,255,255,.03);
-      font-size: .76rem;
-      font-weight: 600;
-    }
-    .footer-socials a:hover { border-color: rgba(232,97,42,.35); color: var(--text); }
-    .footer-copy {
-      text-align: center;
-      font-size: .76rem;
-      color: var(--muted);
-      opacity: .65;
-      border-top: 1px solid var(--stroke);
-      padding-top: 20px;
-    }
-    @media (max-width: 700px) {
-      .footer-grid { grid-template-columns: 1fr; gap: 24px; }
-    }
-
-    /* ── Chapter preview modal ───────────────────── */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.88);
-      z-index: 2000;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      backdrop-filter: blur(8px);
-    }
-    .modal-overlay.open { display: flex; }
-    .modal-box {
-      background: var(--bg1);
-      border: 1px solid rgba(212,168,67,.28);
-      border-radius: var(--r-lg);
-      max-width: 680px;
-      width: 100%;
-      max-height: 88vh;
-      overflow-y: auto;
-      padding: 32px 28px 28px;
-      box-shadow: 0 32px 88px rgba(0,0,0,.65);
-      position: relative;
-    }
-    .modal-close {
-      position: absolute;
-      top: 16px; right: 16px;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(212,168,67,.2);
-      color: var(--text);
-      width: 34px; height: 34px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background .18s;
-    }
-    .modal-close:hover { background: rgba(232,97,42,.2); }
-    .modal-box h3 {
-      font-family: var(--font-display);
-      color: var(--gold);
-      font-size: 1.2rem;
-      margin-bottom: 4px;
-      padding-right: 40px;
-    }
-    .modal-chapter-label {
-      font-size: .72rem;
-      color: var(--orange);
-      text-transform: uppercase;
-      letter-spacing: .1em;
-      font-weight: 700;
-      margin-bottom: 18px;
-    }
-    .modal-text {
-      font-size: .92rem;
-      line-height: 1.88;
-      color: var(--text);
-      white-space: pre-line;
-    }
-    .modal-cta {
-      margin-top: 24px;
-      padding-top: 18px;
-      border-top: 1px solid var(--stroke);
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .modal-hook {
       font-size: .84rem;
+    }
+    .radio-dock-copy span {
       color: var(--muted);
-      font-style: italic;
-      flex: 1;
+      font-size: .92rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 520px;
+    }
+    .radio-dock-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      flex-shrink: 0;
     }
 
-    /* padding buffer for mobile sticky CTA */
-    @media (max-width: 600px) {
-      main { padding-bottom: 68px; }
+    .radio-tile .card-cover { display: none; }
+    .radio-tile {
+      background:
+        radial-gradient(circle at 30% 20%, rgba(212,168,67,.16), transparent 36%),
+        radial-gradient(circle at 70% 80%, rgba(72,112,255,.18), transparent 42%),
+        linear-gradient(180deg, rgba(8,14,30,.98), rgba(4,8,18,.98));
+    }
+    .radio-visual {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .radio-ring {
+      width: 132px;
+      height: 132px;
+      border-radius: 999px;
+      border: 1px solid rgba(212,168,67,.28);
+      box-shadow: 0 0 0 12px rgba(212,168,67,.04), 0 0 34px rgba(212,168,67,.12);
+    }
+    .radio-center {
+      position: absolute;
+      width: 72px;
+      height: 72px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(212,168,67,.14);
+      border: 1px solid rgba(212,168,67,.38);
+      color: var(--gold);
+      font-size: 1.45rem;
+      font-weight: 800;
+    }
+    .radio-bars {
+      position: absolute;
+      bottom: 72px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      gap: 8px;
+      opacity: .78;
+    }
+    .radio-bars span {
+      width: 8px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(212,168,67,.94), rgba(88,124,255,.32));
+      animation: pulseBars 1.2s ease-in-out infinite;
+    }
+    .radio-bars span:nth-child(1) { height: 24px; animation-delay: .05s; }
+    .radio-bars span:nth-child(2) { height: 44px; animation-delay: .2s; }
+    .radio-bars span:nth-child(3) { height: 62px; animation-delay: .35s; }
+    .radio-bars span:nth-child(4) { height: 40px; animation-delay: .5s; }
+    .radio-bars span:nth-child(5) { height: 26px; animation-delay: .65s; }
+
+    @keyframes pulseBars {
+      0%, 100% { transform: scaleY(.72); opacity: .72; }
+      50% { transform: scaleY(1.05); opacity: 1; }
+    }
+
+    @media (max-width: 760px) {
+      .radio-dock {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .radio-dock-copy span {
+        max-width: none;
+        white-space: normal;
+      }
+      .radio-dock-controls {
+        width: 100%;
+      }
+      .radio-dock-controls .btn {
+        flex: 1 1 0;
+      }
+    }
+
+    /* Fix homepage music shelf to use square album art */
+    .card-tile[data-type="music"] .card-cover,
+    .card-tile.radio-tile {
+      aspect-ratio: 1 / 1;
+    }
+    .card-tile[data-type="music"] .card-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .radio-dock {
+      grid-template-columns: 78px 1fr auto;
+      align-items: center;
+    }
+    .radio-dock-art {
+      width: 78px;
+      height: 78px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(212,168,67,.16);
+      background:
+        radial-gradient(circle at 30% 20%, rgba(212,168,67,.16), transparent 36%),
+        radial-gradient(circle at 70% 80%, rgba(72,112,255,.18), transparent 42%),
+        linear-gradient(180deg, rgba(8,14,30,.98), rgba(4,8,18,.98));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .radio-dock-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .radio-dock-art.fallback::before {
+      content: '▶';
+    }
+
+
+    /* Keep homepage text below covers */
+    .card-tile {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      min-height: auto !important;
+      height: auto !important;
+      overflow: hidden !important;
+    }
+    .card-tile .card-cover {
+      display: block !important;
+      position: relative !important;
+      width: 100% !important;
+      flex: 0 0 auto !important;
+      overflow: hidden !important;
+      aspect-ratio: 2 / 3 !important;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      background: var(--bg1);
+    }
+    .card-tile[data-type="music"] .card-cover {
+      aspect-ratio: 1 / 1 !important;
+    }
+    .card-tile .card-cover img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      display: block !important;
+    }
+    .card-tile .card-gradient {
+      display: none !important;
+    }
+    .card-tile .card-copy {
+      position: static !important;
+      inset: auto !important;
+      padding: 12px 14px 14px !important;
+      background: linear-gradient(180deg, rgba(10,14,28,.96), rgba(7,10,20,.98)) !important;
+      z-index: 2 !important;
+      min-height: 108px;
+    }
+    .card-tile .card-kicker {
+      display: block !important;
+      margin-bottom: 6px !important;
+      line-height: 1.15 !important;
+    }
+    .card-tile .card-title {
+      display: block !important;
+      margin: 0 0 6px !important;
+      line-height: 1.12 !important;
+      font-size: 1rem !important;
+      text-shadow: none !important;
+      word-break: break-word !important;
+    }
+    .card-tile .card-meta {
+      display: block !important;
+      line-height: 1.35 !important;
+      text-shadow: none !important;
+      opacity: .92;
+    }
+    .card-tile .card-free,
+    .card-tile .card-lock {
+      z-index: 3 !important;
+    }
+    .radio-tile .card-copy {
+      min-height: 94px;
+    }
+
+    @media (max-width: 760px) {
+      .card-tile .card-copy {
+        min-height: 96px;
+        padding: 10px 12px 12px !important;
+      }
+      .card-tile .card-title {
+        font-size: .92rem !important;
+      }
+      .card-tile .card-meta {
+        font-size: .82rem !important;
+      }
+    }
+
+  </style>
+
+  <style>
+    /* Unified shell */
+    .site-header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(6,8,15,.90);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .navbar-shell{
+      min-height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .nav-links-shell{
+      display:flex !important;
+      align-items:center;
+      gap:10px;
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      overflow-y:hidden;
+      width:100%;
+      justify-content:center;
+      scrollbar-width:none;
+      -webkit-overflow-scrolling:touch;
+      padding:8px 0 !important;
+      background:transparent !important;
+      border:0 !important;
+      border-radius:0 !important;
+      position:static !important;
+    }
+    .nav-links-shell::-webkit-scrollbar{display:none;}
+    .nav-links-shell a{
+      flex:0 0 auto;
+      white-space:nowrap;
+      padding:10px 14px;
+      border-radius:999px;
+      color:var(--muted,#9aa3b7);
+      font-weight:700;
+      font-size:.92rem;
+      text-decoration:none;
+    }
+    .nav-links-shell a:hover,
+    .nav-links-shell a.active{
+      color:var(--text,#fff);
+      background:rgba(255,255,255,.06);
+    }
+    .nav-links-shell .nav-cta{
+      border:1px solid rgba(212,168,67,.28);
+      color:var(--gold,#d4a843) !important;
+      background:transparent !important;
+    }
+    .logo-band{
+      padding:18px 0 10px;
+    }
+    .logo-band-inner{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero-logo-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      line-height:0;
+    }
+    .hero-logo-img{
+      display:block;
+      width:min(64vw,360px);
+      max-width:360px;
+      height:auto;
+      object-fit:contain;
+      filter:drop-shadow(0 0 12px rgba(212,168,67,.12));
+    }
+    .site-logo-header,
+    .exclusive-banner,
+    .mobile-sticky-cta,
+    .nav-toggle,
+    .brand,
+    .brand-title,
+    .brand-sub{
+      display:none !important;
+    }
+
+    @media (max-width:760px){
+      .navbar-shell{min-height:58px;}
+      .nav-links-shell{justify-content:flex-start;}
+      .nav-links-shell a{
+        font-size:.82rem;
+        padding:8px 12px;
+      }
+      .logo-band{
+        padding:14px 0 8px;
+      }
+      .hero-logo-img{
+        width:min(76vw,290px);
+      }
     }
   </style>
+
 </head>
 <body>
 
-<!-- Exclusive banner -->
-<div class="excl-banner">
-  🎧 Exclusive Audiobooks — <strong>Only at SumnuBooks.com</strong> — Not on Amazon, Audible, or anywhere else &nbsp;<a href="audiobooks.html">Get them here →</a>
-</div>
-
-<!-- Header -->
 <header class="site-header">
-  <div class="container">
-    <nav class="navbar">
+    <div class="container navbar navbar-shell">
+      <nav class="nav-links nav-links-shell" id="navLinks">
+        <a href="index.html" class="active">Home</a>
+        <a href="books.html">Books</a>
+        <a href="music.html">Music</a>
+        <a href="video.html">Videos</a>
+        <a href="audiobooks.html">Audiobooks</a>
+        <a href="contact.html">Contact</a>
+        <a href="unlock.html?from=index.html" class="vip-link nav-cta">Unlock</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="logo-band">
+    <div class="container logo-band-inner">
+      <a href="index.html" class="hero-logo-link" aria-label="Sumnu Books home">
+        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
+      </a>
+    </div>
+  </section>
+
+  <main>
+    <section class="section shelf-start" id="seriesShelf">
+      <div class="container">
+        <div class="section-head compact-head">
+          <h2>Series</h2>
+        </div>
+        <div class="shelf" id="seriesGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="audiobookShelf">
+      <div class="container">
+        <div class="section-head compact-head">
+          <h2>Audiobooks</h2>
+        </div>
+        <div class="shelf" id="audiobookGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="musicShelf">
+      <div class="container">
+        <div class="section-head compact-head music-head">
+          <h2>Music</h2>
+        </div>
+        <div class="shelf wide" id="musicGrid"></div>
+
+        <div class="radio-dock">
+          <div class="radio-dock-art fallback" id="radioDockArt"></div>
+          <div class="radio-dock-copy">
+            <strong>Sumnu Radio</strong>
+            <span id="radioNow">Free shuffle playback</span>
+          </div>
+          <div class="radio-dock-controls">
+            <button class="btn btn-primary btn-small" id="radioPlayBtn">▶ Play radio</button>
+            <button class="btn btn-secondary btn-small" id="radioNextBtn">⏭ Next</button>
+          </div>
+          <audio id="radioAudio" preload="none"></audio>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-resume">
+      <div class="container">
+        <div class="resume-card" id="resumeCard">
+          <div class="resume-copy">
+            <h3>Continue listening</h3>
+            <p id="resumeText">Jump back into your last title.</p>
+          </div>
+          <button class="btn btn-secondary" id="resumeBtn">Resume</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
       <div>
-        <div class="brand-name">Sumnu Books</div>
-        <div class="brand-tag">Sci-Fi · Thriller · Urban Fiction · Las Vegas Night Vision</div>
-      </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">☰</button>
-      <ul class="nav-links" id="navLinks">
-        <li><a class="active" href="index.html">Home</a></li>
-        <li><a href="books.html">Books</a></li>
-        <li><a href="music.html">Music</a></li>
-        <li><a href="video.html">Videos</a></li>
-        <li><a href="audiobooks.html">🎧 Audiobooks</a></li>
-        <li><a href="vip-audio-dramas_netflix_mobile.html" class="nav-vip">🔒 VIP Series</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
-
-<!-- Mobile sticky CTA -->
-<div class="mobile-cta">
-  <a class="btn btn-primary btn-lg" href="audiobooks.html">🎧 Get Audiobooks — $12.99</a>
-</div>
-
-<main>
-
-  <!-- ── Hero ──────────────────────────────────────── -->
-  <section class="home-hero">
-    <div class="container">
-      <div class="hero-inner">
-        <div class="hero-text">
-          <h1>Sci-Fi. Thriller.<br/>Real Stories. No Filter.</h1>
-          <p class="sub">E.D. Lewis writes the kind of books that keep you up at night — and produces music that hits just as hard. 25 novels. 8 albums. 2 exclusive audiobooks you can only get right here.</p>
-          <div class="hero-cta-row">
-            <a class="btn btn-primary btn-lg" href="audiobooks.html">🎧 Get Audiobooks — $12.99</a>
-            <a class="btn btn-secondary btn-lg" href="books.html">Browse All 25 Books</a>
-          </div>
-          <div class="hero-badges">
-            <span class="hero-badge"><strong>25</strong> Novels</span>
-            <span class="hero-badge"><strong>8</strong> Albums</span>
-            <span class="hero-badge"><strong>2</strong> Exclusive Audiobooks</span>
-            <span class="hero-badge"><strong>1</strong> Live VIP Series</span>
-          </div>
-        </div>
-        <div class="hero-visual">
-          <img class="hero-author-img" src="images/author-edlewis.jpg" alt="E.D. Lewis — Author and Producer"/>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Stat bar ───────────────────────────────────── -->
-  <div class="container">
-    <div class="stat-bar reveal">
-      <div class="stat-item"><div class="stat-num">25</div><div class="stat-label">Published Novels</div></div>
-      <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Music Albums</div></div>
-      <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Exclusive Audiobooks</div></div>
-      <div class="stat-item"><div class="stat-num">1</div><div class="stat-label">Live VIP Series</div></div>
-    </div>
-  </div>
-
-  <!-- ── Reviews ────────────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <h2>What Readers Are Saying</h2>
-          <p>Real reactions from real readers</p>
-        </div>
-      </div>
-      <div class="reviews-grid">
-        <div class="review-card reveal">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-quote">"I loved it. The story was excellent. Couldn't put it down from the first chapter."</p>
-          <div class="review-source">Amazon Reader — A Penny For My Thoughts</div>
-        </div>
-        <div class="review-card reveal">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-quote">"It's heartbreaking and powerful and caustic all at the same time. Proceed with caution but do proceed."</p>
-          <div class="review-source">Reader Review — Road to Nowhere</div>
-        </div>
-        <div class="review-card reveal">
-          <div class="review-stars">★★★★★</div>
-          <p class="review-quote">"Raw, unfiltered urban fiction that explores power, survival, love, and identity. His stories hit hard and stay with you."</p>
-          <div class="review-source">Amazon Author Bio</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Featured releases ──────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head reveal">
-        <div>
-          <h2>Featured Releases</h2>
-          <p>Sci-fi, thriller, and street fiction — sample and dive in</p>
-        </div>
-        <a class="btn btn-secondary btn-sm" href="books.html">View all 25 →</a>
-      </div>
-      <div class="products-grid">
-
-        <article class="product-card reveal">
-          <div class="product-cover">
-            <img src="images/books/book1.jpg" alt="A PENNY For My Thoughts" loading="lazy">
-          </div>
-          <div class="product-body">
-            <div class="product-title">A PENNY For My Thoughts</div>
-            <div class="product-desc">A raw crime thriller with supernatural undertones. Armed robbery, betrayal, and a woman named Penny who changes everything.</div>
-            <div class="product-actions">
-              <a class="btn btn-primary btn-sm" href="audiobooks.html#ab1">🎧 Audiobook</a>
-              <button class="btn btn-secondary btn-sm" onclick="openModal('penny')">📖 Read Ch. 1</button>
-              <a class="btn btn-secondary btn-sm" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks" target="_blank" rel="noopener">Amazon</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card reveal">
-          <div class="product-cover">
-            <img src="images/books/book2.jpg" alt="Unplugged: 30 Days of Chaos" loading="lazy">
-          </div>
-          <div class="product-body">
-            <div class="product-title">Unplugged: 30 Days of Chaos</div>
-            <div class="product-desc">Every digital network goes dark overnight. Reggie Hayes wakes up to a world already falling apart. Survival starts now.</div>
-            <div class="product-actions">
-              <a class="btn btn-primary btn-sm" href="audiobooks.html#ab2">🎧 Audiobook</a>
-              <button class="btn btn-secondary btn-sm" onclick="openModal('unplugged')">📖 Read Ch. 1</button>
-              <a class="btn btn-secondary btn-sm" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks" target="_blank" rel="noopener">Amazon</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="product-card reveal">
-          <div class="product-cover">
-            <img src="images/music/album2.jpg" alt="The May Tricks" loading="lazy">
-          </div>
-          <div class="product-body">
-            <div class="product-title">The May Tricks (Album)</div>
-            <div class="product-desc">New heat from Las Vegas Night Vision Productions. Stream tracks and buy direct.</div>
-            <div class="product-actions">
-              <a class="btn btn-primary btn-sm" href="music.html">🎵 Listen Now</a>
-            </div>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Exclusive Audiobooks spotlight ─────────────── -->
-  <section class="section">
-    <div class="container">
-      <div class="spotlight reveal">
-        <h2>🎧 Exclusive Audiobooks — Only at SumnuBooks.com</h2>
-        <p>These audiobooks are NOT on Amazon, Audible, Spotify, or anywhere else. Direct from the author. $12.99 each. Instant access after payment.</p>
-        <div class="spotlight-cards">
-          <div class="spotlight-card">
-            <span class="sc-eyebrow">🔒 Exclusive — Not on Amazon</span>
-            <h3>A Penny For My Thoughts</h3>
-            <div class="sc-price">$12.99</div>
-            <a class="btn btn-primary btn-sm" href="audiobooks.html#ab1">🎧 Listen &amp; Buy</a>
-          </div>
-          <div class="spotlight-card">
-            <span class="sc-eyebrow">🔒 Exclusive — Not on Amazon</span>
-            <h3>Unplugged: 30 Days of Chaos</h3>
-            <div class="sc-price">$12.99</div>
-            <a class="btn btn-primary btn-sm" href="audiobooks.html#ab2">🎧 Listen &amp; Buy</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── VIP Series spotlight ───────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <div class="spotlight reveal">
-        <h2>🔒 VIP Audio Series</h2>
-        <p>Enter the VIP shelf, pick a series, and get a full streaming-quality page. <em>Other Man</em> and <em>Before Our Water Breaks</em> are live now — first 4 episodes always free.</p>
-        <div class="spotlight-cards">
-          <div class="spotlight-card">
-            <span class="sc-eyebrow">Free Start · Then Unlock</span>
-            <h3>Other Man — Psychological Thriller</h3>
-            <div class="sc-price">Episodes 1–4 Free</div>
-            <a class="btn btn-primary btn-sm" href="vip-other-man_netflix_mobile.html">Start Series</a>
-          </div>
-          <div class="spotlight-card">
-            <span class="sc-eyebrow">Free Start · Then Unlock</span>
-            <h3>Before Our Water Breaks — Drama</h3>
-            <div class="sc-price">Episodes 1–4 Free</div>
-            <a class="btn btn-primary btn-sm" href="before-our-water-breaks-vip.html">Start Series</a>
-          </div>
-          <div class="spotlight-card">
-            <span class="sc-eyebrow">New Series</span>
-            <h3>Here... Eat This — Suspense Drama</h3>
-            <div class="sc-price">Episodes 1–4 Free</div>
-            <a class="btn btn-primary btn-sm" href="vip-here-eat-this.html">Start Series</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Welcome video ──────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <div class="reveal" style="text-align:center; max-width:760px; margin:0 auto;">
-        <h2 style="font-family:var(--font-display); color:var(--gold); font-size:1.4rem; margin-bottom:6px;">Welcome to SumnuBooks</h2>
-        <p style="color:var(--muted); font-size:.88rem; margin-bottom:16px;">Meet E.D. Lewis — Author of 25 Novels &amp; Producer at Las Vegas Night Vision Productions</p>
-        <video autoplay muted loop playsinline controls class="welcome-video">
-          <source src="video/unplugged/welcome_video_1.mp4" type="video/mp4">
-        </video>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── About E.D. Lewis ───────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <div class="about-grid reveal">
-        <img class="about-photo" src="images/author-edlewis.jpg" alt="E.D. Lewis — Author and Producer"/>
-        <div class="about-content">
-          <h2>About E.D. Lewis</h2>
-          <div class="about-role">Author · Producer (EMC / E-MAC) · SumnuVision LLC</div>
-          <p>Eric Lewis writes raw, unfiltered urban fiction and thought-provoking literary work that explores power, survival, love, and identity. From the streets to the supernatural, his stories hit hard and stay with you.</p>
-          <p>With 25 published novels spanning sci-fi, thriller, urban fiction, and nonfiction, plus 8 music albums from <strong>Las Vegas Night Vision Productions</strong>, everything here is independent — built, published, and sold direct. No middlemen. No gatekeepers.</p>
-          <p>His work includes the crime thriller <em>A Penny For My Thoughts</em>, the survival epic <em>Unplugged: 30 Days of Chaos</em>, the supernatural series <em>The Echo</em>, and the black female superhero saga <em>Chandra: Forbidden Obsession</em>.</p>
-          <div class="about-socials">
-            <a href="https://www.facebook.com/profile.php?id=61588357454272" target="_blank" rel="noopener">📘 SumnuBooks Facebook</a>
-            <a href="https://www.facebook.com/lvnvproductions" target="_blank" rel="noopener">🎵 LVNV Productions</a>
-            <a href="https://www.tiktok.com/@sumnuvisionllc" target="_blank" rel="noopener">🎬 TikTok</a>
-            <a href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks" target="_blank" rel="noopener">📚 Amazon Author Page</a>
-            <a href="contact.html">✉ Contact</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Amazon callout ─────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <div class="amazon-callout reveal">
-        <h2>All 25 Novels on Amazon</h2>
-        <p>Paperback and Kindle editions available on Amazon. But if you want the <strong>audiobooks</strong>, you can only get those right here.</p>
-        <div class="amazon-callout-btns">
-          <a class="btn btn-secondary" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks" target="_blank" rel="noopener">Shop Amazon →</a>
-          <a class="btn btn-primary" href="audiobooks.html">Get Exclusive Audiobooks →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── Email signup ───────────────────────────────── -->
-  <section class="section">
-    <div class="container">
-      <div class="signup-card reveal">
-        <h2>Join the Sumnu Books &amp; Music List</h2>
-        <p>Get a <strong>free ebook or music CD of your choice</strong> + updates on new releases and exclusive drops.</p>
-        <form name="ebook-giveaway" method="POST" data-netlify="true" action="/thanks.html" class="signup-form">
-          <input type="hidden" name="form-name" value="ebook-giveaway"/>
-          <div class="field">
-            <label for="sig-email">Email</label>
-            <input id="sig-email" type="email" name="email" placeholder="your@email.com" required/>
-          </div>
-          <div class="field">
-            <label for="sig-item">What do you want free?</label>
-            <input id="sig-item" type="text" name="requested_item" list="freebie-options" placeholder="Type a title (ebook or music CD)" required/>
-            <datalist id="freebie-options">
-              <option value="A Penny For My Thoughts (ebook)"></option>
-              <option value="Unplugged: 30 Days of Chaos (ebook)"></option>
-              <option value="The Echo: Origins (ebook)"></option>
-              <option value="The Jailhouse Lawyer (ebook)"></option>
-              <option value="EMC (music CD)"></option>
-              <option value="Night Vision (music CD)"></option>
-            </datalist>
-          </div>
-          <button type="submit" class="btn btn-primary">Get Free Access</button>
-          <div class="fine">No spam. Unsubscribe anytime.</div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ── Footer ─────────────────────────────────────────── -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <h3>Sumnu Books</h3>
-        <p>Sci-Fi · Thriller · Urban Fiction</p>
-        <p style="margin-top:6px; font-size:.8rem; color:var(--gold); font-weight:700;">🎧 Exclusive Audiobooks — Only Here</p>
-        <div class="footer-socials">
-          <a href="https://www.facebook.com/profile.php?id=61588357454272" target="_blank" rel="noopener">📘 Facebook</a>
-          <a href="https://www.tiktok.com/@sumnuvisionllc" target="_blank" rel="noopener">🎬 TikTok</a>
-          <a href="https://www.facebook.com/lvnvproductions" target="_blank" rel="noopener">🎵 LVNV Productions</a>
-        </div>
+        <strong class="gold">SUMNU BOOKS VIP</strong><br />
+        Free samples on the front end. Premium access behind one clean gateway.
       </div>
       <div>
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="books.html">Books (25 titles)</a></li>
-          <li><a href="music.html">Music (8 albums)</a></li>
-          <li><a href="video.html">Videos</a></li>
-          <li><a href="audiobooks.html">🎧 Audiobooks — Exclusive</a></li>
-          <li><a href="vip-audio-dramas_netflix_mobile.html">🔒 VIP Audio Series</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3>Connect</h3>
-        <p>Sales: <a href="mailto:sales@sumnubooks.com">sales@sumnubooks.com</a></p>
-        <p style="margin-top:6px;">General: <a href="mailto:info@sumnuvision.com">info@sumnuvision.com</a></p>
-        <p style="margin-top:10px;">© 2026 SumnuVision LLC / Las Vegas Night Vision Productions</p>
-        <p style="margin-top:6px; font-size:.76rem; opacity:.5;">🔒 Secure payments via PayPal · DRM-free audiobooks · Instant delivery</p>
+        <a class="link-pill" href="contact.html">Need help?</a>
       </div>
     </div>
-    <div class="footer-copy">SumnuBooks.com — Independent. Direct. Real.</div>
+  </footer>
+
+  <div class="mobile-bar">
+    <a class="btn btn-primary" href="unlock.html?from=index.html" id="mobileUnlockBtn">🔓 Unlock all access</a>
   </div>
-</footer>
 
-<!-- ── Chapter preview modals ──────────────────────── -->
-<div class="modal-overlay" id="modal-penny">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('penny')" aria-label="Close">✕</button>
-    <h3>A PENNY For My Thoughts</h3>
-    <div class="modal-chapter-label">Chapter 1 — Free Preview</div>
-    <div class="modal-text">April 2013 — Washington State
-
-Armed robbery comes with a rush that's hard to explain to anyone who hasn't lived it, a violent surge that sharpens every sense at once until your heartbeat pounds in your throat and your thoughts narrow down to one thing—control.
-
-You either have it, or you don't.
-
-Mine was steady.
-
-Curtis' wasn't.
-
-I could feel the difference between us even before anything went wrong, the tension sitting just beneath his surface like something waiting for an excuse.
-
-Sweat soaked through my clothes, trapped beneath the Kevlar vest under my Nike sweats, while the ski mask pressed tight against my face and made every breath feel heavier than it should have. Still, I kept my Glock steady, scanning the room, reading movement, watching hands, tracking fear the way I'd learned to trust.
-
-Five employees lay stretched across the grimy carpet—three women, two men, all white, all silent, all completely under our control.
-
-Just minutes ago, they had been moving like it was any other morning.
-
-Now they weren't moving at all.
-
-Curtis worked behind me, quick and efficient as he cleared the safe, stuffing stacks of cash into a duffle bag with practiced speed. He was good at that part—fast hands, no hesitation—but there was always something just beneath it, something that didn't belong to the job itself.
-
-Something waiting.
-
-I kept the room covered, sweeping angles, checking corners, staying ahead of anything that might shift.
-
-"It's been four minutes. Let's move."
-
-"Yeah, yeah… I'm done," Curtis muttered, though there was something in his tone that didn't match the words, like he wasn't quite ready for it to end.
-
-That was Curtis.
-
-He didn't just do the job.
-
-He fed off it.
-
-I stepped toward the exit, positioning myself to clear the door with my grip firm on the Glock, while Curtis followed close behind with the duffle bag slung over his shoulder. For a brief second, everything felt exactly how it was supposed to feel—tight, controlled, finished.
-
-Then it broke.
-
-One of the male employees lunged forward and grabbed Curtis by the ankle with desperate strength, and just like that, the balance shifted.
-
-Curtis went down hard, crashing into me as we slammed against the wall beside the door.
-
-The man moved faster than I expected—faster than fear usually allows—as he pulled a snub-nosed .38 from an ankle holster and rolled beneath a desk, trying to create space.
-
-I didn't hesitate.
-
-I fired twice, both rounds landing center mass before he could even bring the weapon up, his body collapsing as the gun slipped from his hand.
-
-But I didn't trust "down."
-
-I stepped forward and put one more round through his forehead, making sure it was finished.
-
-Behind me, Curtis snapped—but it wasn't panic or fear.
-
-It was something else…</div>
-    <div class="modal-cta">
-      <span class="modal-hook">What happens next changes everything…</span>
-      <a class="btn btn-primary btn-sm" href="audiobooks.html#ab1">🎧 Get the Audiobook — $12.99</a>
-      <a class="btn btn-secondary btn-sm" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks" target="_blank" rel="noopener">Buy on Amazon</a>
+  <div class="modal" id="detailModal" aria-hidden="true">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
-</div>
-
-<div class="modal-overlay" id="modal-unplugged">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('unplugged')" aria-label="Close">✕</button>
-    <h3>Unplugged: 30 Days of Chaos</h3>
-    <div class="modal-chapter-label">Chapter 1 — Free Preview</div>
-    <div class="modal-text">Reggie Hayes woke up with that same fucked-up feeling he always got when his alarm hadn't gone off but his body knew he was already late.
-
-Sunlight blasted through the cheap plastic blinds he'd been meaning to replace for three years now. Dust drifted lazily through the beam like slow snow.
-
-Forty-seven years old and still waking up in an apartment that looked like temporary living.
-
-No woman beside him. No kids down the hall.
-
-Just the low hum of Fish's tank filter and Arnold's fat orange body sprawled across the foot of the bed like he owned the place.
-
-"Move, you heavyweight," Reggie muttered.
-
-The cat opened one lazy eye, unimpressed.
-
-Twenty pounds of fur and attitude. Arnold stayed because Reggie kept the bowl full. That was the entire relationship.
-
-Reggie shoved the blankets aside and reached for his phone.
-
-7:43.
-
-"Shit."
-
-He was supposed to be at the warehouse by eight. Third time late this month meant Eddie's disappointed face. That quiet look that said I stuck my neck out for you, Reg.
-
-Reggie jumped up and rushed through his morning routine on autopilot. Shower. Polo. Khakis. Keys. Coffee.
-
-Coffee always came first.
-
-He dumped two heavy scoops of sugar into the mug. No cream. Diabetes had already taken enough people in his family.
-
-The first sip burned his tongue but woke up his brain.
-
-While drinking, he flipped open his laptop—habit more than necessity. Reggie always checked traffic before heading out.
-
-He clicked the browser.
-
-Nothing happened.
-
-"No internet?" he muttered.
-
-He checked the router. Lights were on.
-
-Weird.
-
-He grabbed his phone.
-
-Instagram wouldn't load. Twitter wouldn't load. His banking app returned an error. The text message he sent to Mike sat there undelivered.
-
-Reggie frowned.
-
-"That ain't right."
-
-Cell service didn't just disappear.
-
-A faint unease crept into his chest.
-
-He grabbed the remote and turned on the TV.
-
-A news broadcast flickered onto the screen. The anchor looked tense, her professional smile gone.
-
-"—reports are coming in from across the country that major digital networks have gone offline—"
-
-The screen flickered. She glanced off camera.
-
-"—we are being told this disruption is affecting communications infrastructure nationwide—"
-
-Static swallowed the broadcast. The image returned for a split second. Then disappeared again.
-
-Now the screen showed a government seal.
-
-A voice crackled through the speaker.
-
-"This is a federal emergency broadcast. All citizens are advised to remain inside their homes until further instruction."
-
-The signal cut out.
-
-Dead air.
-
-Reggie stared at the screen.
-
-"The hell?"
-
-He flipped channels. Same message. Or nothing. Just static.
-
-No internet. No cell signal. Now emergency broadcasts.
-
-A cold knot formed in his stomach…</div>
-    <div class="modal-cta">
-      <span class="modal-hook">Day 1 of 30. The chaos is just beginning…</span>
-      <a class="btn btn-primary btn-sm" href="audiobooks.html#ab2">🎧 Get the Audiobook — $12.99</a>
-      <a class="btn btn-secondary btn-sm" href="https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks" target="_blank" rel="noopener">Buy on Amazon</a>
-    </div>
-  </div>
-</div>
 
 <script>
-// Nav toggle
-const toggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
-toggle.addEventListener('click', () => {
-  const open = navLinks.classList.toggle('open');
-  toggle.setAttribute('aria-expanded', open);
-});
+const VIP_KEY = 'vipUnlocked';
+const LAST_PLAY_KEY = 'sumnuLastPlayed';
 
-// Modals
-function openModal(id) {
-  document.getElementById('modal-' + id).classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal(id) {
-  document.getElementById('modal-' + id).classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.querySelectorAll('.modal-overlay').forEach(el => {
-  el.addEventListener('click', e => {
-    if (e.target === el) {
-      el.classList.remove('open');
-      document.body.style.overflow = '';
+const siteData = {
+  series: [
+    {
+      type: 'series',
+      slug: 'before-our-water-breaks',
+      title: 'Before Our Water Breaks',
+      label: 'Audio drama',
+      meta: '8 episodes • episodes 1–2 free',
+      tagline: 'Two sisters. One husband. Two pregnancies. One truth too big to stay buried.',
+      cover: 'images/series/before-our-water-breaks/before-our-water-breaks-cover.jpg',
+      items: Array.from({length:8}, (_,i) => ({
+        number: i + 1,
+        title: `Episode ${i+1}`,
+        description: i < 2 ? 'Free sample episode.' : 'VIP episode.',
+        image: `images/series/before-our-water-breaks/before-our-water-breaks-ep${i+1}.jpg`,
+        audio: `audio/series/before-our-water-breaks/before-our-water-breaks-ep${i+1}.mp3`
+      }))
+    },
+    {
+      type: 'series',
+      slug: 'here-eat-this',
+      title: 'Here... Eat This',
+      label: 'Suspense drama',
+      meta: '8 episodes • episodes 1–2 free',
+      tagline: 'A dinner table. A pressure chamber. A story built on suspicion, betrayal, and what gets served when trust is already dead.',
+      cover: 'images/series/here-eat-this/here-eat-this-cover.jpg',
+      items: Array.from({length:8}, (_,i) => ({
+        number: i + 1,
+        title: `Episode ${i+1}`,
+        description: i < 2 ? 'Free sample episode.' : 'VIP episode.',
+        image: `images/series/here-eat-this/here-eat-this-ep${i+1}.jpg`,
+        audio: `audio/series/here-eat-this/here-eat-this-ep${i+1}.mp3`
+      }))
+    },
+    {
+      type: 'series',
+      slug: 'other-man',
+      title: 'Other Man',
+      label: 'Psychological thriller',
+      meta: '8 episodes • episodes 1–2 free',
+      tagline: 'Twin brothers. One stolen life. One woman who knows something is wrong long before she can prove it.',
+      cover: 'images/series/other-man/other-man-cover.jpg',
+      items: Array.from({length:8}, (_,i) => ({
+        number: i + 1,
+        title: `Episode ${i+1}`,
+        description: i < 2 ? 'Free sample episode.' : 'VIP episode.',
+        image: `images/series/other-man/other-man-ep${i+1}.jpg`,
+        audio: `audio/series/other-man/other-man-ep${i+1}.mp3`
+      }))
     }
-  });
-});
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.modal-overlay.open').forEach(el => {
-      el.classList.remove('open');
-    });
-    document.body.style.overflow = '';
-  }
-});
+  ],
+  audiobooks: [
+    {
+      type: 'audiobook',
+      slug: 'a-penny-for-my-thoughts',
+      title: 'A Penny for My Thoughts',
+      label: 'Urban thriller',
+      meta: 'prologue free • 50 audio files',
+      tagline: 'A premium chapter-by-chapter audiobook experience. Starts with the prologue, then moves into the full chapter list.',
+      cover: 'images/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-cover.jpg',
+      items: [
+        { number: 1, title: 'Prologue', description: 'Free sample prologue.', image: 'images/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch1.jpg', audio: 'audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch1.mp3' },
+        ...Array.from({length:49}, (_,i) => ({
+          number: i + 2,
+          title: `Chapter ${i+1}`,
+          description: i === 0 ? 'VIP chapter.' : 'VIP chapter.',
+          image: `images/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch${i+2}.jpg`,
+          audio: `audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch${i+2}.mp3`
+        }))
+      ]
+    },
+    {
+      type: 'audiobook',
+      slug: 'unplugged',
+      title: 'Unplugged',
+      label: 'Dystopian suspense',
+      meta: 'prologue free • 18 audio files',
+      tagline: 'A premium chapter-by-chapter audiobook experience. Starts with the prologue, then moves into the full chapter list.',
+      cover: 'images/audiobooks/unplugged/unplugged-cover.jpg',
+      items: [
+        { number: 1, title: 'Prologue', description: 'Free sample prologue.', image: 'images/audiobooks/unplugged/unplugged-ch1.jpg', audio: 'audio/audiobooks/unplugged/unplugged-ch1.mp3' },
+        ...Array.from({length:17}, (_,i) => ({
+          number: i + 2,
+          title: `Chapter ${i+1}`,
+          description: 'VIP chapter.',
+          image: `images/audiobooks/unplugged/unplugged-ch${i+2}.jpg`,
+          audio: `audio/audiobooks/unplugged/unplugged-ch${i+2}.mp3`
+        }))
+      ]
+    },
+    {
+      type: 'audiobook',
+      slug: 'chandra',
+      title: 'Chandra',
+      label: 'Las Vegas crime thriller',
+      meta: 'chapter 1 free • 22 chapters',
+      tagline: 'A premium chapter-by-chapter audiobook experience that opens right into the chapter list.',
+      cover: 'images/audiobooks/chandra/chandra-cover.jpg',
+      items: Array.from({length:22}, (_,i) => ({
+        number: i + 1,
+        title: `Chapter ${i+1}`,
+        description: i === 0 ? 'Free sample chapter.' : 'VIP chapter.',
+        image: `images/audiobooks/chandra/chandra-ch${i+1}.jpg`,
+        audio: `audio/audiobooks/chandra/chandra-ch${i+1}.mp3`
+      }))
+    },
+    {
+      type: 'audiobook',
+      slug: 'the-jailhouse-lawyer',
+      title: 'The Jailhouse Lawyer',
+      label: 'Street/legal drama',
+      meta: 'chapter 1 free • 20 chapters',
+      tagline: 'A premium chapter-by-chapter audiobook experience that opens right into the chapter list.',
+      cover: 'images/audiobooks/the-jailhouse-lawyer/the-jailhouse-lawyer-cover.jpg',
+      items: Array.from({length:20}, (_,i) => ({
+        number: i + 1,
+        title: `Chapter ${i+1}`,
+        description: i === 0 ? 'Free sample chapter.' : 'VIP chapter.',
+        image: `images/audiobooks/the-jailhouse-lawyer/the-jailhouse-lawyer-ch${i+1}.jpg`,
+        audio: `audio/audiobooks/the-jailhouse-lawyer/the-jailhouse-lawyer-ch${i+1}.mp3`
+      }))
+    },
+    {
+      type: 'audiobook',
+      slug: 'still-standing',
+      title: 'Still Standing',
+      label: 'Survival drama',
+      meta: 'chapter 1 free • 15 chapters',
+      tagline: 'A premium chapter-by-chapter audiobook experience that opens right into the chapter list.',
+      cover: 'images/audiobooks/still-standing/still-standing-cover.jpg',
+      items: Array.from({length:15}, (_,i) => ({
+        number: i + 1,
+        title: `Chapter ${i+1}`,
+        description: i === 0 ? 'Free sample chapter.' : 'VIP chapter.',
+        image: `images/audiobooks/still-standing/still-standing-ch${i+1}.jpg`,
+        audio: `audio/audiobooks/still-standing/still-standing-ch${i+1}.mp3`
+      }))
+    }
+  ],
+  music: [{"type": "music", "slug": "chapter-7", "title": "Chapter 7", "label": "Album", "meta": "full album with VIP", "tagline": "Chapter 7 stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/chapter-7.jpg", "items": [{"number": 1, "title": "Chapter 7 Intro", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/1-Chapter 7 Intro.mp3"}, {"number": 2, "title": "Pretty Close", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/2-Pretty Close.mp3"}, {"number": 3, "title": "At Least I Tried", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/3-At Least I Tried.mp3"}, {"number": 4, "title": "I've Seen", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/4-I've Seen.mp3"}, {"number": 5, "title": "Uncrowned King", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/5-Uncrowned King.mp3"}, {"number": 6, "title": "Nobody Told Me", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/6-Nobody Told Me.mp3"}, {"number": 7, "title": "Still Kinda Ballin", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/7-Still Kinda Ballin.mp3"}, {"number": 8, "title": "My Homies And I", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/8-My Homies And I.mp3"}, {"number": 9, "title": "Brain Damaged", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/9-Brain Damaged.mp3"}, {"number": 10, "title": "Break a Punks Jaw... Again", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/10-Break_a_Punks_Jaw...Again.mp3"}, {"number": 11, "title": "Summertime Groove", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/11-Summertime Groove.mp3"}]}, {"type": "music", "slug": "the-profit-e", "title": "The Profit E", "label": "Album", "meta": "full album with VIP", "tagline": "The Profit E stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/the-profit-e.jpg", "items": [{"number": 1, "title": "Rest In Unpeace", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/01 Rest In Unpeace.mp3"}, {"number": 2, "title": "The Profit", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/02 The Profit.mp3"}, {"number": 3, "title": "Light 2 Da Dark", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/03 Light 2 Da Dark.mp3"}, {"number": 4, "title": "Don't Die", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/04 Don't Die.mp3"}, {"number": 5, "title": "I Am", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/05 I Am.mp3"}, {"number": 6, "title": "Time Bomb", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/06 Time Bomb.mp3"}, {"number": 7, "title": "Dark Side (feat Julian Lamont)", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/07 Dark Side (feat Julian Lamont).mp3"}, {"number": 8, "title": "Vibrations", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/08 Vibrations.mp3"}, {"number": 9, "title": "The Profit (feat Aaron Neville)", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/09 The Profit (feat Aaron Neville).mp3"}, {"number": 10, "title": "DarkSide mellow mix", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/10 DarkSide mellow mix.mp3"}, {"number": 11, "title": "Rest in Unpeace remix", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/11 Rest in Unpeace remix.mp3"}]}, {"type": "music", "slug": "the-maytricks", "title": "The May Tricks", "label": "Album", "meta": "full album with VIP", "tagline": "The May Tricks stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/the-maytricks.jpg", "items": [{"number": 1, "title": "The Beginning", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 01 The Beginning.mp3"}, {"number": 2, "title": "The MayTricks", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 02 MayTricks.mp3"}, {"number": 3, "title": "Journey", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 03 Journey.mp3"}, {"number": 4, "title": "Sorry That I Left The Game", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 04 Sorry.mp3"}, {"number": 5, "title": "Dust N The Wind", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 05 Dust N The Wind.mp3"}, {"number": 6, "title": "Going Higher", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 06 Going Higher.mp3"}, {"number": 7, "title": "Walking N The Rain", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 07 Walking N the Rain.mp3"}, {"number": 8, "title": "Green Eggs N Ham", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 09 Green Eggs N Ham.mp3"}, {"number": 9, "title": "The 90's", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 10 The 90's.mp3"}]}, {"type": "music", "slug": "destiny", "title": "Destiny", "label": "Album", "meta": "full album with VIP", "tagline": "Destiny stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/destiny.jpg", "items": [{"number": 1, "title": "The Hit Skit", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/01-The Hit Skit.mp3"}, {"number": 2, "title": "Shit-List", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/02-Shit-List.mp3"}, {"number": 3, "title": "Inside My Mind", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/03-Inside My Mind.mp3"}, {"number": 4, "title": "Destiny", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/04-Destiny.mp3"}, {"number": 5, "title": "The D-Sucker (skit)", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/05-The D-Sucker (skit).mp3"}, {"number": 6, "title": "I Like", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/06-I Like.mp3"}, {"number": 7, "title": "More Game", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/07-More Game.mp3"}, {"number": 8, "title": "Money", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/08-Money.mp3"}, {"number": 9, "title": "Straight Mackin", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/09-Straight Mackin.mp3"}, {"number": 10, "title": "The Message (skit)", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/10-The Message (skit).mp3"}, {"number": 11, "title": "The Target", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/11-The Target.mp3"}, {"number": 12, "title": "That's All She Wrote", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/12-That's All She Wrote.mp3"}]}, {"type": "music", "slug": "list-complete", "title": "List Complete", "label": "Album", "meta": "full album with VIP", "tagline": "List Complete stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/list-complete.jpg", "buy": "", "items": [{"number": 1, "title": "Forgot All About Me", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/01 Forgot All About Me.mp3"}, {"number": 2, "title": "Cum In Your Mind", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/02 Cum In Your Mind.mp3"}, {"number": 3, "title": "Cum In Your Mind remix", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/02 Cum In Your Mind remix.mp3"}, {"number": 4, "title": "EMC & DJ Regg1210", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/03 EMC & DJ Regg1210.mp3"}, {"number": 5, "title": "Cloned Brother", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/04 Cloned Brother.mp3"}, {"number": 6, "title": "I Do Believe", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/05 I Do Believe final jne 22 2019mix.mp3"}, {"number": 7, "title": "Act Right", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/06 Act Right.mp3"}, {"number": 8, "title": "Truth", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/07 Truth.mp3"}, {"number": 9, "title": "It's Been A Minute", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/08 It's Been A Minute.mp3"}, {"number": 10, "title": "Preception", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/09 Preception.mp3"}, {"number": 11, "title": "Porn Star", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/10 Porn Star.mp3"}, {"number": 12, "title": "You Can Ride With Me", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/11 You Can Ride With Me.mp3"}]}, {"type": "music", "slug": "lost-and-found", "title": "Lost and Found", "label": "Album", "meta": "full album with VIP", "tagline": "Lost and Found stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/lost-and-found.jpg", "items": [{"number": 1, "title": "Step Up", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Step Up.mp3"}, {"number": 2, "title": "Take a Ride With Me", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Take a Ride With Me.mp3"}, {"number": 3, "title": "Playa Partnas", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Playa Partnas.mp3"}, {"number": 4, "title": "Show Ya Gold", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Show Ya Gold.mp3"}, {"number": 5, "title": "Show Yo Golds (Chopped and Screwed)", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Show Yo Golds (Chopped and Screwed).mp3"}, {"number": 6, "title": "Holla Back Remix", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Holla Back Remix.mp3"}, {"number": 7, "title": "Holla Back", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Holla Back.mp3"}, {"number": 8, "title": "I Wanna", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/I Wanna.mp3"}, {"number": 9, "title": "Fo Sho", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Fo Sho.mp3"}, {"number": 10, "title": "Get High To This", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Get High To This.mp3"}, {"number": 11, "title": "Hater Hateing", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Hater Hateing.mp3"}, {"number": 12, "title": "Ho", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Ho.mp3"}]}, {"type": "music", "slug": "night-vision", "title": "Night Vision", "label": "Album", "meta": "full album with VIP", "tagline": "Night Vision stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/night-vision.jpg", "items": [{"number": 1, "title": "Night Vision", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/01 Night Vision.mp3"}, {"number": 2, "title": "I'm Bad", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/02 I'm Bad.mp3"}, {"number": 3, "title": "Tell Me bout Yo Hood", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/03 Tell Me bout Yo Hood.mp3"}, {"number": 4, "title": "Old School", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/04 Old School.mp3"}, {"number": 5, "title": "When You Cum", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/05 When You Cum.mp3"}, {"number": 6, "title": "Smack That Ass", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/06 Smack That Ass.mp3"}, {"number": 7, "title": "Sneeky Bitch", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/07 Sneeky Bitch.mp3"}, {"number": 8, "title": "Pussy", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/08 Pussy.mp3"}, {"number": 9, "title": "Cums from Pimpin", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/09 Cums from Pimpin.mp3"}, {"number": 10, "title": "Never Shed A Tear", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/10 Never Shed A Tear.mp3"}, {"number": 11, "title": "Sunshine", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/11 Sunshine.mp3"}, {"number": 12, "title": "DJ Reg Cuttin Up", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/12 DJ Reg Cuttin Up.mp3"}]}, {"type": "music", "slug": "nocternal-life", "title": "Nocternal Life", "label": "Album", "meta": "full album with VIP", "tagline": "Nocternal Life stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/nocternal-life.jpg", "items": [{"number": 1, "title": "INTRO", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/01 INTRO.mp3"}, {"number": 2, "title": "THE DON", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/02 THE DON.mp3"}, {"number": 3, "title": "NO DRAMA", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/03 NO DRAMA.mp3"}, {"number": 4, "title": "ALL FOR YOU", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/04 ALL FOR YOU.mp3"}, {"number": 5, "title": "FUCK THE DON", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/06 FUCK THE DON.mp3"}, {"number": 6, "title": "1 ON 1", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/07 1 ON 1.mp3"}, {"number": 7, "title": "NOCTURNAL LIFE", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/08 NOCTURNAL LIFE.mp3"}, {"number": 8, "title": "SHUT UM DOWN", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/09 SHUT UM DOWN.mp3"}, {"number": 9, "title": "SHAME", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/11 SHAME.mp3"}, {"number": 10, "title": "BLACK MASK", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/13 BLACK MASK.mp3"}, {"number": 11, "title": "RIDE (REMIX)", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/15 RIDE (REMIX).mp3"}, {"number": 12, "title": "ROLL UP", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/16 ROLL UP.mp3"}]}, {"type": "music", "slug": "rdm", "title": "RDM", "label": "Album", "meta": "full album with VIP", "tagline": "RDM stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/rdm.jpg", "buy": "", "items": [{"number": 1, "title": "Never Felt the Way I Feel For You", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/01 Never Felt the Way I Feel For You.mp3"}, {"number": 2, "title": "Making Love", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/02 Making Love.mp3"}, {"number": 3, "title": "Pretty Green Eyes", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/03 Pretty Green Eyes.mp3"}, {"number": 4, "title": "Lets Try Again", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/04 Lets Try Again.mp3"}, {"number": 5, "title": "You Use To Be Mine", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/05 You Use To Be Mine.mp3"}, {"number": 6, "title": "When In Love", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/06 When In Love.mp3"}, {"number": 7, "title": "Cheating On You", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/07 Cheating On You.mp3"}]}, {"type": "music", "slug": "still-pimpin", "title": "Still Pimpin", "label": "Album", "meta": "full album with VIP", "tagline": "Still Pimpin stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/still-pimpin.jpg", "buy": "https://payhip.com/b/VygoG", "items": [{"number": 1, "title": "Intro", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/01 Intro.mp3"}, {"number": 2, "title": "Payback", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/02 Payback.mp3"}, {"number": 3, "title": "Still Pimpin", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/03 Still Pimpin.mp3"}, {"number": 4, "title": "Yes You Can", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/04 Yes You Can.mp3"}, {"number": 5, "title": "Get Rich", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/06 Get Rich.mp3"}, {"number": 6, "title": "Pimp Shit", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/07 Pimp Shit.mp3"}, {"number": 7, "title": "Pussie Seller", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/08 Pussie Seller.mp3"}, {"number": 8, "title": "I'm A Celebrity", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/09 I'm A Celebrity.mp3"}, {"number": 9, "title": "ITalk Shit", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/10 ITalk Shit.mp3"}, {"number": 10, "title": "BitchesHoes&Sluts", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/11 BitchesHoes&Sluts.mp3"}, {"number": 11, "title": "Backstabbers", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/12 Backstabbers.mp3"}, {"number": 12, "title": "The Remix", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/13 The Remix.mp3"}]}],
+  radioTracks: [{"title": "Rest In Unpeace", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/01 Rest In Unpeace.mp3"}, {"title": "The Profit", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/02 The Profit.mp3"}, {"title": "Light 2 Da Dark", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/03 Light 2 Da Dark.mp3"}, {"title": "Don't Die", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/04 Don't Die.mp3"}, {"title": "I Am", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/05 I Am.mp3"}, {"title": "Time Bomb", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/06 Time Bomb.mp3"}, {"title": "Dark Side (feat Julian Lamont)", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/07 Dark Side (feat Julian Lamont).mp3"}, {"title": "Vibrations", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/08 Vibrations.mp3"}, {"title": "The Profit (feat Aaron Neville)", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/09 The Profit (feat Aaron Neville).mp3"}, {"title": "DarkSide mellow mix", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/10 DarkSide mellow mix.mp3"}, {"title": "Rest in Unpeace remix", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/11 Rest in Unpeace remix.mp3"}, {"title": "The Beginning", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 01 The Beginning.mp3"}, {"title": "The MayTricks", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 02 MayTricks.mp3"}, {"title": "Journey", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 03 Journey.mp3"}, {"title": "Sorry That I Left The Game", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 04 Sorry.mp3"}, {"title": "Dust N The Wind", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 05 Dust N The Wind.mp3"}, {"title": "Going Higher", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 06 Going Higher.mp3"}, {"title": "Walking N The Rain", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 07 Walking N the Rain.mp3"}, {"title": "Green Eggs N Ham", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 09 Green Eggs N Ham.mp3"}, {"title": "The 90's", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 10 The 90's.mp3"}, {"title": "The Hit Skit", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/01-The Hit Skit.mp3"}, {"title": "Shit-List", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/02-Shit-List.mp3"}, {"title": "Inside My Mind", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/03-Inside My Mind.mp3"}, {"title": "Destiny", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/04-Destiny.mp3"}, {"title": "The D-Sucker (skit)", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/05-The D-Sucker (skit).mp3"}, {"title": "I Like", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/06-I Like.mp3"}, {"title": "More Game", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/07-More Game.mp3"}, {"title": "Money", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/08-Money.mp3"}, {"title": "Straight Mackin", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/09-Straight Mackin.mp3"}, {"title": "The Message (skit)", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/10-The Message (skit).mp3"}, {"title": "The Target", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/11-The Target.mp3"}, {"title": "That's All She Wrote", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/12-That's All She Wrote.mp3"}, {"title": "Forgot All About Me", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/01 Forgot All About Me.mp3"}, {"title": "Cum In Your Mind", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/02 Cum In Your Mind.mp3"}, {"title": "Cum In Your Mind remix", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/02 Cum In Your Mind remix.mp3"}, {"title": "EMC & DJ Regg1210", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/03 EMC & DJ Regg1210.mp3"}, {"title": "Cloned Brother", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/04 Cloned Brother.mp3"}, {"title": "I Do Believe", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/05 I Do Believe final jne 22 2019mix.mp3"}, {"title": "Act Right", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/06 Act Right.mp3"}, {"title": "Truth", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/07 Truth.mp3"}, {"title": "It's Been A Minute", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/08 It's Been A Minute.mp3"}, {"title": "Preception", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/09 Preception.mp3"}, {"title": "Porn Star", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/10 Porn Star.mp3"}, {"title": "You Can Ride With Me", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/11 You Can Ride With Me.mp3"}, {"title": "Step Up", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Step Up.mp3"}, {"title": "Take a Ride With Me", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Take a Ride With Me.mp3"}, {"title": "Playa Partnas", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Playa Partnas.mp3"}, {"title": "Show Ya Gold", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Show Ya Gold.mp3"}, {"title": "Show Yo Golds (Chopped and Screwed)", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Show Yo Golds (Chopped and Screwed).mp3"}, {"title": "Holla Back Remix", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Holla Back Remix.mp3"}, {"title": "Holla Back", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Holla Back.mp3"}, {"title": "I Wanna", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/I Wanna.mp3"}, {"title": "Fo Sho", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Fo Sho.mp3"}, {"title": "Get High To This", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Get High To This.mp3"}, {"title": "Hater Hateing", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Hater Hateing.mp3"}, {"title": "Ho", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Ho.mp3"}, {"title": "Night Vision", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/01 Night Vision.mp3"}, {"title": "I'm Bad", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/02 I'm Bad.mp3"}, {"title": "Tell Me bout Yo Hood", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/03 Tell Me bout Yo Hood.mp3"}, {"title": "Old School", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/04 Old School.mp3"}, {"title": "When You Cum", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/05 When You Cum.mp3"}, {"title": "Smack That Ass", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/06 Smack That Ass.mp3"}, {"title": "Sneeky Bitch", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/07 Sneeky Bitch.mp3"}, {"title": "Pussy", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/08 Pussy.mp3"}, {"title": "Cums from Pimpin", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/09 Cums from Pimpin.mp3"}, {"title": "Never Shed A Tear", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/10 Never Shed A Tear.mp3"}, {"title": "Sunshine", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/11 Sunshine.mp3"}, {"title": "DJ Reg Cuttin Up", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/12 DJ Reg Cuttin Up.mp3"}, {"title": "INTRO", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/01 INTRO.mp3"}, {"title": "THE DON", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/02 THE DON.mp3"}, {"title": "NO DRAMA", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/03 NO DRAMA.mp3"}, {"title": "ALL FOR YOU", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/04 ALL FOR YOU.mp3"}, {"title": "FUCK THE DON", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/06 FUCK THE DON.mp3"}, {"title": "1 ON 1", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/07 1 ON 1.mp3"}, {"title": "NOCTURNAL LIFE", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/08 NOCTURNAL LIFE.mp3"}, {"title": "SHUT UM DOWN", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/09 SHUT UM DOWN.mp3"}, {"title": "SHAME", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/11 SHAME.mp3"}, {"title": "BLACK MASK", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/13 BLACK MASK.mp3"}, {"title": "RIDE (REMIX)", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/15 RIDE (REMIX).mp3"}, {"title": "ROLL UP", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/16 ROLL UP.mp3"}, {"title": "Never Felt the Way I Feel For You", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/01 Never Felt the Way I Feel For You.mp3"}, {"title": "Making Love", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/02 Making Love.mp3"}, {"title": "Pretty Green Eyes", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/03 Pretty Green Eyes.mp3"}, {"title": "Lets Try Again", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/04 Lets Try Again.mp3"}, {"title": "You Use To Be Mine", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/05 You Use To Be Mine.mp3"}, {"title": "When In Love", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/06 When In Love.mp3"}, {"title": "Cheating On You", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/07 Cheating On You.mp3"}, {"title": "Intro", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/01 Intro.mp3"}, {"title": "Payback", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/02 Payback.mp3"}, {"title": "Still Pimpin", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/03 Still Pimpin.mp3"}, {"title": "Yes You Can", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/04 Yes You Can.mp3"}, {"title": "Get Rich", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/06 Get Rich.mp3"}, {"title": "Pimp Shit", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/07 Pimp Shit.mp3"}, {"title": "Pussie Seller", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/08 Pussie Seller.mp3"}, {"title": "I'm A Celebrity", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/09 I'm A Celebrity.mp3"}, {"title": "ITalk Shit", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/10 ITalk Shit.mp3"}, {"title": "BitchesHoes&Sluts", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/11 BitchesHoes&Sluts.mp3"}, {"title": "Backstabbers", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/12 Backstabbers.mp3"}, {"title": "The Remix", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/13 The Remix.mp3"}]
+};
 
-// Scroll reveal
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
-}, { threshold: 0.07 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+function getLegacyFallback(path) {
+  if (path === 'images/music/radio-cover.jpg') return ['images/music/the-profit-e.jpg'];
+  let m;
+
+  m = path.match(/^images\/series\/([^/]+)\/([^/]+)-cover\.jpg$/);
+  if (m) return [`images/${m[1]}/${m[2]}-cover.jpg`];
+
+  m = path.match(/^images\/series\/([^/]+)\/([^/]+)-ep(\d+)\.jpg$/);
+  if (m) return [`images/${m[1]}/${m[2]}-ep${m[3]}.jpg`];
+
+  m = path.match(/^audio\/series\/([^/]+)\/([^/]+)-ep(\d+)\.mp3$/);
+  if (m) return [`audio/${m[1]}/${m[2]}-ep${m[3]}.mp3`];
+
+  m = path.match(/^images\/audiobooks\/([^/]+)\/([^/]+)-cover\.jpg$/);
+  if (m) return [
+    `images/${m[1]}.jpg`,
+    `images/audiobooks/${m[1]}/cover.jpg`
+  ];
+
+  m = path.match(/^images\/audiobooks\/([^/]+)\/([^/]+)-ch(\d+)\.jpg$/);
+  if (m) return [
+    `images/audiobooks/${m[1]}/${m[1]}-cover.jpg`,
+    `images/audiobooks/${m[1]}/chapter-${m[3]}.jpg`
+  ];
+
+  m = path.match(/^audio\/audiobooks\/([^/]+)\/([^/]+)-ch(\d+)\.mp3$/);
+  if (m) return [
+    `audio/audiobooks/${m[1]}/chapter-${m[3]}.mp3`
+  ];
+
+  m = path.match(/^images\/music\/([^/]+)\.jpg$/);
+  if (m) return [`images/music/${m[1]}/cover.jpg`];
+
+  return [];
+}
+
+function withAudioFallback(path) {
+  const fallbacks = getLegacyFallback(path);
+  return fallbacks.length ? ` data-fallbacks="${fallbacks.join('|')}"` : '';
+}
+
+function imgMarkup(path, alt, cls = '') {
+  const fallbacks = getLegacyFallback(path);
+  const attrs = cls ? ` class="${cls}"` : '';
+  const fallbackAttr = fallbacks.length ? ` data-fallbacks="${fallbacks.join('|')}"` : '';
+  return `<img src="${path}" alt="${alt}" loading="lazy"${attrs}${fallbackAttr}>`;
+}
+
+function wireImageFallbacks(root = document) {
+  root.querySelectorAll('img[data-fallbacks], source[data-fallbacks]').forEach(node => {
+    if (node.dataset.fallbackWired === 'true') return;
+    node.dataset.fallbackWired = 'true';
+
+    node.addEventListener('error', () => {
+      const fallbacks = (node.dataset.fallbacks || '').split('|').filter(Boolean);
+      const next = fallbacks.shift();
+      node.dataset.fallbacks = fallbacks.join('|');
+      if (!next) return;
+
+      if (node.tagName.toLowerCase() === 'source') {
+        node.src = next;
+        const audio = node.closest('audio');
+        if (audio) audio.load();
+      } else if (node.src !== next && !node.src.endsWith(next)) {
+        node.src = next;
+      }
+    });
+  });
+}
+
+const $ = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+const isVip = () => localStorage.getItem(VIP_KEY) === 'true';
+
+if (new URLSearchParams(window.location.search).get('vip') === 'true') {
+  localStorage.setItem(VIP_KEY, 'true');
+}
+
+
+siteData.radioTracks = siteData.music.flatMap(album =>
+  album.items.map(item => ({
+    title: item.title,
+    album: album.title,
+    cover: album.cover,
+    audio: item.audio
+  }))
+);
+
+function buildCard(item, freeLabel, locked = false) {
+  return `
+    <article class="card-tile ${locked ? 'is-locked' : ''}" data-type="${item.type}" data-slug="${item.slug}" tabindex="0" role="button" aria-label="Open ${item.title}">
+      <div class="card-cover">${imgMarkup(item.cover, `${item.title} cover`)}</div>
+      <div class="card-gradient"></div>
+      ${freeLabel ? `<div class="card-free">${freeLabel}</div>` : ''}
+      ${locked ? '<div class="card-lock">VIP</div>' : ''}
+      <div class="card-copy">
+        <div class="card-kicker">${item.label}</div>
+        <div class="card-title">${item.title}</div>
+        <div class="card-meta">${item.meta}</div>
+      </div>
+    </article>`;
+}
+
+function renderShelves() {
+  $('#seriesGrid').innerHTML = siteData.series.map(item => buildCard(item, 'FREE', false)).join('');
+  $('#audiobookGrid').innerHTML = siteData.audiobooks.map(item => buildCard(item, 'FREE', false)).join('');
+  $('#musicGrid').innerHTML = [
+    `<article class="card-tile radio-tile" data-radio-tile="true" tabindex="0" role="button" aria-label="Play Sumnu Radio">
+      <div class="radio-visual">
+        <div class="radio-ring"></div>
+        <div class="radio-center">▶</div>
+        <div class="radio-bars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="card-gradient"></div>
+      <div class="card-free">FREE RADIO</div>
+      <div class="card-copy">
+        <div class="card-kicker">Shuffle mode</div>
+        <div class="card-title">Sumnu Radio</div>
+        <div class="card-meta">Tap to start free playback</div>
+      </div>
+    </article>`,
+    ...siteData.music.map(item => buildCard(item, '', !isVip()))
+  ].join('');
+}
+
+function makeItemRow(parent, item, index, freeCount) {
+  const unlocked = isVip() || index < freeCount;
+  const tag = unlocked && index < freeCount ? 'FREE' : unlocked ? 'VIP OPEN' : 'LOCKED';
+  return `
+    <article class="media-item ${unlocked ? '' : 'locked'}">
+      <div class="media-thumb-wrap">${imgMarkup(item.image, item.title)}</div>
+      <div class="media-text">
+        <h4>${item.title}</h4>
+        <p>${item.description}</p>
+      </div>
+      <div class="media-actions">
+        <div class="media-tag">${tag}</div>
+        ${unlocked ? `
+          <div class="track-audio">
+            <audio controls preload="none" data-parent="${parent.slug}" data-type="${parent.type}" data-title="${parent.title} — ${item.title}">
+              <source src="${item.audio}" type="audio/mpeg"${withAudioFallback(item.audio)}>
+            </audio>
+          </div>` : `
+          <a class="btn btn-primary" href="unlock.html?from=index.html">🔓 Unlock VIP</a>`}
+      </div>
+    </article>`;
+}
+
+function openDetail(type, slug) {
+  const collection = siteData[type + (type.endsWith('s') ? '' : 's')] || siteData[type];
+}
+
+function resolveEntry(type, slug) {
+  if (type === 'series') return siteData.series.find(x => x.slug === slug);
+  if (type === 'audiobook') return siteData.audiobooks.find(x => x.slug === slug);
+  if (type === 'music') return siteData.music.find(x => x.slug === slug);
+  return null;
+}
+
+function showModal(entry) {
+  const freeCount = entry.type === 'series' ? 2 : entry.type === 'audiobook' ? 1 : isVip() ? 999 : 0;
+  const pills = [
+    entry.type === 'series' ? 'Episodes 1–2 free' : entry.type === 'audiobook' ? ((entry.slug === 'a-penny-for-my-thoughts' || entry.slug === 'unplugged') ? 'Prologue free' : 'Chapter 1 free') : 'Albums inside VIP',
+    isVip() ? 'VIP ACTIVE' : '$5 unlock',
+    entry.label
+  ];
+
+  $('#modalBody').innerHTML = `
+    <section class="detail-hero">
+      <div class="detail-cover">${imgMarkup(entry.cover, `${entry.title} cover`)}</div>
+      <div class="detail-copy">
+        <div class="card-kicker">${entry.label}</div>
+        <h2 id="modalTitle">${entry.title}</h2>
+        <p>${entry.tagline}</p>
+        <div class="detail-pills">${pills.map(p => `<span class="pill ${p.includes('VIP') ? 'gold' : ''}">${p}</span>`).join('')}</div>
+        <div class="inline-actions">
+          ${isVip() ? '<span class="btn btn-secondary">VIP unlocked</span>' : '<a class="btn btn-primary" href="unlock.html?from=index.html">🔓 Unlock all access</a>'}
+          ${entry.type === 'music' && entry.buy ? `<a class="btn btn-secondary" href="${entry.buy}" target="_blank" rel="noopener">Buy Album — $10.00</a>` : ''}
+          ${entry.type === 'music' ? '<a class="btn btn-ghost" href="music.html">Open music page</a>' : ''}
+        </div>
+      </div>
+    </section>
+    <section class="list-grid">
+      ${entry.items.map((item, i) => makeItemRow(entry, item, i, freeCount)).join('')}
+    </section>`;
+
+  wireImageFallbacks($('#detailModal'));
+  $('#detailModal').classList.add('open');
+  $('#detailModal').setAttribute('aria-hidden', 'false');
+  wireAudioState();
+}
+
+function closeModal() {
+  $('#detailModal').classList.remove('open');
+  $('#detailModal').setAttribute('aria-hidden', 'true');
+  $$('#detailModal audio').forEach(a => { try { a.pause(); } catch (e) {} });
+}
+
+function wireAudioState() {
+  const audios = $$('#detailModal audio');
+  audios.forEach((audio, idx) => {
+    audio.addEventListener('play', () => {
+      audios.forEach(other => { if (other !== audio) other.pause(); });
+      localStorage.setItem(LAST_PLAY_KEY, JSON.stringify({
+        title: audio.dataset.title,
+        parent: audio.dataset.parent,
+        type: audio.dataset.type,
+        src: audio.currentSrc || audio.querySelector('source')?.src || ''
+      }));
+      updateResumeCard();
+    });
+    audio.addEventListener('ended', () => {
+      const next = audios[idx + 1];
+      if (next) next.play().catch(() => {});
+    });
+  });
+}
+
+function updateResumeCard() {
+  const raw = localStorage.getItem(LAST_PLAY_KEY);
+  if (!raw) return;
+  try {
+    const item = JSON.parse(raw);
+    $('#resumeText').textContent = item.title || 'Jump back into your last title.';
+    const card = $('#resumeCard');
+    card.classList.add('show');
+    $('#resumeBtn').onclick = () => {
+      const entry = resolveEntry(item.type, item.parent);
+      if (entry) showModal(entry);
+    };
+  } catch (e) {}
+}
+
+function initRadio() {
+  const player = $('#radioAudio');
+  const now = $('#radioNow');
+  const art = $('#radioDockArt');
+  const playBtn = $('#radioPlayBtn');
+  let current = -1;
+
+  function setTrackUi(track) {
+    if (!track) return;
+    now.textContent = 'Now playing: ' + track.title + (track.album ? ' • ' + track.album : '');
+    if (art) {
+      art.classList.remove('fallback');
+      art.innerHTML = `<img src="${track.cover}" alt="${track.album || track.title} cover" loading="lazy">`;
+    }
+  }
+
+  function nextTrack() {
+    if (!siteData.radioTracks.length) return;
+    let next = Math.floor(Math.random() * siteData.radioTracks.length);
+    if (siteData.radioTracks.length > 1) {
+      while (next === current) next = Math.floor(Math.random() * siteData.radioTracks.length);
+    }
+    current = next;
+    const track = siteData.radioTracks[current];
+    player.src = track.audio;
+    setTrackUi(track);
+    player.play().then(() => {
+      playBtn.textContent = '⏸ Pause radio';
+    }).catch(() => {
+      playBtn.textContent = '▶ Play radio';
+    });
+  }
+
+  playBtn.addEventListener('click', () => {
+    if (!player.src) {
+      nextTrack();
+      return;
+    }
+    if (player.paused) {
+      player.play().then(() => {
+        playBtn.textContent = '⏸ Pause radio';
+      }).catch(() => {});
+      return;
+    }
+    player.pause();
+    playBtn.textContent = '▶ Play radio';
+  });
+  $('#radioNextBtn').addEventListener('click', nextTrack);
+  player.addEventListener('ended', nextTrack);
+  player.addEventListener('pause', () => {
+    if (!player.ended) playBtn.textContent = '▶ Play radio';
+  });
+  player.addEventListener('play', () => {
+    playBtn.textContent = '⏸ Pause radio';
+  });
+}
+
+function wireUi() {
+  const navToggle = $('#navToggle');
+  const navLinks = $('#navLinks');
+  if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  }
+
+  ['seriesGrid','audiobookGrid','musicGrid'].forEach(id => {
+    $('#' + id).addEventListener('click', e => {
+      const tile = e.target.closest('.card-tile');
+      if (!tile) return;
+      if (tile.dataset.radioTile) {
+        document.getElementById('musicShelf').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('radioPlayBtn').click();
+        return;
+      }
+      const entry = resolveEntry(tile.dataset.type, tile.dataset.slug);
+      if (entry) showModal(entry);
+    });
+    $('#' + id).addEventListener('keydown', e => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const tile = e.target.closest('.card-tile');
+      if (tile) { e.preventDefault(); tile.click(); }
+    });
+  });
+
+  $('#modalClose').addEventListener('click', closeModal);
+  $('#modalBackdrop').addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+}
+
+renderShelves();
+updateResumeCard();
+initRadio();
+wireUi();
+
+if (isVip()) {
+  ['heroUnlockBtn','vipCtaBtn','mobileUnlockBtn'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = '✅ VIP unlocked'; el.classList.remove('btn-primary'); el.classList.add('btn-secondary'); el.href = '#'; }
+  });
+}
 </script>
 </body>
 </html>
