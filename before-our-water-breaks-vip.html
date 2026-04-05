@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Before Our Water Breaks — VIP Series · Sumnu Books</title>
-  <link rel="stylesheet" href="css/sumnu.css" />
+  <link rel="stylesheet" href="css/site.css" />
   <style>
     body {
       background:
@@ -175,7 +175,7 @@
           <input type="hidden" name="item_name" value="Before Our Water Breaks Season 1 Unlock (Episodes 5-8)">
           <input type="hidden" name="amount" value="5.00">
           <input type="hidden" name="currency_code" value="USD">
-          <input type="hidden" name="return" value="https://sumnubooks.com/before-our-water-breaks-unlocked.html">
+          <input type="hidden" name="return" value="https://sumnubooks.com/login.html?paid=true&redirect=%2Fbefore-our-water-breaks-unlocked.html">
           <input type="hidden" name="cancel_return" value="https://sumnubooks.com/before-our-water-breaks-vip.html">
           <button class="btn btn-primary btn-lg" type="submit">🔓 Unlock Season 1 — $5</button>
         </form>
@@ -187,7 +187,7 @@
 
   
   <script>
-    const STORAGE_KEY = "beforeourwaterbreaks_unlocked";
+    const STORAGE_KEY = "vipUnlocked";
     const UNLOCKED_PAGE = "before-our-water-breaks-unlocked.html";
 
     try {
@@ -221,5 +221,7 @@
     });
   </script>
 
+
+  <script src="js/auth.js"></script>
 </body>
 </html>

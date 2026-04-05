@@ -224,9 +224,16 @@
   </main>
 
   <script>
-    const target = 'index.html?fromSplash=1';
+    const target = 'index.html';
     const delay = 2200;
     let entered = false;
+
+    // Skip splash if user already passed through it this session
+    try {
+      if (sessionStorage.getItem('splashSeen') === '1') {
+        window.location.replace(target);
+      }
+    } catch(e) {}
 
     function enterSite() {
       if (entered) return;

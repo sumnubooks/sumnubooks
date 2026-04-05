@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Here... Eat This — VIP Series · Sumnu Books</title>
-  <link rel="stylesheet" href="css/sumnu.css" />
+  <link rel="stylesheet" href="css/site.css" />
 
   <style>
     body {
@@ -54,8 +54,8 @@
   </style>
 
   <script>
-    const HERE_EAT_THIS_UNLOCK_KEY = "here-eat-this-unlocked";
-    if (localStorage.getItem(HERE_EAT_THIS_UNLOCK_KEY) === "true") {
+    const VIP_KEY = "vipUnlocked";
+    if (localStorage.getItem(VIP_KEY) === "true") {
       window.location.href = "here-eat-this-unlocked.html";
     }
   </script>
@@ -209,7 +209,7 @@
         <input type="hidden" name="item_name" value="HERE... EAT THIS — Full Season Unlock" />
         <input type="hidden" name="amount" value="5.00" />
         <input type="hidden" name="currency_code" value="USD" />
-        <input type="hidden" name="return" value="https://sumnubooks.com/here-eat-this-unlocked.html" />
+        <input type="hidden" name="return" value="https://sumnubooks.com/login.html?paid=true&redirect=%2Fhere-eat-this-unlocked.html" />
         <input type="hidden" name="cancel_return" value="https://sumnubooks.com/vip-here-eat-this.html" />
       </form>
     </div>
@@ -233,5 +233,7 @@
       });
     });
   </script>
+
+  <script src="js/auth.js"></script>
 </body>
 </html>

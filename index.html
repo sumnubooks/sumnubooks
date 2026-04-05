@@ -465,6 +465,33 @@
 const VIP_KEY = 'vipUnlocked';
 const LAST_PLAY_KEY = 'sumnuLastPlayed';
 
+// ── Splash: mark that we've visited so splash.html skips on back-nav ──
+try { sessionStorage.setItem('splashSeen', '1'); } catch(e) {}
+
+// ── VIP restore: PayPal returns with ?vip=true ──
+// Also restore from Netlify Identity account role if widget is present
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('vip') === 'true') {
+    try { localStorage.setItem(VIP_KEY, 'true'); } catch(e) {}
+    // Clean URL so the param doesn't stay visible
+    const clean = window.location.pathname + (window.location.hash || '');
+    history.replaceState(null, '', clean);
+  }
+
+  // If Netlify Identity widget is loaded, check user role for VIP
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on('init', user => {
+      if (user) {
+        const roles = user.app_metadata?.roles || [];
+        if (roles.includes('vip')) {
+          try { localStorage.setItem(VIP_KEY, 'true'); } catch(e) {}
+        }
+      }
+    });
+  }
+})();
+
 const siteData = {
   series: [
     {
@@ -944,5 +971,7 @@ if (isVip()) {
   });
 }
 </script>
+
+  <script src="js/auth.js"></script>
 </body>
 </html>

@@ -3,8 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Login — Sumnu Books</title>
+  <title>Save Your Access — Sumnu Books</title>
   <link href="css/site.css" rel="stylesheet" />
+  <!-- Netlify Identity Widget — required for account-based VIP restore -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     .site-header{position:sticky;top:0;z-index:50;background:rgba(6,8,15,.90);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
     .navbar-shell{min-height:64px;display:flex;align-items:center;justify-content:center}
@@ -18,29 +20,39 @@
     .hero-logo-img{display:block;width:min(64vw,320px);max-width:320px;height:auto;object-fit:contain;filter:drop-shadow(0 0 12px rgba(212,168,67,.12))}
     .auth-page{min-height:calc(100vh - 130px);display:flex;align-items:center;justify-content:center;padding:20px 16px 48px;background:radial-gradient(circle at 50% 10%, rgba(212,168,67,.11), transparent 34%),linear-gradient(180deg,#030507 0%,#060914 100%)}
     .auth-shell{width:min(100%,960px);display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
-    .auth-card,.auth-side{border:1px solid rgba(212,168,67,.16);border-radius:28px;background:linear-gradient(180deg, rgba(9,14,28,.94), rgba(7,10,20,.98));box-shadow:var(--shadow-md)}
+    .auth-card,.auth-side{border:1px solid rgba(212,168,67,.16);border-radius:28px;background:linear-gradient(180deg, rgba(9,14,28,.94), rgba(7,10,20,.98));box-shadow:0 12px 32px rgba(0,0,0,.35)}
     .auth-card{padding:28px 24px 24px}.auth-side{padding:28px 24px}
     .auth-kicker{color:var(--gold,#d4a843);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:10px}
-    .auth-card h1,.auth-side h2{margin:0 0 10px;color:var(--gold,#d4a843);font-family:var(--font-display, Georgia, serif);line-height:1}
-    .auth-card h1{font-size:clamp(2rem,4vw,3rem)}
-    .auth-sub,.auth-side p{color:var(--muted,#aeb6c8);line-height:1.65;margin:0 0 18px}
+    .auth-card h1{margin:0 0 10px;color:var(--gold,#d4a843);font-family:var(--font-display,Georgia,serif);line-height:1;font-size:clamp(1.6rem,4vw,2.4rem)}
+    .auth-side h2{margin:0 0 10px;color:var(--gold,#d4a843);font-family:var(--font-display,Georgia,serif);line-height:1;font-size:1.4rem}
+    .auth-sub,.auth-side p{color:var(--muted,#aeb6c8);line-height:1.65;margin:0 0 18px;font-size:.96rem}
     .auth-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-    .auth-tab{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:var(--text,#fff);border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer}
+    .auth-tab{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:var(--text,#fff);border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer;font-size:.9rem}
     .auth-tab.active{border-color:rgba(212,168,67,.28);color:var(--gold,#d4a843);background:rgba(212,168,67,.08)}
+    .auth-tab:hover{border-color:rgba(212,168,67,.2)}
     .auth-form{display:none}.auth-form.active{display:block}
     .field{margin-bottom:14px}
     .field label{display:block;margin-bottom:8px;color:var(--text,#fff);font-weight:700;font-size:.92rem}
-    .field input{width:100%;padding:14px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--text,#fff);font-size:1rem;outline:none}
+    .field input{width:100%;padding:14px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--text,#fff);font-size:1rem;outline:none}
     .field input:focus{border-color:rgba(212,168,67,.32);box-shadow:0 0 0 1px rgba(212,168,67,.16)}
     .form-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:8px}
     .helper-link{color:var(--muted,#aeb6c8);text-decoration:none;font-size:.92rem}.helper-link:hover{color:var(--text,#fff)}
-    .status{display:none;margin:12px 0 0;padding:12px 14px;border-radius:16px;line-height:1.55;font-size:.94rem}
-    .status.show{display:block}.status.info{background:rgba(82,142,255,.12);border:1px solid rgba(82,142,255,.20);color:#d8e5ff}.status.success{background:rgba(73,180,110,.12);border:1px solid rgba(73,180,110,.22);color:#dcffe5}.status.error{background:rgba(255,87,87,.12);border:1px solid rgba(255,87,87,.22);color:#ffe0e0}
-    .benefits{display:grid;gap:10px;margin-top:18px}.benefits div{padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);color:var(--text,#fff);line-height:1.5}
-    .account-box{margin-top:18px;padding:16px;border-radius:20px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03)}
-    .account-box strong{display:block;margin-bottom:8px}
+    .status{display:none;margin:14px 0 0;padding:12px 14px;border-radius:16px;line-height:1.55;font-size:.94rem}
+    .status.show{display:block}
+    .status.info{background:rgba(82,142,255,.12);border:1px solid rgba(82,142,255,.20);color:#d8e5ff}
+    .status.success{background:rgba(73,180,110,.12);border:1px solid rgba(73,180,110,.22);color:#dcffe5}
+    .status.error{background:rgba(255,87,87,.12);border:1px solid rgba(255,87,87,.22);color:#ffe0e0}
+    .benefits{display:grid;gap:10px;margin-top:18px}
+    .benefits div{padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);color:var(--text,#fff);line-height:1.5;font-size:.92rem}
+    .account-box{margin-top:18px;padding:16px;border-radius:20px;border:1px solid rgba(73,180,110,.22);background:rgba(73,180,110,.06)}
+    .account-box strong{display:block;margin-bottom:6px;color:#dcffe5}
+    .account-box p{color:var(--muted,#aeb6c8);font-size:.9rem;margin:0 0 12px}
     .hidden{display:none!important}
-    @media (max-width:900px){.nav-links-shell{justify-content:flex-start}.auth-shell{grid-template-columns:1fr}}
+    .skip-link{display:block;text-align:center;margin-top:14px;color:var(--muted,#aeb6c8);font-size:.88rem;text-decoration:none}
+    .skip-link:hover{color:var(--text,#fff)}
+    .payment-confirmed{display:none;padding:14px 16px;border-radius:16px;border:1px solid rgba(212,168,67,.3);background:rgba(212,168,67,.07);color:var(--gold,#d4a843);font-weight:700;font-size:.92rem;margin-bottom:18px;text-align:center}
+    .payment-confirmed.show{display:block}
+    @media (max-width:900px){.auth-shell{grid-template-columns:1fr}.auth-side{display:none}}
   </style>
 </head>
 <body>
@@ -53,10 +65,11 @@
         <a href="video.html">Videos</a>
         <a href="audiobooks.html">Audiobooks</a>
         <a href="contact.html">Contact</a>
-        <a href="login.html" class="active nav-cta">Login</a>
+        <a href="login.html" class="active nav-cta">My Account</a>
       </nav>
     </div>
   </header>
+
   <section class="logo-band">
     <div class="container logo-band-inner">
       <a href="index.html" aria-label="Sumnu Books home">
@@ -64,55 +77,213 @@
       </a>
     </div>
   </section>
+
   <main class="auth-page">
     <div class="auth-shell">
       <section class="auth-card">
-        <div class="auth-kicker">Member Access</div>
-        <h1>Sign in to your account</h1>
-        <p class="auth-sub">Use one account across the whole site so access follows the customer account, not just the exact link or browser state.</p>
-        <div class="auth-tabs">
-          <button class="auth-tab active" type="button" data-auth-tab="login">Login</button>
-          <button class="auth-tab" type="button" data-auth-tab="signup">Sign up</button>
+
+        <div class="payment-confirmed" id="paymentConfirmed">
+          ✅ Payment received — your content is unlocked!
+        </div>
+
+        <div class="auth-kicker" id="authKicker">Member Access</div>
+        <h1 id="authHeadline">Save your access</h1>
+        <p class="auth-sub" id="authSub">
+          Create a free account so your VIP access is tied to your email, not just this browser.
+          Log back in from any device and pick up right where you left off.
+        </p>
+
+        <div class="auth-tabs" id="authTabs">
+          <button class="auth-tab active" type="button" data-auth-tab="signup">Create account</button>
+          <button class="auth-tab" type="button" data-auth-tab="login">Already have one</button>
           <button class="auth-tab" type="button" data-auth-tab="reset">Reset password</button>
         </div>
-        <form class="auth-form active" id="loginForm">
-          <div class="field"><label for="loginEmail">Email</label><input id="loginEmail" type="email" autocomplete="email" required /></div>
-          <div class="field"><label for="loginPassword">Password</label><input id="loginPassword" type="password" autocomplete="current-password" required /></div>
-          <div class="form-actions"><button class="btn btn-primary" type="submit">Login</button><a class="helper-link" href="#" data-switch-tab="reset">Forgot password?</a></div>
+
+        <form class="auth-form active" id="signupForm">
+          <div class="field"><label for="signupEmail">Email</label><input id="signupEmail" type="email" autocomplete="email" placeholder="you@email.com" required /></div>
+          <div class="field"><label for="signupPassword">Password</label><input id="signupPassword" type="password" autocomplete="new-password" placeholder="Choose a password" required /></div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit">Create account &amp; save access</button></div>
         </form>
-        <form class="auth-form" id="signupForm">
-          <div class="field"><label for="signupName">Full name</label><input id="signupName" type="text" autocomplete="name" required /></div>
-          <div class="field"><label for="signupEmail">Email</label><input id="signupEmail" type="email" autocomplete="email" required /></div>
-          <div class="field"><label for="signupPassword">Password</label><input id="signupPassword" type="password" autocomplete="new-password" required /></div>
-          <div class="form-actions"><button class="btn btn-primary" type="submit">Create account</button></div>
+
+        <form class="auth-form" id="loginForm">
+          <div class="field"><label for="loginEmail">Email</label><input id="loginEmail" type="email" autocomplete="email" placeholder="you@email.com" required /></div>
+          <div class="field"><label for="loginPassword">Password</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Your password" required /></div>
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Log in</button>
+            <a class="helper-link" href="#" data-switch-tab="reset">Forgot password?</a>
+          </div>
         </form>
+
         <form class="auth-form" id="resetForm">
-          <div class="field"><label for="resetEmail">Email</label><input id="resetEmail" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="resetEmail">Email</label><input id="resetEmail" type="email" autocomplete="email" placeholder="you@email.com" required /></div>
           <div class="form-actions"><button class="btn btn-primary" type="submit">Send reset link</button></div>
         </form>
-        <div class="status info" id="authStatus"></div>
+
+        <div class="status" id="authStatus"></div>
+
         <div class="account-box hidden" id="accountBox">
           <strong id="accountTitle">Signed in</strong>
-          <div id="accountMeta"></div>
-          <div class="form-actions" style="margin-top:12px">
+          <p id="accountMeta">Your VIP access is saved to this account.</p>
+          <div class="form-actions">
+            <a class="btn btn-primary" href="index.html">Go to site →</a>
             <button class="btn btn-secondary" id="logoutBtn" type="button">Log out</button>
-            <a class="helper-link" href="index.html">Go to site</a>
           </div>
         </div>
+
+        <a class="skip-link" href="index.html" id="skipLink">Skip for now — continue without an account</a>
+
       </section>
+
       <aside class="auth-side">
-        <div class="auth-kicker">Why login matters</div>
-        <h2>One customer. One access path.</h2>
-        <p>This replaces the fragile “exact same link” unlock behavior with account-based access. Once the customer is signed in, you can tie VIP or product ownership to the account instead of the browser alone.</p>
+        <div class="auth-kicker">Why create an account?</div>
+        <h2>Your access, on every device.</h2>
+        <p>
+          Right now your VIP access is saved in this browser only. Switch browsers, clear your
+          cache, or open the site on your phone — and it's gone. A free account fixes that permanently.
+        </p>
         <div class="benefits">
-          <div>One login across music, audiobooks, and series</div>
-          <div>Support for email/password signup and password recovery</div>
-          <div>Ready for VIP roles and product ownership later</div>
-          <div>Built for Netlify Identity</div>
+          <div>✅ Log in from any browser or device</div>
+          <div>✅ Never lose access after clearing cookies</div>
+          <div>✅ One account across all series, audiobooks &amp; music</div>
+          <div>✅ Takes 30 seconds — free forever</div>
         </div>
       </aside>
     </div>
   </main>
-  <script type="module" src="js/auth.js"></script>
+
+    <script src="js/auth.js"></script>
+  <script>
+    const VIP_KEY = 'vipUnlocked';
+
+    function safeRedirect(raw) {
+      if (!raw) return 'index.html';
+      try {
+        const decoded = decodeURIComponent(raw);
+        if (/^https?:/i.test(decoded)) return 'index.html';
+        if (decoded.startsWith('/')) return decoded.replace(/^\//, '');
+        return decoded;
+      } catch (e) {
+        return 'index.html';
+      }
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const redirectTarget = safeRedirect(params.get('redirect') || params.get('from') || 'index.html');
+    const fromPayment = params.get('vip') === 'true' || params.get('paid') === 'true';
+
+    const tabs = document.querySelectorAll('.auth-tab');
+    const forms = document.querySelectorAll('.auth-form');
+    const statusEl = document.getElementById('authStatus');
+    const continueLink = document.querySelector('#accountBox a.btn.btn-primary');
+    const skipLink = document.getElementById('skipLink');
+
+    continueLink.setAttribute('href', redirectTarget);
+    continueLink.textContent = 'Continue →';
+    skipLink.setAttribute('href', redirectTarget);
+
+    if (fromPayment) {
+      try { localStorage.setItem(VIP_KEY, 'true'); } catch(e) {}
+      document.getElementById('paymentConfirmed').classList.add('show');
+      document.getElementById('authKicker').textContent = 'Access Unlocked';
+      document.getElementById('authHeadline').textContent = 'Now save your access';
+      document.getElementById('authSub').textContent =
+        'Your access is active in this browser. Create a free account or log in now so your access follows you to any device.';
+      history.replaceState(null, '', 'login.html?redirect=' + encodeURIComponent(redirectTarget));
+    }
+
+    function switchTab(name) {
+      tabs.forEach(t => t.classList.toggle('active', t.dataset.authTab === name));
+      forms.forEach(f => {
+        const id = f.id.replace('Form', '').toLowerCase();
+        f.classList.toggle('active', id === name);
+      });
+    }
+    tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.authTab)));
+    document.querySelectorAll('[data-switch-tab]').forEach(a => {
+      a.addEventListener('click', e => { e.preventDefault(); switchTab(a.dataset.switchTab); });
+    });
+
+    function showStatus(msg, type = 'info') {
+      statusEl.className = `status ${type} show`;
+      statusEl.textContent = msg;
+    }
+
+    function showAccountBox(user) {
+      document.getElementById('accountBox').classList.remove('hidden');
+      document.getElementById('accountTitle').textContent = 'Signed in as ' + (user.email || 'member');
+      document.getElementById('skipLink').classList.add('hidden');
+      document.getElementById('authTabs').style.display = 'none';
+      forms.forEach(f => f.style.display = 'none');
+    }
+
+    function showForms() {
+      document.getElementById('accountBox').classList.add('hidden');
+      document.getElementById('skipLink').classList.remove('hidden');
+      document.getElementById('authTabs').style.display = '';
+      forms.forEach(f => f.style.display = '');
+    }
+
+    window.SumnuAuth.ready.then(ni => {
+      ni.on('init', user => {
+        if (user) {
+          try { localStorage.setItem(VIP_KEY, 'true'); } catch(e) {}
+          showAccountBox(user);
+        }
+      });
+
+      ni.on('login', user => {
+        try { localStorage.setItem(VIP_KEY, 'true'); } catch(e) {}
+        showAccountBox(user);
+        showStatus('Signed in. Sending you back now…', 'success');
+        window.setTimeout(() => { window.location.href = redirectTarget; }, 350);
+      });
+
+      ni.on('logout', () => {
+        try { localStorage.removeItem(VIP_KEY); } catch(e) {}
+        showForms();
+        switchTab('login');
+      });
+
+      document.getElementById('signupForm').addEventListener('submit', e => {
+        e.preventDefault();
+        showStatus('Creating account…', 'info');
+        ni.signup(
+          document.getElementById('signupEmail').value,
+          document.getElementById('signupPassword').value
+        ).then(() => {
+          showStatus('Account created. Check your email if confirmation is required, then log in.', 'success');
+          switchTab('login');
+          document.getElementById('loginEmail').value = document.getElementById('signupEmail').value;
+        }).catch(err => {
+          showStatus(err.message || 'Signup failed. Please try again.', 'error');
+        });
+      });
+
+      document.getElementById('loginForm').addEventListener('submit', e => {
+        e.preventDefault();
+        showStatus('Signing in…', 'info');
+        ni.login(
+          document.getElementById('loginEmail').value,
+          document.getElementById('loginPassword').value
+        ).catch(err => {
+          showStatus(err.message || 'Login failed. Check your email and password.', 'error');
+        });
+      });
+
+      document.getElementById('resetForm').addEventListener('submit', e => {
+        e.preventDefault();
+        showStatus('Sending reset link…', 'info');
+        ni.requestPasswordRecovery(document.getElementById('resetEmail').value)
+          .then(() => showStatus('Reset link sent. Check your inbox.', 'success'))
+          .catch(err => showStatus(err.message || 'Password reset failed. Please try again.', 'error'));
+      });
+
+      document.getElementById('logoutBtn').addEventListener('click', () => {
+        ni.logout();
+      });
+    }).catch(() => {
+      showStatus('Login service unavailable right now. Try again in a moment.', 'error');
+    });
+  </script>
 </body>
 </html>
