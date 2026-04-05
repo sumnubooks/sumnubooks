@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unlock VIP — Sumnu Books</title>
+  <title>Unlock All Access — Sumnu Books</title>
   <link href="css/site.css" rel="stylesheet" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
     .site-header{
       position:sticky;top:0;z-index:50;
@@ -51,7 +52,6 @@
       border:1px solid rgba(212,168,67,.28);
       color:var(--gold,#d4a843)!important;
     }
-
     .logo-band{padding:14px 0 8px;}
     .logo-band-inner{display:flex;align-items:center;justify-content:center;}
     .hero-logo-img{
@@ -88,94 +88,93 @@
       letter-spacing:.16em;
       text-transform:uppercase;
       font-size:.76rem;
-      margin-bottom:10px;
+      margin-bottom:12px;
     }
-    .paywall h1{
-      margin:0 0 12px;
+    .paywall-box h1{
+      margin:0 0 10px;
       color:var(--gold,#d4a843);
-      font-family:var(--font-display, Georgia, serif);
-      font-size:clamp(2.2rem,5vw,3.5rem);
+      font-family:var(--font-display,Georgia,serif);
+      font-size:clamp(2rem,4vw,3rem);
       line-height:1;
     }
     .paywall-sub{
-      max-width:620px;
-      margin:0 auto 24px;
+      margin:0 auto 18px;
       color:var(--muted,#aeb6c8);
-      font-size:1.05rem;
-      line-height:1.65;
+      max-width:620px;
+      line-height:1.7;
+      font-size:1rem;
     }
     .benefits{
       display:grid;
       gap:10px;
-      text-align:left;
-      max-width:540px;
       margin:0 auto 24px;
-      color:var(--text,#fff);
+      max-width:640px;
+      text-align:left;
     }
     .benefits div{
       padding:12px 14px;
       border-radius:16px;
       border:1px solid rgba(255,255,255,.06);
       background:rgba(255,255,255,.03);
+      color:var(--text,#fff);
+      line-height:1.5;
+      font-size:.94rem;
     }
     .price{
-      margin:6px 0 20px;
+      font-size:2.6rem;
+      font-family:var(--font-display,Georgia,serif);
       color:var(--gold,#d4a843);
-      font-weight:900;
-      font-size:clamp(2rem,4vw,2.8rem);
       line-height:1;
+      margin-bottom:18px;
     }
     .pay-actions{
       display:flex;
       gap:12px;
+      align-items:center;
       justify-content:center;
       flex-wrap:wrap;
-      margin-top:8px;
     }
-    .paypal-form{margin:0;}
     .btn-pay{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:10px;
-      min-width:260px;
-      padding:16px 28px;
+      min-width:220px;
+      padding:14px 22px;
       border-radius:999px;
       font-weight:800;
-      font-size:1rem;
       letter-spacing:.04em;
+      border:none;
       cursor:pointer;
-      border:0;
-      background:linear-gradient(135deg,#ff8a2a,#e6b34a);
-      color:#000;
-      box-shadow:0 10px 30px rgba(0,0,0,.38);
+      background:linear-gradient(135deg,var(--gold,#d4a843),var(--orange,#e8612a));
+      color:#09101a;
+      font-size:1rem;
     }
-    .btn-pay:hover{transform:translateY(-1px);}
     .back-link{
       display:inline-flex;
       align-items:center;
       justify-content:center;
       min-width:220px;
-      padding:16px 28px;
+      padding:14px 22px;
       border-radius:999px;
-      font-weight:700;
+      font-weight:800;
+      letter-spacing:.04em;
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.04);
+      color:var(--text,#fff);
       text-decoration:none;
-      color:var(--muted,#aeb6c8);
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.03);
     }
     .pay-note{
-      margin-top:18px;
-      color:rgba(255,255,255,.56);
+      margin-top:16px;
+      color:var(--muted,#aeb6c8);
       font-size:.9rem;
+      line-height:1.6;
     }
-
+    .small-account-row{
+      margin-top:18px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.08);
+    }
     @media (max-width:760px){
-      .nav-links-shell{justify-content:flex-start;}
-      .nav-links-shell a{font-size:.82rem;padding:8px 12px;}
-      .hero-logo-img{width:min(76vw,280px);}
-      .paywall{padding:14px 14px 36px;}
-      .paywall-box{padding:24px 16px 22px;border-radius:24px;}
       .pay-actions{flex-direction:column;}
       .btn-pay,.back-link{width:100%;min-width:0;}
     }
@@ -185,20 +184,20 @@
   <header class="site-header">
     <div class="container navbar-shell">
       <nav class="nav-links-shell">
-        <a href="/">Home</a>
-        <a href="/books">Books</a>
-        <a href="/music">Music</a>
-        <a href="/video">Videos</a>
-        <a href="/audiobooks">Audiobooks</a>
-        <a href="/contact">Contact</a>
-        <a href="/unlock" class="active nav-cta">Unlock</a>
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="music.html">Music</a>
+        <a href="video.html">Videos</a>
+        <a href="audiobooks.html">Audiobooks</a>
+        <a href="contact.html">Contact</a>
+        <a href="unlock.html" class="active nav-cta">Unlock</a>
       </nav>
     </div>
   </header>
 
   <section class="logo-band">
     <div class="container logo-band-inner">
-      <a href="/" aria-label="Sumnu Books home">
+      <a href="index.html" aria-label="Sumnu Books home">
         <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
       </a>
     </div>
@@ -210,61 +209,70 @@
       <h1>Unlimited Access</h1>
       <p class="paywall-sub">
         One unlock gives you full access to every series, audiobook, and album across the site.
+        Pay first, get into the content fast, and save access to an account later only if you want to.
       </p>
 
       <div class="benefits">
         <div>Full audio series — all locked episodes open</div>
         <div>Complete audiobooks — no chapter limits</div>
         <div>Full music albums — all tracks available</div>
-        <div>New content added regularly</div>
+        <div>One price — $5 all access</div>
       </div>
 
       <div class="price">$5.00</div>
 
       <div class="pay-actions">
-        <a class="back-link" id="loginLink" href="login.html">Log in with my account</a>
-        <form class="paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <form class="paypal-form" id="paypalForm" action="https://www.paypal.com/cgi-bin/webscr" method="post">
           <input type="hidden" name="cmd" value="_xclick">
           <input type="hidden" name="business" value="sales@sumnubooks.com">
           <input type="hidden" name="item_name" value="Sumnu Books VIP All Access Unlock">
           <input type="hidden" name="amount" value="5.00">
           <input type="hidden" name="currency_code" value="USD">
-          <input type="hidden" name="return" value="https://sumnubooks.com/login.html?redirect=%2F">
-          <input type="hidden" name="cancel_return" value="https://sumnubooks.com/unlock.html">
+          <input type="hidden" name="return" id="paypalReturn" value="https://sumnubooks.com/index.html?vip=true">
+          <input type="hidden" name="cancel_return" id="paypalCancel" value="https://sumnubooks.com/unlock.html">
           <button class="btn-pay" type="submit">Unlock All Access</button>
         </form>
 
-        <a class="back-link" href="/">Continue Browsing</a>
+        <a class="back-link" id="backLink" href="index.html">Continue Browsing</a>
       </div>
 
-      <div class="pay-note">Secure checkout through PayPal. After payment, sign in to continue into the site.</div>
+      <div class="pay-note">
+        Secure checkout through PayPal. After payment, you go straight back into the site.
+      </div>
+
+      <div class="small-account-row">
+        <div class="pay-note" style="margin-top:0; margin-bottom:10px;">
+          Already have an account and just want to save/restore access?
+        </div>
+        <a class="back-link" id="accountLink" href="login.html">My Account</a>
+      </div>
     </section>
   </main>
 
-  <script src="js/auth.js"></script>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const target = params.get('from') || 'index.html';
-    const loginLink = document.getElementById('loginLink');
-    const paypalReturn = document.querySelector('input[name="return"]');
-    const paypalCancel = document.querySelector('input[name="cancel_return"]');
-    if (loginLink) loginLink.href = 'login.html?redirect=' + encodeURIComponent(target);
-    if (paypalReturn) paypalReturn.value = 'https://sumnubooks.com/login.html?paid=true&redirect=' + encodeURIComponent('/' + target.replace(/^\//, ''));
-    if (paypalCancel) paypalCancel.value = 'https://sumnubooks.com/unlock.html?from=' + encodeURIComponent(target);
-  </script>
-<script>
-if (window.netlifyIdentity) {
-  netlifyIdentity.on("login", () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const redirect = urlParams.get("redirect");
-
-    if (redirect) {
-      window.location.href = redirect;
-    } else {
-      window.location.href = "/vip-audio-dramas_netflix_mobile.html";
+    function safePath(raw) {
+      if (!raw) return "index.html";
+      try {
+        const decoded = decodeURIComponent(raw);
+        if (/^https?:/i.test(decoded)) return "index.html";
+        return decoded.replace(/^\//, "");
+      } catch (e) {
+        return "index.html";
+      }
     }
-  });
-}
-</script>
+
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const from = safePath(params.get("from") || "index.html");
+
+      const returnUrl = "https://sumnubooks.com/" + from + (from.includes("?") ? "&" : "?") + "vip=true";
+      const cancelUrl = "https://sumnubooks.com/" + from;
+
+      document.getElementById("paypalReturn").value = returnUrl;
+      document.getElementById("paypalCancel").value = cancelUrl;
+      document.getElementById("backLink").href = from;
+      document.getElementById("accountLink").href = "login.html?redirect=" + encodeURIComponent(from);
+    })();
+  </script>
 </body>
 </html>
