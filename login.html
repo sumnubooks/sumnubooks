@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login — Sumnu Books</title>
+  <link href="css/site.css" rel="stylesheet" />
+  <style>
+    .site-header{position:sticky;top:0;z-index:50;background:rgba(6,8,15,.90);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .navbar-shell{min-height:64px;display:flex;align-items:center;justify-content:center}
+    .nav-links-shell{display:flex;align-items:center;gap:10px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;width:100%;justify-content:center;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:8px 0}
+    .nav-links-shell::-webkit-scrollbar{display:none}
+    .nav-links-shell a{flex:0 0 auto;white-space:nowrap;padding:10px 14px;border-radius:999px;color:var(--muted,#9aa3b7);font-weight:700;font-size:.92rem;text-decoration:none}
+    .nav-links-shell a:hover,.nav-links-shell a.active{color:var(--text,#fff);background:rgba(255,255,255,.06)}
+    .nav-links-shell .nav-cta{border:1px solid rgba(212,168,67,.28);color:var(--gold,#d4a843)!important}
+    .logo-band{padding:14px 0 8px}
+    .logo-band-inner{display:flex;align-items:center;justify-content:center}
+    .hero-logo-img{display:block;width:min(64vw,320px);max-width:320px;height:auto;object-fit:contain;filter:drop-shadow(0 0 12px rgba(212,168,67,.12))}
+    .auth-page{min-height:calc(100vh - 130px);display:flex;align-items:center;justify-content:center;padding:20px 16px 48px;background:radial-gradient(circle at 50% 10%, rgba(212,168,67,.11), transparent 34%),linear-gradient(180deg,#030507 0%,#060914 100%)}
+    .auth-shell{width:min(100%,960px);display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
+    .auth-card,.auth-side{border:1px solid rgba(212,168,67,.16);border-radius:28px;background:linear-gradient(180deg, rgba(9,14,28,.94), rgba(7,10,20,.98));box-shadow:var(--shadow-md)}
+    .auth-card{padding:28px 24px 24px}.auth-side{padding:28px 24px}
+    .auth-kicker{color:var(--gold,#d4a843);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:10px}
+    .auth-card h1,.auth-side h2{margin:0 0 10px;color:var(--gold,#d4a843);font-family:var(--font-display, Georgia, serif);line-height:1}
+    .auth-card h1{font-size:clamp(2rem,4vw,3rem)}
+    .auth-sub,.auth-side p{color:var(--muted,#aeb6c8);line-height:1.65;margin:0 0 18px}
+    .auth-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+    .auth-tab{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:var(--text,#fff);border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer}
+    .auth-tab.active{border-color:rgba(212,168,67,.28);color:var(--gold,#d4a843);background:rgba(212,168,67,.08)}
+    .auth-form{display:none}.auth-form.active{display:block}
+    .field{margin-bottom:14px}
+    .field label{display:block;margin-bottom:8px;color:var(--text,#fff);font-weight:700;font-size:.92rem}
+    .field input{width:100%;padding:14px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--text,#fff);font-size:1rem;outline:none}
+    .field input:focus{border-color:rgba(212,168,67,.32);box-shadow:0 0 0 1px rgba(212,168,67,.16)}
+    .form-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:8px}
+    .helper-link{color:var(--muted,#aeb6c8);text-decoration:none;font-size:.92rem}.helper-link:hover{color:var(--text,#fff)}
+    .status{display:none;margin:12px 0 0;padding:12px 14px;border-radius:16px;line-height:1.55;font-size:.94rem}
+    .status.show{display:block}.status.info{background:rgba(82,142,255,.12);border:1px solid rgba(82,142,255,.20);color:#d8e5ff}.status.success{background:rgba(73,180,110,.12);border:1px solid rgba(73,180,110,.22);color:#dcffe5}.status.error{background:rgba(255,87,87,.12);border:1px solid rgba(255,87,87,.22);color:#ffe0e0}
+    .benefits{display:grid;gap:10px;margin-top:18px}.benefits div{padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);color:var(--text,#fff);line-height:1.5}
+    .account-box{margin-top:18px;padding:16px;border-radius:20px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03)}
+    .account-box strong{display:block;margin-bottom:8px}
+    .hidden{display:none!important}
+    @media (max-width:900px){.nav-links-shell{justify-content:flex-start}.auth-shell{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container navbar-shell">
+      <nav class="nav-links-shell">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="music.html">Music</a>
+        <a href="video.html">Videos</a>
+        <a href="audiobooks.html">Audiobooks</a>
+        <a href="contact.html">Contact</a>
+        <a href="login.html" class="active nav-cta">Login</a>
+      </nav>
+    </div>
+  </header>
+  <section class="logo-band">
+    <div class="container logo-band-inner">
+      <a href="index.html" aria-label="Sumnu Books home">
+        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
+      </a>
+    </div>
+  </section>
+  <main class="auth-page">
+    <div class="auth-shell">
+      <section class="auth-card">
+        <div class="auth-kicker">Member Access</div>
+        <h1>Sign in to your account</h1>
+        <p class="auth-sub">Use one account across the whole site so access follows the customer account, not just the exact link or browser state.</p>
+        <div class="auth-tabs">
+          <button class="auth-tab active" type="button" data-auth-tab="login">Login</button>
+          <button class="auth-tab" type="button" data-auth-tab="signup">Sign up</button>
+          <button class="auth-tab" type="button" data-auth-tab="reset">Reset password</button>
+        </div>
+        <form class="auth-form active" id="loginForm">
+          <div class="field"><label for="loginEmail">Email</label><input id="loginEmail" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="loginPassword">Password</label><input id="loginPassword" type="password" autocomplete="current-password" required /></div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit">Login</button><a class="helper-link" href="#" data-switch-tab="reset">Forgot password?</a></div>
+        </form>
+        <form class="auth-form" id="signupForm">
+          <div class="field"><label for="signupName">Full name</label><input id="signupName" type="text" autocomplete="name" required /></div>
+          <div class="field"><label for="signupEmail">Email</label><input id="signupEmail" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="signupPassword">Password</label><input id="signupPassword" type="password" autocomplete="new-password" required /></div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit">Create account</button></div>
+        </form>
+        <form class="auth-form" id="resetForm">
+          <div class="field"><label for="resetEmail">Email</label><input id="resetEmail" type="email" autocomplete="email" required /></div>
+          <div class="form-actions"><button class="btn btn-primary" type="submit">Send reset link</button></div>
+        </form>
+        <div class="status info" id="authStatus"></div>
+        <div class="account-box hidden" id="accountBox">
+          <strong id="accountTitle">Signed in</strong>
+          <div id="accountMeta"></div>
+          <div class="form-actions" style="margin-top:12px">
+            <button class="btn btn-secondary" id="logoutBtn" type="button">Log out</button>
+            <a class="helper-link" href="index.html">Go to site</a>
+          </div>
+        </div>
+      </section>
+      <aside class="auth-side">
+        <div class="auth-kicker">Why login matters</div>
+        <h2>One customer. One access path.</h2>
+        <p>This replaces the fragile “exact same link” unlock behavior with account-based access. Once the customer is signed in, you can tie VIP or product ownership to the account instead of the browser alone.</p>
+        <div class="benefits">
+          <div>One login across music, audiobooks, and series</div>
+          <div>Support for email/password signup and password recovery</div>
+          <div>Ready for VIP roles and product ownership later</div>
+          <div>Built for Netlify Identity</div>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>
