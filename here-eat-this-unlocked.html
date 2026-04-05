@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>window.outsetaOptions = { domain: 'sumnuvision-llc.outseta.com' };</script>
+  <script src="https://cdn.outseta.com/outseta.min.js" async></script>
   <title>Here... Eat This — Full Season · Sumnu Books</title>
   <link rel="stylesheet" href="css/site.css" />
 
@@ -55,23 +57,6 @@
 
 </head>
 <body>
-  <!-- Save-access banner: shown after payment if no account saved yet -->
-  <div id="saveAccessBanner" style="display:none;position:sticky;top:0;z-index:999;background:linear-gradient(90deg,#8f6410,#d4a843 50%,#8f6410);color:#09101a;padding:10px 16px;text-align:center;font-size:.88rem;font-weight:700;">
-    🔓 Access unlocked! <a href="login.html" style="color:#09101a;text-decoration:underline;font-weight:900;margin:0 6px;">Save your access</a> so you keep it on any device.
-    <button id="dismissBanner" style="margin-left:12px;background:rgba(0,0,0,.15);border:0;border-radius:6px;padding:3px 10px;cursor:pointer;font-weight:800;color:#09101a;">✕</button>
-  </div>
-  <script>
-    try {
-      if (localStorage.getItem("vipUnlocked") === "true" && localStorage.getItem("saveAccessDismissed") !== "1") {
-        document.getElementById("saveAccessBanner").style.display = "block";
-      }
-    } catch(e) {}
-    var db = document.getElementById("dismissBanner");
-    if (db) db.addEventListener("click", function(){
-      document.getElementById("saveAccessBanner").style.display = "none";
-      try { localStorage.setItem("saveAccessDismissed","1"); } catch(e) {}
-    });
-  </script>
 
   <main class="page-wrap">
     <div class="container">
@@ -209,8 +194,6 @@
   </main>
 
   <script>
-    const HERE_EAT_THIS_UNLOCK_KEY = "vipUnlocked";
-    localStorage.setItem(HERE_EAT_THIS_UNLOCK_KEY, "true");
 
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });

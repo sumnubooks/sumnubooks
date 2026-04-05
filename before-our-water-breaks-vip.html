@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>window.outsetaOptions = { domain: 'sumnuvision-llc.outseta.com' };</script>
+  <script src="https://cdn.outseta.com/outseta.min.js" async></script>
   <title>Before Our Water Breaks — VIP Series · Sumnu Books</title>
   <link rel="stylesheet" href="css/site.css" />
   <style>
@@ -167,19 +169,11 @@
       <!-- Unlock box -->
       <section class="unlock-box reveal">
         <h2>Unlock the rest of Season 1</h2>
-        <p>You've got the first 4 episodes free. Unlock Episodes 5–8 for one price and finish the full season.</p>
-        <div class="unlock-price">$5</div>
-        <form id="unlock-paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-          <input type="hidden" name="cmd" value="_xclick">
-          <input type="hidden" name="business" value="sales@sumnubooks.com">
-          <input type="hidden" name="item_name" value="Before Our Water Breaks Season 1 Unlock (Episodes 5-8)">
-          <input type="hidden" name="amount" value="5.00">
-          <input type="hidden" name="currency_code" value="USD">
-          <input type="hidden" name="return" value="https://sumnubooks.com/login.html?paid=true&redirect=%2Fbefore-our-water-breaks-unlocked.html">
-          <input type="hidden" name="cancel_return" value="https://sumnubooks.com/before-our-water-breaks-vip.html">
-          <button class="btn btn-primary btn-lg" type="submit">🔓 Unlock Season 1 — $5</button>
-        </form>
-        <div class="unlock-note">🔒 Secure checkout via PayPal · Instant access after payment</div>
+        <p>You've got the first 4 episodes free. One subscription unlocks everything — all series, all episodes, all content.</p>
+        <div class="unlock-price">$9.99<span style="font-size:1rem;color:var(--muted);">/month</span></div>
+        <p style="font-size:.84rem;color:var(--muted);margin-bottom:18px;">7-day free trial · Cancel any time</p>
+        <button class="btn btn-primary btn-lg" id="seriesUnlockBtn">🔓 Start Free Trial — Unlock Everything</button>
+        <div class="unlock-note">Secure checkout via Outseta &amp; Stripe · Access restored on any device</div>
       </section>
 
     </div>
@@ -225,3 +219,16 @@
   <script src="js/auth.js"></script>
 </body>
 </html>
+<script>
+  (function() {
+    var btn = document.getElementById('seriesUnlockBtn');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      if (window.Outseta && window.Outseta.auth) {
+        window.Outseta.auth.open({ widgetMode: 'register|login', planUid: 'jW70XZmq', redirectUri: 'https://sumnubooks.com/index.html' });
+      } else {
+        window.location.href = 'unlock.html';
+      }
+    });
+  })();
+</script>

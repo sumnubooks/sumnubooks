@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>window.outsetaOptions = { domain: 'sumnuvision-llc.outseta.com' };</script>
+  <script src="https://cdn.outseta.com/outseta.min.js" async></script>
   <title>Here... Eat This — VIP Series · Sumnu Books</title>
   <link rel="stylesheet" href="css/site.css" />
 
@@ -53,12 +55,6 @@
     }
   </style>
 
-  <script>
-    const VIP_KEY = "vipUnlocked";
-    if (localStorage.getItem(VIP_KEY) === "true") {
-      window.location.href = "here-eat-this-unlocked.html";
-    }
-  </script>
 </head>
 <body>
   <main class="page-wrap">
@@ -237,3 +233,16 @@
   <script src="js/auth.js"></script>
 </body>
 </html>
+<script>
+  (function() {
+    var btn = document.getElementById('seriesUnlockBtn');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      if (window.Outseta && window.Outseta.auth) {
+        window.Outseta.auth.open({ widgetMode: 'register|login', planUid: 'jW70XZmq', redirectUri: 'https://sumnubooks.com/index.html' });
+      } else {
+        window.location.href = 'unlock.html';
+      }
+    });
+  })();
+</script>

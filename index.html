@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <script>window.outsetaOptions = { domain: 'sumnuvision-llc.outseta.com' };</script>
+  <script src="https://cdn.outseta.com/outseta.min.js" async></script>
   <title>Sumnu Books VIP — Stream Series, Audiobooks & Music</title>
   <meta name="description" content="A Netflix-style premium audio experience from Sumnu Books. Start free with sample episodes, audiobook samples, and Sumnu Radio. Unlock full access across the site." />
   <link href="css/site.css" rel="stylesheet"/>
-  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
   <style>
     .shelf-start { padding-top: 26px; }
@@ -511,7 +512,7 @@
         <a href="video.html">Videos</a>
         <a href="audiobooks.html">Audiobooks</a>
         <a href="contact.html">Contact</a>
-        <a href="unlock.html?from=index.html" class="vip-link nav-cta">Unlock</a>
+        <a href="unlock.html" class="vip-link nav-cta">VIP Access</a>
       </nav>
     </div>
   </header>
@@ -591,7 +592,7 @@
   </footer>
 
   <div class="mobile-bar">
-    <a class="btn btn-primary" href="unlock.html?from=index.html" id="mobileUnlockBtn">🔓 Unlock all access</a>
+    <a class="btn btn-primary" href="unlock.html" id="mobileUnlockBtn">🔓 Unlock all access</a>
   </div>
 
   <div class="modal" id="detailModal" aria-hidden="true">
@@ -958,7 +959,7 @@ function makeItemRow(parent, item, index, freeCount) {
               <source src="${item.audio}" type="audio/mpeg"${withAudioFallback(item.audio)}>
             </audio>
           </div>` : `
-          <a class="btn btn-primary" href="unlock.html?from=index.html">🔓 Unlock VIP</a>`}
+          <a class="btn btn-primary" href="unlock.html">🔓 Unlock VIP</a>`}
       </div>
     </article>`;
 }
@@ -991,7 +992,7 @@ function showModal(entry) {
         <p>${entry.tagline}</p>
         <div class="detail-pills">${pills.map(p => `<span class="pill ${p.includes('VIP') ? 'gold' : ''}">${p}</span>`).join('')}</div>
         <div class="inline-actions">
-          ${isVip() ? '<span class="btn btn-secondary">VIP unlocked</span>' : '<a class="btn btn-primary" href="unlock.html?from=index.html">🔓 Unlock all access</a>'}
+          ${isVip() ? '<span class="btn btn-secondary">VIP unlocked</span>' : '<a class="btn btn-primary" href="unlock.html">🔓 Unlock all access</a>'}
           ${entry.type === 'music' && entry.buy ? `<a class="btn btn-secondary" href="${entry.buy}" target="_blank" rel="noopener">Buy Album — $10.00</a>` : ''}
           ${entry.type === 'music' ? '<a class="btn btn-ghost" href="music.html">Open music page</a>' : ''}
         </div>
