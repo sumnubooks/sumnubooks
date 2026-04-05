@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>VIP Access — Sumnu Books</title>
   <script>
-    var o_options = { domain: 'sumnuvision-llc.outseta.com' };
+    var o_options = {
+      domain: 'sumnuvision-llc.outseta.com',
+      tokenStorage: 'local',
+      auth: {
+        authenticationCallbackUrl: 'https://sumnubooks.com/'
+      }
+    };
   </script>
   <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
   <link href="css/site.css" rel="stylesheet" />
@@ -384,12 +390,13 @@
 
     function openCheckout () {
       if (window.Outseta && window.Outseta.auth) {
+        // state:'checkout' goes directly to full payment + password step
         window.Outseta.auth.open({
-          widgetMode: 'register|login',
+          widgetMode: 'register',
           planUid: PLAN_UID,
-          redirectUri: RETURN_URL
         });
       } else {
+        // Fallback: go to Outseta hosted checkout page
         window.location.href = 'https://' + OUTSETA_DOMAIN +
           '/auth?widgetMode=register&planUid=' + PLAN_UID +
           '&redirectUri=' + encodeURIComponent(RETURN_URL);
@@ -400,7 +407,6 @@
       if (window.Outseta && window.Outseta.auth) {
         window.Outseta.auth.open({
           widgetMode: 'login',
-          redirectUri: RETURN_URL
         });
       }
     }

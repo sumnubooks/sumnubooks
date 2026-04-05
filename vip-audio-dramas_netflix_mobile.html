@@ -4,7 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>
-    var o_options = { domain: 'sumnuvision-llc.outseta.com' };
+    var o_options = {
+      domain: 'sumnuvision-llc.outseta.com',
+      tokenStorage: 'local',
+      auth: {
+        authenticationCallbackUrl: 'https://sumnubooks.com/'
+      }
+    };
   </script>
   <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
   <title>VIP Series — Sumnu Books</title>

@@ -1,3 +1,8 @@
+/* ============================================================
+   SUMNU BOOKS — auth.js  (Outseta edition — corrected)
+   Checks Account.CurrentSubscription which is what Outseta
+   actually returns, not a Subscriptions array.
+   ============================================================ */
 (function () {
   var OUTSETA_READY_TIMEOUT = 12000;
 
@@ -8,145 +13,103 @@
   function normalizeUser(raw) {
     if (!raw) return null;
     return {
-      uid: raw.Uid || raw.uid || raw.Id || raw.id || "",
-      email: raw.Email || raw.email || "",
-      firstName: raw.FirstName || raw.firstName || "",
-      lastName: raw.LastName || raw.lastName || "",
-      raw: raw
+      uid:       raw.Uid || raw.uid || '',
+      email:     raw.Email || raw.email || '',
+      firstName: raw.FirstName || raw.firstName || '',
+      lastName:  raw.LastName  || raw.lastName  || '',
+      raw:       raw
     };
   }
 
-  function extractSubscriptions(rawUser) {
-    if (!rawUser) return [];
+  // Outseta returns subscription at raw.Account.CurrentSubscription
+  // BillingStage: 2 = Trialing, 3 = Subscribing (active paid)
+  function hasActiveSub(rawUser) {
+    if (!rawUser) return false;
 
-    var possible =
-      rawUser.Subscriptions ||
-      rawUser.subscriptions ||
-      rawUser.Account?.Subscriptions ||
-      rawUser.Account?.subscriptions ||
-      rawUser.PersonAccount?.Subscriptions ||
-      rawUser.PersonAccount?.subscriptions ||
-      [];
-
-    if (!Array.isArray(possible)) return [];
-    return possible;
-  }
-
-  function isActiveSubscription(sub) {
-    if (!sub) return false;
-
-    var status =
-      String(
-        sub.Status ||
-        sub.status ||
-        sub.SubscriptionStatus ||
-        ""
-      ).toLowerCase();
-
-    // Accept active/trialing style states
-    if (
-      status.includes("active") ||
-      status.includes("trial") ||
-      status.includes("current") ||
-      status.includes("paid")
-    ) {
-      return true;
+    // Primary check — Account.CurrentSubscription
+    var acct = rawUser.Account || rawUser.account;
+    if (acct) {
+      var cur = acct.CurrentSubscription || acct.currentSubscription;
+      if (cur) {
+        var stage = cur.BillingStage || cur.billingStage;
+        var status = String(cur.Status || cur.status || '').toLowerCase();
+        // BillingStage 2 = trialing, 3 = subscribing
+        if (stage === 2 || stage === 3) return true;
+        if (status.includes('active') || status.includes('trial') ||
+            status.includes('subscribing')) return true;
+        // If there's a Plan attached, consider it active
+        if (cur.Plan || cur.plan) return true;
+      }
     }
 
-    // Some installs expose boolean flags
-    if (sub.IsActive === true || sub.isActive === true) return true;
+    // Fallback — some versions return PersonAccount
+    var pa = rawUser.PersonAccount || rawUser.personAccount;
+    if (Array.isArray(pa)) {
+      for (var i = 0; i < pa.length; i++) {
+        var paAcct = (pa[i].Account || pa[i].account);
+        if (paAcct) {
+          var paCur = paAcct.CurrentSubscription || paAcct.currentSubscription;
+          if (paCur && (paCur.Plan || paCur.plan)) return true;
+        }
+      }
+    }
 
     return false;
-  }
-
-  function hasPlan(sub, planUid) {
-    if (!planUid) return true;
-
-    var candidates = [
-      sub.PlanUid,
-      sub.planUid,
-      sub.Plan?.Uid,
-      sub.plan?.uid,
-      sub.Plan?.uid,
-      sub.Name,
-      sub.name
-    ].filter(Boolean).map(function (v) {
-      return String(v);
-    });
-
-    return candidates.indexOf(String(planUid)) !== -1;
   }
 
   function buildApi() {
     var api = {
       _ready: false,
-      _user: null,
-      _subscriptions: [],
-      _planUid: null,
+      _user:  null,
+      _vip:   false,
 
-      setPlanUid: function (planUid) {
-        api._planUid = planUid || null;
-      },
-
-      currentUser: function () {
-        return api._user;
-      },
+      currentUser: function () { return api._user; },
 
       rawUser: function () {
-        return window.Outseta?.getUser ? window.Outseta.getUser() : null;
+        return window.Outseta && window.Outseta.getUser
+          ? window.Outseta.getUser() : null;
       },
 
-      subscriptions: function () {
-        return api._subscriptions.slice();
-      },
+      isLoggedIn: function () { return !!api._user; },
 
-      isLoggedIn: function () {
-        return !!api._user;
-      },
-
-      isVip: function (planUid) {
-        var wanted = planUid || api._planUid || null;
-        return api._subscriptions.some(function (sub) {
-          return isActiveSubscription(sub) && hasPlan(sub, wanted);
-        });
-      },
+      isVip: function () { return api._vip; },
 
       login: function (opts) {
-        if (window.Outseta && window.Outseta.auth) {
-          window.Outseta.auth.open(
-            Object.assign({ widgetMode: "login" }, opts || {})
-          );
-        }
+        if (window.Outseta && window.Outseta.auth)
+          window.Outseta.auth.open(Object.assign({ widgetMode: 'login' }, opts || {}));
       },
 
       signup: function (opts) {
-        if (window.Outseta && window.Outseta.auth) {
-          window.Outseta.auth.open(
-            Object.assign({ widgetMode: "register|login" }, opts || {})
-          );
-        }
+        if (window.Outseta && window.Outseta.auth)
+          window.Outseta.auth.open(Object.assign({ widgetMode: 'register' }, opts || {}));
       },
 
       logout: function () {
-        if (window.Outseta && window.Outseta.auth && window.Outseta.auth.signOut) {
-          window.Outseta.auth.signOut();
-        } else if (window.Outseta && window.Outseta.auth && window.Outseta.auth.logout) {
-          window.Outseta.auth.logout();
+        if (window.Outseta && window.Outseta.auth) {
+          if (window.Outseta.auth.signOut) window.Outseta.auth.signOut();
+          else if (window.Outseta.auth.logout) window.Outseta.auth.logout();
         }
       },
 
       refresh: function () {
-        var raw = window.Outseta?.getUser ? window.Outseta.getUser() : null;
+        var raw = window.Outseta && window.Outseta.getUser
+          ? window.Outseta.getUser() : null;
+
+        // getUser() can return a Promise on some versions
+        if (raw && typeof raw.then === 'function') {
+          raw.then(function(resolvedUser) {
+            api._user = normalizeUser(resolvedUser);
+            api._vip  = hasActiveSub(resolvedUser);
+            dispatch('outseta:refresh', { user: api._user, vip: api._vip });
+          });
+          return { user: api._user, vip: api._vip };
+        }
+
         api._user = normalizeUser(raw);
-        api._subscriptions = extractSubscriptions(raw);
-        return {
-          user: api._user,
-          subscriptions: api._subscriptions,
-          vip: api.isVip()
-        };
+        api._vip  = hasActiveSub(raw);
+        return { user: api._user, vip: api._vip };
       }
     };
-
     return api;
   }
 
@@ -155,70 +118,79 @@
 
   function finishReady() {
     SumnuAuth._ready = true;
-    SumnuAuth.refresh();
-    dispatch("outseta:ready", {
-      user: SumnuAuth.currentUser(),
-      vip: SumnuAuth.isVip(),
-      subscriptions: SumnuAuth.subscriptions()
-    });
+
+    // getUser() may be async — handle both sync and Promise
+    var result = window.Outseta && window.Outseta.getUser
+      ? window.Outseta.getUser() : null;
+
+    function afterGet(raw) {
+      SumnuAuth._user = normalizeUser(raw);
+      SumnuAuth._vip  = hasActiveSub(raw);
+      dispatch('outseta:ready', { user: SumnuAuth._user, vip: SumnuAuth._vip });
+      bindEvents();
+    }
+
+    if (result && typeof result.then === 'function') {
+      result.then(afterGet);
+    } else {
+      afterGet(result);
+    }
   }
 
   function waitForOutseta() {
     var started = Date.now();
-
     function poll() {
-      if (window.Outseta && typeof window.Outseta.getUser === "function") {
+      if (window.Outseta && typeof window.Outseta.getUser === 'function') {
         finishReady();
-        bindEvents();
         return;
       }
-
       if (Date.now() - started > OUTSETA_READY_TIMEOUT) {
-        dispatch("outseta:error", { message: "Outseta failed to load." });
+        dispatch('outseta:error', { message: 'Outseta failed to load.' });
         return;
       }
-
       setTimeout(poll, 150);
     }
-
     poll();
   }
 
   function bindEvents() {
-    // Re-check state whenever the page regains focus
-    window.addEventListener("focus", function () {
-      var before = !!SumnuAuth.currentUser();
-      var state = SumnuAuth.refresh();
-      var after = !!state.user;
-
-      if (!before && after) {
-        dispatch("outseta:login", state);
-      } else if (before && !after) {
-        dispatch("outseta:logout", state);
-      }
-    });
-
-    // Also poll lightly after widget actions
-    var lastEmail = SumnuAuth.currentUser()?.email || "";
+    // Poll every 2 seconds for auth state changes
+    var prevEmail = SumnuAuth._user ? SumnuAuth._user.email : '';
+    var prevVip   = SumnuAuth._vip;
 
     setInterval(function () {
       if (!SumnuAuth._ready) return;
+      var raw = window.Outseta && window.Outseta.getUser
+        ? window.Outseta.getUser() : null;
 
-      var prevLogged = !!SumnuAuth.currentUser();
-      var prevEmail = SumnuAuth.currentUser()?.email || "";
-      var state = SumnuAuth.refresh();
-      var nextLogged = !!state.user;
-      var nextEmail = state.user?.email || "";
+      function check(resolved) {
+        var newUser = normalizeUser(resolved);
+        var newVip  = hasActiveSub(resolved);
+        var newEmail = newUser ? newUser.email : '';
 
-      if (!prevLogged && nextLogged) {
-        dispatch("outseta:login", state);
-      } else if (prevLogged && !nextLogged) {
-        dispatch("outseta:logout", state);
-      } else if (prevEmail !== nextEmail || lastEmail !== nextEmail) {
-        dispatch("outseta:refresh", state);
+        var wasLogged = !!prevEmail;
+        var isLogged  = !!newEmail;
+
+        SumnuAuth._user = newUser;
+        SumnuAuth._vip  = newVip;
+
+        if (!wasLogged && isLogged) {
+          dispatch('outseta:login',   { user: newUser, vip: newVip });
+        } else if (wasLogged && !isLogged) {
+          dispatch('outseta:logout',  { user: null, vip: false });
+        } else if (prevVip !== newVip) {
+          dispatch('outseta:refresh', { user: newUser, vip: newVip });
+        }
+
+        prevEmail = newEmail;
+        prevVip   = newVip;
       }
 
-      lastEmail = nextEmail;
+      if (raw && typeof raw.then === 'function') {
+        raw.then(check);
+      } else {
+        check(raw);
+      }
     }, 2000);
   }
 
