@@ -3,56 +3,256 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Save Your Access — Sumnu Books</title>
+  <title>My Account — Sumnu Books</title>
   <link href="css/site.css" rel="stylesheet" />
-  <!-- Netlify Identity Widget — required for account-based VIP restore -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <style>
-    .site-header{position:sticky;top:0;z-index:50;background:rgba(6,8,15,.90);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
-    .navbar-shell{min-height:64px;display:flex;align-items:center;justify-content:center}
-    .nav-links-shell{display:flex;align-items:center;gap:10px;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;width:100%;justify-content:center;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:8px 0}
+    .site-header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(6,8,15,.90);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.06)
+    }
+    .navbar-shell{
+      min-height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:center
+    }
+    .nav-links-shell{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      overflow-y:hidden;
+      width:100%;
+      justify-content:center;
+      scrollbar-width:none;
+      -webkit-overflow-scrolling:touch;
+      padding:8px 0
+    }
     .nav-links-shell::-webkit-scrollbar{display:none}
-    .nav-links-shell a{flex:0 0 auto;white-space:nowrap;padding:10px 14px;border-radius:999px;color:var(--muted,#9aa3b7);font-weight:700;font-size:.92rem;text-decoration:none}
-    .nav-links-shell a:hover,.nav-links-shell a.active{color:var(--text,#fff);background:rgba(255,255,255,.06)}
-    .nav-links-shell .nav-cta{border:1px solid rgba(212,168,67,.28);color:var(--gold,#d4a843)!important}
+    .nav-links-shell a{
+      flex:0 0 auto;
+      white-space:nowrap;
+      padding:10px 14px;
+      border-radius:999px;
+      color:var(--muted,#9aa3b7);
+      font-weight:700;
+      font-size:.92rem;
+      text-decoration:none
+    }
+    .nav-links-shell a:hover,
+    .nav-links-shell a.active{
+      color:var(--text,#fff);
+      background:rgba(255,255,255,.06)
+    }
+    .nav-links-shell .nav-cta{
+      border:1px solid rgba(212,168,67,.28);
+      color:var(--gold,#d4a843)!important
+    }
     .logo-band{padding:14px 0 8px}
-    .logo-band-inner{display:flex;align-items:center;justify-content:center}
-    .hero-logo-img{display:block;width:min(64vw,320px);max-width:320px;height:auto;object-fit:contain;filter:drop-shadow(0 0 12px rgba(212,168,67,.12))}
-    .auth-page{min-height:calc(100vh - 130px);display:flex;align-items:center;justify-content:center;padding:20px 16px 48px;background:radial-gradient(circle at 50% 10%, rgba(212,168,67,.11), transparent 34%),linear-gradient(180deg,#030507 0%,#060914 100%)}
-    .auth-shell{width:min(100%,960px);display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
-    .auth-card,.auth-side{border:1px solid rgba(212,168,67,.16);border-radius:28px;background:linear-gradient(180deg, rgba(9,14,28,.94), rgba(7,10,20,.98));box-shadow:0 12px 32px rgba(0,0,0,.35)}
-    .auth-card{padding:28px 24px 24px}.auth-side{padding:28px 24px}
-    .auth-kicker{color:var(--gold,#d4a843);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:10px}
-    .auth-card h1{margin:0 0 10px;color:var(--gold,#d4a843);font-family:var(--font-display,Georgia,serif);line-height:1;font-size:clamp(1.6rem,4vw,2.4rem)}
-    .auth-side h2{margin:0 0 10px;color:var(--gold,#d4a843);font-family:var(--font-display,Georgia,serif);line-height:1;font-size:1.4rem}
-    .auth-sub,.auth-side p{color:var(--muted,#aeb6c8);line-height:1.65;margin:0 0 18px;font-size:.96rem}
-    .auth-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
-    .auth-tab{border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.03);color:var(--text,#fff);border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer;font-size:.9rem}
-    .auth-tab.active{border-color:rgba(212,168,67,.28);color:var(--gold,#d4a843);background:rgba(212,168,67,.08)}
+    .logo-band-inner{
+      display:flex;
+      align-items:center;
+      justify-content:center
+    }
+    .hero-logo-img{
+      display:block;
+      width:min(64vw,320px);
+      max-width:320px;
+      height:auto;
+      object-fit:contain;
+      filter:drop-shadow(0 0 12px rgba(212,168,67,.12))
+    }
+    .auth-page{
+      min-height:calc(100vh - 130px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px 16px 48px;
+      background:
+        radial-gradient(circle at 50% 10%, rgba(212,168,67,.11), transparent 34%),
+        linear-gradient(180deg,#030507 0%,#060914 100%)
+    }
+    .auth-shell{
+      width:min(100%,960px);
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:18px
+    }
+    .auth-card,.auth-side{
+      border:1px solid rgba(212,168,67,.16);
+      border-radius:28px;
+      background:linear-gradient(180deg, rgba(9,14,28,.94), rgba(7,10,20,.98));
+      box-shadow:0 12px 32px rgba(0,0,0,.35)
+    }
+    .auth-card{padding:28px 24px 24px}
+    .auth-side{padding:28px 24px}
+    .auth-kicker{
+      color:var(--gold,#d4a843);
+      font-size:.76rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:800;
+      margin-bottom:10px
+    }
+    .auth-card h1{
+      margin:0 0 10px;
+      color:var(--gold,#d4a843);
+      font-family:var(--font-display,Georgia,serif);
+      line-height:1;
+      font-size:clamp(1.6rem,4vw,2.4rem)
+    }
+    .auth-side h2{
+      margin:0 0 10px;
+      color:var(--gold,#d4a843);
+      font-family:var(--font-display,Georgia,serif);
+      line-height:1;
+      font-size:1.4rem
+    }
+    .auth-sub,.auth-side p{
+      color:var(--muted,#aeb6c8);
+      line-height:1.65;
+      margin:0 0 18px;
+      font-size:.96rem
+    }
+    .auth-tabs{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom:18px
+    }
+    .auth-tab{
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03);
+      color:var(--text,#fff);
+      border-radius:999px;
+      padding:10px 14px;
+      font-weight:800;
+      cursor:pointer;
+      font-size:.9rem
+    }
+    .auth-tab.active{
+      border-color:rgba(212,168,67,.28);
+      color:var(--gold,#d4a843);
+      background:rgba(212,168,67,.08)
+    }
     .auth-tab:hover{border-color:rgba(212,168,67,.2)}
-    .auth-form{display:none}.auth-form.active{display:block}
     .field{margin-bottom:14px}
-    .field label{display:block;margin-bottom:8px;color:var(--text,#fff);font-weight:700;font-size:.92rem}
-    .field input{width:100%;padding:14px;border-radius:16px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.04);color:var(--text,#fff);font-size:1rem;outline:none}
-    .field input:focus{border-color:rgba(212,168,67,.32);box-shadow:0 0 0 1px rgba(212,168,67,.16)}
-    .form-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:8px}
-    .helper-link{color:var(--muted,#aeb6c8);text-decoration:none;font-size:.92rem}.helper-link:hover{color:var(--text,#fff)}
-    .status{display:none;margin:14px 0 0;padding:12px 14px;border-radius:16px;line-height:1.55;font-size:.94rem}
+    .field label{
+      display:block;
+      margin-bottom:8px;
+      color:var(--text,#fff);
+      font-weight:700;
+      font-size:.92rem
+    }
+    .field input{
+      width:100%;
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04);
+      color:var(--text,#fff);
+      font-size:1rem;
+      outline:none
+    }
+    .field input:focus{
+      border-color:rgba(212,168,67,.32);
+      box-shadow:0 0 0 1px rgba(212,168,67,.16)
+    }
+    .form-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:8px
+    }
+    .status{
+      display:none;
+      margin:14px 0 0;
+      padding:12px 14px;
+      border-radius:16px;
+      line-height:1.55;
+      font-size:.94rem
+    }
     .status.show{display:block}
-    .status.info{background:rgba(82,142,255,.12);border:1px solid rgba(82,142,255,.20);color:#d8e5ff}
-    .status.success{background:rgba(73,180,110,.12);border:1px solid rgba(73,180,110,.22);color:#dcffe5}
-    .status.error{background:rgba(255,87,87,.12);border:1px solid rgba(255,87,87,.22);color:#ffe0e0}
-    .benefits{display:grid;gap:10px;margin-top:18px}
-    .benefits div{padding:12px 14px;border-radius:16px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.03);color:var(--text,#fff);line-height:1.5;font-size:.92rem}
-    .account-box{margin-top:18px;padding:16px;border-radius:20px;border:1px solid rgba(73,180,110,.22);background:rgba(73,180,110,.06)}
-    .account-box strong{display:block;margin-bottom:6px;color:#dcffe5}
-    .account-box p{color:var(--muted,#aeb6c8);font-size:.9rem;margin:0 0 12px}
-    .hidden{display:none!important}
-    .skip-link{display:block;text-align:center;margin-top:14px;color:var(--muted,#aeb6c8);font-size:.88rem;text-decoration:none}
+    .status.info{
+      background:rgba(82,142,255,.12);
+      border:1px solid rgba(82,142,255,.20);
+      color:#d8e5ff
+    }
+    .status.success{
+      background:rgba(73,180,110,.12);
+      border:1px solid rgba(73,180,110,.22);
+      color:#dcffe5
+    }
+    .status.error{
+      background:rgba(255,87,87,.12);
+      border:1px solid rgba(255,87,87,.22);
+      color:#ffe0e0
+    }
+    .benefits{
+      display:grid;
+      gap:10px;
+      margin-top:18px
+    }
+    .benefits div{
+      padding:12px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.06);
+      background:rgba(255,255,255,.03);
+      color:var(--text,#fff);
+      line-height:1.5;
+      font-size:.92rem
+    }
+    .account-box{
+      display:none;
+      margin-top:18px;
+      padding:16px;
+      border-radius:20px;
+      border:1px solid rgba(73,180,110,.22);
+      background:rgba(73,180,110,.06)
+    }
+    .account-box.show{display:block}
+    .account-box strong{
+      display:block;
+      margin-bottom:6px;
+      color:#dcffe5
+    }
+    .account-box p{
+      color:var(--muted,#aeb6c8);
+      font-size:.9rem;
+      margin:0 0 12px
+    }
+    .skip-link{
+      display:block;
+      text-align:center;
+      margin-top:14px;
+      color:var(--muted,#aeb6c8);
+      font-size:.88rem;
+      text-decoration:none
+    }
     .skip-link:hover{color:var(--text,#fff)}
-    .payment-confirmed{display:none;padding:14px 16px;border-radius:16px;border:1px solid rgba(212,168,67,.3);background:rgba(212,168,67,.07);color:var(--gold,#d4a843);font-weight:700;font-size:.92rem;margin-bottom:18px;text-align:center}
+    .payment-confirmed{
+      display:none;
+      padding:14px 16px;
+      border-radius:16px;
+      border:1px solid rgba(212,168,67,.3);
+      background:rgba(212,168,67,.07);
+      color:var(--gold,#d4a843);
+      font-weight:700;
+      font-size:.92rem;
+      margin-bottom:18px;
+      text-align:center
+    }
     .payment-confirmed.show{display:block}
-    @media (max-width:900px){.auth-shell{grid-template-columns:1fr}.auth-side{display:none}}
+    .hidden{display:none!important}
+    @media (max-width:900px){
+      .auth-shell{grid-template-columns:1fr}
+      .auth-side{display:none}
+    }
   </style>
 </head>
 <body>
@@ -81,49 +281,57 @@
   <main class="auth-page">
     <div class="auth-shell">
       <section class="auth-card">
-
         <div class="payment-confirmed" id="paymentConfirmed">
-          ✅ Payment received — your content is unlocked!
+          ✅ Payment received — your content is unlocked.
         </div>
 
         <div class="auth-kicker" id="authKicker">Member Access</div>
         <h1 id="authHeadline">Save your access</h1>
         <p class="auth-sub" id="authSub">
           Create a free account so your VIP access is tied to your email, not just this browser.
-          Log back in from any device and pick up right where you left off.
+          Log in from any device and continue where you left off.
         </p>
 
-        <div class="auth-tabs" id="authTabs">
-          <button class="auth-tab active" type="button" data-auth-action="signup">Create account</button>
-          <button class="auth-tab" type="button" data-auth-action="login">Already have one</button>
-          <button class="auth-tab" type="button" data-auth-action="reset">Reset password</button>
+        <div class="auth-tabs">
+          <button class="auth-tab active" type="button" id="tabSignup">Create account</button>
+          <button class="auth-tab" type="button" id="tabLogin">Already have one</button>
+          <button class="auth-tab" type="button" id="tabReset">Reset password</button>
         </div>
 
-        <div class="auth-form active" id="widgetActions">
-          <div class="field"><label>Email</label><input id="prefillEmail" type="email" autocomplete="email" placeholder="you@email.com" /></div>
-          <div class="field"><label>Password</label><input id="prefillPassword" type="password" autocomplete="current-password" placeholder="Use this to prefill signup or login" /></div>
+        <div id="prefillWrap">
+          <div class="field">
+            <label for="prefillEmail">Email</label>
+            <input id="prefillEmail" type="email" autocomplete="email" placeholder="you@email.com" />
+          </div>
+
+          <div class="field">
+            <label for="prefillPassword">Password</label>
+            <input id="prefillPassword" type="password" autocomplete="current-password" placeholder="Optional prefill" />
+          </div>
+
           <div class="form-actions">
             <button class="btn btn-primary" type="button" id="primaryAuthBtn">Open signup</button>
             <button class="btn btn-secondary" type="button" id="secondaryAuthBtn">Open login</button>
           </div>
+
           <p class="auth-sub" style="margin-top:14px; margin-bottom:0; font-size:.9rem;">
-            A secure Netlify popup will handle account creation and login. For password reset, click <strong>Reset password</strong> and then use the recovery option in the popup.
+            A secure Netlify popup handles account creation and login.
+            For password reset, click <strong>Reset password</strong>, then use the recovery link inside the popup.
           </p>
         </div>
 
         <div class="status" id="authStatus"></div>
 
-        <div class="account-box hidden" id="accountBox">
+        <div class="account-box" id="accountBox">
           <strong id="accountTitle">Signed in</strong>
-          <p id="accountMeta">Your VIP access is saved to this account.</p>
+          <p id="accountMeta">Your access is tied to this account.</p>
           <div class="form-actions">
-            <a class="btn btn-primary" href="index.html">Go to site →</a>
+            <a class="btn btn-primary" id="continueBtn" href="index.html">Continue →</a>
             <button class="btn btn-secondary" id="logoutBtn" type="button">Log out</button>
           </div>
         </div>
 
         <a class="skip-link" href="index.html" id="skipLink">Skip for now — continue without an account</a>
-
       </section>
 
       <aside class="auth-side">
@@ -131,171 +339,214 @@
         <h2>Your access, on every device.</h2>
         <p>
           Right now your VIP access is saved in this browser only. Switch browsers, clear your
-          cache, or open the site on your phone — and it's gone. A free account fixes that permanently.
+          cache, or open the site on your phone — and it is gone. A free account fixes that.
         </p>
         <div class="benefits">
           <div>✅ Log in from any browser or device</div>
           <div>✅ Never lose access after clearing cookies</div>
           <div>✅ One account across all series, audiobooks &amp; music</div>
-          <div>✅ Takes 30 seconds — free forever</div>
+          <div>✅ Takes seconds — free forever</div>
         </div>
       </aside>
     </div>
   </main>
 
-    <script src="js/auth.js"></script>
   <script>
-    const VIP_KEY = 'vipUnlocked';
+    const VIP_KEY = "vipUnlocked";
 
     function safeRedirect(raw) {
-      if (!raw) return 'index.html';
+      if (!raw) return "vip-audio-dramas_netflix_mobile.html";
       try {
         const decoded = decodeURIComponent(raw);
-        if (/^https?:/i.test(decoded)) return 'index.html';
-        if (decoded.startsWith('/')) return decoded.replace(/^\//, '');
+        if (/^https?:/i.test(decoded)) return "vip-audio-dramas_netflix_mobile.html";
+        if (decoded.startsWith("/")) return decoded;
         return decoded;
       } catch (e) {
-        return 'index.html';
+        return "vip-audio-dramas_netflix_mobile.html";
       }
     }
 
-    const params = new URLSearchParams(window.location.search);
-    const redirectTarget = safeRedirect(params.get('redirect') || params.get('from') || 'index.html');
-    const fromPayment = params.get('vip') === 'true' || params.get('paid') === 'true';
-
-    const tabs = document.querySelectorAll('.auth-tab');
-    const widgetActions = document.getElementById('widgetActions');
-    const statusEl = document.getElementById('authStatus');
-    const continueLink = document.querySelector('#accountBox a.btn.btn-primary');
-    const skipLink = document.getElementById('skipLink');
-    const prefillEmail = document.getElementById('prefillEmail');
-    const prefillPassword = document.getElementById('prefillPassword');
-    const primaryAuthBtn = document.getElementById('primaryAuthBtn');
-    const secondaryAuthBtn = document.getElementById('secondaryAuthBtn');
-    let activeAction = 'signup';
-
-    continueLink.setAttribute('href', redirectTarget);
-    continueLink.textContent = 'Continue →';
-    skipLink.setAttribute('href', redirectTarget);
-
-    if (fromPayment) {
-      try { localStorage.setItem(VIP_KEY, 'true'); } catch(e) {}
-      document.getElementById('paymentConfirmed').classList.add('show');
-      document.getElementById('authKicker').textContent = 'Access Unlocked';
-      document.getElementById('authHeadline').textContent = 'Now save your access';
-      document.getElementById('authSub').textContent =
-        'Your access is active in this browser. Create a free account or log in now so your access follows you to any device.';
-      history.replaceState(null, '', 'login.html?redirect=' + encodeURIComponent(redirectTarget));
-    }
-
-    function showStatus(msg, type = 'info') {
-      statusEl.className = `status ${type} show`;
-      statusEl.textContent = msg;
-    }
-
-    function setAction(name) {
-      activeAction = name;
-      tabs.forEach(t => t.classList.toggle('active', t.dataset.authAction === name));
-      if (name === 'signup') {
-        primaryAuthBtn.textContent = 'Open signup';
-        secondaryAuthBtn.textContent = 'Open login';
-        showStatus('Create your account in the secure popup.', 'info');
-      } else if (name === 'login') {
-        primaryAuthBtn.textContent = 'Open login';
-        secondaryAuthBtn.textContent = 'Open signup';
-        showStatus('Log in in the secure popup. You will be sent back automatically.', 'info');
-      } else {
-        primaryAuthBtn.textContent = 'Open recovery';
-        secondaryAuthBtn.textContent = 'Open login';
-        showStatus('Use the secure popup, then click the forgot-password link inside it.', 'info');
+    document.addEventListener("DOMContentLoaded", function () {
+      if (!window.netlifyIdentity) {
+        console.error("Netlify Identity not loaded");
+        return;
       }
-    }
 
-    function showAccountBox(user) {
-      document.getElementById('accountBox').classList.remove('hidden');
-      document.getElementById('accountTitle').textContent = 'Signed in as ' + (user.email || 'member');
-      document.getElementById('skipLink').classList.add('hidden');
-      document.getElementById('authTabs').style.display = 'none';
-      widgetActions.classList.add('hidden');
-    }
+      const params = new URLSearchParams(window.location.search);
+      const redirectTarget = safeRedirect(params.get("redirect") || params.get("from"));
+      const fromPayment = params.get("vip") === "true" || params.get("paid") === "true";
 
-    function showForms() {
-      document.getElementById('accountBox').classList.add('hidden');
-      document.getElementById('skipLink').classList.remove('hidden');
-      document.getElementById('authTabs').style.display = '';
-      widgetActions.classList.remove('hidden');
-      setAction('login');
-    }
+      const paymentConfirmed = document.getElementById("paymentConfirmed");
+      const authKicker = document.getElementById("authKicker");
+      const authHeadline = document.getElementById("authHeadline");
+      const authSub = document.getElementById("authSub");
 
-    tabs.forEach(t => t.addEventListener('click', () => setAction(t.dataset.authAction)));
+      const tabSignup = document.getElementById("tabSignup");
+      const tabLogin = document.getElementById("tabLogin");
+      const tabReset = document.getElementById("tabReset");
 
-    window.SumnuAuth.ready.then(ni => {
-      ni.on('init', user => {
-        if (user) {
-          try { localStorage.setItem(VIP_KEY, 'true'); } catch(e) {}
-          showAccountBox(user);
+      const prefillWrap = document.getElementById("prefillWrap");
+      const prefillEmail = document.getElementById("prefillEmail");
+      const prefillPassword = document.getElementById("prefillPassword");
+
+      const primaryAuthBtn = document.getElementById("primaryAuthBtn");
+      const secondaryAuthBtn = document.getElementById("secondaryAuthBtn");
+
+      const authStatus = document.getElementById("authStatus");
+      const accountBox = document.getElementById("accountBox");
+      const accountTitle = document.getElementById("accountTitle");
+      const continueBtn = document.getElementById("continueBtn");
+      const skipLink = document.getElementById("skipLink");
+      const logoutBtn = document.getElementById("logoutBtn");
+
+      let activeMode = "signup";
+
+      function showStatus(message, type) {
+        authStatus.className = "status show " + (type || "info");
+        authStatus.textContent = message;
+      }
+
+      function hideStatus() {
+        authStatus.className = "status";
+        authStatus.textContent = "";
+      }
+
+      function setActiveTab(mode) {
+        activeMode = mode;
+
+        tabSignup.classList.toggle("active", mode === "signup");
+        tabLogin.classList.toggle("active", mode === "login");
+        tabReset.classList.toggle("active", mode === "reset");
+
+        if (mode === "signup") {
+          primaryAuthBtn.textContent = "Open signup";
+          secondaryAuthBtn.textContent = "Open login";
+          showStatus("Create your account in the secure popup.", "info");
+        } else if (mode === "login") {
+          primaryAuthBtn.textContent = "Open login";
+          secondaryAuthBtn.textContent = "Open signup";
+          showStatus("Log in in the secure popup. You will be sent back automatically.", "info");
         } else {
-          setAction(activeAction);
+          primaryAuthBtn.textContent = "Open login";
+          secondaryAuthBtn.textContent = "Open signup";
+          showStatus("Open login, then use the forgot-password link inside the popup.", "info");
         }
-      });
+      }
 
-      ni.on('login', user => {
-        try { localStorage.setItem(VIP_KEY, 'true'); } catch(e) {}
-        showAccountBox(user);
-        showStatus('Signed in. Sending you back now…', 'success');
-        window.setTimeout(() => { window.location.href = redirectTarget; }, 350);
-      });
+      function showSignedIn(user) {
+        accountBox.classList.add("show");
+        prefillWrap.classList.add("hidden");
+        skipLink.classList.add("hidden");
+        tabSignup.classList.add("hidden");
+        tabLogin.classList.add("hidden");
+        tabReset.classList.add("hidden");
+        accountTitle.textContent = "Signed in as " + (user && user.email ? user.email : "member");
+        continueBtn.setAttribute("href", redirectTarget);
+      }
 
-      ni.on('signup', () => {
-        showStatus('Account created. Check your email if confirmation is required, then log in.', 'success');
-        setAction('login');
-      });
+      function showSignedOut() {
+        accountBox.classList.remove("show");
+        prefillWrap.classList.remove("hidden");
+        skipLink.classList.remove("hidden");
+        tabSignup.classList.remove("hidden");
+        tabLogin.classList.remove("hidden");
+        tabReset.classList.remove("hidden");
+        setActiveTab(activeMode);
+      }
 
-      ni.on('error', err => {
-        showStatus((err && err.message) || 'Authentication failed. Please try again.', 'error');
-      });
-
-      ni.on('logout', () => {
-        try { localStorage.removeItem(VIP_KEY); } catch(e) {}
-        showForms();
-      });
-
-      function prefill() {
+      function popupMeta() {
         const meta = {};
-        const email = (prefillEmail.value || '').trim();
-        const password = prefillPassword.value || '';
+        const email = prefillEmail.value.trim();
+        const password = prefillPassword.value;
         if (email) meta.email = email;
         if (password) meta.password = password;
         return meta;
       }
 
-      primaryAuthBtn.addEventListener('click', () => {
-        const meta = prefill();
-        if (activeAction === 'signup') {
-          showStatus('Opening secure signup…', 'info');
-          ni.open('signup', meta);
+      continueBtn.setAttribute("href", redirectTarget);
+      skipLink.setAttribute("href", redirectTarget);
+
+      if (fromPayment) {
+        try { localStorage.setItem(VIP_KEY, "true"); } catch (e) {}
+        paymentConfirmed.classList.add("show");
+        authKicker.textContent = "Access Unlocked";
+        authHeadline.textContent = "Now save your access";
+        authSub.textContent = "Your access is active in this browser. Create a free account or log in now so your access follows you to any device.";
+      }
+
+      tabSignup.addEventListener("click", function () { setActiveTab("signup"); });
+      tabLogin.addEventListener("click", function () { setActiveTab("login"); });
+      tabReset.addEventListener("click", function () { setActiveTab("reset"); });
+
+      primaryAuthBtn.addEventListener("click", function () {
+        hideStatus();
+        const meta = popupMeta();
+
+        if (activeMode === "signup") {
+          showStatus("Opening secure signup…", "info");
+          netlifyIdentity.open("signup", meta);
         } else {
-          showStatus(activeAction === 'reset' ? 'Opening recovery login…' : 'Opening secure login…', 'info');
-          ni.open('login', meta);
+          showStatus("Opening secure login…", "info");
+          netlifyIdentity.open("login", meta);
         }
       });
 
-      secondaryAuthBtn.addEventListener('click', () => {
-        const meta = prefill();
-        if (activeAction === 'signup') {
-          showStatus('Opening secure login…', 'info');
-          ni.open('login', meta);
+      secondaryAuthBtn.addEventListener("click", function () {
+        hideStatus();
+        const meta = popupMeta();
+
+        if (activeMode === "signup") {
+          showStatus("Opening secure login…", "info");
+          netlifyIdentity.open("login", meta);
         } else {
-          showStatus('Opening secure signup…', 'info');
-          ni.open('signup', meta);
+          showStatus("Opening secure signup…", "info");
+          netlifyIdentity.open("signup", meta);
         }
       });
 
-      document.getElementById('logoutBtn').addEventListener('click', () => {
-        ni.logout();
+      logoutBtn.addEventListener("click", function () {
+        netlifyIdentity.logout();
       });
-    }).catch(() => {
-      showStatus('Login service unavailable right now. Try again in a moment.', 'error');
+
+      netlifyIdentity.on("init", function (user) {
+        if (user) {
+          try { localStorage.setItem(VIP_KEY, "true"); } catch (e) {}
+          showSignedIn(user);
+          showStatus("You are already signed in.", "success");
+        } else {
+          showSignedOut();
+        }
+      });
+
+      netlifyIdentity.on("login", function (user) {
+        try { localStorage.setItem(VIP_KEY, "true"); } catch (e) {}
+        showSignedIn(user);
+        showStatus("Signed in. Sending you back now…", "success");
+        setTimeout(function () {
+          window.location.href = redirectTarget;
+        }, 350);
+      });
+
+      netlifyIdentity.on("signup", function () {
+        showStatus("Account created. Now log in in the popup to continue.", "success");
+        setActiveTab("login");
+        setTimeout(function () {
+          netlifyIdentity.open("login", popupMeta());
+        }, 300);
+      });
+
+      netlifyIdentity.on("logout", function () {
+        try { localStorage.removeItem(VIP_KEY); } catch (e) {}
+        showSignedOut();
+        showStatus("You have been logged out.", "info");
+      });
+
+      netlifyIdentity.on("error", function (err) {
+        showStatus((err && err.message) ? err.message : "Authentication failed. Please try again.", "error");
+      });
+
+      netlifyIdentity.init();
+      setActiveTab("signup");
     });
   </script>
 </body>
