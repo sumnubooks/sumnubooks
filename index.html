@@ -604,7 +604,6 @@
   </div>
 
 <script>
-const VIP_KEY = 'vipUnlocked';
 const LAST_PLAY_KEY = 'sumnuLastPlayed';
 
 /* ── Built-in splash for index.html ───────────────────── */
@@ -646,29 +645,7 @@ const LAST_PLAY_KEY = 'sumnuLastPlayed';
   window.setTimeout(hideSplash, SPLASH_DELAY);
 })();
 
-// ── VIP restore: PayPal returns with ?vip=true ──
-// Also restore from Netlify Identity account role if widget is present
-(function(){
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('vip') === 'true') {
-    try { localStorage.setItem(VIP_KEY, 'true'); } catch(e) {}
-    // Clean URL so the param doesn't stay visible
-    const clean = window.location.pathname + (window.location.hash || '');
-    history.replaceState(null, '', clean);
-  }
 
-  // If Netlify Identity widget is loaded, check user role for VIP
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on('init', user => {
-      if (user) {
-        const roles = user.app_metadata?.roles || [];
-        if (roles.includes('vip')) {
-          try { localStorage.setItem(VIP_KEY, 'true'); } catch(e) {}
-        }
-      }
-    });
-  }
-})();
 
 const siteData = {
   series: [
@@ -886,11 +863,8 @@ function wireImageFallbacks(root = document) {
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-const isVip = () => localStorage.getItem(VIP_KEY) === 'true';
+const isVip = () => !!(window.SumnuAuth && window.SumnuAuth.isVip());
 
-if (new URLSearchParams(window.location.search).get('vip') === 'true') {
-  localStorage.setItem(VIP_KEY, 'true');
-}
 
 
 siteData.radioTracks = siteData.music.flatMap(album =>
@@ -1148,6 +1122,27 @@ if (isVip()) {
     if (el) { el.textContent = '✅ VIP unlocked'; el.classList.remove('btn-primary'); el.classList.add('btn-secondary'); el.href = '#'; }
   });
 }
+// Re-render once Outseta confirms paid status
+window.addEventListener("outseta:ready", function() {
+  renderShelves();
+  var vip = isVip();
+  ["heroUnlockBtn","vipCtaBtn","mobileUnlockBtn"].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    if (vip) {
+      el.textContent = "VIP unlocked";
+      el.classList.remove("btn-primary");
+      el.classList.add("btn-secondary");
+      el.href = "#";
+    } else {
+      el.textContent = "Unlock all access";
+      el.classList.add("btn-primary");
+      el.classList.remove("btn-secondary");
+      el.href = "unlock.html";
+    }
+  });
+});
+window.addEventListener("outseta:login", function() { renderShelves(); });
 </script>
 </body>
 </html>

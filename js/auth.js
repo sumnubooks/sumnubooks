@@ -1,130 +1,226 @@
-/* ============================================================
-   SUMNU BOOKS — auth.js  (Outseta edition)
+(function () {
+  var OUTSETA_READY_TIMEOUT = 12000;
 
-   IMPORTANT: This file no longer loads the Outseta script.
-   The Outseta script tag must be placed directly in the <head>
-   of every HTML page BEFORE this file is loaded.
-
-   Add this to the <head> of every page, as the FIRST script:
-
-   <script>
-     window.outsetaOptions = { domain: 'sumnuvision-llc.outseta.com' };
-   </script>
-   <script src="https://cdn.outseta.com/outseta.min.js"></script>
-
-   This file then provides the SumnuAuth helper API and fires
-   the sumnu:auth event when Outseta is ready.
-   ============================================================ */
-
-(function (window, document) {
-
-  // ── 3. HELPER: is the current user on an active paid plan? ──
-  // Outseta exposes Outseta.getUser() after the widget loads.
-  // A user with an active subscription will have a non-null
-  // Account.CurrentSubscription object.
-  function isActiveMember(user) {
-    if (!user) return false;
-    try {
-      var acct = user.Account;
-      if (!acct) return false;
-      var sub = acct.CurrentSubscription;
-      if (!sub) return false;
-      // Status 1 = Active, Status 7 = Trialing
-      return sub.NewRequiresPaymentInfo === false ||
-             sub.Status === 1 ||
-             sub.Status === 7 ||
-             (typeof sub.Uid === 'string' && sub.Uid.length > 0);
-    } catch (e) {
-      return false;
-    }
+  function dispatch(name, detail) {
+    window.dispatchEvent(new CustomEvent(name, { detail: detail || {} }));
   }
 
-  // ── 4. PUBLIC API ───────────────────────────────────────────
-  window.SumnuAuth = {
+  function normalizeUser(raw) {
+    if (!raw) return null;
+    return {
+      uid: raw.Uid || raw.uid || raw.Id || raw.id || "",
+      email: raw.Email || raw.email || "",
+      firstName: raw.FirstName || raw.firstName || "",
+      lastName: raw.LastName || raw.lastName || "",
+      raw: raw
+    };
+  }
 
-    // Call this to get the current Outseta user object (or null)
-    currentUser: function () {
-      try {
-        return (window.Outseta && window.Outseta.getUser)
-          ? window.Outseta.getUser()
-          : null;
-      } catch (e) {
-        return null;
-      }
-    },
+  function extractSubscriptions(rawUser) {
+    if (!rawUser) return [];
 
-    // Returns true if user is logged in AND has an active paid plan
-    isVip: function () {
-      return isActiveMember(this.currentUser());
-    },
+    var possible =
+      rawUser.Subscriptions ||
+      rawUser.subscriptions ||
+      rawUser.Account?.Subscriptions ||
+      rawUser.Account?.subscriptions ||
+      rawUser.PersonAccount?.Subscriptions ||
+      rawUser.PersonAccount?.subscriptions ||
+      [];
 
-    // Open the Outseta login/register popup
-    openLogin: function (redirectPath) {
-      var opts = {};
-      if (redirectPath) opts.redirectUri = redirectPath;
-      try {
+    if (!Array.isArray(possible)) return [];
+    return possible;
+  }
+
+  function isActiveSubscription(sub) {
+    if (!sub) return false;
+
+    var status =
+      String(
+        sub.Status ||
+        sub.status ||
+        sub.SubscriptionStatus ||
+        ""
+      ).toLowerCase();
+
+    // Accept active/trialing style states
+    if (
+      status.includes("active") ||
+      status.includes("trial") ||
+      status.includes("current") ||
+      status.includes("paid")
+    ) {
+      return true;
+    }
+
+    // Some installs expose boolean flags
+    if (sub.IsActive === true || sub.isActive === true) return true;
+
+    return false;
+  }
+
+  function hasPlan(sub, planUid) {
+    if (!planUid) return true;
+
+    var candidates = [
+      sub.PlanUid,
+      sub.planUid,
+      sub.Plan?.Uid,
+      sub.plan?.uid,
+      sub.Plan?.uid,
+      sub.Name,
+      sub.name
+    ].filter(Boolean).map(function (v) {
+      return String(v);
+    });
+
+    return candidates.indexOf(String(planUid)) !== -1;
+  }
+
+  function buildApi() {
+    var api = {
+      _ready: false,
+      _user: null,
+      _subscriptions: [],
+      _planUid: null,
+
+      setPlanUid: function (planUid) {
+        api._planUid = planUid || null;
+      },
+
+      currentUser: function () {
+        return api._user;
+      },
+
+      rawUser: function () {
+        return window.Outseta?.getUser ? window.Outseta.getUser() : null;
+      },
+
+      subscriptions: function () {
+        return api._subscriptions.slice();
+      },
+
+      isLoggedIn: function () {
+        return !!api._user;
+      },
+
+      isVip: function (planUid) {
+        var wanted = planUid || api._planUid || null;
+        return api._subscriptions.some(function (sub) {
+          return isActiveSubscription(sub) && hasPlan(sub, wanted);
+        });
+      },
+
+      login: function (opts) {
         if (window.Outseta && window.Outseta.auth) {
-          window.Outseta.auth.open(opts);
+          window.Outseta.auth.open(
+            Object.assign({ widgetMode: "login" }, opts || {})
+          );
         }
-      } catch (e) {}
-    },
+      },
 
-    // Open the Outseta checkout / subscription popup
-    openCheckout: function (planUid, redirectPath) {
-      try {
+      signup: function (opts) {
         if (window.Outseta && window.Outseta.auth) {
-          window.Outseta.auth.open({
-            widgetMode: 'register|login',
-            planUid: planUid || '',
-            redirectUri: redirectPath || window.location.href
-          });
+          window.Outseta.auth.open(
+            Object.assign({ widgetMode: "register|login" }, opts || {})
+          );
         }
-      } catch (e) {}
-    },
+      },
 
-    // Log the user out
-    logout: function () {
-      try {
-        if (window.Outseta && window.Outseta.auth) {
+      logout: function () {
+        if (window.Outseta && window.Outseta.auth && window.Outseta.auth.signOut) {
+          window.Outseta.auth.signOut();
+        } else if (window.Outseta && window.Outseta.auth && window.Outseta.auth.logout) {
           window.Outseta.auth.logout();
         }
-      } catch (e) {}
+      },
+
+      refresh: function () {
+        var raw = window.Outseta?.getUser ? window.Outseta.getUser() : null;
+        api._user = normalizeUser(raw);
+        api._subscriptions = extractSubscriptions(raw);
+        return {
+          user: api._user,
+          subscriptions: api._subscriptions,
+          vip: api.isVip()
+        };
+      }
+    };
+
+    return api;
+  }
+
+  var SumnuAuth = buildApi();
+  window.SumnuAuth = SumnuAuth;
+
+  function finishReady() {
+    SumnuAuth._ready = true;
+    SumnuAuth.refresh();
+    dispatch("outseta:ready", {
+      user: SumnuAuth.currentUser(),
+      vip: SumnuAuth.isVip(),
+      subscriptions: SumnuAuth.subscriptions()
+    });
+  }
+
+  function waitForOutseta() {
+    var started = Date.now();
+
+    function poll() {
+      if (window.Outseta && typeof window.Outseta.getUser === "function") {
+        finishReady();
+        bindEvents();
+        return;
+      }
+
+      if (Date.now() - started > OUTSETA_READY_TIMEOUT) {
+        dispatch("outseta:error", { message: "Outseta failed to load." });
+        return;
+      }
+
+      setTimeout(poll, 150);
     }
-  };
 
-  // ── 5. FIRE sumnu:auth EVENT WHEN OUTSETA IS READY ─────────
-  // Outseta fires 'outseta:ready' on window when the widget boots.
-  window.addEventListener('outseta:ready', function () {
-    var user = window.SumnuAuth.currentUser();
-    var vip  = isActiveMember(user);
+    poll();
+  }
 
-    // Set data attributes on <html> so CSS can respond if needed
-    document.documentElement.dataset.vip    = vip  ? 'true' : 'false';
-    document.documentElement.dataset.member = user ? 'true' : 'false';
+  function bindEvents() {
+    // Re-check state whenever the page regains focus
+    window.addEventListener("focus", function () {
+      var before = !!SumnuAuth.currentUser();
+      var state = SumnuAuth.refresh();
+      var after = !!state.user;
 
-    // Dispatch for any page-level listeners
-    window.dispatchEvent(new CustomEvent('sumnu:auth', {
-      detail: { user: user || null, isVip: vip }
-    }));
-  });
+      if (!before && after) {
+        dispatch("outseta:login", state);
+      } else if (before && !after) {
+        dispatch("outseta:logout", state);
+      }
+    });
 
-  // Also re-fire on login / logout events from Outseta
-  window.addEventListener('outseta:login', function () {
-    var user = window.SumnuAuth.currentUser();
-    var vip  = isActiveMember(user);
-    document.documentElement.dataset.vip    = vip  ? 'true' : 'false';
-    document.documentElement.dataset.member = user ? 'true' : 'false';
-    window.dispatchEvent(new CustomEvent('sumnu:auth', {
-      detail: { user: user || null, isVip: vip }
-    }));
-  });
+    // Also poll lightly after widget actions
+    var lastEmail = SumnuAuth.currentUser()?.email || "";
 
-  window.addEventListener('outseta:logout', function () {
-    document.documentElement.dataset.vip    = 'false';
-    document.documentElement.dataset.member = 'false';
-    window.dispatchEvent(new CustomEvent('sumnu:auth', {
-      detail: { user: null, isVip: false }
-    }));
-  });
+    setInterval(function () {
+      if (!SumnuAuth._ready) return;
 
-})(window, document);
+      var prevLogged = !!SumnuAuth.currentUser();
+      var prevEmail = SumnuAuth.currentUser()?.email || "";
+      var state = SumnuAuth.refresh();
+      var nextLogged = !!state.user;
+      var nextEmail = state.user?.email || "";
+
+      if (!prevLogged && nextLogged) {
+        dispatch("outseta:login", state);
+      } else if (prevLogged && !nextLogged) {
+        dispatch("outseta:logout", state);
+      } else if (prevEmail !== nextEmail || lastEmail !== nextEmail) {
+        dispatch("outseta:refresh", state);
+      }
+
+      lastEmail = nextEmail;
+    }, 2000);
+  }
+
+  waitForOutseta();
+})();

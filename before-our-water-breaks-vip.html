@@ -181,14 +181,6 @@
 
   
   <script>
-    const STORAGE_KEY = "vipUnlocked";
-    const UNLOCKED_PAGE = "before-our-water-breaks-unlocked.html";
-
-    try {
-      if (localStorage.getItem(STORAGE_KEY) === 'true') {
-        window.location.replace(UNLOCKED_PAGE);
-      }
-    } catch (e) {}
 
     const obs = new IntersectionObserver(entries => {
       entries.forEach(e => {
@@ -199,20 +191,6 @@
       });
     }, { threshold: 0.06 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-    const unlockForm = document.getElementById('unlock-paypal-form');
-    document.querySelectorAll('[data-unlock-paypal], .episode-card.locked.unlock-link, .locked-trigger').forEach(card => {
-      const openCheckout = () => {
-        if (unlockForm) unlockForm.submit();
-      };
-      card.addEventListener('click', openCheckout);
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openCheckout();
-        }
-      });
-    });
   </script>
 
 

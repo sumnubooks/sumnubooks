@@ -145,7 +145,7 @@
           </div>
         </article>
 
-        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes with PayPal" data-unlock-paypal="unlock-paypal-form">
+        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes — start VIP trial" data-unlock-outseta="true">
           <div class="episode-art">
             <img src="images/here-eat-this/here-eat-this-ep5.jpg" alt="Episode 5" loading="lazy" decoding="async">
             <div class="ep-badge locked">VIP · EP 5</div>
@@ -158,7 +158,7 @@
           </div>
         </article>
 
-        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes with PayPal" data-unlock-paypal="unlock-paypal-form">
+        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes — start VIP trial" data-unlock-outseta="true">
           <div class="episode-art">
             <img src="images/here-eat-this/here-eat-this-ep6.jpg" alt="Episode 6" loading="lazy" decoding="async">
             <div class="ep-badge locked">VIP · EP 6</div>
@@ -171,7 +171,7 @@
           </div>
         </article>
 
-        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes with PayPal" data-unlock-paypal="unlock-paypal-form">
+        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes — start VIP trial" data-unlock-outseta="true">
           <div class="episode-art">
             <img src="images/here-eat-this/here-eat-this-ep7.jpg" alt="Episode 7" loading="lazy" decoding="async">
             <div class="ep-badge locked">VIP · EP 7</div>
@@ -184,7 +184,7 @@
           </div>
         </article>
 
-        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes with PayPal" data-unlock-paypal="unlock-paypal-form">
+        <article class="episode-card locked reveal unlock-link" tabindex="0" role="link" aria-label="Unlock premium episodes — start VIP trial" data-unlock-outseta="true">
           <div class="episode-art">
             <img src="images/here-eat-this/here-eat-this-ep8.jpg" alt="Episode 8" loading="lazy" decoding="async">
             <div class="ep-badge locked">VIP · EP 8</div>
@@ -198,16 +198,6 @@
         </article>
 
       </section>
-
-      <form id="unlock-paypal-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" style="display:none;">
-        <input type="hidden" name="cmd" value="_xclick" />
-        <input type="hidden" name="business" value="sales@sumnubooks.com" />
-        <input type="hidden" name="item_name" value="HERE... EAT THIS — Full Season Unlock" />
-        <input type="hidden" name="amount" value="5.00" />
-        <input type="hidden" name="currency_code" value="USD" />
-        <input type="hidden" name="return" value="https://sumnubooks.com/login.html?paid=true&redirect=%2Fhere-eat-this-unlocked.html" />
-        <input type="hidden" name="cancel_return" value="https://sumnubooks.com/vip-here-eat-this.html" />
-      </form>
     </div>
   </main>
 
@@ -216,18 +206,6 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
     }, { threshold: 0.06 });
     document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-    const unlockForm = document.getElementById('unlock-paypal-form');
-    document.querySelectorAll('[data-unlock-paypal]').forEach(card => {
-      const openCheckout = () => { if (unlockForm) unlockForm.submit(); };
-      card.addEventListener('click', openCheckout);
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          openCheckout();
-        }
-      });
-    });
   </script>
 
   <script src="js/auth.js"></script>
@@ -245,4 +223,16 @@
       }
     });
   })();
+
+// Wire locked episode cards to Outseta checkout
+document.querySelectorAll('[data-unlock-outseta]').forEach(function(card) {
+  card.addEventListener('click', function() {
+    if (window.Outseta && window.Outseta.auth) {
+      window.Outseta.auth.open({ widgetMode: 'register|login', planUid: 'jW70XZmq', redirectUri: 'https://sumnubooks.com/index.html' });
+    } else { window.location.href = 'unlock.html'; }
+  });
+  card.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+  });
+});
 </script>
