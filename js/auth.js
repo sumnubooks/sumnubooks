@@ -21,35 +21,40 @@
     };
   }
 
-  // Outseta returns subscription at raw.Account.CurrentSubscription
-  // BillingStage: 2 = Trialing, 3 = Subscribing (active paid)
+  // Outseta JWT payload returns subscription at raw.Account.CurrentSubscription
+  // The subscription object has Plan.Uid when active - BillingStage is NOT in JWT
+  // Real data structure confirmed: { Plan: { Name, Uid }, StartDate, RenewalDate, ... }
   function hasActiveSub(rawUser) {
     if (!rawUser) return false;
 
-    // Primary check — Account.CurrentSubscription
+    // PRIMARY: Check Account.CurrentSubscription.Plan (confirmed real structure)
     var acct = rawUser.Account || rawUser.account;
     if (acct) {
       var cur = acct.CurrentSubscription || acct.currentSubscription;
       if (cur) {
+        // If there's a Plan with a Uid, the subscription is active
+        var plan = cur.Plan || cur.plan;
+        if (plan && (plan.Uid || plan.uid)) return true;
+        // Also check BillingStage just in case full profile is loaded
         var stage = cur.BillingStage || cur.billingStage;
-        var status = String(cur.Status || cur.status || '').toLowerCase();
-        // BillingStage 2 = trialing, 3 = subscribing
         if (stage === 2 || stage === 3) return true;
-        if (status.includes('active') || status.includes('trial') ||
-            status.includes('subscribing')) return true;
-        // If there's a Plan attached, consider it active
-        if (cur.Plan || cur.plan) return true;
+        // Check EndDate — if null subscription is ongoing
+        var ended = cur.EndDate || cur.endDate;
+        if (!ended && cur.StartDate) return true;
       }
     }
 
-    // Fallback — some versions return PersonAccount
+    // FALLBACK: PersonAccount array structure
     var pa = rawUser.PersonAccount || rawUser.personAccount;
     if (Array.isArray(pa)) {
       for (var i = 0; i < pa.length; i++) {
-        var paAcct = (pa[i].Account || pa[i].account);
+        var paAcct = (pa[i] && (pa[i].Account || pa[i].account));
         if (paAcct) {
           var paCur = paAcct.CurrentSubscription || paAcct.currentSubscription;
-          if (paCur && (paCur.Plan || paCur.plan)) return true;
+          if (paCur) {
+            var paPlan = paCur.Plan || paCur.plan;
+            if (paPlan && (paPlan.Uid || paPlan.uid)) return true;
+          }
         }
       }
     }
