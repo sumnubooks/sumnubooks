@@ -8,7 +8,11 @@
   function initParticles() {
     var canvas = document.createElement('canvas');
     canvas.id = 'gold-dust';
-    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;';
+    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;';
+    // Push all page content above the canvas
+    var style = document.createElement('style');
+    style.textContent = 'header,main,footer,nav,section,.card,.card-tile,.media-item,.album-card,.product,.ab-available,.ab-upcoming,.shelf,.container,.logo-band { position:relative; z-index:2; }';
+    document.head.appendChild(style);
     document.body.appendChild(canvas);
 
     var ctx = canvas.getContext('2d');
