@@ -764,33 +764,37 @@ const siteData = {
     {
       type: 'audiobook',
       slug: 'the-jailhouse-lawyer',
+      type: 'audiobook',
       title: 'The Jailhouse Lawyer',
-      label: 'Street/legal drama',
-      meta: 'chapter 1 free • 20 chapters',
-      tagline: 'A premium chapter-by-chapter audiobook experience that opens right into the chapter list.',
-      cover: 'images/audiobooks/the-jailhouse-lawyer/the-jailhouse-lawyer-cover.jpg',
+      label: 'Audiobook',
+      meta: 'Ch 1–2 free • 20 chapters',
+      tagline: 'Inside the walls, knowledge is power.',
+      cover: 'images/books/book3.jpg',
+      freeCount: 2,
       items: Array.from({length:20}, (_,i) => ({
         number: i + 1,
         title: `Chapter ${i+1}`,
-        description: i === 0 ? 'Free sample chapter.' : 'VIP chapter.',
-        image: `images/audiobooks/the-jailhouse-lawyer/the-jailhouse-lawyer-ch${i+1}.jpg`,
-        audio: `audio/audiobooks/the-jailhouse-lawyer/the-jailhouse-lawyer-ch${i+1}.mp3`
+        description: i < 2 ? 'Free chapter.' : 'VIP audiobook chapter.',
+        image: 'images/books/book3.jpg',
+        audio: `audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch${i+1}.mp3`
       }))
     },
     {
       type: 'audiobook',
       slug: 'still-standing',
+      type: 'audiobook',
       title: 'Still Standing',
-      label: 'Survival drama',
-      meta: 'chapter 1 free • 15 chapters',
-      tagline: 'A premium chapter-by-chapter audiobook experience that opens right into the chapter list.',
-      cover: 'images/audiobooks/still-standing/still-standing-cover.jpg',
+      label: 'Audiobook',
+      meta: 'Ch 1–2 free • 15 chapters',
+      tagline: 'Still standing after everything.',
+      cover: 'images/books/still-standing.jpg',
+      freeCount: 2,
       items: Array.from({length:15}, (_,i) => ({
         number: i + 1,
         title: `Chapter ${i+1}`,
-        description: i === 0 ? 'Free sample chapter.' : 'VIP chapter.',
-        image: `images/audiobooks/still-standing/still-standing-ch${i+1}.jpg`,
-        audio: `audio/audiobooks/still-standing/still-standing-ch${i+1}.mp3`
+        description: i < 2 ? 'Free chapter.' : 'VIP audiobook chapter.',
+        image: 'images/books/still-standing.jpg',
+        audio: `audio/audiobooks/still-standing/Still-Standing-Ch${i+1}.mp3`
       }))
     }
   ],
@@ -1162,6 +1166,5 @@ window.addEventListener("outseta:login", function() {
 });
 window.addEventListener("outseta:refresh", function() { applyVipState(); });
 </script>
-<script src="js/auth.js"></script>
 </body>
 </html>
