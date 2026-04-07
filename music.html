@@ -3,8 +3,14 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <script>window.outsetaOptions = { domain: 'sumnuvision-llc.outseta.com' };</script>
-  <script src="https://cdn.outseta.com/outseta.min.js" async></script>
+  <script>
+    var o_options = {
+      domain: 'sumnuvision-llc.outseta.com',
+      tokenStorage: 'local',
+      auth: { authenticationCallbackUrl: 'https://sumnubooks.com/' }
+    };
+  </script>
+  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
   <title>Music — Sumnu Books</title>
   <meta name="description" content="Albums, tracks, video links, and direct album purchase from Sumnu Books." />
   <link href="css/site.css" rel="stylesheet" />
