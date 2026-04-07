@@ -1,21 +1,57 @@
 /* ============================================================
-   SUMNU BOOKS — animations.js
-   SAFE version — NO click handlers, NO page transitions.
-   Only: particle injection + scroll reveal observer.
+   SUMNU BOOKS — animations.js  (mobile-safe, canvas gold dust)
+   NO click handlers. NO page transitions. Safe for all pages.
    ============================================================ */
 (function() {
 
-  /* ── Inject fire-dust particles into body ── */
+  /* ── Canvas gold dust particle system ── */
   function initParticles() {
-    var count = 12;
-    for (var i = 0; i < count; i++) {
-      var p = document.createElement('div');
-      p.className = 'sumnu-particle';
-      document.body.appendChild(p);
+    var canvas = document.createElement('canvas');
+    canvas.id = 'gold-dust';
+    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+    document.body.appendChild(canvas);
+
+    var ctx = canvas.getContext('2d');
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    var particles = [];
+    for (var i = 0; i < 140; i++) {
+      particles.push({
+        x:       Math.random() * canvas.width,
+        y:       Math.random() * canvas.height,
+        radius:  Math.random() * 2.8 + 0.8,
+        speedY:  Math.random() * 0.4 + 0.1,
+        opacity: Math.random() * 0.7 + 0.3
+      });
     }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(function(p) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(212,175,55,' + p.opacity + ')';
+        ctx.shadowColor = 'rgba(255,215,0,0.9)';
+        ctx.shadowBlur  = 10;
+        ctx.fill();
+        p.y += p.speedY;
+        if (p.y > canvas.height) {
+          p.y = 0;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    window.addEventListener('resize', function() {
+      canvas.width  = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
   }
 
-  /* ── Scroll reveal — ONLY adds/removes a CSS class, zero click logic ── */
+  /* ── Scroll reveal — only adds a CSS class, zero click logic ── */
   function initScrollReveal() {
     var els = document.querySelectorAll('.sr');
     if (!els.length) return;

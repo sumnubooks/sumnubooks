@@ -905,32 +905,16 @@ function buildCard(item, freeLabel, locked = false) {
 }
 
 function renderShelves() {
-  $('#seriesGrid').innerHTML = siteData.series.map(item => buildCard(item, 'FREE', false)).join('');
-  $('#audiobookGrid').innerHTML = siteData.audiobooks.map(item => buildCard(item, 'FREE', false)).join('');
+  $('#seriesGrid').innerHTML = siteData.series.map(item => buildCard(item, '', false)).join('');
+  $('#audiobookGrid').innerHTML = siteData.audiobooks.map(item => buildCard(item, '', false)).join('');
   $('#musicGrid').innerHTML = [
-    `<article class="card-tile radio-tile" data-radio-tile="true" tabindex="0" role="button" aria-label="Play Sumnu Radio">
-      <div class="radio-visual">
-        <div class="radio-ring"></div>
-        <div class="radio-center">▶</div>
-        <div class="radio-bars">
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
-      </div>
-      <div class="card-gradient"></div>
-      <div class="card-free">FREE RADIO</div>
-      <div class="card-copy">
-        <div class="card-kicker">Shuffle mode</div>
-        <div class="card-title">Sumnu Radio</div>
-        <div class="card-meta">Tap to start free playback</div>
-      </div>
-    </article>`,
-    ...siteData.music.map(item => buildCard(item, '', !isVip()))
+    ...siteData.music.map(item => buildCard(item, '', false))
   ].join('');
 }
 
 function makeItemRow(parent, item, index, freeCount) {
   const unlocked = isVip() || index < freeCount;
-  const tag = unlocked && index < freeCount ? 'FREE' : unlocked ? 'VIP OPEN' : 'LOCKED';
+  const tag = '';
   return `
     <article class="media-item ${unlocked ? '' : 'locked'}">
       <div class="media-thumb-wrap">${imgMarkup(item.image, item.title)}</div>
