@@ -76,57 +76,32 @@
     }
 
     function card(b) {
-      // Genre tag — pulled from data, with emoji
       const genreEmoji = { 'Sci-Fi': '🚀', 'Thriller': '🔪', 'Urban Fiction': '🔥', 'Street Lit': '🔥', 'Nonfiction': '📘', 'Self-Help': '💡', 'Finance': '💰', 'Health': '🩺', 'Leadership': '🏆' };
       const genreLabel = b.genre || 'Street Lit';
       const genreIcon = genreEmoji[genreLabel] || '📖';
-
-      // Format pills — only what this book actually has
-      const formats = b.formats || ['Paperback', 'Kindle'];
       const hasAudiobook = b.audiobookUrl || false;
-
-      // Format pill HTML
-      const formatPills = formats.map(f => `<span class="pill">${f}</span>`).join('');
-
-      // Audiobook pill (gold, exclusive) if this book has one
-      const audiobookPill = hasAudiobook
-        ? `<a href="${escapeHtml(b.audiobookUrl)}" class="pill pill-gold" style="background:rgba(255,215,0,.18);border:1px solid rgba(255,215,0,.5);color:#ffd700;text-decoration:none;font-weight:700;">🎧 Audiobook — Exclusive</a>`
-        : '';
-
-      // Action buttons
       const audiobookBtn = hasAudiobook
         ? `<a class="btn btn-primary btn-small" href="${escapeHtml(b.audiobookUrl)}" style="background:linear-gradient(135deg,#b8860b,#ffd700);color:#000;font-weight:800;">🎧 Audiobook $12.99</a>`
         : '';
 
       return `
-        <article class="card product" data-book="${b.id}">
-          <div class="product-media">
-            <div class="cover">
-              <img src="${b.cover}" alt="${escapeHtml(b.title)} cover" loading="lazy">
-            </div>
+        <article class="card product book-card" data-book="${b.id}">
+          <div class="book-cover-wrap">
+            <img src="${b.cover}" alt="${escapeHtml(b.title)} cover" loading="lazy">
           </div>
-          <div class="product-body">
-            <div class="product-title">${escapeHtml(b.title)}</div>
-            <div class="product-desc">${escapeHtml(b.desc)}</div>
-            <div class="product-meta">
-              <div class="pill">${genreIcon} ${escapeHtml(genreLabel)}</div>
-              <div class="price">${escapeHtml(b.price || '')}</div>
+          <div class="book-detail-panel" data-book-panel="${b.id}">
+            <button class="book-close-btn" data-book-close="${b.id}" aria-label="Close">✕ Back</button>
+            <div class="book-detail-title">${escapeHtml(b.title)}</div>
+            <div class="book-detail-desc">${escapeHtml(b.desc)}</div>
+            <div class="book-detail-meta">
+              <span class="pill">${genreIcon} ${escapeHtml(genreLabel)}</span>
+              <span class="price">${escapeHtml(b.price || '')}</span>
             </div>
-            <div class="product-desc" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
-              ${formatPills}
-              ${audiobookPill}
-            </div>
-
-            <div class="actions" style="flex-wrap:wrap;">
-              <button class="btn btn-secondary btn-small" data-audio-btn="${b.id}">
-                🎧 Sample
-              </button>
+            <div class="book-detail-actions">
+              <button class="btn btn-secondary btn-small" data-audio-btn="${b.id}">🎧 Sample</button>
               ${audiobookBtn}
-              <a class="btn btn-primary btn-small" href="${b.buyUrl}" target="_blank" rel="noopener">
-                🛒 Buy on Amazon
-              </a>
+              <a class="btn btn-primary btn-small" href="${b.buyUrl}" target="_blank" rel="noopener">🛒 Buy on Amazon</a>
             </div>
-
             <div style="display:none; margin-top:10px;" data-audio-wrap="${b.id}">
               <audio controls preload="none">
                 <source src="${b.audioSample}" type="audio/mpeg">
@@ -143,18 +118,50 @@
       enforceSingleAudio();
     }
 
+    function closeAllPanels() {
+      qsa('.book-card.panel-open').forEach(c => {
+        c.classList.remove('panel-open');
+        const panel = qs('[data-book-panel]', c);
+        if (panel) panel.style.transform = 'translateY(100%)';
+      });
+    }
+
     function wireBookAudio() {
-      qsa('[data-audio-btn]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const id = btn.getAttribute('data-audio-btn');
-          const wrap = qs(`[data-audio-wrap="${id}"]`);
-          if (!wrap) return;
-          const isOpen = wrap.style.display === 'block';
-          // close other wraps
-          qsa('[data-audio-wrap]').forEach(w => { if (w !== wrap) w.style.display = 'none'; });
-          wrap.style.display = isOpen ? 'none' : 'block';
+      // Cover tap — open detail panel
+      qsa('.book-cover-wrap').forEach(wrap => {
+        wrap.addEventListener('click', () => {
+          const card = wrap.closest('.book-card');
+          if (!card) return;
+          const isOpen = card.classList.contains('panel-open');
+          closeAllPanels();
           if (!isOpen) {
-            const a = qs('audio', wrap);
+            card.classList.add('panel-open');
+            const panel = qs('[data-book-panel]', card);
+            if (panel) panel.style.transform = 'translateY(0)';
+          }
+        });
+      });
+
+      // Close button
+      qsa('[data-book-close]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          closeAllPanels();
+        });
+      });
+
+      // Sample audio
+      qsa('[data-audio-btn]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = btn.getAttribute('data-audio-btn');
+          const audioWrap = qs(`[data-audio-wrap="${id}"]`);
+          if (!audioWrap) return;
+          const isOpen = audioWrap.style.display === 'block';
+          qsa('[data-audio-wrap]').forEach(w => { if (w !== audioWrap) w.style.display = 'none'; });
+          audioWrap.style.display = isOpen ? 'none' : 'block';
+          if (!isOpen) {
+            const a = qs('audio', audioWrap);
             if (a) a.play().catch(()=>{});
           }
         });
