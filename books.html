@@ -14,6 +14,7 @@
 <title>Books — Sumnu Books | Sci-Fi, Thriller &amp; Urban Fiction</title>
 <meta name="description" content="25 novels by E.D. Lewis — sci-fi, thriller, urban fiction, and nonfiction. Buy on Amazon. Exclusive audiobooks only at SumnuBooks.com."/>
 <link href="css/site.css" rel="stylesheet"/>
+  <link href="css/animations.css" rel="stylesheet"/>
 <style>
   .exclusive-banner {
     background: linear-gradient(90deg,#b8860b 0%,#ffd700 50%,#b8860b 100%);
@@ -124,6 +125,26 @@
     }
   </style>
 
+
+  <style>
+    /* Mobile book card optimizations */
+    @media (max-width: 760px) {
+      .grid-4 { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+      .card.product { padding: 0 !important; }
+      .product-media .cover img { border-radius: 8px 8px 0 0; }
+      .product-body { padding: 10px !important; }
+      .product-title { font-size: .88rem !important; margin-bottom: 4px !important; }
+      .product-desc { font-size: .78rem !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important; overflow: hidden !important; }
+      .product-meta { margin: 6px 0 !important; }
+      .product-meta .pill { font-size: .72rem !important; padding: 2px 8px !important; }
+      .product-meta .price { font-size: .88rem !important; }
+      /* Hide format pills and audiobook pill on mobile to save space */
+      .product-body > .product-desc:last-of-type { display: none !important; }
+      /* Make action buttons stack cleanly */
+      .actions { flex-direction: column !important; gap: 6px !important; }
+      .btn-small { font-size: .75rem !important; padding: 8px 10px !important; width: 100% !important; justify-content: center !important; }
+    }
+  </style>
 </head>
 <body class="page-books">
 
@@ -237,5 +258,6 @@
       }
     })();
   </script>
+  <script src="js/animations.js"></script>
 </body>
 </html>

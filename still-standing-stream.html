@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <script>
+    var o_options = {
+      domain: 'sumnuvision-llc.outseta.com',
+      tokenStorage: 'local',
+      auth: { authenticationCallbackUrl: 'https://sumnubooks.com/' }
+    };
+  </script>
+  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
+<title>Still Standing — Stream | Sumnu Books</title>
+<link href="css/site.css" rel="stylesheet"/>
+  <link href="css/animations.css" rel="stylesheet"/>
+<style>
+  .site-header{position:sticky;top:0;z-index:50;background:rgba(6,8,15,.90);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);}
+  .navbar-shell{min-height:58px;display:flex;align-items:center;justify-content:center;}
+  .nav-links-shell{display:flex !important;align-items:center;gap:10px;flex-wrap:nowrap;overflow-x:auto;width:100%;justify-content:center;scrollbar-width:none;padding:8px 0 !important;background:transparent !important;border:0 !important;position:static !important;}
+  .nav-links-shell::-webkit-scrollbar{display:none;}
+  .nav-links-shell a{flex:0 0 auto;white-space:nowrap;padding:8px 12px;border-radius:999px;color:var(--muted,#9aa3b7);font-weight:700;font-size:.82rem;text-decoration:none;}
+  .nav-links-shell a:hover,.nav-links-shell a.active{color:var(--text,#fff);background:rgba(255,255,255,.06);}
+  .nav-links-shell .nav-cta{border:1px solid rgba(212,168,67,.28);color:var(--gold,#d4a843) !important;}
+  .stream-page{max-width:680px;margin:0 auto;padding:0 16px 60px;}
+  .stream-header{padding:20px 0 14px;display:flex;gap:14px;align-items:flex-start;}
+  .stream-cover{width:100px;min-width:100px;border-radius:10px;overflow:hidden;border:1px solid rgba(212,175,55,.25);}
+  .stream-cover img{width:100%;display:block;}
+  .stream-meta h1{font-size:clamp(1.1rem,4vw,1.6rem);margin:0 0 5px;color:var(--gold,#d4a843);}
+  .stream-meta p{font-size:.82rem;color:var(--muted);margin:0 0 8px;line-height:1.5;}
+  .stream-badge{display:inline-block;background:rgba(212,168,67,.15);border:1px solid rgba(212,168,67,.3);color:var(--gold,#d4a843);font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:8px;}
+  .chapter-list{display:flex;flex-direction:column;gap:6px;margin-top:14px;}
+  .chapter-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:10px 12px;}
+  .chapter-item.locked{opacity:.6;position:relative;}
+  .chapter-label{font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;display:flex;align-items:center;justify-content:space-between;}
+  .chapter-item audio{width:100%;height:34px;display:block;}
+  .vip-lock{display:flex;align-items:center;gap:10px;padding:6px 0;}
+  .vip-lock span{font-size:.78rem;color:var(--muted);}
+  .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:.82rem;text-decoration:none;padding:12px 0 4px;}
+  .back-link:hover{color:var(--gold,#d4a843);}
+  .section-divider{margin:16px 0 10px;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px;}
+  .section-divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.08);}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container navbar navbar-shell">
+    <nav class="nav-links nav-links-shell">
+      <a href="index.html">Home</a>
+      <a href="books.html">Books</a>
+      <a href="music.html">Music</a>
+      <a href="audiobooks.html" class="active">Audiobooks</a>
+      <a href="unlock.html" class="nav-cta">VIP Access</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <div class="stream-page">
+    <a class="back-link" href="audiobooks.html">← Back to Audiobooks</a>
+    <div class="stream-header">
+      <div class="stream-cover">
+        <img src="images/books/still-standing.jpg" alt="Still Standing cover"/>
+      </div>
+      <div class="stream-meta">
+        <span class="stream-badge">🎧 Stream</span>
+        <h1>Still Standing</h1>
+        <p>By E.D. Lewis<br>Chapters 1–2 free • Chapter 3+ requires VIP</p>
+        <a href="unlock.html" class="btn btn-primary btn-small" style="margin-top:4px;">🔓 Get VIP Access</a>
+      </div>
+    </div>
+
+    <div class="chapter-list">
+      <div class="section-divider">Free Chapters</div>
+      <div class="chapter-item">
+        <div class="chapter-label">Chapter 1</div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch1.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item">
+        <div class="chapter-label">Chapter 2</div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch2.mp3" type="audio/mpeg"/></audio>
+      </div>
+
+      <div class="section-divider">VIP Chapters</div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 3 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch3.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 4 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch4.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 5 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch5.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 6 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch6.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 7 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch7.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 8 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch8.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 9 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch9.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 10 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch10.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 11 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch11.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 12 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch12.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 13 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch13.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 14 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch14.mp3" type="audio/mpeg"/></audio>
+      </div>
+      <div class="chapter-item locked">
+        <div class="chapter-label">Chapter 15 <span>🔒 VIP</span></div>
+        <audio controls preload="none"><source src="audio/audiobooks/still-standing/Still-Standing-Ch15.mp3" type="audio/mpeg"/></audio>
+      </div>
+
+    </div>
+  </div>
+</main>
+<script src="js/auth.js"></script>
+<script>
+  // Show locked chapters only to VIP members
+  window.addEventListener('outseta:ready', function() {
+    applyVipChapters();
+    setTimeout(applyVipChapters, 800);
+  });
+  window.addEventListener('outseta:login', applyVipChapters);
+  function applyVipChapters() {
+    var isVip = window.SumnuAuth && window.SumnuAuth.isVip();
+    document.querySelectorAll('.chapter-item.locked').forEach(function(el) {
+      el.style.opacity = isVip ? '1' : '0.45';
+      var audio = el.querySelector('audio');
+      if (audio) {
+        if (isVip) {
+          audio.removeAttribute('disabled');
+          audio.style.pointerEvents = '';
+        } else {
+          audio.setAttribute('disabled', '');
+          audio.style.pointerEvents = 'none';
+        }
+      }
+    });
+  }
+</script>
+  <script src="js/animations.js"></script>
+</body>
+</html>
