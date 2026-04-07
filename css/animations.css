@@ -5,7 +5,6 @@
    ============================================================ */
 
 /* ── Custom cursor ── */
-*, *::before, *::after { cursor: none !important; }
 #sumnu-cursor {
   position: fixed;
   width: 12px; height: 12px;
@@ -124,7 +123,8 @@ body {
   0%   { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
-h1, .page-hero h1, .stream-meta h1 {
+/* Applied only to specific elements, not all h1s */
+.shimmer-text {
   background: linear-gradient(
     90deg,
     #d4a843 0%,

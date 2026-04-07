@@ -6,8 +6,9 @@
 
   /* ── Custom cursor ── */
   function initCursor() {
-    if (window.matchMedia('(max-width: 760px)').matches) return;
+    if (window.matchMedia('(max-width: 1024px)').matches) return;
     if (window.matchMedia('(pointer: coarse)').matches) return;
+    if ('ontouchstart' in window) return;
 
     var dot  = document.createElement('div'); dot.id  = 'sumnu-cursor';
     var ring = document.createElement('div'); ring.id = 'sumnu-cursor-ring';
@@ -138,9 +139,19 @@
       var link = e.target.closest('a[href]');
       if (!link) return;
       var href = link.getAttribute('href');
-      if (!href || href.startsWith('#') || href.startsWith('http') ||
-          href.startsWith('mailto') || href.startsWith('tel') ||
-          link.target === '_blank') return;
+      // Skip external, anchor, mailto, tel, blank, and auth-related pages
+      var skipPages = ['unlock.html', 'login.html', 'thanks.html'];
+      if (!href ||
+          href.startsWith('#') ||
+          href.startsWith('http') ||
+          href.startsWith('//') ||
+          href.startsWith('mailto') ||
+          href.startsWith('tel') ||
+          href.indexOf('outseta') !== -1 ||
+          link.target === '_blank' ||
+          link.hasAttribute('data-o-anonymous') ||
+          link.hasAttribute('data-o-authenticated') ||
+          skipPages.indexOf(href) !== -1) return;
       e.preventDefault();
       document.body.classList.add('page-leaving');
       setTimeout(function() {
@@ -151,7 +162,8 @@
 
   /* ── Cover tilt on mousemove (desktop) ── */
   function initTilt() {
-    if (window.matchMedia('(max-width: 760px)').matches) return;
+    if (window.matchMedia('(max-width: 1024px)').matches) return;
+    if ('ontouchstart' in window) return;
     document.querySelectorAll('.card.product, .ab-available, .media-item').forEach(function(card) {
       card.addEventListener('mousemove', function(e) {
         var rect = card.getBoundingClientRect();
