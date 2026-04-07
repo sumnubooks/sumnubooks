@@ -1,268 +1,170 @@
 /* ============================================================
-   SUMNU BOOKS — animations.css
-   Bold, dynamic, high-energy animations
-   Import this in every page's <head> after site.css
+   SUMNU BOOKS — animations.css  (CSS-only, mobile-safe)
+   NO JavaScript click handlers. NO page transitions.
+   Pure CSS animations only.
    ============================================================ */
 
-/* ── Custom cursor ── */
-#sumnu-cursor {
-  position: fixed;
-  width: 12px; height: 12px;
-  background: #d4a843;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 999999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
-  mix-blend-mode: difference;
-}
-#sumnu-cursor-ring {
-  position: fixed;
-  width: 36px; height: 36px;
-  border: 1.5px solid rgba(212,168,67,.5);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 999998;
-  transform: translate(-50%, -50%);
-  transition: transform 0.12s ease, width 0.25s ease, height 0.25s ease, opacity 0.2s ease;
-}
-body:hover #sumnu-cursor { opacity: 1; }
-a:hover ~ #sumnu-cursor,
-button:hover ~ #sumnu-cursor { width: 20px; height: 20px; background: #e8612a; }
-
-/* ── Page entry animation ── */
-@keyframes pageSlideIn {
-  from { opacity: 0; transform: translateY(18px); }
+/* ── Page entry ── */
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-body {
-  animation: pageSlideIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+main {
+  animation: pageIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* ── Scroll reveal ── */
-.sr {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.sr.sr-left  { transform: translateX(-40px); }
-.sr.sr-right { transform: translateX(40px); }
-.sr.sr-scale { transform: scale(0.92); }
-.sr.visible {
-  opacity: 1;
-  transform: none;
-}
-
-/* Stagger delays */
-.sr-d1 { transition-delay: 0.08s; }
-.sr-d2 { transition-delay: 0.16s; }
-.sr-d3 { transition-delay: 0.24s; }
-.sr-d4 { transition-delay: 0.32s; }
-.sr-d5 { transition-delay: 0.40s; }
-.sr-d6 { transition-delay: 0.48s; }
-
-/* ── Cover hover effects ── */
-.card.product,
-.media-item,
-.album-card,
-.ab-available,
-.ab-upcoming {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.3s ease;
-  will-change: transform;
-}
-.card.product:hover,
-.media-item:hover,
-.album-card:hover,
-.ab-available:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 20px 50px rgba(0,0,0,.55), 0 0 0 1px rgba(212,168,67,.2);
-}
-
-/* Cover image zoom on hover */
-.cover img,
-.product-cover img,
-.stream-cover img {
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.card.product:hover .cover img,
-.card.product:hover .product-cover img,
-.ab-available:hover .product-cover img {
-  transform: scale(1.06);
-}
-
-/* ── Button animations ── */
-.btn {
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.2s ease,
-              background 0.2s ease !important;
-  position: relative;
-  overflow: hidden;
-}
-.btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(255,255,255,0);
-  transition: background 0.2s ease;
-}
-.btn:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 8px 24px rgba(0,0,0,.35);
-}
-.btn:active {
-  transform: scale(0.97);
-}
-.btn-primary:hover::after {
-  background: rgba(255,255,255,.08);
-}
-
-/* ── Gold shimmer on headings ── */
-@keyframes goldShimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-/* Applied only to specific elements, not all h1s */
-.shimmer-text {
-  background: linear-gradient(
-    90deg,
-    #d4a843 0%,
-    #ffd700 30%,
-    #fff8e1 50%,
-    #ffd700 70%,
-    #d4a843 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: goldShimmer 4s linear infinite;
-}
-
-/* ── Nav link hover ── */
-.nav-links-shell a {
-  position: relative;
-  transition: color 0.2s ease, background 0.2s ease !important;
-}
-.nav-links-shell a::after {
-  content: '';
-  position: absolute;
-  bottom: 4px; left: 50%; right: 50%;
-  height: 2px;
-  background: #d4a843;
-  border-radius: 2px;
-  transition: left 0.25s ease, right 0.25s ease;
-}
-.nav-links-shell a:hover::after,
-.nav-links-shell a.active::after {
-  left: 14px; right: 14px;
-}
-
-/* ── Logo pulse glow ── */
+/* ── Logo glow pulse ── */
 @keyframes logoPulse {
-  0%, 100% { filter: drop-shadow(0 0 8px rgba(212,168,67,.15)); }
-  50%       { filter: drop-shadow(0 0 22px rgba(212,168,67,.45)); }
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(212,168,67,.12)); }
+  50%       { filter: drop-shadow(0 0 20px rgba(212,168,67,.5)); }
 }
 .hero-logo-img {
   animation: logoPulse 3.5s ease-in-out infinite;
 }
 
-/* ── Section heading pop-in ── */
-@keyframes headingPop {
-  from { opacity: 0; transform: translateX(-20px); }
-  to   { opacity: 1; transform: translateX(0); }
+/* ── Gold shimmer on page headings ── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }
-.section-title h2,
-.section-head h2,
-h2 {
-  animation: headingPop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-  animation-play-state: paused;
-}
-h2.animated {
-  animation-play-state: running;
+.page-hero h1 {
+  background: linear-gradient(90deg, #d4a843 0%, #ffd700 30%, #fffde0 50%, #ffd700 70%, #d4a843 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
 }
 
-/* ── VIP badge pulse ── */
+/* ── Cards: lift on hover/tap ── */
+.card.product,
+.ab-available,
+.ab-upcoming,
+.album-card,
+.media-item {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.25s ease;
+  will-change: transform;
+}
+.card.product:hover,
+.ab-available:hover,
+.ab-upcoming:hover,
+.album-card:hover,
+.media-item:hover {
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: 0 12px 32px rgba(0,0,0,.45), 0 0 0 1px rgba(212,168,67,.15);
+}
+/* Active state for mobile tap */
+.card.product:active,
+.ab-available:active,
+.ab-upcoming:active,
+.album-card:active,
+.media-item:active {
+  transform: scale(0.98);
+  transition-duration: 0.1s;
+}
+
+/* ── Buttons: bounce on press ── */
+.btn {
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.18s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.3);
+}
+.btn:active {
+  transform: scale(0.96) !important;
+  transition-duration: 0.08s !important;
+}
+
+/* ── VIP nav badge pulse ── */
 @keyframes vipPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(212,168,67,.4); }
-  50%       { box-shadow: 0 0 0 8px rgba(212,168,67,.0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212,168,67,.45); }
+  60%       { box-shadow: 0 0 0 7px rgba(212,168,67,.0); }
 }
 .nav-links-shell .nav-cta {
-  animation: vipPulse 2.5s ease-in-out infinite;
+  animation: vipPulse 2.8s ease-in-out infinite;
 }
 
-/* ── Shelf horizontal scroll momentum feel ── */
-.shelf-scroll {
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+/* ── Cover image subtle zoom on card hover ── */
+.cover img,
+.product-cover img {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.card.product:hover .cover img,
+.ab-available:hover .product-cover img {
+  transform: scale(1.05);
 }
 
-/* ── Audio player glow when playing ── */
-@keyframes playingGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(212,168,67,.0); }
-  50%       { box-shadow: 0 0 16px 4px rgba(212,168,67,.25); }
+/* ── Nav link underline slide ── */
+.nav-links-shell a {
+  position: relative;
 }
-audio:not([paused]) {
-  animation: playingGlow 1.5s ease-in-out infinite;
-  border-radius: 8px;
+.nav-links-shell a::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%; right: 50%;
+  height: 2px;
+  background: #d4a843;
+  border-radius: 2px;
+  transition: left 0.22s ease, right 0.22s ease;
 }
-
-/* ── Card entrance stagger for grids ── */
-@keyframes cardDrop {
-  from { opacity: 0; transform: translateY(24px) scale(0.96); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-.grid .card,
-.grid article {
-  animation: cardDrop 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-.grid .card:nth-child(1), .grid article:nth-child(1) { animation-delay: 0.05s; }
-.grid .card:nth-child(2), .grid article:nth-child(2) { animation-delay: 0.10s; }
-.grid .card:nth-child(3), .grid article:nth-child(3) { animation-delay: 0.15s; }
-.grid .card:nth-child(4), .grid article:nth-child(4) { animation-delay: 0.20s; }
-.grid .card:nth-child(5), .grid article:nth-child(5) { animation-delay: 0.25s; }
-.grid .card:nth-child(6), .grid article:nth-child(6) { animation-delay: 0.30s; }
-.grid .card:nth-child(7), .grid article:nth-child(7) { animation-delay: 0.35s; }
-.grid .card:nth-child(8), .grid article:nth-child(8) { animation-delay: 0.40s; }
-.grid .card:nth-child(n+9), .grid article:nth-child(n+9) { animation-delay: 0.45s; }
-
-/* ── Page transition out ── */
-@keyframes pageOut {
-  to { opacity: 0; transform: translateY(-12px); }
-}
-body.page-leaving {
-  animation: pageOut 0.3s ease forwards;
-  pointer-events: none;
+.nav-links-shell a:hover::after,
+.nav-links-shell a.active::after {
+  left: 12px; right: 12px;
 }
 
-/* ── Floating particles background ── */
-@keyframes floatParticle {
-  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 0.6; }
-  100% { transform: translateY(-80vh) translateX(30px) scale(0.5); opacity: 0; }
+/* ── Floating gold fire-dust particles ── */
+@keyframes rise {
+  0%   { transform: translateY(0)   translateX(0)    scale(1);   opacity: 0;   }
+  8%   { opacity: 0.8; }
+  85%  { opacity: 0.4; }
+  100% { transform: translateY(-90vh) translateX(15px) scale(0.4); opacity: 0; }
 }
 .sumnu-particle {
   position: fixed;
+  bottom: 0;
   width: 3px; height: 3px;
-  background: rgba(212,168,67,.6);
   border-radius: 50%;
+  background: radial-gradient(circle, #ffd700, #d4a843);
   pointer-events: none;
   z-index: 0;
-  animation: floatParticle linear infinite;
+  animation: rise linear infinite;
+  box-shadow: 0 0 4px rgba(212,168,67,.6);
 }
+/* Stagger 12 particles across the viewport */
+.sumnu-particle:nth-child(1)  { left:  5vw; animation-duration:11s; animation-delay:0s;    width:2px; height:2px; }
+.sumnu-particle:nth-child(2)  { left: 12vw; animation-duration:14s; animation-delay:1.5s;  width:3px; height:3px; }
+.sumnu-particle:nth-child(3)  { left: 22vw; animation-duration:10s; animation-delay:3s;    width:2px; height:2px; }
+.sumnu-particle:nth-child(4)  { left: 33vw; animation-duration:13s; animation-delay:0.8s;  width:4px; height:4px; }
+.sumnu-particle:nth-child(5)  { left: 45vw; animation-duration:12s; animation-delay:2.2s;  width:2px; height:2px; }
+.sumnu-particle:nth-child(6)  { left: 55vw; animation-duration:15s; animation-delay:4s;    width:3px; height:3px; }
+.sumnu-particle:nth-child(7)  { left: 65vw; animation-duration:11s; animation-delay:1s;    width:2px; height:2px; }
+.sumnu-particle:nth-child(8)  { left: 72vw; animation-duration:13s; animation-delay:3.5s;  width:3px; height:3px; }
+.sumnu-particle:nth-child(9)  { left: 80vw; animation-duration:10s; animation-delay:0.5s;  width:2px; height:2px; }
+.sumnu-particle:nth-child(10) { left: 88vw; animation-duration:14s; animation-delay:2.8s;  width:4px; height:4px; }
+.sumnu-particle:nth-child(11) { left: 93vw; animation-duration:12s; animation-delay:1.8s;  width:2px; height:2px; }
+.sumnu-particle:nth-child(12) { left: 18vw; animation-duration:16s; animation-delay:5s;    width:3px; height:3px; }
 
-/* ── Mobile: reduce motion for performance ── */
-@media (max-width: 760px) {
-  .card.product:hover,
-  .media-item:hover,
-  .album-card:hover { transform: translateY(-3px) scale(1.01); }
-  #sumnu-cursor, #sumnu-cursor-ring { display: none; }
-  *, *::before, *::after { cursor: auto !important; }
+/* ── Scroll fade-in (works with IntersectionObserver in animations.js) ── */
+.sr {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
+.sr.visible {
+  opacity: 1;
+  transform: none;
+}
+.sr-d1 { transition-delay: 0.1s; }
+.sr-d2 { transition-delay: 0.2s; }
+.sr-d3 { transition-delay: 0.3s; }
 
-/* ── Respect prefers-reduced-motion ── */
+/* ── Respect reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
