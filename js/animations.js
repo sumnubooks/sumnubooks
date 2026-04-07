@@ -8,7 +8,7 @@
   function initParticles() {
     var canvas = document.createElement('canvas');
     canvas.id = 'gold-dust';
-    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;';
+    canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;';
     document.body.appendChild(canvas);
 
     var ctx = canvas.getContext('2d');
