@@ -22,7 +22,7 @@
         y:       Math.random() * canvas.height,
         radius:  Math.random() * 2.8 + 0.8,
         speedY:  Math.random() * 0.4 + 0.1,
-        opacity: Math.random() * 0.7 + 0.3
+        opacity: Math.random() * 0.3 + 0.1
       });
     }
 
@@ -33,7 +33,7 @@
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = 'rgba(212,175,55,' + p.opacity + ')';
         ctx.shadowColor = 'rgba(255,215,0,0.9)';
-        ctx.shadowBlur  = 10;
+        ctx.shadowBlur  = 5;
         ctx.fill();
         p.y += p.speedY;
         if (p.y > canvas.height) {
