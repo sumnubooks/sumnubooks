@@ -167,14 +167,14 @@
       align-items: stretch !important;
       border-radius: 14px !important;
       overflow: hidden !important;
-      min-height: 0 !important;
       border: 1px solid rgba(255,255,255,.07) !important;
       background: rgba(255,255,255,.03) !important;
+      min-height: 160px !important;
     }
     .page-audiobooks .ab-available {
       border: 1px solid rgba(212,168,67,.25) !important;
     }
-    /* Cover — fixed small square on left */
+    /* Cover — portrait on left */
     .page-audiobooks .product-cover {
       width: 110px !important;
       min-width: 110px !important;
@@ -187,7 +187,8 @@
     }
     .page-audiobooks .product-cover img {
       width: 110px !important;
-      height: 110px !important;
+      height: 100% !important;
+      min-height: 160px !important;
       object-fit: cover !important;
       border-radius: 0 !important;
       max-height: none !important;
@@ -203,60 +204,45 @@
       gap: 6px !important;
       min-width: 0 !important;
     }
-    .page-audiobooks .only-here-badge {
-      font-size: .65rem !important;
-      padding: 2px 8px !important;
-      margin-bottom: 4px !important;
-    }
+    /* Hide badge and subtitle */
+    .page-audiobooks .only-here-badge,
+    .page-audiobooks .muted { display: none !important; }
+    /* Title */
     .page-audiobooks .product-title {
-      font-size: .82rem !important;
+      font-size: .88rem !important;
       line-height: 1.25 !important;
-      white-space: nowrap !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: unset !important;
     }
-    .page-audiobooks .muted {
-      font-size: .72rem !important;
-      line-height: 1.4 !important;
-    }
+    /* Price */
     .page-audiobooks .price-tag {
       font-size: 1rem !important;
       margin: 2px 0 !important;
     }
-    .page-audiobooks .audio-sample {
-      margin: 0 !important;
-    }
+    /* Sample audio */
+    .page-audiobooks .audio-sample { margin: 0 !important; }
     .page-audiobooks .audio-sample audio {
       height: 32px !important;
       width: 100% !important;
       margin-top: 4px !important;
     }
-    .page-audiobooks .paypal-form {
-      margin-top: 4px !important;
-    }
-    .page-audiobooks .paypal-form .btn {
-      font-size: .75rem !important;
-      padding: 8px 10px !important;
-      width: 100% !important;
-      justify-content: center !important;
-    }
-    .page-audiobooks .paypal-note {
-      font-size: .65rem !important;
-      margin-top: 3px !important;
-    }
-    .page-audiobooks .actions {
-      flex-direction: row !important;
+    /* Hide paypal note */
+    .page-audiobooks .paypal-note { display: none !important; }
+    /* 3 action buttons in a row */
+    .page-audiobooks .paypal-form { margin-top: 0 !important; }
+    .page-audiobooks .book-actions-row {
+      display: flex !important;
       gap: 6px !important;
-      flex-wrap: wrap !important;
+      margin-top: 6px !important;
     }
-    .page-audiobooks .actions .btn {
-      font-size: .72rem !important;
-      padding: 7px 10px !important;
+    .page-audiobooks .book-actions-row .btn {
       flex: 1 !important;
-    }
-    /* Coming soon cards - same horizontal layout */
-    .page-audiobooks .ab-upcoming .product-cover img {
-      height: 110px !important;
+      font-size: .72rem !important;
+      padding: 8px 4px !important;
+      justify-content: center !important;
+      text-align: center !important;
+      white-space: nowrap !important;
     }
     /* Hero section compact */
     .page-audiobooks .page-hero {
@@ -339,104 +325,79 @@
         <h2>Available Now — $12.99 Each</h2>
       </div>
       <div class="grid grid-3" style="margin-top:14px;">
-
-        <!-- Audiobook 1 -->
-        <article id="ab1" aria-label="A Penny For My Thoughts audiobook" class="card product ab-available">
+        <article id="ab1" class="card product ab-available">
           <div class="product-cover">
-            <img alt="A Penny For My Thoughts cover" src="images/books/book1.jpg"/>
+            <img alt="A PENNY FOR MY THOUGHTS cover" src="images/books/book1.jpg"/>
           </div>
           <div class="product-body">
-            <span class="only-here-badge">🔒 Only at SumnuBooks.com</span>
-            <h3 class="product-title">A PENNY FOR MY THOUGHTS</h3>
-            <p class="muted" style="margin:0 0 4px;">Audiobook • MP3 + M4B • Instant Download</p>
+            <div class="product-title">A PENNY FOR MY THOUGHTS</div>
             <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
-              <button class="btn btn-small" data-audio-btn="" data-audio-id="ab-sample-1" type="button">🎧 Listen to Sample</button>
+              <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-1" type="button">🎧 SAMPLE</button>
               <audio controls="" id="ab-sample-1" preload="none">
                 <source src="audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch2.mp3" type="audio/mpeg"/>
               </audio>
             </div>
-            <div class="paypal-form">
-              <a href="https://payhip.com/b/9sX8Z" target="_blank" class="btn btn-primary" style="width:100%; margin-top:8px; display:flex; align-items:center; justify-content:center;">
-                ▶ Buy Now — $12.99
-              </a>
-              <p class="paypal-note">Secure checkout · MP3 + M4B download link delivered instantly to your email</p>
-            </div>
-            <div class="actions" style="margin-top:8px;">
-              <a class="btn btn-secondary btn-small" href="books.html">See Book</a>
+            <div class="book-actions-row">
+              <a class="btn btn-primary" href="https://payhip.com/b/9sX8Z" target="_blank">💳 BUY</a>
+              <a class="btn btn-secondary" href="audiobooks.html">▶ STREAM</a>
             </div>
           </div>
         </article>
-
-        <!-- Audiobook 2 -->
-        <article id="ab2" aria-label="Unplugged: 30 Days of Chaos audiobook" class="card product ab-available">
+        <article id="ab2" class="card product ab-available">
           <div class="product-cover">
-            <img alt="Unplugged: 30 Days of Chaos cover" src="images/books/book2.jpg"/>
+            <img alt="UNPLUGGED: 30 DAYS OF CHAOS cover" src="images/books/book2.jpg"/>
           </div>
           <div class="product-body">
-            <span class="only-here-badge">🔒 Only at SumnuBooks.com</span>
-            <h3 class="product-title">UNPLUGGED: 30 DAYS OF CHAOS</h3>
-            <p class="muted" style="margin:0 0 4px;">Audiobook • MP3 + M4B • Instant Download</p>
+            <div class="product-title">UNPLUGGED: 30 DAYS OF CHAOS</div>
             <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
-              <button class="btn btn-small" data-audio-btn="" data-audio-id="ab-sample-2" type="button">🎧 Listen to Sample</button>
+              <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-2" type="button">🎧 SAMPLE</button>
               <audio controls="" id="ab-sample-2" preload="none">
                 <source src="audio/audiobooks/unplugged/unplugged-ch2.mp3" type="audio/mpeg"/>
               </audio>
             </div>
-            <div class="paypal-form">
-              <a href="https://payhip.com/b/zXevO" target="_blank" class="btn btn-primary" style="width:100%; margin-top:8px; display:flex; align-items:center; justify-content:center;">
-                ▶ Buy Now — $12.99
-              </a>
-              <p class="paypal-note">Secure checkout · MP3 + M4B download link delivered instantly to your email</p>
-            </div>
-            <div class="actions" style="margin-top:8px;">
-              <a class="btn btn-secondary btn-small" href="books.html">See Book</a>
+            <div class="book-actions-row">
+              <a class="btn btn-primary" href="https://payhip.com/b/zXevO" target="_blank">💳 BUY</a>
+              <a class="btn btn-secondary" href="audiobooks.html">▶ STREAM</a>
             </div>
           </div>
         </article>
-
-
-        <!-- Audiobook 3 - The Jailhouse Lawyer -->
-        <article id="ab3" aria-label="The Jailhouse Lawyer audiobook" class="card product ab-available">
+        <article id="ab3" class="card product ab-available">
           <div class="product-cover">
-            <img alt="The Jailhouse Lawyer cover" src="images/books/book3.jpg"/>
+            <img alt="THE JAILHOUSE LAWYER cover" src="images/books/book3.jpg"/>
           </div>
           <div class="product-body">
-            <span class="only-here-badge">🎧 Stream Free</span>
-            <h3 class="product-title">THE JAILHOUSE LAWYER</h3>
-            <p class="muted" style="margin:0 0 4px;">Ch 1–2 free • Ch 3+ with VIP</p>
+            <div class="product-title">THE JAILHOUSE LAWYER</div>
+            <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
-              <button class="btn btn-small" data-audio-btn="" data-audio-id="ab-sample-3" type="button">🎧 Listen to Sample</button>
+              <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-3" type="button">🎧 SAMPLE</button>
               <audio controls="" id="ab-sample-3" preload="none">
                 <source src="audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch1.mp3" type="audio/mpeg"/>
               </audio>
             </div>
-            <div class="actions" style="margin-top:8px;">
-              <a class="btn btn-primary btn-small" href="jailhouse-lawyer-stream.html">🎧 Stream All Chapters</a>
-              <a class="btn btn-secondary btn-small" href="books.html">See Book</a>
+            <div class="book-actions-row">
+              <a class="btn btn-primary" href="#" target="_blank" style="opacity:.5;pointer-events:none;">💳 BUY</a>
+              <a class="btn btn-secondary" href="jailhouse-lawyer-stream.html">▶ STREAM</a>
             </div>
           </div>
         </article>
-
-        <!-- Audiobook 4 - Still Standing -->
-        <article id="ab4" aria-label="Still Standing audiobook" class="card product ab-available">
+        <article id="ab4" class="card product ab-available">
           <div class="product-cover">
-            <img alt="Still Standing cover" src="images/books/still-standing.jpg"/>
+            <img alt="STILL STANDING cover" src="images/books/still-standing.jpg"/>
           </div>
           <div class="product-body">
-            <span class="only-here-badge">🎧 Stream Free</span>
-            <h3 class="product-title">STILL STANDING</h3>
-            <p class="muted" style="margin:0 0 4px;">Ch 1–2 free • Ch 3+ with VIP</p>
+            <div class="product-title">STILL STANDING</div>
+            <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
-              <button class="btn btn-small" data-audio-btn="" data-audio-id="ab-sample-4" type="button">🎧 Listen to Sample</button>
+              <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-4" type="button">🎧 SAMPLE</button>
               <audio controls="" id="ab-sample-4" preload="none">
                 <source src="audio/audiobooks/still-standing/Still-Standing-Ch1.mp3" type="audio/mpeg"/>
               </audio>
             </div>
-            <div class="actions" style="margin-top:8px;">
-              <a class="btn btn-primary btn-small" href="still-standing-stream.html">🎧 Stream All Chapters</a>
-              <a class="btn btn-secondary btn-small" href="books.html">See Book</a>
+            <div class="book-actions-row">
+              <a class="btn btn-primary" href="#" target="_blank" style="opacity:.5;pointer-events:none;">💳 BUY</a>
+              <a class="btn btn-secondary" href="still-standing-stream.html">▶ STREAM</a>
             </div>
           </div>
         </article>
