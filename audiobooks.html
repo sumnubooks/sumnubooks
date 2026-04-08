@@ -152,6 +152,144 @@
   </style>
 
   <link href="css/animations.css" rel="stylesheet"/>
+
+  <style>
+    /* ── Compact horizontal audiobook cards ── */
+    .page-audiobooks .grid.grid-3,
+    .page-audiobooks .grid.grid-2 {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+    }
+    .page-audiobooks .card.product {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: stretch !important;
+      border-radius: 14px !important;
+      overflow: hidden !important;
+      min-height: 0 !important;
+      border: 1px solid rgba(255,255,255,.07) !important;
+      background: rgba(255,255,255,.03) !important;
+    }
+    .page-audiobooks .ab-available {
+      border: 1px solid rgba(212,168,67,.25) !important;
+    }
+    /* Cover — fixed small square on left */
+    .page-audiobooks .product-cover {
+      width: 110px !important;
+      min-width: 110px !important;
+      max-width: 110px !important;
+      padding: 0 !important;
+      background: none !important;
+      border-bottom: none !important;
+      border-right: 1px solid rgba(255,255,255,.06) !important;
+      flex-shrink: 0 !important;
+    }
+    .page-audiobooks .product-cover img {
+      width: 110px !important;
+      height: 110px !important;
+      object-fit: cover !important;
+      border-radius: 0 !important;
+      max-height: none !important;
+      display: block !important;
+    }
+    /* Body — right side */
+    .page-audiobooks .product-body {
+      flex: 1 !important;
+      padding: 10px 12px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      gap: 6px !important;
+      min-width: 0 !important;
+    }
+    .page-audiobooks .only-here-badge {
+      font-size: .65rem !important;
+      padding: 2px 8px !important;
+      margin-bottom: 4px !important;
+    }
+    .page-audiobooks .product-title {
+      font-size: .82rem !important;
+      line-height: 1.25 !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+    .page-audiobooks .muted {
+      font-size: .72rem !important;
+      line-height: 1.4 !important;
+    }
+    .page-audiobooks .price-tag {
+      font-size: 1rem !important;
+      margin: 2px 0 !important;
+    }
+    .page-audiobooks .audio-sample {
+      margin: 0 !important;
+    }
+    .page-audiobooks .audio-sample audio {
+      height: 32px !important;
+      width: 100% !important;
+      margin-top: 4px !important;
+    }
+    .page-audiobooks .paypal-form {
+      margin-top: 4px !important;
+    }
+    .page-audiobooks .paypal-form .btn {
+      font-size: .75rem !important;
+      padding: 8px 10px !important;
+      width: 100% !important;
+      justify-content: center !important;
+    }
+    .page-audiobooks .paypal-note {
+      font-size: .65rem !important;
+      margin-top: 3px !important;
+    }
+    .page-audiobooks .actions {
+      flex-direction: row !important;
+      gap: 6px !important;
+      flex-wrap: wrap !important;
+    }
+    .page-audiobooks .actions .btn {
+      font-size: .72rem !important;
+      padding: 7px 10px !important;
+      flex: 1 !important;
+    }
+    /* Coming soon cards - same horizontal layout */
+    .page-audiobooks .ab-upcoming .product-cover img {
+      height: 110px !important;
+    }
+    /* Hero section compact */
+    .page-audiobooks .page-hero {
+      padding: 12px 0 8px !important;
+    }
+    .page-audiobooks .page-hero h1 {
+      font-size: clamp(1.3rem, 5vw, 2rem) !important;
+      margin-bottom: 4px !important;
+    }
+    .page-audiobooks .page-hero .lead {
+      font-size: .82rem !important;
+      margin-bottom: 8px !important;
+    }
+    .page-audiobooks .pill-row {
+      gap: 4px !important;
+    }
+    .page-audiobooks .pill-row .pill {
+      font-size: .68rem !important;
+      padding: 3px 8px !important;
+    }
+    /* Logo smaller on audiobooks */
+    .page-audiobooks .logo-band {
+      padding: 8px 0 6px !important;
+    }
+    .page-audiobooks .hero-logo-img {
+      width: min(35vw, 140px) !important;
+    }
+    /* Section heads */
+    .page-audiobooks .section-head h2 {
+      font-size: 1rem !important;
+      margin-bottom: 4px !important;
+    }
+  </style>
 </head>
 <body class="page-audiobooks">
 
