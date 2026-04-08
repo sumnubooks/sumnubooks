@@ -908,6 +908,22 @@ function renderShelves() {
   $('#seriesGrid').innerHTML = siteData.series.map(item => buildCard(item, '', false)).join('');
   $('#audiobookGrid').innerHTML = siteData.audiobooks.map(item => buildCard(item, '', false)).join('');
   $('#musicGrid').innerHTML = [
+    `<article class="card-tile radio-tile" data-radio-tile="true" tabindex="0" role="button" aria-label="Play Sumnu Radio">
+      <div class="radio-visual">
+        <div class="radio-ring"></div>
+        <div class="radio-center">▶</div>
+        <div class="radio-bars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="card-gradient"></div>
+      <div class="card-free">FREE RADIO</div>
+      <div class="card-copy">
+        <div class="card-kicker">Shuffle mode</div>
+        <div class="card-title">Sumnu Radio</div>
+        <div class="card-meta">Tap to start free playback</div>
+      </div>
+    </article>`,
     ...siteData.music.map(item => buildCard(item, '', false))
   ].join('');
 }
@@ -917,20 +933,17 @@ function makeItemRow(parent, item, index, freeCount) {
   const tag = '';
   return `
     <article class="media-item ${unlocked ? '' : 'locked'}">
-      <div class="media-thumb-wrap">${imgMarkup(item.image, item.title)}</div>
       <div class="media-text">
         <h4>${item.title}</h4>
-        <p>${item.description}</p>
       </div>
       <div class="media-actions">
-        <div class="media-tag">${tag}</div>
         ${unlocked ? `
           <div class="track-audio">
             <audio controls preload="none" data-parent="${parent.slug}" data-type="${parent.type}" data-title="${parent.title} — ${item.title}">
               <source src="${item.audio}" type="audio/mpeg"${withAudioFallback(item.audio)}>
             </audio>
           </div>` : `
-          <a class="btn btn-primary" href="unlock.html">🔓 Unlock VIP</a>`}
+          <a class="btn btn-primary btn-small" href="unlock.html">🔓 VIP</a>`}
       </div>
     </article>`;
 }
@@ -947,9 +960,10 @@ function resolveEntry(type, slug) {
 }
 
 function showModal(entry) {
-  const freeCount = entry.type === 'series' ? 2 : entry.type === 'audiobook' ? 1 : isVip() ? 999 : 0;
+  const twoChFree = ['the-jailhouse-lawyer', 'still-standing'];
+  const freeCount = entry.type === 'series' ? 2 : entry.type === 'audiobook' ? (twoChFree.includes(entry.slug) ? 2 : 1) : isVip() ? 999 : 0;
   const pills = [
-    entry.type === 'series' ? 'Episodes 1–2 free' : entry.type === 'audiobook' ? ((entry.slug === 'a-penny-for-my-thoughts' || entry.slug === 'unplugged') ? 'Prologue free' : 'Chapter 1 free') : 'Albums inside VIP',
+    entry.type === 'series' ? 'Episodes 1–2 free' : entry.type === 'audiobook' ? (twoChFree.includes(entry.slug) ? 'Ch 1–2 free' : 'Prologue free') : 'Albums inside VIP',
     isVip() ? 'VIP ACTIVE' : '$5 unlock',
     entry.label
   ];
@@ -988,17 +1002,49 @@ function closeModal() {
 function wireAudioState() {
   const audios = $$('#detailModal audio');
   audios.forEach((audio, idx) => {
+
+    // Restore saved position if this is the last played track
+    audio.addEventListener('loadedmetadata', () => {
+      try {
+        const saved = JSON.parse(localStorage.getItem(LAST_PLAY_KEY) || '{}');
+        const thisSrc = audio.querySelector('source')?.getAttribute('src') || '';
+        if (saved.src && thisSrc && saved.src.includes(thisSrc.split('/').pop()) && saved.currentTime > 2) {
+          audio.currentTime = saved.currentTime;
+        }
+      } catch(e) {}
+    });
+
+    // Save progress every 5 seconds while playing
+    audio.addEventListener('timeupdate', () => {
+      if (!audio.paused && audio.currentTime > 0) {
+        try {
+          const existing = JSON.parse(localStorage.getItem(LAST_PLAY_KEY) || '{}');
+          existing.currentTime = audio.currentTime;
+          localStorage.setItem(LAST_PLAY_KEY, JSON.stringify(existing));
+        } catch(e) {}
+      }
+    });
+
     audio.addEventListener('play', () => {
       audios.forEach(other => { if (other !== audio) other.pause(); });
+      const thisSrc = audio.querySelector('source')?.getAttribute('src') || '';
       localStorage.setItem(LAST_PLAY_KEY, JSON.stringify({
         title: audio.dataset.title,
         parent: audio.dataset.parent,
         type: audio.dataset.type,
-        src: audio.currentSrc || audio.querySelector('source')?.src || ''
+        src: thisSrc,
+        currentTime: audio.currentTime || 0
       }));
       updateResumeCard();
     });
+
     audio.addEventListener('ended', () => {
+      // Clear currentTime so next chapter starts fresh
+      try {
+        const saved = JSON.parse(localStorage.getItem(LAST_PLAY_KEY) || '{}');
+        saved.currentTime = 0;
+        localStorage.setItem(LAST_PLAY_KEY, JSON.stringify(saved));
+      } catch(e) {}
       const next = audios[idx + 1];
       if (next) next.play().catch(() => {});
     });
@@ -1015,7 +1061,24 @@ function updateResumeCard() {
     card.classList.add('show');
     $('#resumeBtn').onclick = () => {
       const entry = resolveEntry(item.type, item.parent);
-      if (entry) showModal(entry);
+      if (entry) {
+        showModal(entry);
+        // After modal opens, find the right audio and seek to saved time
+        setTimeout(() => {
+          const savedSrc = item.src ? item.src.split('/').pop() : '';
+          const savedTime = item.currentTime || 0;
+          if (savedSrc && savedTime > 2) {
+            const audios = $$('#detailModal audio');
+            audios.forEach(a => {
+              const aSrc = a.querySelector('source')?.getAttribute('src') || '';
+              if (aSrc.includes(savedSrc)) {
+                a.currentTime = savedTime;
+                a.play().catch(() => {});
+              }
+            });
+          }
+        }, 400);
+      }
     };
   } catch (e) {}
 }

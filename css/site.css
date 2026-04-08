@@ -1049,7 +1049,7 @@ footer{
 .page-books .grid-4{ grid-template-columns: repeat(6, 1fr); }
 @media (max-width: 1200px){ .page-books .grid-4{ grid-template-columns: repeat(5, 1fr);} }
 @media (max-width: 980px){ .page-books .grid-4{ grid-template-columns: repeat(4, 1fr);} }
-@media (max-width: 760px){ .page-books .grid-4{ grid-template-columns: repeat(3, 1fr);} }
+@media (max-width: 760px){ .page-books .grid-4{ grid-template-columns: repeat(2, 1fr);} }
 @media (max-width: 560px){ .page-books .grid-4{ grid-template-columns: repeat(2, 1fr);} }
 @media (max-width: 340px){ .page-books .grid-4{ grid-template-columns: 1fr;} }
 
@@ -1339,9 +1339,14 @@ footer{
 
 /* Books mobile sizing tweak */
 @media (max-width: 560px){
-  .page-books .product-media{ padding: 8px; }
-  .page-books .product-media img{ max-height: 180px; }
-  .page-books .product-title{ font-size: .82rem; }
+  .page-books .product-media{ padding: 0; }
+  .page-books .product-media .cover{ border-radius: 8px 8px 0 0; aspect-ratio: 2/3; }
+  .page-books .product-media img{ height: 100%; max-height: none; object-fit: cover; }
+  .page-books .product-body{ padding: 8px; gap: 4px; }
+  .page-books .product-title{ font-size: .78rem; }
+  .page-books .product-desc{ display: none; }
+  .page-books .product-meta .pill{ font-size: .68rem; }
+  .page-books .actions .btn-small{ font-size: .72rem; padding: 7px 8px; }
 }
 
 
@@ -1586,37 +1591,96 @@ footer{
   position: relative;
   top: auto;
   z-index: 1;
+  padding: 16px 0 10px !important;
+}
+.page-audiobooks .page-hero h1 {
+  font-size: clamp(1.4rem, 5vw, 2.2rem) !important;
+  margin-bottom: 6px !important;
+}
+.page-audiobooks .page-hero .lead {
+  font-size: .88rem !important;
+  margin-bottom: 10px !important;
+}
+.page-audiobooks .page-hero .pill-row {
+  gap: 6px !important;
+  flex-wrap: wrap;
+}
+.page-audiobooks .page-hero .pill {
+  font-size: .72rem !important;
+  padding: 4px 10px !important;
+}
+/* Tighten the section heads */
+.page-audiobooks .section-head h2,
+.page-audiobooks h2 {
+  font-size: clamp(1rem, 4vw, 1.5rem) !important;
+}
+/* Logo band smaller on audiobooks */
+.page-audiobooks .logo-band {
+  padding: 10px 0 6px !important;
+}
+.page-audiobooks .hero-logo-img {
+  width: min(40vw, 160px) !important;
 }
 
 /* Audiobooks page: mobile snap one-at-a-time */
-.page-audiobooks{ scroll-snap-type: y mandatory; }
+/* scroll-snap removed for smoother mobile experience */
+
+/* ── Audiobooks: Pocket FM style compact cards ── */
+.page-audiobooks .product-cover {
+  padding: 0;
+  background: none;
+  border-bottom: none;
+}
+.page-audiobooks .product-cover img {
+  width: 100%;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+  display: block;
+}
+.page-audiobooks .product-body {
+  padding: 8px 10px 12px;
+  gap: 6px;
+}
+.page-audiobooks .only-here-badge {
+  display: none;
+}
+.page-audiobooks .muted {
+  display: none;
+}
+.page-audiobooks .price-tag {
+  font-size: .9rem;
+  font-weight: 800;
+  color: var(--gold, #d4a843);
+}
+.page-audiobooks .product-title {
+  font-size: .82rem;
+  line-height: 1.3;
+  margin: 0;
+}
+.page-audiobooks .paypal-note {
+  font-size: .68rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
 
 @media (max-width: 860px){
-  .page-audiobooks .grid.grid-3{
-    grid-template-columns: 1fr !important;
-    gap: 14px;
-    scroll-snap-type: y mandatory;
-  }
-  .page-audiobooks .grid.grid-3 > article{
-    scroll-snap-align: start;
-  }
-  .page-audiobooks .product-cover{
-    padding: 10px;
-    background: rgba(0,0,0,.18);
-    border-bottom: 1px solid rgba(255,255,255,.08);
-  }
-  .page-audiobooks .product-cover img{
-    width:100%;
-    max-height: 48vh;
-    object-fit: contain;
-    border-radius: 14px;
-    background: rgba(0,0,0,.22);
-  }
-  .page-audiobooks .product-body{
-    padding-top: 12px;
+  .page-audiobooks .grid.grid-3,
+  .page-audiobooks .grid.grid-2{
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px;
   }
   .page-audiobooks .audio-sample audio{
-    height: 44px;
+    height: 32px;
+    width: 100%;
+  }
+  .page-audiobooks .btn {
+    font-size: .75rem;
+    padding: 8px 10px;
+  }
+  .page-audiobooks .actions {
+    flex-direction: column;
+    gap: 6px;
   }
 }
 
@@ -2178,4 +2242,76 @@ button,input{font:inherit}
 /* tighten the section under logo */
 .logo-band + * {
   margin-top: 10px !important;
+}
+
+/* ── Compact chapter rows in modal (mobile-first) ── */
+#detailModal .list-grid {
+  gap: 6px;
+}
+#detailModal .media-item {
+  grid-template-columns: 1fr auto !important;
+  gap: 8px !important;
+  padding: 10px 12px !important;
+  border-radius: 12px !important;
+  align-items: center !important;
+}
+/* Hide chapter thumbnail — user already knows the book */
+#detailModal .media-thumb-wrap {
+  display: none !important;
+}
+/* Hide chapter description — just noise */
+#detailModal .media-text p {
+  display: none !important;
+}
+/* Chapter title — smaller, single line */
+#detailModal .media-text h4 {
+  font-size: .82rem !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin: 0 !important;
+}
+/* Compact audio player */
+#detailModal .track-audio {
+  width: auto !important;
+  min-width: 180px !important;
+}
+#detailModal .track-audio audio {
+  height: 32px !important;
+  width: 100% !important;
+}
+/* Actions row — tighter */
+#detailModal .media-actions {
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+/* Lock icon — small */
+#detailModal .media-item.locked .media-thumb-wrap::after {
+  display: none !important;
+}
+#detailModal .media-item.locked .media-text h4::after {
+  content: ' 🔒';
+  font-size: .72rem;
+  opacity: .6;
+}
+/* VIP unlock button in locked rows */
+#detailModal .media-item.locked .btn {
+  font-size: .72rem !important;
+  padding: 6px 10px !important;
+}
+@media (max-width: 760px) {
+  #detailModal .media-item {
+    grid-template-columns: 1fr !important;
+  }
+  #detailModal .media-actions {
+    grid-column: 1 !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  #detailModal .track-audio {
+    width: 100% !important;
+    min-width: 0 !important;
+  }
 }
