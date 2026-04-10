@@ -10,7 +10,7 @@ window.SUMNU_DATA={
       "audiobookUrl": "audiobooks.html#ab1",
       "cover": "images/books/book1.jpg",
       "audioSample": "audio/audiobooks/book1-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0dJkrj0d"
     },
     {
       "id": "book2",
@@ -22,7 +22,7 @@ window.SUMNU_DATA={
       "audiobookUrl": "audiobooks.html#ab2",
       "cover": "images/books/book2.jpg",
       "audioSample": "audio/audiobooks/book2-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0cdFMpGt"
     },
     {
       "id": "book3",
@@ -44,7 +44,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book4.jpg",
       "audioSample": "audio/audiobooks/book4-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0aY3ui6u"
     },
     {
       "id": "book5",
@@ -55,7 +55,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book5.jpg",
       "audioSample": "audio/audiobooks/book5-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0hkypwTV"
     },
     {
       "id": "book6",
@@ -66,7 +66,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book6.jpg",
       "audioSample": "audio/audiobooks/book6-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/022RgmnY"
     },
     {
       "id": "book7",
@@ -77,7 +77,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book7.jpg",
       "audioSample": "audio/audiobooks/book7-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0780BeSt"
     },
     {
       "id": "book8",
@@ -88,7 +88,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book8.jpg",
       "audioSample": "audio/audiobooks/book8-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/06tb79PY"
     },
     {
       "id": "book9",
@@ -99,7 +99,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book9.jpg",
       "audioSample": "audio/audiobooks/book9-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/07yvNXen"
     },
     {
       "id": "book10",
@@ -110,7 +110,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book10.jpg",
       "audioSample": "audio/audiobooks/book10-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/048QcgH9"
     },
     {
       "id": "book11",
@@ -121,7 +121,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book11.jpg",
       "audioSample": "audio/audiobooks/book11-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0iJXEaHq"
     },
     {
       "id": "book12",
@@ -132,7 +132,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book12.jpg",
       "audioSample": "audio/audiobooks/book12-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0foE9isn"
     },
     {
       "id": "book13",
@@ -154,7 +154,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book14.jpg",
       "audioSample": "audio/audiobooks/book14-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/085tf2Dz"
     },
     {
       "id": "book15",
@@ -165,7 +165,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book15.jpg",
       "audioSample": "audio/audiobooks/book15-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0j1kb1MV"
     },
     {
       "id": "book16",
@@ -187,7 +187,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book17.jpg",
       "audioSample": "audio/audiobooks/book17-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/04ZakVhG"
     },
     {
       "id": "book18",
@@ -209,7 +209,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book19.jpg",
       "audioSample": "audio/audiobooks/book19-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/05RfuhWc"
     },
     {
       "id": "book20",
