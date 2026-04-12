@@ -680,6 +680,101 @@
     </section>
   </main>
 
+  <!-- ── Email Signup ── -->
+  <section id="emailSignup" style="padding:28px 0; border-top:1px solid rgba(255,255,255,.07);">
+    <div class="container">
+      <div id="signupWrap">
+        <div style="text-align:center; margin-bottom:18px;">
+          <div style="font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#d4a843; margin-bottom:6px;">Join the List</div>
+          <div style="font-family:'Georgia',serif; font-size:clamp(1.1rem,3vw,1.5rem); font-weight:600; color:#fff; margin-bottom:8px;">Get a free ebook or music CD of your choice</div>
+          <div style="font-size:.85rem; color:rgba(255,255,255,.45); line-height:1.6; max-width:420px; margin:0 auto;">Join the Sumnu Books &amp; Music list and pick any ebook or album as a free gift. Plus get first word on new releases and exclusive drops.</div>
+        </div>
+        <form
+          name="ebook-giveaway"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          id="signupForm"
+          style="max-width:480px; margin:0 auto; display:flex; flex-direction:column; gap:12px;"
+        >
+          <input type="hidden" name="form-name" value="ebook-giveaway">
+          <p style="display:none;"><input name="bot-field"></p>
+
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <label for="sig-email" style="font-size:.75rem; font-weight:700; color:rgba(255,255,255,.5); letter-spacing:.06em; text-transform:uppercase;">Email</label>
+            <input
+              id="sig-email"
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              required
+              style="
+                min-height:48px; padding:0 16px; border-radius:12px;
+                border:1px solid rgba(212,168,67,.3);
+                background:rgba(255,255,255,.05);
+                color:#fff; font-size:.9rem; outline:none;
+                -webkit-tap-highlight-color:transparent;
+              "
+            >
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <label for="sig-item" style="font-size:.75rem; font-weight:700; color:rgba(255,255,255,.5); letter-spacing:.06em; text-transform:uppercase;">What do you want free?</label>
+            <input
+              id="sig-item"
+              type="text"
+              name="requested_item"
+              list="freebie-options"
+              placeholder="Type or pick a title..."
+              required
+              style="
+                min-height:48px; padding:0 16px; border-radius:12px;
+                border:1px solid rgba(212,168,67,.3);
+                background:rgba(255,255,255,.05);
+                color:#fff; font-size:.9rem; outline:none;
+                -webkit-tap-highlight-color:transparent;
+              "
+            >
+            <datalist id="freebie-options">
+              <option value="A Penny For My Thoughts (ebook)"></option>
+              <option value="Unplugged: 30 Days of Chaos (ebook)"></option>
+              <option value="The Echo: Origins (ebook)"></option>
+              <option value="The Jailhouse Lawyer (ebook)"></option>
+              <option value="Still Standing (ebook)"></option>
+              <option value="Chandra: Forbidden Obsession (ebook)"></option>
+              <option value="Chapter 7 (music album)"></option>
+              <option value="Night Vision (music album)"></option>
+              <option value="The Profit E (music album)"></option>
+              <option value="Still Pimpin (music album)"></option>
+            </datalist>
+            <div style="font-size:.72rem; color:rgba(255,255,255,.3); margin-top:2px;">Pick any ebook or album from the list above</div>
+          </div>
+
+          <button
+            type="submit"
+            style="
+              min-height:50px; border-radius:999px; border:none; cursor:pointer;
+              background:linear-gradient(135deg,#f0c060,#d4a843,#c8902a);
+              color:#0a0c16; font-size:.88rem; font-weight:800;
+              letter-spacing:.04em;
+              box-shadow:0 4px 16px rgba(212,168,67,.3);
+              -webkit-tap-highlight-color:transparent;
+            "
+          >Get Free Access →</button>
+
+          <div style="text-align:center; font-size:.72rem; color:rgba(255,255,255,.25);">No spam. Unsubscribe anytime.</div>
+        </form>
+      </div>
+
+      <!-- Success message -->
+      <div id="signupSuccess" style="display:none; text-align:center; padding:24px 0;">
+        <div style="font-size:2rem; margin-bottom:8px;">✅</div>
+        <div style="font-size:1rem; color:#d4a843; font-weight:700; margin-bottom:6px;">You're on the list.</div>
+        <div style="font-size:.82rem; color:rgba(255,255,255,.45); line-height:1.55;">Check your email — we'll send your free pick shortly.<br>You'll also be first to hear about new drops.</div>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
     <div class="container footer-grid">
       <div>
@@ -1370,6 +1465,33 @@ window.addEventListener("outseta:refresh", function() { applyVipState(); });
       var banner = document.getElementById('marketingBanner');
       if (banner) banner.style.display = 'none';
     }
+  });
+})();
+
+// ── Email signup form — AJAX submit so page doesn't reload ──
+(function() {
+  var form = document.getElementById('signupForm');
+  if (!form) return;
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var data = new FormData(form);
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString()
+    })
+    .then(function() {
+      document.getElementById('signupWrap').style.display = 'none';
+      document.getElementById('signupSuccess').style.display = 'block';
+      // Also redirect to thanks.html after a short delay
+      setTimeout(function() {
+        window.location.href = 'thanks.html';
+      }, 2500);
+    })
+    .catch(function() {
+      // Fallback — submit normally if fetch fails
+      form.submit();
+    });
   });
 })();
 </script>
