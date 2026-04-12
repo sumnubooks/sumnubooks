@@ -1,203 +1,230 @@
-/* ============================================================
-   SUMNU BOOKS — auth.js  (Outseta edition — corrected)
-   Checks Account.CurrentSubscription which is what Outseta
-   actually returns, not a Subscriptions array.
-   ============================================================ */
 (function () {
-  var OUTSETA_READY_TIMEOUT = 12000;
+  const PLAN_UID = 'jW70XZmq';
+  const ACTIVE_STATUSES = new Set(['active', 'trialing', 'trial', 'past_due', 'non_renewing']);
+  const state = {
+    ready: false,
+    user: null,
+    vip: false,
+    lastUserKey: '',
+    lastVip: false,
+    readyEmitted: false
+  };
 
-  function dispatch(name, detail) {
+  function emit(name, detail) {
     window.dispatchEvent(new CustomEvent(name, { detail: detail || {} }));
   }
 
-  function normalizeUser(raw) {
-    if (!raw) return null;
-    return {
-      uid:       raw.Uid || raw.uid || '',
-      email:     raw.Email || raw.email || '',
-      firstName: raw.FirstName || raw.firstName || '',
-      lastName:  raw.LastName  || raw.lastName  || '',
-      raw:       raw
-    };
+  function cleanString(value) {
+    return (value == null ? '' : String(value)).trim();
   }
 
-  // Outseta JWT payload returns subscription at raw.Account.CurrentSubscription
-  // The subscription object has Plan.Uid when active - BillingStage is NOT in JWT
-  // Real data structure confirmed: { Plan: { Name, Uid }, StartDate, RenewalDate, ... }
-  function hasActiveSub(rawUser) {
-    if (!rawUser) return false;
+  function getPath(obj, path) {
+    return path.reduce((acc, key) => (acc && acc[key] != null ? acc[key] : undefined), obj);
+  }
 
-    // PRIMARY: Check Account.CurrentSubscription.Plan (confirmed real structure)
-    var acct = rawUser.Account || rawUser.account;
-    if (acct) {
-      var cur = acct.CurrentSubscription || acct.currentSubscription;
-      if (cur) {
-        // If there's a Plan with a Uid, the subscription is active
-        var plan = cur.Plan || cur.plan;
-        if (plan && (plan.Uid || plan.uid)) return true;
-        // Also check BillingStage just in case full profile is loaded
-        var stage = cur.BillingStage || cur.billingStage;
-        if (stage === 2 || stage === 3) return true;
-        // Check EndDate — if null subscription is ongoing
-        var ended = cur.EndDate || cur.endDate;
-        if (!ended && cur.StartDate) return true;
-      }
-    }
+  function asArray(value) {
+    if (!value) return [];
+    return Array.isArray(value) ? value : [value];
+  }
 
-    // FALLBACK: PersonAccount array structure
-    var pa = rawUser.PersonAccount || rawUser.personAccount;
-    if (Array.isArray(pa)) {
-      for (var i = 0; i < pa.length; i++) {
-        var paAcct = (pa[i] && (pa[i].Account || pa[i].account));
-        if (paAcct) {
-          var paCur = paAcct.CurrentSubscription || paAcct.currentSubscription;
-          if (paCur) {
-            var paPlan = paCur.Plan || paCur.plan;
-            if (paPlan && (paPlan.Uid || paPlan.uid)) return true;
-          }
-        }
-      }
-    }
+  function collectSubscriptionCandidates(user) {
+    const paths = [
+      ['Subscriptions'],
+      ['subscriptions'],
+      ['Account', 'Subscriptions'],
+      ['Account', 'subscriptions'],
+      ['Account', 'CurrentSubscription'],
+      ['Account', 'currentSubscription'],
+      ['CurrentSubscription'],
+      ['currentSubscription'],
+      ['PersonAccount', 'Subscriptions'],
+      ['PersonAccount', 'subscriptions'],
+      ['Memberships'],
+      ['memberships'],
+      ['Plans'],
+      ['plans']
+    ];
+
+    const out = [];
+    paths.forEach(path => {
+      const value = getPath(user, path);
+      asArray(value).forEach(item => out.push(item));
+    });
+    return out;
+  }
+
+  function statusOf(entry) {
+    return cleanString(
+      entry && (
+        entry.Status || entry.status ||
+        entry.SubscriptionStatus || entry.subscriptionStatus ||
+        entry.PlanStatus || entry.planStatus
+      )
+    ).toLowerCase();
+  }
+
+  function planUidOf(entry) {
+    return cleanString(
+      entry && (
+        entry.PlanUid || entry.planUid || entry.Uid || entry.uid ||
+        getPath(entry, ['Plan', 'Uid']) || getPath(entry, ['plan', 'uid'])
+      )
+    );
+  }
+
+  function planNameOf(entry) {
+    return cleanString(
+      entry && (
+        entry.Name || entry.name || entry.PlanName || entry.planName ||
+        getPath(entry, ['Plan', 'Name']) || getPath(entry, ['plan', 'name'])
+      )
+    ).toLowerCase();
+  }
+
+  function entryLooksActive(entry) {
+    const status = statusOf(entry);
+    const planUid = planUidOf(entry);
+    const planName = planNameOf(entry);
+    if (status && ACTIVE_STATUSES.has(status)) return true;
+    if (planUid && planUid === PLAN_UID && status !== 'canceled' && status !== 'cancelled' && status !== 'expired') return true;
+    if (planName && planName.includes('vip') && status !== 'canceled' && status !== 'cancelled' && status !== 'expired') return true;
+    return false;
+  }
+
+  function deriveVip(user) {
+    if (!user || typeof user !== 'object') return false;
+
+    const candidates = collectSubscriptionCandidates(user);
+    if (candidates.some(entryLooksActive)) return true;
+
+    const accountStatus = cleanString(
+      getPath(user, ['Account', 'MembershipStatus']) ||
+      getPath(user, ['Account', 'membershipStatus']) ||
+      getPath(user, ['MembershipStatus']) ||
+      getPath(user, ['membershipStatus'])
+    ).toLowerCase();
+
+    if (ACTIVE_STATUSES.has(accountStatus)) return true;
 
     return false;
   }
 
-  function buildApi() {
-    var api = {
-      _ready: false,
-      _user:  null,
-      _vip:   false,
-
-      currentUser: function () { return api._user; },
-
-      rawUser: function () {
-        return window.Outseta && window.Outseta.getUser
-          ? window.Outseta.getUser() : null;
-      },
-
-      isLoggedIn: function () { return !!api._user; },
-
-      isVip: function () { return api._vip; },
-
-      login: function (opts) {
-        if (window.Outseta && window.Outseta.auth)
-          window.Outseta.auth.open(Object.assign({ widgetMode: 'login' }, opts || {}));
-      },
-
-      signup: function (opts) {
-        if (window.Outseta && window.Outseta.auth)
-          window.Outseta.auth.open(Object.assign({ widgetMode: 'register' }, opts || {}));
-      },
-
-      logout: function () {
-        if (window.Outseta && window.Outseta.auth) {
-          if (window.Outseta.auth.signOut) window.Outseta.auth.signOut();
-          else if (window.Outseta.auth.logout) window.Outseta.auth.logout();
-        }
-      },
-
-      refresh: function () {
-        var raw = window.Outseta && window.Outseta.getUser
-          ? window.Outseta.getUser() : null;
-
-        // getUser() can return a Promise on some versions
-        if (raw && typeof raw.then === 'function') {
-          raw.then(function(resolvedUser) {
-            api._user = normalizeUser(resolvedUser);
-            api._vip  = hasActiveSub(resolvedUser);
-            dispatch('outseta:refresh', { user: api._user, vip: api._vip });
-          });
-          return { user: api._user, vip: api._vip };
-        }
-
-        api._user = normalizeUser(raw);
-        api._vip  = hasActiveSub(raw);
-        return { user: api._user, vip: api._vip };
-      }
-    };
-    return api;
-  }
-
-  var SumnuAuth = buildApi();
-  window.SumnuAuth = SumnuAuth;
-
-  function finishReady() {
-    SumnuAuth._ready = true;
-
-    // getUser() may be async — handle both sync and Promise
-    var result = window.Outseta && window.Outseta.getUser
-      ? window.Outseta.getUser() : null;
-
-    function afterGet(raw) {
-      SumnuAuth._user = normalizeUser(raw);
-      SumnuAuth._vip  = hasActiveSub(raw);
-      dispatch('outseta:ready', { user: SumnuAuth._user, vip: SumnuAuth._vip });
-      bindEvents();
-    }
-
-    if (result && typeof result.then === 'function') {
-      result.then(afterGet);
-    } else {
-      afterGet(result);
-    }
-  }
-
-  function waitForOutseta() {
-    var started = Date.now();
-    function poll() {
+  async function fetchUser() {
+    try {
       if (window.Outseta && typeof window.Outseta.getUser === 'function') {
-        finishReady();
-        return;
+        const result = await window.Outseta.getUser();
+        if (result) return result;
       }
-      if (Date.now() - started > OUTSETA_READY_TIMEOUT) {
-        dispatch('outseta:error', { message: 'Outseta failed to load.' });
-        return;
-      }
-      setTimeout(poll, 150);
-    }
-    poll();
-  }
+    } catch (err) {}
 
-  function bindEvents() {
-    // Poll every 2 seconds for auth state changes
-    var prevEmail = SumnuAuth._user ? SumnuAuth._user.email : '';
-    var prevVip   = SumnuAuth._vip;
-
-    setInterval(function () {
-      if (!SumnuAuth._ready) return;
-      var raw = window.Outseta && window.Outseta.getUser
-        ? window.Outseta.getUser() : null;
-
-      function check(resolved) {
-        var newUser = normalizeUser(resolved);
-        var newVip  = hasActiveSub(resolved);
-        var newEmail = newUser ? newUser.email : '';
-
-        var wasLogged = !!prevEmail;
-        var isLogged  = !!newEmail;
-
-        SumnuAuth._user = newUser;
-        SumnuAuth._vip  = newVip;
-
-        if (!wasLogged && isLogged) {
-          dispatch('outseta:login',   { user: newUser, vip: newVip });
-        } else if (wasLogged && !isLogged) {
-          dispatch('outseta:logout',  { user: null, vip: false });
-        } else if (prevVip !== newVip) {
-          dispatch('outseta:refresh', { user: newUser, vip: newVip });
+    try {
+      if (window.Outseta && window.Outseta.auth) {
+        if (typeof window.Outseta.auth.getUser === 'function') {
+          const result = await window.Outseta.auth.getUser();
+          if (result) return result;
         }
-
-        prevEmail = newEmail;
-        prevVip   = newVip;
+        if (typeof window.Outseta.auth.getCurrentUser === 'function') {
+          const result = await window.Outseta.auth.getCurrentUser();
+          if (result) return result;
+        }
       }
+    } catch (err) {}
 
-      if (raw && typeof raw.then === 'function') {
-        raw.then(check);
-      } else {
-        check(raw);
-      }
-    }, 2000);
+    return null;
   }
 
-  waitForOutseta();
+  function userKey(user) {
+    if (!user) return '';
+    return cleanString(user.Uid || user.uid || user.Email || user.email || user.Name || user.name);
+  }
+
+  async function refreshState() {
+    const user = await fetchUser();
+    const vip = deriveVip(user);
+    const nextUserKey = userKey(user);
+    const userChanged = nextUserKey !== state.lastUserKey;
+    const vipChanged = vip !== state.lastVip;
+
+    state.user = user || null;
+    state.vip = !!vip;
+    state.ready = true;
+
+    if (!state.readyEmitted) {
+      state.readyEmitted = true;
+      emit('outseta:ready', { user: state.user, vip: state.vip });
+    }
+
+    if (userChanged) {
+      if (nextUserKey && !state.lastUserKey) emit('outseta:login', { user: state.user, vip: state.vip });
+      if (!nextUserKey && state.lastUserKey) emit('outseta:logout', { user: null, vip: false });
+    }
+
+    if (vipChanged || userChanged) {
+      emit('outseta:refresh', { user: state.user, vip: state.vip });
+    }
+
+    state.lastUserKey = nextUserKey;
+    state.lastVip = state.vip;
+    document.documentElement.classList.toggle('vip-active', state.vip);
+    document.documentElement.classList.toggle('vip-inactive', !state.vip);
+
+    return { user: state.user, vip: state.vip };
+  }
+
+  function openAuth(options) {
+    if (window.Outseta && window.Outseta.auth && typeof window.Outseta.auth.open === 'function') {
+      window.Outseta.auth.open(options || {});
+      return true;
+    }
+    return false;
+  }
+
+  window.SumnuAuth = {
+    isReady: function () { return state.ready; },
+    currentUser: function () { return state.user; },
+    isVip: function () { return !!state.vip; },
+    refresh: refreshState,
+    login: function (redirectUri) {
+      return openAuth({ widgetMode: 'login', redirectUri: redirectUri || window.location.href });
+    },
+    register: function (redirectUri) {
+      return openAuth({ widgetMode: 'register', planUid: PLAN_UID, redirectUri: redirectUri || window.location.href });
+    },
+    logout: function () {
+      try {
+        localStorage.removeItem('vipUnlocked');
+      } catch (err) {}
+
+      try {
+        if (window.Outseta && window.Outseta.auth && typeof window.Outseta.auth.signOut === 'function') {
+          window.Outseta.auth.signOut();
+          setTimeout(refreshState, 200);
+          return;
+        }
+      } catch (err) {}
+
+      try {
+        if (window.Outseta && window.Outseta.auth && typeof window.Outseta.auth.logout === 'function') {
+          window.Outseta.auth.logout();
+          setTimeout(refreshState, 200);
+          return;
+        }
+      } catch (err) {}
+
+      state.user = null;
+      state.vip = false;
+      state.lastUserKey = '';
+      state.lastVip = false;
+      emit('outseta:logout', { user: null, vip: false });
+      emit('outseta:refresh', { user: null, vip: false });
+    }
+  };
+
+  const retrySchedule = [50, 300, 900, 1800, 3200, 5000];
+  retrySchedule.forEach(ms => setTimeout(refreshState, ms));
+  window.addEventListener('focus', refreshState);
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) refreshState();
+  });
+  window.addEventListener('storage', function () { setTimeout(refreshState, 50); });
 })();

@@ -425,8 +425,14 @@
 
     window.addEventListener('outseta:login', function () {
       if (window.SumnuAuth && window.SumnuAuth.isVip()) {
-        // Paid member just logged in — send them home
         window.location.href = RETURN_URL;
+      }
+    });
+
+    window.addEventListener('outseta:refresh', function () {
+      if (window.SumnuAuth && window.SumnuAuth.isVip()) {
+        document.getElementById('signedInPanel').classList.add('show');
+        document.getElementById('checkoutPanel').style.display = 'none';
       }
     });
   </script>

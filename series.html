@@ -1154,14 +1154,26 @@
       window.Outseta.auth.open({
         widgetMode: 'register',
         planUid: 'jW70XZmq',
-        redirectUri: 'https://sumnubooks.com/index.html'
+        redirectUri: window.location.href
       });
     } else {
       window.location.href = 'unlock.html';
     }
   }
 
-  window.addEventListener('outseta:refresh', () => buildChapterSheet());
+  function syncVipAccess() {
+    buildChapterSheet();
+    if (!canAccess(currentIndex)) {
+      audio.pause();
+      loadChapter(0, false);
+      closeSheet();
+    }
+  }
+
+  window.addEventListener('outseta:ready', syncVipAccess);
+  window.addEventListener('outseta:login', syncVipAccess);
+  window.addEventListener('outseta:refresh', syncVipAccess);
+  window.addEventListener('outseta:logout', syncVipAccess);
   </script>
 
   <script src="js/auth.js"></script>
