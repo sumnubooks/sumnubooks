@@ -7,8 +7,15 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
   />
   <title>SumnuBooks Reader</title>
-
-  <script src="https://unpkg.com/epubjs/dist/epub.min.js"></script>
+  <script>
+    var o_options = {
+      domain: 'sumnuvision-llc.outseta.com',
+      tokenStorage: 'local',
+      auth: { authenticationCallbackUrl: 'https://sumnubooks.com/' }
+    };
+  </script>
+  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
+  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
 
   <style>
     :root {
@@ -770,10 +777,28 @@
     // =========================
 
     // Default fallback book if no URL parameter is passed
-    const DEFAULT_BOOK = "ebooks/PENNY For My Thoughts (The Definitive Edition) - E. D. Lewis.epub";
+    const DEFAULT_BOOK = "ebooks/a-penny-for-my-thoughts.epub";
 
     // Optional back button destination
-    const DEFAULT_BACK_URL = "vip.html";
+    const DEFAULT_BACK_URL = "audiobooks.html";
+
+    // Free chapter count — first N chapters readable without VIP
+    const FREE_CHAPTERS = 2;
+
+    // VIP check
+    const isVip = () => !!(window.SumnuAuth && window.SumnuAuth.isVip());
+
+    function triggerUnlock() {
+      if (window.Outseta && window.Outseta.auth) {
+        window.Outseta.auth.open({
+          widgetMode: 'register',
+          planUid: 'jW70XZmq',
+          redirectUri: window.location.href
+        });
+      } else {
+        window.location.href = 'unlock.html';
+      }
+    }
 
     // =========================
     // HELPERS
@@ -947,17 +972,23 @@
       const flat = flattenToc(state.toc);
       els.tocList.innerHTML = "";
 
-      flat.forEach((item) => {
+      flat.forEach((item, index) => {
         const li = document.createElement("li");
         if (item.depth > 0) li.className = "toc-sub";
 
         const btn = document.createElement("button");
         btn.className = "toc-item";
-        btn.textContent = item.label;
+        const locked = index >= FREE_CHAPTERS && !isVip();
+        btn.textContent = locked ? `🔒 ${item.label}` : item.label;
         btn.dataset.href = item.href || "";
+        btn.style.opacity = locked ? '0.5' : '1';
 
         btn.addEventListener("click", async () => {
           if (!item.href || !state.rendition) return;
+          if (locked) {
+            triggerUnlock();
+            return;
+          }
           closePanels();
           await state.rendition.display(item.href);
           showChapterToast(item.label);
