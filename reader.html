@@ -205,11 +205,14 @@
     #viewer {
       width: 100%;
       height: 100%;
-      background: #fff;
+      background: #15171c;
       border-radius: 22px;
       overflow: hidden;
       box-shadow: var(--shadow);
       border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    #viewer iframe {
+      background: #15171c !important;
     }
 
     .tap-zone {
@@ -1270,6 +1273,45 @@
           state.book.ready,
           new Promise((resolve) => setTimeout(resolve, 10000))
         ]).catch(() => {});
+
+        // Register and apply themes BEFORE displaying so iframe renders correctly
+        applyTypography();
+
+        // Also inject styles directly into iframe on every render
+        state.rendition.hooks.content.register((contents) => {
+          const doc = contents.document;
+          if (!doc) return;
+          let style = doc.getElementById('sumnu-reader-style');
+          if (!style) {
+            style = doc.createElement('style');
+            style.id = 'sumnu-reader-style';
+            doc.head.appendChild(style);
+          }
+          const theme = state.settings.theme;
+          const bg = theme === 'dark' ? '#15171c' : theme === 'sepia' ? '#f4ecd8' : '#ffffff';
+          const color = theme === 'dark' ? '#f2f2f2' : theme === 'sepia' ? '#3f3328' : '#171717';
+          const ff = state.settings.fontFamily;
+          const fs = state.settings.fontSize;
+          const lh = state.settings.lineHeight;
+          style.textContent = `
+            html, body {
+              background: ${bg} !important;
+              color: ${color} !important;
+              font-family: ${ff} !important;
+              font-size: ${fs}% !important;
+              line-height: ${lh} !important;
+              margin: 0 !important;
+              padding: 1em 1.5em !important;
+            }
+            p { margin-bottom: 1em !important; }
+            a { color: #f59e0b !important; }
+          `;
+          // Also set iframe background to match
+          try {
+            const iframe = document.querySelector('#viewer iframe');
+            if (iframe) iframe.style.background = bg;
+          } catch(e) {}
+        });
 
         await state.book.locations.generate(150).catch(() => {});
 
