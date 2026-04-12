@@ -15,7 +15,7 @@
     };
   </script>
   <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
-  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.93/dist/epub.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.88/dist/epub.min.js"></script>
 
   <style>
     :root {
@@ -1201,7 +1201,10 @@
       }
 
       try {
-        state.book = ePub(decodeSafe(bookUrl));
+        state.book = ePub(decodeSafe(bookUrl), {
+          openAs: 'epub',
+          store: false
+        });
         state.rendition = state.book.renderTo("viewer", {
           width: "100%",
           height: "100%",
