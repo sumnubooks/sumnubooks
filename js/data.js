@@ -8,6 +8,7 @@ window.SUMNU_DATA={
       "genre": "Street Lit",
       "formats": ["Paperback", "Kindle"],
       "audiobookUrl": "audiobooks.html#ab1",
+      "epubUrl": "ebooks/PENNY For My Thoughts (The Definitive Edition) - E. D. Lewis.epub",
       "cover": "images/books/book1.jpg",
       "audioSample": "audio/audiobooks/book1-sample.mp3",
       "buyUrl": "https://a.co/d/0dJkrj0d"
@@ -194,243 +195,194 @@ window.SUMNU_DATA={
       "title": "CULTURAL SCRIPTS AND LOVE LANGUAGES",
       "desc": "Why we love the way we love — and how our backgrounds shape every relationship. A frank, culturally aware look at communication and connection.",
       "price": "$14.99",
-      "genre": "Self-Help",
+      "genre": "Nonfiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book18.jpg",
       "audioSample": "audio/audiobooks/book18-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0hY6otSi"
     },
     {
       "id": "book19",
-      "title": "POWERFUL WORDS",
-      "desc": "The words you use every day define how the world responds to you. A breakdown of language, power, and communication that actually works.",
+      "title": "BODIED BY BIAS",
+      "desc": "Bias isn't always loud. Sometimes it hides in plain sight. A clear-eyed look at how systems shape outcomes and who pays the price.",
       "price": "$14.99",
-      "genre": "Self-Help",
+      "genre": "Nonfiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book19.jpg",
       "audioSample": "audio/audiobooks/book19-sample.mp3",
-      "buyUrl": "https://a.co/d/05RfuhWc"
+      "buyUrl": "https://a.co/d/0dKmY1w4"
     },
     {
       "id": "book20",
-      "title": "STRATEGIES FOR LEADERSHIP DEVELOPMENT",
-      "desc": "Real leadership strategies built from real experience — not boardroom theory. Practical tools for developing the leader in you.",
-      "price": "$14.99",
-      "genre": "Leadership",
-      "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book20.jpg",
-      "audioSample": "audio/audiobooks/book20-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
-    },
-    {
-      "id": "book21",
-      "title": "THE LITTLE THINGS THAT MEAN A LOT",
-      "desc": "The moments we overlook are often the ones that matter most. A reflective, honest look at the small choices that build a meaningful life.",
-      "price": "$14.99",
-      "genre": "Self-Help",
-      "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book21.jpg",
-      "audioSample": "audio/audiobooks/book21-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
-    },
-    {
-      "id": "book22",
-      "title": "BEYOND NUMBERS",
-      "desc": "Numbers run the world — but most people were never taught how to use them. A plain-language guide to financial literacy.",
+      "title": "YOUR MONEY GAME PLAN",
+      "desc": "No fluff, no gimmicks — just practical steps to take control of your money and build a real financial strategy.",
       "price": "$14.99",
       "genre": "Finance",
       "formats": ["Paperback", "Kindle"],
+      "cover": "images/books/book20.jpg",
+      "audioSample": "audio/audiobooks/book20-sample.mp3",
+      "buyUrl": "https://a.co/d/0f5PX36I"
+    },
+    {
+      "id": "book21",
+      "title": "BLOOD PRESSURE DOWN",
+      "desc": "A simple, direct guide to understanding high blood pressure and the everyday habits that can help bring it down.",
+      "price": "$14.99",
+      "genre": "Health",
+      "formats": ["Paperback", "Kindle"],
+      "cover": "images/books/book21.jpg",
+      "audioSample": "audio/audiobooks/book21-sample.mp3",
+      "buyUrl": "https://a.co/d/0e8qjGxT"
+    },
+    {
+      "id": "book22",
+      "title": "STRESS",
+      "desc": "Stress is part of life — but it doesn't have to control it. A grounded guide to understanding pressure, triggers, and real coping strategies.",
+      "price": "$14.99",
+      "genre": "Health",
+      "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book22.jpg",
       "audioSample": "audio/audiobooks/book22-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0dRw4S0v"
     },
     {
       "id": "book23",
-      "title": "THE PROFESSIONAL WAY",
-      "desc": "What they don't teach you on the job — workplace navigation, office politics, and how to build a career that works for you.",
+      "title": "LIVING IN SPITE OF CANCER",
+      "desc": "Hope, resilience, and practical perspective for anyone navigating cancer — written to support the human being, not just the diagnosis.",
       "price": "$14.99",
-      "genre": "Nonfiction",
+      "genre": "Health",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book23.jpg",
       "audioSample": "audio/audiobooks/book23-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0dLHZUeM"
     },
     {
       "id": "book24",
-      "title": "TURNING THE TABLES ON TOXIC BOSSES",
-      "desc": "You know who they are. This book shows you how to protect yourself, document everything, and come out on top.",
+      "title": "NEVER FLY SOLO",
+      "desc": "Leadership isn't about control — it's about who rises with you. Lessons on trust, accountability, and leading with purpose.",
       "price": "$14.99",
-      "genre": "Nonfiction",
+      "genre": "Leadership",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book24.jpg",
       "audioSample": "audio/audiobooks/book24-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0bHn5JcE"
     },
     {
       "id": "book25",
-      "title": "TEARSA: THE PRISON BAIT",
-      "desc": "She was never supposed to be there. Urban fiction that cuts deep — survival, manipulation, and strength found in the darkest places.",
+      "title": "THE YESTERDAY PROJECT",
+      "desc": "Time bends, memory distorts, and the past is never really gone. A suspenseful sci-fi thriller built on secrets and consequence.",
       "price": "$14.99",
-      "genre": "Urban Fiction",
+      "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book25.jpg",
       "audioSample": "audio/audiobooks/book25-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://a.co/d/0e8R7wQb"
     }
   ],
   "albums": [
     {
       "id": "album1",
-      "title": "EMC",
+      "title": "I JUST WANNA LIVE",
       "artist": "EMC",
-      "year": "2000",
+      "year": 2025,
       "cover": "images/music/album1.jpg",
-      "links": [
-        { "label": "Spotify", "url": "#" },
-        { "label": "Apple Music", "url": "#" },
-        { "label": "Buy", "url": "#" }
-      ],
+      "streamUrl": "https://distrokid.com/hyperfollow/emc92/i-just-wanna-live",
       "tracks": [
-        { "n": 1, "title": "Intro", "src": "audio/album1/01 Intro.mp3" },
-        { "n": 2, "title": "Track 2", "src": "audio/album1/02.mp3" },
-        { "n": 3, "title": "Track 3", "src": "audio/album1/03.mp3" },
-        { "n": 4, "title": "Track 4", "src": "audio/album1/04.mp3" },
-        { "n": 5, "title": "Track 5", "src": "audio/album1/05.mp3" }
+        { "n": 1, "title": "I JUST WANNA LIVE", "src": "audio/music/album1/track1.mp3", "videoUrl": "" },
+        { "n": 2, "title": "BROKEN", "src": "audio/music/album1/track2.mp3", "videoUrl": "" },
+        { "n": 3, "title": "STILL PIMPIN", "src": "audio/music/album1/track3.mp3", "videoUrl": "" },
+        { "n": 4, "title": "WE CAN BE", "src": "audio/music/album1/track4.mp3", "videoUrl": "" }
       ]
     },
     {
       "id": "album2",
-      "title": "The May Tricks",
+      "title": "MY LEGACY",
       "artist": "EMC",
-      "year": "2002",
+      "year": 2025,
       "cover": "images/music/album2.jpg",
-      "links": [
-        { "label": "Spotify", "url": "#" },
-        { "label": "Apple Music", "url": "#" },
-        { "label": "Buy", "url": "#" }
-      ],
+      "streamUrl": "https://distrokid.com/hyperfollow/emc92/my-legacy",
       "tracks": [
-        { "n": 1, "title": "Track 1", "src": "audio/album2/01.mp3" },
-        { "n": 2, "title": "Track 2", "src": "audio/album2/02.mp3" },
-        { "n": 3, "title": "Track 3", "src": "audio/album2/03.mp3" },
-        { "n": 4, "title": "Track 4", "src": "audio/album2/04.mp3" },
-        { "n": 5, "title": "Track 5", "src": "audio/album2/05.mp3" }
+        { "n": 1, "title": "MY LEGACY", "src": "audio/music/album2/track1.mp3", "videoUrl": "" },
+        { "n": 2, "title": "HOLD ON", "src": "audio/music/album2/track2.mp3", "videoUrl": "" },
+        { "n": 3, "title": "SHOW YOU", "src": "audio/music/album2/track3.mp3", "videoUrl": "" }
       ]
     },
     {
       "id": "album3",
-      "title": "Red Dirt Mercy",
+      "title": "NO REGRETS",
       "artist": "EMC",
-      "year": "2003",
+      "year": 2025,
       "cover": "images/music/album3.jpg",
-      "links": [
-        { "label": "Spotify", "url": "#" },
-        { "label": "Apple Music", "url": "#" },
-        { "label": "Buy", "url": "#" }
-      ],
+      "streamUrl": "https://distrokid.com/hyperfollow/emc92/no-regrets",
       "tracks": [
-        { "n": 1, "title": "Track 1", "src": "audio/album3/01.mp3" },
-        { "n": 2, "title": "Track 2", "src": "audio/album3/02.mp3" },
-        { "n": 3, "title": "Track 3", "src": "audio/album3/03.mp3" },
-        { "n": 4, "title": "Track 4", "src": "audio/album3/04.mp3" },
-        { "n": 5, "title": "Track 5", "src": "audio/album3/05.mp3" }
+        { "n": 1, "title": "NO REGRETS", "src": "audio/music/album3/track1.mp3", "videoUrl": "" },
+        { "n": 2, "title": "TO THE LIGHT", "src": "audio/music/album3/track2.mp3", "videoUrl": "" },
+        { "n": 3, "title": "FRIDAY", "src": "audio/music/album3/track3.mp3", "videoUrl": "" }
       ]
     },
     {
       "id": "album4",
-      "title": "Street Life",
+      "title": "JOURNEY",
       "artist": "EMC",
-      "year": "2002",
+      "year": 2025,
       "cover": "images/music/album4.jpg",
-      "links": [
-        { "label": "Spotify", "url": "#" },
-        { "label": "Apple Music", "url": "#" },
-        { "label": "Buy", "url": "#" }
-      ],
+      "streamUrl": "https://distrokid.com/hyperfollow/emc92/journey",
       "tracks": [
-        { "n": 1, "title": "Payback", "src": "audio/album4/02 Payback.mp3" },
-        { "n": 2, "title": "Yes You Can", "src": "audio/album4/04 Yes You Can.mp3" },
-        { "n": 3, "title": "Backstabbers", "src": "audio/album4/12 Backstabbers.mp3" },
-        { "n": 4, "title": "Don't Step To This", "src": "audio/album4/14 Don't Step To This.mp3" },
-        { "n": 5, "title": "That's How It Goes", "src": "audio/album4/15 That's How It Goes.mp3" }
+        { "n": 1, "title": "JOURNEY", "src": "audio/music/album4/track1.mp3", "videoUrl": "" },
+        { "n": 2, "title": "WHISPERS IN THE DARK", "src": "audio/music/album4/track2.mp3", "videoUrl": "" },
+        { "n": 3, "title": "UNTIL THE MORNING", "src": "audio/music/album4/track3.mp3", "videoUrl": "" }
       ]
     },
     {
       "id": "album5",
-      "title": "Night Vision",
+      "title": "MY OWN HERO",
       "artist": "EMC",
-      "year": "2001",
+      "year": 2025,
       "cover": "images/music/album5.jpg",
-      "links": [
-        { "label": "Spotify", "url": "#" },
-        { "label": "Apple Music", "url": "#" },
-        { "label": "Buy", "url": "#" }
-      ],
+      "streamUrl": "https://distrokid.com/hyperfollow/emc92/my-own-hero",
       "tracks": [
-        { "n": 1, "title": "Night Vision", "src": "audio/album5/01 Night Vision.mp3" },
-        { "n": 2, "title": "I'm Bad", "src": "audio/album5/02 I'm Bad.mp3" },
-        { "n": 3, "title": "Tell Me bout Yo Hood", "src": "audio/album5/03 Tell Me bout Yo Hood.mp3" },
-        { "n": 4, "title": "Smack That Ass", "src": "audio/album5/06 Smack That Ass.mp3" },
-        { "n": 5, "title": "Sunshine", "src": "audio/album5/11 Sunshine.mp3" }
+        { "n": 1, "title": "MY OWN HERO", "src": "audio/music/album5/track1.mp3", "videoUrl": "" },
+        { "n": 2, "title": "THE STORM", "src": "audio/music/album5/track2.mp3", "videoUrl": "" }
       ]
     },
     {
       "id": "album6",
-      "title": "Destiny",
-      "artist": "E-Mac",
-      "year": "1998",
+      "title": "CHAPTER 7",
+      "artist": "EMC",
+      "year": 2025,
       "cover": "images/music/album6.jpg",
-      "links": [
-        { "label": "Spotify", "url": "#" },
-        { "label": "Apple Music", "url": "#" },
-        { "label": "Buy", "url": "#" }
-      ],
+      "streamUrl": "https://distrokid.com/hyperfollow/emc92/chapter-7",
       "tracks": [
-        { "n": 1, "title": "Shit-List", "src": "audio/album6/02-Shit-List.mp3" },
-        { "n": 2, "title": "Destiny", "src": "audio/album6/04-Destiny.mp3" },
-        { "n": 3, "title": "More Game", "src": "audio/album6/07-More Game.mp3" },
-        { "n": 4, "title": "That's All She Wrote", "src": "audio/album6/12-That's All She Wrote.mp3" },
-        { "n": 5, "title": "Never Shed A Tear", "src": "audio/album6/14-Never Shed A Tear.mp3" }
+        { "n": 1, "title": "CHAPTER 7", "src": "audio/music/album6/track1.mp3", "videoUrl": "" },
+        { "n": 2, "title": "LATE NIGHT", "src": "audio/music/album6/track2.mp3", "videoUrl": "" },
+        { "n": 3, "title": "NEVER ENOUGH", "src": "audio/music/album6/track3.mp3", "videoUrl": "" }
       ]
     },
     {
       "id": "album7",
-      "title": "Nocturnal Life",
-      "artist": "iNSTiiNC",
-      "year": "2005",
+      "title": "ABOUT LAST NIGHT",
+      "artist": "EMC",
+      "year": 2025,
       "cover": "images/music/album7.jpg",
-      "links": [
-        { "label": "Spotify", "url": "#" },
-        { "label": "Apple Music", "url": "#" },
-        { "label": "Buy", "url": "#" }
-      ],
+      "streamUrl": "https://distrokid.com/hyperfollow/emc92/about-last-night",
       "tracks": [
-        { "n": 1, "title": "THE DON", "src": "audio/album7/02 THE DON.mp3" },
-        { "n": 2, "title": "NO DRAMA", "src": "audio/album7/03 NO DRAMA.mp3" },
-        { "n": 3, "title": "ALL FOR YOU", "src": "audio/album7/04 ALL FOR YOU.mp3" },
-        { "n": 4, "title": "FUCK THE DON", "src": "audio/album7/06 FUCK THE DON.mp3" },
-        { "n": 5, "title": "NOCTURNAL LIFE", "src": "audio/album7/08 NOCTURNAL LIFE.mp3" }
+        { "n": 1, "title": "ABOUT LAST NIGHT", "src": "audio/music/album7/track1.mp3", "videoUrl": "" },
+        { "n": 2, "title": "AFTER HOURS", "src": "audio/music/album7/track2.mp3", "videoUrl": "" },
+        { "n": 3, "title": "CAN'T LET GO", "src": "audio/music/album7/track3.mp3", "videoUrl": "" }
       ]
     },
     {
       "id": "album8",
-      "title": "Lost And Found",
-      "artist": "Playa Partnas",
-      "year": "2004",
+      "title": "YOU'RE ALL I NEED",
+      "artist": "EMC",
+      "year": 2025,
       "cover": "images/music/album8.jpg",
-      "links": [
-        { "label": "Spotify", "url": "#" },
-        { "label": "Apple Music", "url": "#" },
-        { "label": "Buy", "url": "#" }
-      ],
+      "streamUrl": "https://distrokid.com/hyperfollow/emc92/youre-all-i-need",
       "tracks": [
-        { "n": 1, "title": "Get High To This", "src": "audio/album8/Get High To This.mp3" },
-        { "n": 2, "title": "Step Up", "src": "audio/album8/Step Up.mp3" },
-        { "n": 3, "title": "Take a Ride With Me", "src": "audio/album8/Take a Ride With Me.mp3" },
-        { "n": 4, "title": "Holla Back Remix", "src": "audio/album8/Holla Back Remix.mp3" },
-        { "n": 5, "title": "Hater Hating", "src": "audio/album8/Hater Hateing.mp3" }
+        { "n": 1, "title": "YOU'RE ALL I NEED", "src": "audio/music/album8/track1.mp3", "videoUrl": "" },
+        { "n": 2, "title": "SLOW DANCE", "src": "audio/music/album8/track2.mp3", "videoUrl": "" },
+        { "n": 3, "title": "STAY", "src": "audio/music/album8/track3.mp3", "videoUrl": "" }
       ]
     }
-  ],
-  "amazon": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+  ]
 };

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    var o_options = {
+      domain: 'sumnuvision-llc.outseta.com',
+      tokenStorage: 'local',
+      auth: { authenticationCallbackUrl: 'https://sumnubooks.com/' }
+    };
+  </script>
+  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
+  <title>Full Series · Sumnu Books</title>
+  <link rel="stylesheet" href="css/site.css" />
+  <style>
+    body {
+      background:
+        radial-gradient(ellipse 70% 35% at 5% -5%, rgba(0,80,140,.12), transparent),
+        radial-gradient(ellipse 55% 30% at 95% 5%, rgba(212,168,67,.08), transparent),
+        var(--bg);
+    }
+    .series-top-nav { display:flex; flex-wrap:wrap; gap:10px; margin:0 0 14px; }
+    .series-top-nav a { display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:10px 14px; border-radius:999px; border:1px solid rgba(212,168,67,.28); background:rgba(12,14,26,.72); color:var(--text); text-decoration:none; font-weight:700; letter-spacing:.02em; }
+    .series-top-nav a:hover, .series-top-nav a:focus-visible { border-color:rgba(212,168,67,.55); color:var(--gold); }
+    .notice-bar { margin:0 0 18px; padding:14px 16px; border-radius:16px; border:1px solid rgba(212,168,67,.25); background:rgba(255,255,255,.04); color:var(--text); }
+  </style>
+  <link href="css/animations.css" rel="stylesheet"/>
+</head>
+<body>
+  <main class="page-wrap">
+    <div class="container">
+
+      <div class="series-top-nav reveal">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="audiobooks.html">Audiobooks</a>
+        <a href="music.html">Music</a>
+        <a href="vip-audio-dramas_netflix_mobile.html">VIP Hub</a>
+      </div>
+
+      <a class="back-link" href="vip-audio-dramas_netflix_mobile.html">← Back to VIP Series</a>
+
+      <div class="notice-bar reveal" id="noticeBar"></div>
+
+      <section class="episodes-grid" id="episodesGrid"></section>
+
+    </div>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('slug');
+
+    const seriesData = [
+      {
+        slug: 'before-our-water-breaks',
+        title: 'Before Our Water Breaks',
+        items: Array.from({length:9}, (_,i) => ({
+          number: i + 1,
+          title: `Episode ${i+1}`,
+          image: `images/series/before-our-water-breaks/before-our-water-breaks-ep${i+1}.jpg`,
+          audio: `audio/series/before-our-water-breaks/before-our-water-breaks-ep${i+1}.mp3`
+        }))
+      },
+      {
+        slug: 'here-eat-this',
+        title: 'Here... Eat This',
+        episodeTitles: ['First Course','Bite Back','The Taste of Doubt','Check, Please','Served Cold','Open Flame','Dirty Plate','Last Supper'],
+        episodeDescs: [
+          'The table is set, but nothing about this meeting feels innocent.',
+          'The conversation turns sharper. A small detail starts to feel like a threat.',
+          'Every answer opens a worse question.',
+          'By the end of the free set, someone is already trapped.',
+          'The version of the story on the table starts to crack.',
+          'Tension escalates and every gesture feels rehearsed.',
+          'The truth is almost visible now.',
+          'The season closes with the kind of ending that makes the whole dinner feel premeditated.'
+        ],
+        items: Array.from({length:8}, (_,i) => ({
+          number: i + 1,
+          title: `Episode ${i+1}`,
+          image: `images/series/here-eat-this/here-eat-this-ep${i+1}.jpg`,
+          audio: `audio/series/here-eat-this/here-eat-this-ep${i+1}.mp3`
+        }))
+      },
+      {
+        slug: 'she-still-exists',
+        title: 'She Still Exists',
+        chapterTitles: ['The Last Piece','Soup and Secrets','The Man on the Phone','Ghost in the Machine','Sub-Level Three','The Weight of Knowing','Before Dani','They Know','What She Remembered','Hunted','What Carver Lost','One More Night','The Trigger','The Truth About Her World','She Still Exists'],
+        items: Array.from({length:15}, (_,i) => ({
+          number: i + 1,
+          title: `Chapter ${i+1}`,
+          image: `images/series/she-still-exists/she-still-exists-ch${i+1}.jpg`,
+          audio: `audio/series/she-still-exists/she-still-exists-ch${i+1}.mp3`
+        }))
+      },
+      {
+        slug: 'other-man',
+        title: 'Other Man',
+        items: Array.from({length:8}, (_,i) => ({
+          number: i + 1,
+          title: `Episode ${i+1}`,
+          image: `images/series/other-man/other-man-ep${i+1}.jpg`,
+          audio: `audio/series/other-man/other-man-ep${i+1}.mp3`
+        }))
+      }
+    ];
+
+    const series = seriesData.find(s => s.slug === slug);
+
+    if (!series) {
+      document.getElementById('noticeBar').innerHTML = '<strong>Series not found.</strong> <a href="index.html">Go home</a>';
+    } else {
+      document.title = `${series.title} — Full Series · Sumnu Books`;
+      document.getElementById('noticeBar').innerHTML = `<strong>🔓 Unlocked:</strong> You now have full access to <strong>${series.title}</strong>. All ${series.items.length} ${series.items[0].title.toLowerCase().includes('chapter') ? 'chapters are' : 'episodes are'} below.`;
+
+      const isChapter = series.items[0].title.toLowerCase().includes('chapter');
+      const label = isChapter ? 'CHAPTER' : 'EPISODE';
+      const titles = series.chapterTitles || series.episodeTitles || [];
+
+      const grid = document.getElementById('episodesGrid');
+      series.items.forEach((item, i) => {
+        const card = document.createElement('article');
+        card.className = 'episode-card reveal';
+        const displayTitle = titles[i] ? `${item.title} — ${titles[i]}` : item.title;
+        card.innerHTML = `
+          <div class="episode-art">
+            <img src="${item.image}" alt="${item.title}" loading="lazy" decoding="async">
+            <div class="ep-badge">${label} ${item.number}</div>
+          </div>
+          <div class="episode-copy">
+            <h3>${displayTitle}</h3>
+            <audio controls preload="none">
+              <source src="${item.audio}" type="audio/mpeg">
+            </audio>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+    }, { threshold: 0.06 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+
+  <script src="js/auth.js"></script>
+  <script src="js/access-gate.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>

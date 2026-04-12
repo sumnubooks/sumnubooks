@@ -15,18 +15,9 @@
   const navLinks = qs('[data-nav-links]');
   if (navToggle && navLinks) {
     navToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      const expanded = navLinks.classList.contains('open');
-      navToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      const open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-
-    // Close on link click (mobile)
-    qsa('a', navLinks).forEach(a => a.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
-    }));
-
-    // Close on outside click
     document.addEventListener('click', (e) => {
       if (!navLinks.classList.contains('open')) return;
       const inside = navLinks.contains(e.target) || navToggle.contains(e.target);
@@ -55,6 +46,16 @@
     });
   };
 
+  function buildReaderLink(book){
+    const params = new URLSearchParams({
+      book: book.epubUrl,
+      title: book.title,
+      author: 'E. D. Lewis',
+      back: 'books.html'
+    });
+    return 'reader.html?' + params.toString();
+  }
+
   // Books rendering
   function renderBooks() {
     const host = qs('[data-books-grid]');
@@ -79,9 +80,13 @@
       const genreEmoji = { 'Sci-Fi': '🚀', 'Thriller': '🔪', 'Urban Fiction': '🔥', 'Street Lit': '🔥', 'Nonfiction': '📘', 'Self-Help': '💡', 'Finance': '💰', 'Health': '🩺', 'Leadership': '🏆' };
       const genreLabel = b.genre || 'Street Lit';
       const genreIcon = genreEmoji[genreLabel] || '📖';
-      const hasAudiobook = b.audiobookUrl || false;
+      const hasAudiobook = !!b.audiobookUrl;
+      const hasEpub = !!b.epubUrl;
       const audiobookBtn = hasAudiobook
         ? `<a class="btn btn-primary btn-small" href="${escapeHtml(b.audiobookUrl)}" style="background:linear-gradient(135deg,#b8860b,#ffd700);color:#000;font-weight:800;">🎧 Audiobook $12.99</a>`
+        : '';
+      const readBtn = hasEpub
+        ? `<a class="btn btn-secondary btn-small" href="${escapeHtml(buildReaderLink(b))}">📖 Read Now</a>`
         : '';
 
       return `
@@ -99,6 +104,7 @@
             </div>
             <div class="book-detail-actions">
               <button class="btn btn-secondary btn-small" data-audio-btn="${b.id}">🎧 Sample</button>
+              ${readBtn}
               ${audiobookBtn}
               <a class="btn btn-primary btn-small" href="${b.buyUrl}" target="_blank" rel="noopener">🛒 Buy on Amazon</a>
             </div>
@@ -321,99 +327,67 @@
       return idx;
     };
 
-    const playAtIndex = (idx) => {
-      if(!radioAudio) return;
-      if(idx < 0 || idx >= playlist.length) return;
+    const playIndex = (idx) => {
+      if(!radioAudio || idx < 0 || idx >= playlist.length) return;
       currentIndex = idx;
-
       const item = playlist[idx];
-      setNowPlaying(item.title);
-
-      try {
-        radioAudio.src = new URL(encodeURI(item.src), document.baseURI).toString();
-      } catch(e) {
-        radioAudio.src = item.src;
-      }
-
       stopAllAudio(radioAudio);
-
-      radioAudio.play().then(() => {
+      radioAudio.src = item.src;
+      radioAudio.play().then(()=>{
         if(radioToggle) radioToggle.textContent = '⏸ Pause';
-      }).catch(() => {
-        if(radioToggle) radioToggle.textContent = '▶ Play';
-      });
+        setNowPlaying(item.title);
+      }).catch(()=>{});
     };
-
-    const playRandom = () => playAtIndex(pickNextIndex());
-
-    if(radioAudio){
-      radioAudio.addEventListener('ended', () => {
-        playRandom();
-      });
-      radioAudio.addEventListener('play', () => {
-        stopAllAudio(radioAudio);
-      });
-    }
 
     if(radioToggle && radioAudio){
       radioToggle.addEventListener('click', () => {
         playlist = buildRadioPlaylist();
-
-        if(radioAudio.paused){
-          if(currentIndex === -1) playRandom();
-          else {
-            stopAllAudio(radioAudio);
-            radioAudio.play().then(()=>{ radioToggle.textContent='⏸ Pause'; }).catch(()=>{ radioToggle.textContent='▶ Play'; });
-          }
-        } else {
-          pauseRadio();
+        if(!playlist.length){
+          setNowPlaying('No tracks found');
+          return;
         }
+        if(radioAudio.paused){
+          const idx = currentIndex >= 0 ? currentIndex : pickNextIndex();
+          playIndex(idx);
+        } else {
+          radioAudio.pause();
+          radioToggle.textContent = '▶ Play';
+        }
+      });
+
+      radioAudio.addEventListener('ended', () => {
+        const idx = pickNextIndex();
+        playIndex(idx);
       });
     }
 
     if(radioNext){
       radioNext.addEventListener('click', () => {
         playlist = buildRadioPlaylist();
-        playRandom();
+        const idx = pickNextIndex();
+        playIndex(idx);
       });
     }
 
-    // Initial wiring
-    qsa('.album-card').forEach(setStreamLinkForCard);
     wireVideoButtons();
     enforceSingleAudio();
   }
 
   function escapeHtml(str){
-    return String(str||'')
-      .replaceAll('&','&amp;')
-      .replaceAll('<','&lt;')
-      .replaceAll('>','&gt;')
-      .replaceAll('"','&quot;')
-      .replaceAll("'",'&#039;');
+    return String(str ?? '')
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#39;');
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    enforceSingleAudio();
-    renderBooks();
-    wireZelleToggles();
-    initMusicPage();
+    try { renderBooks(); } catch(e) {}
+    try { wireZelleToggles(); } catch(e) {}
+    try { initMusicPage(); } catch(e) {}
+    try { enforceSingleAudio(); } catch(e) {}
   });
 
-  // Scroll reveal (subtle)
-  const revealEls = qsa('.reveal');
-  if (revealEls.length && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in-view');
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    revealEls.forEach(el => io.observe(el));
-  } else {
-    revealEls.forEach(el => el.classList.add('in-view'));
-  }
-
+  window.renderBooks = renderBooks;
 })();

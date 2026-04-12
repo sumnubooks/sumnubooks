@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  />
+  <title>SumnuBooks Reader</title>
+
+  <script src="https://unpkg.com/epubjs/dist/epub.min.js"></script>
+
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #161a22;
+      --panel-2: #1d2330;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f4f4f5;
+      --muted: #a1a1aa;
+      --accent: #f59e0b;
+      --danger: #ef4444;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      --reader-max: 900px;
+      --header-h: 72px;
+      --footer-h: 76px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .app {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-rows: var(--header-h) 1fr var(--footer-h);
+      background:
+        radial-gradient(circle at top, rgba(245, 158, 11, 0.08), transparent 28%),
+        linear-gradient(180deg, #0f1115 0%, #10131a 100%);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10, 12, 16, 0.82);
+      backdrop-filter: blur(12px);
+      position: relative;
+      z-index: 30;
+    }
+
+    .topbar-left,
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .brand small {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .brand strong {
+      font-size: 15px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: min(48vw, 520px);
+    }
+
+    .author-line {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: min(48vw, 520px);
+    }
+
+    .icon-btn,
+    .pill-btn {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .pill-btn {
+      height: 42px;
+      padding: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .icon-btn:hover,
+    .pill-btn:hover {
+      background: var(--panel-2);
+      border-color: rgba(255, 255, 255, 0.14);
+      transform: translateY(-1px);
+    }
+
+    .reader-shell {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .viewer-wrap {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      position: relative;
+    }
+
+    .viewer-frame {
+      width: 100%;
+      max-width: calc(var(--reader-max) + 80px);
+      height: 100%;
+      padding: 28px 18px 22px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    #viewer {
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .tap-zone {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 22%;
+      z-index: 8;
+      cursor: pointer;
+    }
+
+    .tap-zone.left {
+      left: 0;
+    }
+
+    .tap-zone.right {
+      right: 0;
+    }
+
+    .tap-zone.center {
+      left: 22%;
+      width: 56%;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .chapter-toast {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 15;
+      background: rgba(10, 12, 16, 0.84);
+      color: var(--text);
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      font-size: 13px;
+      max-width: 80%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .chapter-toast.show {
+      opacity: 1;
+    }
+
+    .bottombar {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 18px;
+      border-top: 1px solid var(--border);
+      background: rgba(10, 12, 16, 0.86);
+      backdrop-filter: blur(12px);
+      z-index: 30;
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .progress-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--muted);
+      min-width: 0;
+    }
+
+    .progress-meta span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      appearance: none;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border: none;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+    }
+
+    .drawer,
+    .settings-panel {
+      position: fixed;
+      top: 0;
+      height: 100%;
+      width: min(360px, 92vw);
+      background: #11151d;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.22s ease;
+    }
+
+    .drawer.open,
+    .settings-panel.open {
+      transform: translateX(0);
+    }
+
+    .drawer {
+      right: 0;
+    }
+
+    .settings-panel {
+      right: 0;
+    }
+
+    .drawer-header,
+    .settings-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .drawer-title,
+    .settings-title {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .drawer-title strong,
+    .settings-title strong {
+      font-size: 16px;
+    }
+
+    .drawer-title span,
+    .settings-title span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .toc-list {
+      list-style: none;
+      margin: 0;
+      padding: 8px 8px 32px;
+      overflow: auto;
+      flex: 1;
+    }
+
+    .toc-list li {
+      margin: 0;
+      padding: 0;
+    }
+
+    .toc-item {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      color: var(--text);
+      border: none;
+      padding: 12px 14px;
+      border-radius: 14px;
+      cursor: pointer;
+      display: block;
+      transition: 0.16s ease;
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .toc-item:hover,
+    .toc-item.active {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .toc-sub {
+      padding-left: 14px;
+    }
+
+    .settings-body {
+      padding: 18px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .setting-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .setting-group label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .segmented {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .segmented button {
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: 0.16s ease;
+    }
+
+    .segmented button.active,
+    .segmented button:hover {
+      background: var(--panel-2);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.42);
+      z-index: 50;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.18s ease;
+    }
+
+    .overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .loader {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      background: linear-gradient(180deg, rgba(15, 17, 21, 0.45), rgba(15, 17, 21, 0.2));
+      backdrop-filter: blur(4px);
+    }
+
+    .loader-card {
+      background: rgba(10, 12, 16, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .spinner {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.16);
+      border-top-color: var(--accent);
+      animation: spin 0.8s linear infinite;
+    }
+
+    .loader-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .loader-text strong {
+      font-size: 14px;
+    }
+
+    .loader-text span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .empty-state {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .empty-card {
+      max-width: 540px;
+      padding: 28px;
+      border-radius: 24px;
+      background: rgba(22, 26, 34, 0.88);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .empty-card h2 {
+      margin: 0 0 10px;
+      color: var(--text);
+      font-size: 22px;
+    }
+
+    .empty-card p {
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 900px) {
+      :root {
+        --header-h: 68px;
+        --footer-h: 84px;
+      }
+
+      .brand strong,
+      .author-line {
+        max-width: 42vw;
+      }
+
+      .viewer-frame {
+        max-width: 100%;
+        padding: 12px 10px 12px;
+      }
+
+      #viewer {
+        border-radius: 18px;
+      }
+
+      .bottombar {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        align-items: stretch;
+      }
+
+      .nav-controls,
+      .bottom-right {
+        justify-content: center;
+      }
+
+      .progress-meta {
+        font-size: 11px;
+      }
+
+      .tap-zone {
+        width: 24%;
+      }
+
+      .tap-zone.center {
+        left: 24%;
+        width: 52%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .brand small,
+      .author-line {
+        display: none;
+      }
+
+      .brand strong {
+        max-width: 34vw;
+        font-size: 14px;
+      }
+
+      .pill-btn span.label {
+        display: none;
+      }
+
+      .icon-btn,
+      .pill-btn {
+        height: 40px;
+      }
+
+      .viewer-frame {
+        padding: 8px 8px 8px;
+      }
+
+      #viewer {
+        border-radius: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn" id="backBtn" aria-label="Back">←</button>
+
+        <div class="brand">
+          <small>SumnuBooks Reader</small>
+          <strong id="bookTitle">Loading book...</strong>
+          <div class="author-line" id="bookAuthor">Please wait</div>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <button class="pill-btn" id="tocBtn" aria-label="Open chapters">
+          ☰ <span class="label">Chapters</span>
+        </button>
+        <button class="pill-btn" id="settingsBtn" aria-label="Open reading settings">
+          Aa <span class="label">Reading</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="reader-shell">
+      <div class="viewer-wrap">
+        <div class="chapter-toast" id="chapterToast"></div>
+
+        <div class="tap-zone left" id="prevTap" aria-hidden="true"></div>
+        <div class="tap-zone center" aria-hidden="true"></div>
+        <div class="tap-zone right" id="nextTap" aria-hidden="true"></div>
+
+        <div class="viewer-frame">
+          <div id="viewer"></div>
+
+          <div class="loader" id="loader">
+            <div class="loader-card">
+              <div class="spinner"></div>
+              <div class="loader-text">
+                <strong>Opening your book</strong>
+                <span>Loading reader...</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="empty-state hidden" id="emptyState">
+            <div class="empty-card">
+              <h2>Book not found</h2>
+              <p>
+                Add your EPUB path in the URL, or set a default book inside the script.
+                Example: <code>reader.html?book=ebooks/penny-for-my-thoughts.epub</code>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bottombar">
+      <div class="nav-controls">
+        <button class="icon-btn" id="prevBtn" aria-label="Previous page">←</button>
+        <button class="icon-btn" id="nextBtn" aria-label="Next page">→</button>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-meta">
+          <span id="chapterLabel">Starting reader...</span>
+          <span id="progressLabel">0%</span>
+        </div>
+        <input
+          type="range"
+          id="progressSlider"
+          min="0"
+          max="100"
+          step="0.1"
+          value="0"
+          aria-label="Reading progress"
+        />
+      </div>
+
+      <div class="nav-controls bottom-right">
+        <button class="pill-btn" id="resumeBtn" aria-label="Resume saved position">
+          ↺ <span class="label">Resume</span>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <aside class="drawer" id="tocDrawer" aria-hidden="true">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <strong>Chapters</strong>
+        <span id="tocSubtitle">Table of contents</span>
+      </div>
+      <button class="icon-btn" id="closeTocBtn" aria-label="Close chapters">✕</button>
+    </div>
+    <ol class="toc-list" id="tocList"></ol>
+  </aside>
+
+  <aside class="settings-panel" id="settingsPanel" aria-hidden="true">
+    <div class="settings-header">
+      <div class="settings-title">
+        <strong>Reading settings</strong>
+        <span>Customize the reading experience</span>
+      </div>
+      <button class="icon-btn" id="closeSettingsBtn" aria-label="Close settings">✕</button>
+    </div>
+
+    <div class="settings-body">
+      <div class="setting-group">
+        <label>Theme</label>
+        <div class="segmented" id="themeGroup">
+          <button data-theme="light">Light</button>
+          <button data-theme="sepia">Sepia</button>
+          <button data-theme="dark">Dark</button>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <label for="fontSizeSlider">Font size</label>
+        <input type="range" id="fontSizeSlider" min="85" max="150" step="1" value="100" />
+      </div>
+
+      <div class="setting-group">
+        <label for="lineHeightSlider">Line height</label>
+        <input type="range" id="lineHeightSlider" min="1.2" max="2" step="0.05" value="1.6" />
+      </div>
+
+      <div class="setting-group">
+        <label for="fontFamilySelect">Font</label>
+        <select id="fontFamilySelect" class="pill-btn" style="border-radius: 14px; width: 100%; justify-content: flex-start;">
+          <option value="Georgia, serif">Classic Serif</option>
+          <option value="Baskerville, Georgia, serif">Book Serif</option>
+          <option value="Arial, Helvetica, sans-serif">Sans</option>
+          <option value="'Trebuchet MS', Arial, sans-serif">Modern Sans</option>
+        </select>
+      </div>
+    </div>
+  </aside>
+
+  <div class="overlay" id="overlay"></div>
+
+  <script>
+    // =========================
+    // BASIC CONFIG
+    // =========================
+
+    // Default fallback book if no URL parameter is passed
+    const DEFAULT_BOOK = "ebooks/PENNY For My Thoughts (The Definitive Edition) - E. D. Lewis.epub";
+
+    // Optional back button destination
+    const DEFAULT_BACK_URL = "vip.html";
+
+    // =========================
+    // HELPERS
+    // =========================
+
+    const $ = (id) => document.getElementById(id);
+
+    const params = new URLSearchParams(window.location.search);
+    const bookUrl = params.get("book") || DEFAULT_BOOK;
+    const manualTitle = params.get("title");
+    const manualAuthor = params.get("author");
+    const backUrl = params.get("back") || DEFAULT_BACK_URL;
+
+    const storageKeyBase = `sumnu_reader_${bookUrl}`;
+    const locationKey = `${storageKeyBase}_location`;
+    const settingsKey = `${storageKeyBase}_settings`;
+
+    const state = {
+      book: null,
+      rendition: null,
+      toc: [],
+      currentLocation: null,
+      currentChapterLabel: "",
+      progressPercent: 0,
+      metadata: {
+        title: manualTitle || "Loading book...",
+        creator: manualAuthor || "Please wait"
+      },
+      settings: {
+        theme: "dark",
+        fontSize: 100,
+        lineHeight: 1.6,
+        fontFamily: "Georgia, serif"
+      }
+    };
+
+    const els = {
+      bookTitle: $("bookTitle"),
+      bookAuthor: $("bookAuthor"),
+      chapterLabel: $("chapterLabel"),
+      progressLabel: $("progressLabel"),
+      progressSlider: $("progressSlider"),
+      viewer: $("viewer"),
+      loader: $("loader"),
+      emptyState: $("emptyState"),
+      tocDrawer: $("tocDrawer"),
+      tocList: $("tocList"),
+      tocBtn: $("tocBtn"),
+      closeTocBtn: $("closeTocBtn"),
+      settingsBtn: $("settingsBtn"),
+      settingsPanel: $("settingsPanel"),
+      closeSettingsBtn: $("closeSettingsBtn"),
+      overlay: $("overlay"),
+      chapterToast: $("chapterToast"),
+      tocSubtitle: $("tocSubtitle"),
+      prevBtn: $("prevBtn"),
+      nextBtn: $("nextBtn"),
+      prevTap: $("prevTap"),
+      nextTap: $("nextTap"),
+      resumeBtn: $("resumeBtn"),
+      backBtn: $("backBtn"),
+      themeGroup: $("themeGroup"),
+      fontSizeSlider: $("fontSizeSlider"),
+      lineHeightSlider: $("lineHeightSlider"),
+      fontFamilySelect: $("fontFamilySelect")
+    };
+
+    function decodeSafe(value) {
+      try {
+        return decodeURIComponent(value);
+      } catch {
+        return value;
+      }
+    }
+
+    function setLoading(show, message = "Loading reader...") {
+      els.loader.classList.toggle("hidden", !show);
+      const sub = els.loader.querySelector(".loader-text span");
+      if (sub) sub.textContent = message;
+    }
+
+    function showEmpty() {
+      els.emptyState.classList.remove("hidden");
+      els.viewer.style.display = "none";
+      setLoading(false);
+    }
+
+    function hideEmpty() {
+      els.emptyState.classList.add("hidden");
+      els.viewer.style.display = "block";
+    }
+
+    function saveLocation(cfi) {
+      if (!cfi) return;
+      localStorage.setItem(locationKey, cfi);
+    }
+
+    function getSavedLocation() {
+      return localStorage.getItem(locationKey);
+    }
+
+    function saveSettings() {
+      localStorage.setItem(settingsKey, JSON.stringify(state.settings));
+    }
+
+    function loadSettings() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(settingsKey));
+        if (saved && typeof saved === "object") {
+          state.settings = { ...state.settings, ...saved };
+        }
+      } catch {}
+    }
+
+    function updateHeader() {
+      els.bookTitle.textContent = state.metadata.title || manualTitle || "Untitled Book";
+      els.bookAuthor.textContent = state.metadata.creator || manualAuthor || "Unknown Author";
+      els.tocSubtitle.textContent = `${state.metadata.title || "Book"} · Chapters`;
+    }
+
+    function showChapterToast(text) {
+      if (!text) return;
+      els.chapterToast.textContent = text;
+      els.chapterToast.classList.add("show");
+      clearTimeout(showChapterToast._timer);
+      showChapterToast._timer = setTimeout(() => {
+        els.chapterToast.classList.remove("show");
+      }, 1400);
+    }
+
+    function closePanels() {
+      els.tocDrawer.classList.remove("open");
+      els.settingsPanel.classList.remove("open");
+      els.overlay.classList.remove("show");
+      els.tocDrawer.setAttribute("aria-hidden", "true");
+      els.settingsPanel.setAttribute("aria-hidden", "true");
+    }
+
+    function openToc() {
+      els.tocDrawer.classList.add("open");
+      els.settingsPanel.classList.remove("open");
+      els.overlay.classList.add("show");
+      els.tocDrawer.setAttribute("aria-hidden", "false");
+      els.settingsPanel.setAttribute("aria-hidden", "true");
+    }
+
+    function openSettings() {
+      els.settingsPanel.classList.add("open");
+      els.tocDrawer.classList.remove("open");
+      els.overlay.classList.add("show");
+      els.settingsPanel.setAttribute("aria-hidden", "false");
+      els.tocDrawer.setAttribute("aria-hidden", "true");
+    }
+
+    function flattenToc(items, depth = 0) {
+      const out = [];
+      items.forEach((item) => {
+        out.push({
+          label: item.label?.trim() || "Untitled",
+          href: item.href,
+          depth
+        });
+        if (item.subitems?.length) {
+          out.push(...flattenToc(item.subitems, depth + 1));
+        }
+      });
+      return out;
+    }
+
+    function renderToc() {
+      const flat = flattenToc(state.toc);
+      els.tocList.innerHTML = "";
+
+      flat.forEach((item) => {
+        const li = document.createElement("li");
+        if (item.depth > 0) li.className = "toc-sub";
+
+        const btn = document.createElement("button");
+        btn.className = "toc-item";
+        btn.textContent = item.label;
+        btn.dataset.href = item.href || "";
+
+        btn.addEventListener("click", async () => {
+          if (!item.href || !state.rendition) return;
+          closePanels();
+          await state.rendition.display(item.href);
+          showChapterToast(item.label);
+        });
+
+        li.appendChild(btn);
+        els.tocList.appendChild(li);
+      });
+    }
+
+    function updateActiveToc(href = "") {
+      const buttons = els.tocList.querySelectorAll(".toc-item");
+      buttons.forEach((btn) => {
+        const isActive = href && btn.dataset.href && href.includes(btn.dataset.href.split("#")[0]);
+        btn.classList.toggle("active", isActive);
+      });
+    }
+
+    function applyTheme(theme) {
+      const themes = state.rendition.themes;
+
+      themes.register("light", {
+        body: {
+          background: "#ffffff !important",
+          color: "#171717 !important",
+          "font-family": `${state.settings.fontFamily} !important`,
+          "font-size": `${state.settings.fontSize}% !important`,
+          "line-height": `${state.settings.lineHeight} !important`,
+          margin: "0 !important",
+          padding: "0 !important"
+        },
+        p: {
+          "margin-bottom": "1em !important"
+        },
+        a: {
+          color: "#8b5cf6 !important"
+        }
+      });
+
+      themes.register("sepia", {
+        body: {
+          background: "#f4ecd8 !important",
+          color: "#3f3328 !important",
+          "font-family": `${state.settings.fontFamily} !important`,
+          "font-size": `${state.settings.fontSize}% !important`,
+          "line-height": `${state.settings.lineHeight} !important`,
+          margin: "0 !important",
+          padding: "0 !important"
+        },
+        p: {
+          "margin-bottom": "1em !important"
+        },
+        a: {
+          color: "#8b5cf6 !important"
+        }
+      });
+
+      themes.register("dark", {
+        body: {
+          background: "#15171c !important",
+          color: "#f2f2f2 !important",
+          "font-family": `${state.settings.fontFamily} !important`,
+          "font-size": `${state.settings.fontSize}% !important`,
+          "line-height": `${state.settings.lineHeight} !important`,
+          margin: "0 !important",
+          padding: "0 !important"
+        },
+        p: {
+          "margin-bottom": "1em !important"
+        },
+        a: {
+          color: "#f59e0b !important"
+        }
+      });
+
+      themes.select(theme);
+      state.settings.theme = theme;
+      saveSettings();
+
+      [...els.themeGroup.querySelectorAll("button")].forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.theme === theme);
+      });
+    }
+
+    function applyTypography() {
+      if (!state.rendition) return;
+      applyTheme(state.settings.theme);
+      els.fontSizeSlider.value = state.settings.fontSize;
+      els.lineHeightSlider.value = state.settings.lineHeight;
+      els.fontFamilySelect.value = state.settings.fontFamily;
+    }
+
+    async function goPrev() {
+      if (!state.rendition) return;
+      try {
+        await state.rendition.prev();
+      } catch {}
+    }
+
+    async function goNext() {
+      if (!state.rendition) return;
+      try {
+        await state.rendition.next();
+      } catch {}
+    }
+
+    function updateProgress(location) {
+      if (!location || !state.book) return;
+
+      state.currentLocation = location;
+      const currentCfi = location.start?.cfi;
+      if (currentCfi) saveLocation(currentCfi);
+
+      const percent = state.book.locations.percentageFromCfi(currentCfi || "") || 0;
+      state.progressPercent = Math.max(0, Math.min(100, percent * 100));
+
+      els.progressSlider.value = state.progressPercent.toFixed(1);
+      els.progressLabel.textContent = `${Math.round(state.progressPercent)}%`;
+
+      const href = location.start?.href || "";
+      const chapter = flattenToc(state.toc).find((item) => href.includes((item.href || "").split("#")[0]));
+      const chapterLabel = chapter?.label || "Reading";
+      state.currentChapterLabel = chapterLabel;
+      els.chapterLabel.textContent = chapterLabel;
+      updateActiveToc(href);
+    }
+
+    function attachEvents() {
+      els.prevBtn.addEventListener("click", goPrev);
+      els.nextBtn.addEventListener("click", goNext);
+      els.prevTap.addEventListener("click", goPrev);
+      els.nextTap.addEventListener("click", goNext);
+
+      els.tocBtn.addEventListener("click", openToc);
+      els.closeTocBtn.addEventListener("click", closePanels);
+
+      els.settingsBtn.addEventListener("click", openSettings);
+      els.closeSettingsBtn.addEventListener("click", closePanels);
+
+      els.overlay.addEventListener("click", closePanels);
+
+      els.backBtn.addEventListener("click", () => {
+        window.location.href = backUrl;
+      });
+
+      els.resumeBtn.addEventListener("click", async () => {
+        const saved = getSavedLocation();
+        if (!saved || !state.rendition) return;
+        await state.rendition.display(saved);
+      });
+
+      els.progressSlider.addEventListener("input", async (e) => {
+        if (!state.book || !state.rendition || !state.book.locations.length()) return;
+        const pct = Number(e.target.value) / 100;
+        const targetCfi = state.book.locations.cfiFromPercentage(pct);
+        if (targetCfi) await state.rendition.display(targetCfi);
+      });
+
+      els.fontSizeSlider.addEventListener("input", (e) => {
+        state.settings.fontSize = Number(e.target.value);
+        saveSettings();
+        applyTypography();
+      });
+
+      els.lineHeightSlider.addEventListener("input", (e) => {
+        state.settings.lineHeight = Number(e.target.value);
+        saveSettings();
+        applyTypography();
+      });
+
+      els.fontFamilySelect.addEventListener("change", (e) => {
+        state.settings.fontFamily = e.target.value;
+        saveSettings();
+        applyTypography();
+      });
+
+      [...els.themeGroup.querySelectorAll("button")].forEach((btn) => {
+        btn.addEventListener("click", () => applyTheme(btn.dataset.theme));
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") goPrev();
+        if (e.key === "ArrowRight") goNext();
+        if (e.key === "Escape") closePanels();
+      });
+
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      els.viewer.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      els.viewer.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const delta = touchEndX - touchStartX;
+        if (Math.abs(delta) < 50) return;
+        if (delta > 0) goPrev();
+        else goNext();
+      }, { passive: true });
+    }
+
+    async function initReader() {
+      loadSettings();
+      attachEvents();
+
+      if (!bookUrl) {
+        showEmpty();
+        return;
+      }
+
+      try {
+        state.book = ePub(decodeSafe(bookUrl));
+        state.rendition = state.book.renderTo("viewer", {
+          width: "100%",
+          height: "100%",
+          spread: "none",
+          flow: "paginated",
+          manager: "default"
+        });
+
+        state.rendition.hooks.content.register(() => {
+          applyTypography();
+        });
+
+        const metadata = await state.book.loaded.metadata;
+        state.metadata.title = manualTitle || metadata.title || "Untitled Book";
+        state.metadata.creator = manualAuthor || metadata.creator || "Unknown Author";
+        updateHeader();
+
+        const navigation = await state.book.loaded.navigation;
+        state.toc = navigation.toc || [];
+        renderToc();
+
+        await state.book.ready;
+        await state.book.locations.generate(1200);
+
+        const savedLocation = getSavedLocation();
+        await state.rendition.display(savedLocation || undefined);
+
+        state.rendition.on("relocated", (location) => {
+          updateProgress(location);
+        });
+
+        state.rendition.on("rendered", (section) => {
+          const currentHref = section?.href || "";
+          updateActiveToc(currentHref);
+        });
+
+        applyTypography();
+        hideEmpty();
+        setLoading(false);
+      } catch (err) {
+        console.error("Reader error:", err);
+        showEmpty();
+      }
+    }
+
+    initReader();
+  </script>
+</body>
+</html>
