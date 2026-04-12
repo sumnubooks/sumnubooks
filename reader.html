@@ -1271,7 +1271,7 @@
           new Promise((resolve) => setTimeout(resolve, 10000))
         ]).catch(() => {});
 
-        await state.book.locations.generate(1200).catch(() => {});
+        await state.book.locations.generate(150).catch(() => {});
 
         const savedLocation = getSavedLocation();
         await state.rendition.display(savedLocation || undefined);
@@ -1295,6 +1295,19 @@
     }
 
     initReader();
+
+    // Safety net — if loading overlay is still showing after 12s,
+    // force it off so the reader becomes usable even if epub.js stalls
+    setTimeout(function() {
+      if (els.loader && !els.loader.classList.contains('hidden')) {
+        setLoading(false);
+        hideEmpty();
+        // Try to display the first page if rendition exists but never rendered
+        if (state.rendition && state.book) {
+          state.rendition.display().catch(() => {});
+        }
+      }
+    }, 12000);
   </script>
 </body>
 </html>
