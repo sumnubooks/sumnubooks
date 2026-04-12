@@ -8,7 +8,7 @@ window.SUMNU_DATA={
       "genre": "Street Lit",
       "formats": ["Paperback", "Kindle"],
       "audiobookUrl": "audiobooks.html#ab1",
-      "epubUrl": "ebooks/PENNY For My Thoughts (The Definitive Edition) - E. D. Lewis.epub",
+      "epubUrl": "ebooks/a-penny-for-my-thoughts.epub",
       "cover": "images/books/book1.jpg",
       "audioSample": "audio/audiobooks/book1-sample.mp3",
       "buyUrl": "https://a.co/d/0dJkrj0d"
