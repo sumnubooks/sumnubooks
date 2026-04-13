@@ -1479,6 +1479,28 @@ const siteData = {
         image: `images/series/other-man/other-man-ep${i+1}.jpg`,
         audio: `audio/series/other-man/other-man-ep${i+1}.mp3`
       }))
+    },
+    {
+      type: 'series',
+      slug: 'stolen-passage',
+      title: 'Stolen Passage',
+      label: 'Cinematic thriller',
+      meta: 'Dropping April 20, 2026',
+      tagline: "Some people aren't passengers. They're cargo. And not everyone makes it to shore.",
+      cover: 'images/series/stolen-passage/stolen-passage-cover.jpg',
+      comingSoon: true,
+      items: []
+    },
+    {
+      type: 'series',
+      slug: 'she-still-here',
+      title: 'She Still Here',
+      label: 'Audio drama',
+      meta: 'Dropping April 20, 2026',
+      tagline: 'Coming exclusively to SumnuBooks April 20, 2026.',
+      cover: 'images/series/she-still-here/she-still-here-cover.jpg',
+      comingSoon: true,
+      items: []
     }
   ],
   audiobooks: [
@@ -1664,6 +1686,19 @@ siteData.radioTracks = siteData.music.flatMap(album =>
 );
 
 function buildCard(item, freeLabel, locked = false) {
+  if (item.comingSoon) {
+    return `
+      <article class="card-tile" data-type="${item.type}" data-slug="${item.slug}" data-coming-soon="true" tabindex="0" role="button" aria-label="${item.title} — Coming Soon" style="cursor:default;">
+        <div class="card-cover">${imgMarkup(item.cover, `${item.title} cover`)}</div>
+        <div class="card-gradient"></div>
+        <div class="card-free" style="background:rgba(212,168,67,.18);border:1px solid rgba(212,168,67,.5);color:#d4a843;font-weight:800;">🗓 APR 20</div>
+        <div class="card-copy">
+          <div class="card-kicker">${item.label}</div>
+          <div class="card-title">${item.title}</div>
+          <div class="card-meta" style="color:rgba(212,168,67,.7);">${item.meta}</div>
+        </div>
+      </article>`;
+  }
   return `
     <article class="card-tile ${locked ? 'is-locked' : ''}" data-type="${item.type}" data-slug="${item.slug}" tabindex="0" role="button" aria-label="Open ${item.title}">
       <div class="card-cover">${imgMarkup(item.cover, `${item.title} cover`)}</div>
@@ -1881,22 +1916,13 @@ function initRadio() {
     }
     current = next;
     const track = siteData.radioTracks[current];
-    setTrackUi(track);
-    player.pause();
-    player.src = '';
-    player.load();
     player.src = track.audio;
-    // Wait for canplay before calling play — prevents stutter/pause on mobile
-    function onCanPlay() {
-      player.removeEventListener('canplay', onCanPlay);
-      player.play().then(() => {
-        playBtn.textContent = '⏸ Pause radio';
-      }).catch(() => {
-        playBtn.textContent = '▶ Play radio';
-      });
-    }
-    player.addEventListener('canplay', onCanPlay);
-    player.load();
+    setTrackUi(track);
+    player.play().then(() => {
+      playBtn.textContent = '⏸ Pause radio';
+    }).catch(() => {
+      playBtn.textContent = '▶ Play radio';
+    });
   }
 
   playBtn.addEventListener('click', () => {
@@ -1905,20 +1931,6 @@ function initRadio() {
       return;
     }
     if (player.paused) {
-      // If readyState is too low, wait for canplay first
-      if (player.readyState < 3) {
-        playBtn.textContent = '⏳ Loading...';
-        function onReady() {
-          player.removeEventListener('canplay', onReady);
-          player.play().then(() => {
-            playBtn.textContent = '⏸ Pause radio';
-          }).catch(() => {
-            playBtn.textContent = '▶ Play radio';
-          });
-        }
-        player.addEventListener('canplay', onReady);
-        return;
-      }
       player.play().then(() => {
         playBtn.textContent = '⏸ Pause radio';
       }).catch(() => {});
@@ -1948,6 +1960,7 @@ function wireUi() {
     $('#' + id).addEventListener('click', e => {
       const tile = e.target.closest('.card-tile');
       if (!tile) return;
+      if (tile.dataset.comingSoon) return; // coming soon — no action
       if (tile.dataset.radioTile) {
         document.getElementById('musicShelf').scrollIntoView({ behavior: 'smooth', block: 'start' });
         document.getElementById('radioPlayBtn').click();
