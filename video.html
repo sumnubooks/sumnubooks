@@ -118,10 +118,9 @@
   </style>
 
   <link href="css/animations.css" rel="stylesheet"/>
-
-  <style>
-    .nav-account { display: none !important; }
-    html.vip-active .nav-account { display: flex !important; }
+<style>
+    .nav-account { display: none; }
+    html.vip-active .nav-account { display: inline-flex; }
   </style>
 </head>
 <body>
@@ -136,7 +135,7 @@
         <a href="audiobooks.html">Audiobooks</a>
         <a href="contact.html">Contact</a>
         <a href="unlock.html" class="vip-link nav-cta">VIP Access</a>
-        <a href="login.html" class="nav-account" style="border:1px solid rgba(73,180,110,.3);color:#a8f5bf !important;">👤 My Account</a>
+        <a href="login.html" class="nav-account" style="border:1px solid rgba(73,180,110,.25);color:#a8f5bf !important;padding:8px 12px;border-radius:999px;font-size:.82rem;font-weight:700;text-decoration:none;white-space:nowrap;">My Account</a>
       </nav>
     </div>
   </header>
