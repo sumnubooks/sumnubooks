@@ -1,13 +1,17 @@
+
 (function () {
   const PLAN_UID = 'jW70XZmq';
-  const ACTIVE_STATUSES = new Set(['active', 'trialing', 'trial', 'past_due', 'non_renewing']);
+  const ACTIVE_TEXT_STATUSES = new Set(['active', 'trialing', 'trial', 'past_due', 'non_renewing']);
+  const ACTIVE_NUMERIC_STATUSES = new Set([1, 7]);
   const state = {
     ready: false,
     user: null,
     vip: false,
     lastUserKey: '',
     lastVip: false,
-    readyEmitted: false
+    readyEmitted: false,
+    booting: true,
+    nullReadsAfterLogin: 0
   };
 
   function emit(name, detail) {
@@ -25,6 +29,15 @@
   function asArray(value) {
     if (!value) return [];
     return Array.isArray(value) ? value : [value];
+  }
+
+  function hasOutsetaTokenHint() {
+    try {
+      const keys = Object.keys(localStorage || {});
+      return keys.some(k => /outseta|token|jwt|access/i.test(k) && cleanString(localStorage.getItem(k)));
+    } catch (e) {
+      return false;
+    }
   }
 
   function collectSubscriptionCandidates(user) {
@@ -54,13 +67,16 @@
   }
 
   function statusOf(entry) {
-    return cleanString(
-      entry && (
-        entry.Status || entry.status ||
-        entry.SubscriptionStatus || entry.subscriptionStatus ||
-        entry.PlanStatus || entry.planStatus
-      )
-    ).toLowerCase();
+    const raw = entry && (
+      entry.Status ?? entry.status ??
+      entry.SubscriptionStatus ?? entry.subscriptionStatus ??
+      entry.PlanStatus ?? entry.planStatus
+    );
+
+    if (typeof raw === 'number') return raw;
+    const num = Number(raw);
+    if (!Number.isNaN(num) && cleanString(raw) !== '') return num;
+    return cleanString(raw).toLowerCase();
   }
 
   function planUidOf(entry) {
@@ -85,9 +101,21 @@
     const status = statusOf(entry);
     const planUid = planUidOf(entry);
     const planName = planNameOf(entry);
-    if (status && ACTIVE_STATUSES.has(status)) return true;
-    if (planUid && planUid === PLAN_UID && status !== 'canceled' && status !== 'cancelled' && status !== 'expired') return true;
-    if (planName && planName.includes('vip') && status !== 'canceled' && status !== 'cancelled' && status !== 'expired') return true;
+
+    const activeByStatus =
+      (typeof status === 'number' && ACTIVE_NUMERIC_STATUSES.has(status)) ||
+      (typeof status === 'string' && ACTIVE_TEXT_STATUSES.has(status));
+
+    const notDead =
+      status !== 'canceled' &&
+      status !== 'cancelled' &&
+      status !== 'expired' &&
+      status !== 3 &&
+      status !== 4;
+
+    if (activeByStatus) return true;
+    if (planUid && planUid === PLAN_UID && notDead) return true;
+    if (planName && planName.includes('vip') && notDead) return true;
     return false;
   }
 
@@ -97,19 +125,25 @@
     const candidates = collectSubscriptionCandidates(user);
     if (candidates.some(entryLooksActive)) return true;
 
-    const accountStatus = cleanString(
+    const accountStatus = statusOf(
       getPath(user, ['Account', 'MembershipStatus']) ||
       getPath(user, ['Account', 'membershipStatus']) ||
       getPath(user, ['MembershipStatus']) ||
-      getPath(user, ['membershipStatus'])
-    ).toLowerCase();
+      getPath(user, ['membershipStatus']) ||
+      ''
+    );
 
-    if (ACTIVE_STATUSES.has(accountStatus)) return true;
+    if (
+      (typeof accountStatus === 'number' && ACTIVE_NUMERIC_STATUSES.has(accountStatus)) ||
+      (typeof accountStatus === 'string' && ACTIVE_TEXT_STATUSES.has(accountStatus))
+    ) {
+      return true;
+    }
 
     return false;
   }
 
-  async function fetchUser() {
+  async function fetchUserOnce() {
     try {
       if (window.Outseta && typeof window.Outseta.getUser === 'function') {
         const result = await window.Outseta.getUser();
@@ -133,44 +167,90 @@
     return null;
   }
 
-  function userKey(user) {
-    if (!user) return '';
-    return cleanString(user.Uid || user.uid || user.Email || user.email || user.Name || user.name);
+  async function fetchUserStable() {
+    const attempts = [0, 150, 350, 700];
+    let found = null;
+    for (const wait of attempts) {
+      if (wait) {
+        await new Promise(r => setTimeout(r, wait));
+      }
+      const u = await fetchUserOnce();
+      if (u) {
+        found = u;
+        break;
+      }
+    }
+    return found;
   }
 
-  async function refreshState() {
-    const user = await fetchUser();
-    const vip = deriveVip(user);
-    const nextUserKey = userKey(user);
-    const userChanged = nextUserKey !== state.lastUserKey;
-    const vipChanged = vip !== state.lastVip;
+  function userKey(user) {
+    if (!user) return '';
+    return cleanString(
+      user.Uid || user.uid ||
+      user.Email || user.email ||
+      user.Name || user.name
+    );
+  }
 
-    state.user = user || null;
-    state.vip = !!vip;
+  function setDomFlags(vip, signedIn) {
+    document.documentElement.classList.toggle('vip-active', !!vip);
+    document.documentElement.classList.toggle('vip-inactive', !vip);
+    document.documentElement.classList.toggle('signed-in', !!signedIn);
+    document.documentElement.classList.toggle('signed-out', !signedIn);
+  }
+
+  async function refreshState(options) {
+    options = options || {};
+    const previousUserKey = state.lastUserKey;
+    const previousVip = state.lastVip;
+
+    const user = await fetchUserStable();
+    let nextUser = user;
+    let nextUserKey = userKey(nextUser);
+
+    if (!nextUser && previousUserKey) {
+      const tokenHint = hasOutsetaTokenHint();
+
+      // Prevent flicker: do not instantly demote a signed-in user on a transient null read.
+      if (tokenHint && !options.forceSignOut) {
+        state.nullReadsAfterLogin += 1;
+        if (state.nullReadsAfterLogin < 4) {
+          nextUser = state.user;
+          nextUserKey = previousUserKey;
+        }
+      }
+    } else {
+      state.nullReadsAfterLogin = 0;
+    }
+
+    const nextVip = deriveVip(nextUser);
+    const signedIn = !!nextUserKey;
+
+    state.user = nextUser || null;
+    state.vip = !!nextVip;
     state.ready = true;
+    state.booting = false;
 
     if (!state.readyEmitted) {
       state.readyEmitted = true;
       emit('outseta:ready', { user: state.user, vip: state.vip });
     }
 
+    setDomFlags(state.vip, signedIn);
+
+    const userChanged = nextUserKey !== previousUserKey;
+    const vipChanged = state.vip !== previousVip;
+
     if (userChanged) {
-      if (nextUserKey && !state.lastUserKey) emit('outseta:login', { user: state.user, vip: state.vip });
-      if (!nextUserKey && state.lastUserKey) emit('outseta:logout', { user: null, vip: false });
+      if (nextUserKey && !previousUserKey) emit('outseta:login', { user: state.user, vip: state.vip });
+      if (!nextUserKey && previousUserKey) emit('outseta:logout', { user: null, vip: false });
     }
 
-    // Only emit refresh when there's a real meaningful change
-    // Don't emit if we have no user and never had one (avoids re-rendering locked state on every retry)
-    const hadUser = !!state.lastUserKey;
-    const hasUser = !!nextUserKey;
-    if (vipChanged || (userChanged && (hadUser || hasUser))) {
-      emit('outseta:refresh', { user: state.user, vip: state.vip });
-    }
+    // Always emit refresh once ready so pages repaint reliably.
+    emit('outseta:refresh', { user: state.user, vip: state.vip });
 
     state.lastUserKey = nextUserKey;
     state.lastVip = state.vip;
-    document.documentElement.classList.toggle('vip-active', state.vip);
-    document.documentElement.classList.toggle('vip-inactive', !state.vip);
 
     return { user: state.user, vip: state.vip };
   }
@@ -187,7 +267,7 @@
     isReady: function () { return state.ready; },
     currentUser: function () { return state.user; },
     isVip: function () { return !!state.vip; },
-    refresh: refreshState,
+    refresh: function () { return refreshState(); },
     login: function (redirectUri) {
       return openAuth({ widgetMode: 'login', redirectUri: redirectUri || window.location.href });
     },
@@ -195,23 +275,12 @@
       return openAuth({ widgetMode: 'register', planUid: PLAN_UID, redirectUri: redirectUri || window.location.href });
     },
     logout: function () {
-      try {
-        localStorage.removeItem('vipUnlocked');
-      } catch (err) {}
-
+      state.nullReadsAfterLogin = 0;
       try {
         if (window.Outseta && window.Outseta.auth && typeof window.Outseta.auth.signOut === 'function') {
           window.Outseta.auth.signOut();
-          setTimeout(refreshState, 200);
-          return;
-        }
-      } catch (err) {}
-
-      try {
-        if (window.Outseta && window.Outseta.auth && typeof window.Outseta.auth.logout === 'function') {
+        } else if (window.Outseta && window.Outseta.auth && typeof window.Outseta.auth.logout === 'function') {
           window.Outseta.auth.logout();
-          setTimeout(refreshState, 200);
-          return;
         }
       } catch (err) {}
 
@@ -219,31 +288,43 @@
       state.vip = false;
       state.lastUserKey = '';
       state.lastVip = false;
+      state.ready = true;
+      setDomFlags(false, false);
       emit('outseta:logout', { user: null, vip: false });
       emit('outseta:refresh', { user: null, vip: false });
     }
   };
 
-  // First run at 50ms is blind (Outseta not loaded yet) — skip the DOM class toggle
-  // so we don't flash vip-active on/off before we have real data.
-  // All subsequent retries apply the class normally.
-  const retrySchedule = [50, 300, 900, 1800, 3200, 5000];
-  retrySchedule.forEach((ms, i) => {
-    setTimeout(i === 0 ? async function() {
-      // Quiet first probe — only update state, never touch the DOM class
-      const user = await fetchUser();
-      const vip = deriveVip(user);
-      const nextUserKey = userKey(user);
-      state.user = user || null;
-      state.vip = !!vip;
-      state.lastUserKey = nextUserKey;
-      state.lastVip = state.vip;
-      // Don't emit events or touch DOM yet — wait for the 300ms run
-    } : refreshState, ms);
-  });
-  window.addEventListener('focus', refreshState);
+  async function boot() {
+    // Wait for Outseta to load instead of probing too early and causing guest flashes
+    const started = Date.now();
+    while (!(window.Outseta && (typeof window.Outseta.getUser === 'function' || (window.Outseta.auth && typeof window.Outseta.auth.getUser === 'function')))) {
+      if (Date.now() - started > 8000) break;
+      await new Promise(r => setTimeout(r, 120));
+    }
+
+    await refreshState();
+
+    // a couple of quiet follow-up reads after boot to catch the post-login hydration window
+    setTimeout(refreshState, 400);
+    setTimeout(refreshState, 1200);
+  }
+
+  boot();
+
+  let refreshTimer = null;
+  function scheduleRefresh(delay) {
+    clearTimeout(refreshTimer);
+    refreshTimer = setTimeout(refreshState, delay || 80);
+  }
+
+  window.addEventListener('focus', function () { scheduleRefresh(120); });
   document.addEventListener('visibilitychange', function () {
-    if (!document.hidden) refreshState();
+    if (!document.hidden) scheduleRefresh(150);
   });
-  window.addEventListener('storage', function () { setTimeout(refreshState, 50); });
+  window.addEventListener('pageshow', function () { scheduleRefresh(120); });
+  window.addEventListener('storage', function () { scheduleRefresh(80); });
+
+  // Some Outseta builds fire auth lifecycle events; listen if present without requiring them.
+  window.addEventListener('accessToken.set', function () { scheduleRefresh(60); });
 })();

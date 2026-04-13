@@ -1994,7 +1994,7 @@ function wireUi() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 }
 
-// renderShelves() deferred — called after outseta:ready to prevent blink
+renderShelves();
 updateHomepageMode();
 updateResumeCard();
 initRadio();
@@ -2080,6 +2080,24 @@ window.addEventListener("outseta:login", function() {
 });
 window.addEventListener("outseta:logout", function() {
   applyVipState();
+});
+
+// Always rebuild homepage shelves on initial load and when returning via browser cache
+function repaintHomeShelves() {
+  try { renderShelves(); } catch (e) {}
+  try { updateHomepageMode(); } catch (e) {}
+  try { updateResumeCard(); } catch (e) {}
+  try { initRadio(); } catch (e) {}
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', repaintHomeShelves, { once: true });
+} else {
+  repaintHomeShelves();
+}
+
+window.addEventListener('pageshow', function() {
+  repaintHomeShelves();
 });
 
 // ── Marketing Banner Logic ──
