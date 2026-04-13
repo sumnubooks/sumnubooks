@@ -8,6 +8,8 @@
     var o_options = {
       domain: 'sumnuvision-llc.outseta.com',
       tokenStorage: 'local',
+      load: 'auth,profile',
+      monitorDom: true,
       auth: {
         authenticationCallbackUrl: 'https://sumnubooks.com/'
       }
@@ -189,11 +191,6 @@
     }
   </style>
   <link href="css/animations.css" rel="stylesheet"/>
-
-  <style>
-    .panel { visibility: hidden; transition: none !important; }
-    .panel.show { visibility: visible; }
-  </style>
 <style>
     .nav-account { display: none; }
     html.vip-active .nav-account { display: inline-flex; }
@@ -255,14 +252,19 @@
             <a class="btn-primary-full" href="index.html"
                style="margin-bottom:12px;">▶ Go to your content</a>
           </div>
-          <!-- Outseta self-service profile widget -->
-          <!-- Members can update billing, cancel, change password here -->
-          <div id="outseta-profile-wrap">
-            <p style="color:var(--muted,#aeb6c8);font-size:.88rem;margin-bottom:8px;">
+          <div id="outseta-profile-wrap" style="margin-top:16px;">
+            <p style="color:var(--muted,#aeb6c8);font-size:.88rem;margin-bottom:12px;">
               Manage your subscription, billing, and password:
             </p>
-            <!-- Outseta profile embed — renders automatically when widget loads -->
-            <div data-o-profile="true"></div>
+            <!-- Outseta inline profile embed -->
+            <div data-o-profile="true" style="min-height:200px;"></div>
+            <!-- Fallback direct link if embed doesn't render -->
+            <div id="profileFallback" style="display:none;margin-top:8px;">
+              <a href="https://sumnuvision-llc.outseta.com/profile" target="_blank"
+                 class="btn-secondary-full" style="margin-top:8px;">
+                Open Account Settings ↗
+              </a>
+            </div>
           </div>
           <div style="margin-top:16px;">
             <button class="btn-secondary-full" id="logoutBtn">
@@ -325,15 +327,9 @@
       });
     }
 
-    // Start with all panels hidden to prevent blink
-    document.getElementById('signedOutPanel').style.visibility = 'hidden';
-
     function applyState() {
       var user = window.SumnuAuth ? window.SumnuAuth.currentUser() : null;
       var vip  = window.SumnuAuth ? window.SumnuAuth.isVip()       : false;
-
-      // Make panels visible now that we have real state
-      document.getElementById('signedOutPanel').style.visibility = '';
 
       if (!user) {
         showPanel('signedOutPanel');
@@ -382,6 +378,15 @@
     });
 
     // React to auth state changes
+
+    // Show fallback link if Outseta profile widget doesn't render
+    setTimeout(function() {
+      var wrap = document.getElementById('outseta-profile-wrap');
+      var fallback = document.getElementById('profileFallback');
+      if (!wrap || !fallback) return;
+      var hasWidget = wrap.querySelector('iframe, [class*="outseta"], [class*="o--"]');
+      if (!hasWidget) fallback.style.display = 'block';
+    }, 3000);
     window.addEventListener('outseta:ready',  applyState);
     window.addEventListener('outseta:login',  applyState);
     window.addEventListener('outseta:logout', function () { showPanel('signedOutPanel'); });
