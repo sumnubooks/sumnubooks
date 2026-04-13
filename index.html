@@ -989,6 +989,22 @@
   </style>
 
   <link href="css/animations.css" rel="stylesheet"/>
+
+  <style>
+    /* Hide shelf content until auth is ready to prevent locked->unlocked blink */
+    body:not(.auth-ready) #seriesGrid,
+    body:not(.auth-ready) #audiobookGrid,
+    body:not(.auth-ready) #musicGrid {
+      opacity: 0;
+      pointer-events: none;
+    }
+    body.auth-ready #seriesGrid,
+    body.auth-ready #audiobookGrid,
+    body.auth-ready #musicGrid {
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+  </style>
 </head>
 <body>
 <div id="siteSplash" class="site-splash" aria-hidden="true">
@@ -1989,7 +2005,7 @@ function wireUi() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 }
 
-renderShelves();
+// renderShelves() deferred — called after outseta:ready to prevent blink
 updateHomepageMode();
 updateResumeCard();
 initRadio();
@@ -2049,6 +2065,7 @@ function updateHomepageMode() {
 
 function applyVipState() {
   renderShelves();
+  document.body.classList.add('auth-ready');
   var vip = isVip();
   ["heroUnlockBtn","vipCtaBtn","mobileUnlockBtn"].forEach(function(id) {
     var el = document.getElementById(id);
