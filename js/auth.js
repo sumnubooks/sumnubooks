@@ -159,7 +159,11 @@
       if (!nextUserKey && state.lastUserKey) emit('outseta:logout', { user: null, vip: false });
     }
 
-    if (vipChanged || userChanged) {
+    // Only emit refresh when there's a real meaningful change
+    // Don't emit if we have no user and never had one (avoids re-rendering locked state on every retry)
+    const hadUser = !!state.lastUserKey;
+    const hasUser = !!nextUserKey;
+    if (vipChanged || (userChanged && (hadUser || hasUser))) {
       emit('outseta:refresh', { user: state.user, vip: state.vip });
     }
 

@@ -2074,15 +2074,13 @@ function applyVipState() {
 }
 window.addEventListener("outseta:ready", function() {
   applyVipState();
-  // Re-check after short delay in case subscription data loads after ready event
-  setTimeout(applyVipState, 800);
-  setTimeout(applyVipState, 2000);
 });
 window.addEventListener("outseta:login", function() {
   applyVipState();
-  setTimeout(applyVipState, 800);
 });
-window.addEventListener("outseta:refresh", function() { applyVipState(); });
+window.addEventListener("outseta:logout", function() {
+  applyVipState();
+});
 
 // ── Marketing Banner Logic ──
 (function() {
