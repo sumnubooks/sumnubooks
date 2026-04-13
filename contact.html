@@ -118,6 +118,11 @@
   </style>
 
   <link href="css/animations.css" rel="stylesheet"/>
+
+  <style>
+    .nav-account { display: none !important; }
+    html.vip-active .nav-account { display: flex !important; }
+  </style>
 </head>
 <body>
 
@@ -131,6 +136,7 @@
         <a href="audiobooks.html">Audiobooks</a>
         <a href="contact.html" class="active">Contact</a>
         <a href="unlock.html" class="vip-link nav-cta">VIP Access</a>
+        <a href="login.html" class="nav-account" style="border:1px solid rgba(73,180,110,.3);color:#a8f5bf !important;">👤 My Account</a>
       </nav>
     </div>
   </header>
@@ -178,7 +184,7 @@
 <div class="section-title">
 <div>
 <h2>Send a message</h2>
-<p>Fill out the form below and we'll get back to you.</p>
+<p>This form is “static” (works once you connect it to a form service). For now it opens your email app.</p>
 </div>
 </div>
 <form class="form" onsubmit="event.preventDefault(); window.location.href = buildMailto();">

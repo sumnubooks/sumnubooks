@@ -1,358 +1,465 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Audiobooks — Sumnu Books</title>
-  <meta name="description" content="Exclusive audiobooks by E.D. Lewis. Stream with VIP or buy DRM-free MP3 downloads. Only at SumnuBooks.com."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/site.css"/>
-  <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --gold: #d4a843;
-    --bg: #06080f;
-    --text: #e8e8f0;
-    --muted: rgba(255,255,255,.4);
-    --border: rgba(255,255,255,.07);
-    --surface: rgba(12,16,28,.9);
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <script>
+    var o_options = {
+      domain: 'sumnuvision-llc.outseta.com',
+      tokenStorage: 'local',
+      auth: { authenticationCallbackUrl: 'https://sumnubooks.com/' }
+    };
+  </script>
+  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
+<title>Exclusive Audiobooks — Only at SumnuBooks.com</title>
+<meta name="description" content="Two exclusive audiobooks by E.D. Lewis — only available at SumnuBooks.com. Not on Amazon or Audible. $12.99 each, instant access."/>
+<link href="css/site.css" rel="stylesheet"/>
+<style>
+  .exclusive-banner {
+    background: linear-gradient(90deg,#b8860b 0%,#ffd700 50%,#b8860b 100%);
+    color:#000; text-align:center; padding:10px 16px;
+    font-weight:700; font-size:.92rem; letter-spacing:.04em;
+    position:sticky; top:0; z-index:999;
   }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    -webkit-tap-highlight-color: transparent;
+  .price-tag {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--gold, #ffd700);
+    line-height: 1;
+    margin: 6px 0 4px;
   }
-
-  /* Top nav */
-  .top-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 18px;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    background: rgba(6,8,15,.95);
-    backdrop-filter: blur(12px);
-    z-index: 10;
-  }
-  .nav-logo img { height: 36px; display: block; }
-  .nav-home {
-    display: flex; align-items: center; gap: 6px;
-    min-height: 44px; color: var(--muted);
-    text-decoration: none; font-size: .82rem; font-weight: 500;
-  }
-  .nav-home:active { color: var(--gold); }
-  .nav-home svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
-
-  .container { max-width: 560px; margin: 0 auto; padding: 0 18px; }
-
-  /* Hero */
-  .page-hero { padding: 28px 18px 0; text-align: center; }
-  .page-eyebrow { font-size: .68rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
-  .page-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 600; line-height: 1.15; margin-bottom: 10px; }
-  .page-desc { font-size: .88rem; color: var(--muted); line-height: 1.6; max-width: 400px; margin: 0 auto 16px; }
-  .hero-pills { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 24px; }
-  .hero-pill { font-size: .68rem; font-weight: 600; letter-spacing: .05em; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(212,168,67,.25); color: rgba(255,255,255,.45); }
-
-  /* How it works */
-  .how-bar {
-    margin: 0 18px 24px;
-    padding: 14px 16px;
-    border-radius: 14px;
-    background: rgba(212,168,67,.06);
-    border: 1px solid rgba(212,168,67,.15);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-  }
-  .how-item { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: rgba(255,255,255,.55); }
-  .how-icon { font-size: 1rem; }
-  .how-sep { color: rgba(212,168,67,.25); font-size: .7rem; }
-
-  /* Section head */
-  .section-head { padding: 0 18px 12px; border-bottom: 1px solid var(--border); margin: 0 18px 16px; }
-  .section-label { font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
-
-  /* Audiobook cards */
-  .ab-list { padding: 0 18px; }
-  .ab-card {
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-    -webkit-tap-highlight-color: transparent;
-  }
-  .ab-card:last-child { border-bottom: none; }
-  .ab-cover {
-    width: 72px;
-    min-width: 72px;
-    height: 72px;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid rgba(212,168,67,.18);
-    box-shadow: 0 4px 12px rgba(0,0,0,.4);
-    flex-shrink: 0;
-  }
-  .ab-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .ab-info { flex: 1; min-width: 0; }
-  .ab-eyebrow { font-size: .62rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 3px; opacity: .8; }
-  .ab-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: #fff; line-height: 1.2; margin-bottom: 4px; }
-  .ab-meta { font-size: .72rem; color: var(--muted); margin-bottom: 10px; line-height: 1.4; }
-  .ab-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-
-  .btn-stream {
-    display: inline-flex; align-items: center; gap: 5px;
-    min-height: 36px; padding: 0 14px;
-    border-radius: 999px;
-    background: var(--gold); color: #0a0c16;
-    font-size: .74rem; font-weight: 800; letter-spacing: .04em;
-    text-decoration: none; border: none; cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .btn-stream:active { background: #c8902a; }
-
-  .btn-buy {
-    display: inline-flex; align-items: center; gap: 5px;
-    min-height: 36px; padding: 0 14px;
-    border-radius: 999px;
-    background: none;
-    border: 1px solid rgba(212,168,67,.35);
-    color: var(--gold);
-    font-size: .74rem; font-weight: 700; letter-spacing: .04em;
-    text-decoration: none; cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .btn-buy:active { background: rgba(212,168,67,.1); }
-  .btn-buy.disabled { opacity: .4; pointer-events: none; }
-
-  /* Coming soon */
-  .coming-soon-badge {
+  .only-here-badge {
     display: inline-block;
-    font-size: .62rem; font-weight: 800; letter-spacing: .08em;
+    background: var(--gold, #ffd700);
+    color: #000;
+    font-weight: 800;
+    font-size: .72rem;
+    letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--muted);
-    border: 1px solid rgba(255,255,255,.1);
-    padding: 3px 8px; border-radius: 999px;
-    margin-bottom: 8px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
   }
-  .ab-card.coming-soon { opacity: .6; }
+  .paypal-form { margin-top: 8px; }
+  .paypal-note {
+    font-size: .78rem;
+    opacity: .65;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+  .ab-available { border: 1px solid rgba(255,215,0,.35) !important; }
+  .ab-upcoming { opacity: .8; }
+</style>
 
-  /* VIP CTA */
-  .vip-cta {
-    margin: 28px 18px;
-    padding: 20px 18px;
-    border-radius: 18px;
-    background: rgba(212,168,67,.07);
-    border: 1px solid rgba(212,168,67,.2);
-    text-align: center;
-  }
-  .vip-cta-label { font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-  .vip-cta-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; margin-bottom: 6px; }
-  .vip-cta-desc { font-size: .8rem; color: var(--muted); line-height: 1.5; margin-bottom: 14px; }
-  .btn-vip {
-    display: inline-flex; align-items: center; gap: 6px;
-    min-height: 44px; padding: 0 22px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #f0c060, var(--gold), #c8902a);
-    color: #0a0c16; font-size: .82rem; font-weight: 800;
-    letter-spacing: .05em; text-decoration: none;
-    box-shadow: 0 4px 16px rgba(212,168,67,.3);
-  }
-  .btn-vip:active { opacity: .85; }
+  <style>
+    /* Unified shell */
+    .site-header{
+      position:sticky;top:0;z-index:50;
+      background:rgba(6,8,15,.90);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .navbar-shell{
+      min-height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .nav-links-shell{
+      display:flex !important;
+      align-items:center;
+      gap:10px;
+      flex-wrap:nowrap;
+      overflow-x:auto;
+      overflow-y:hidden;
+      width:100%;
+      justify-content:center;
+      scrollbar-width:none;
+      -webkit-overflow-scrolling:touch;
+      padding:8px 0 !important;
+      background:transparent !important;
+      border:0 !important;
+      border-radius:0 !important;
+      position:static !important;
+    }
+    .nav-links-shell::-webkit-scrollbar{display:none;}
+    .nav-links-shell a{
+      flex:0 0 auto;
+      white-space:nowrap;
+      padding:10px 14px;
+      border-radius:999px;
+      color:var(--muted,#9aa3b7);
+      font-weight:700;
+      font-size:.92rem;
+      text-decoration:none;
+    }
+    .nav-links-shell a:hover,
+    .nav-links-shell a.active{
+      color:var(--text,#fff);
+      background:rgba(255,255,255,.06);
+    }
+    .nav-links-shell .nav-cta{
+      border:1px solid rgba(212,168,67,.28);
+      color:var(--gold,#d4a843) !important;
+      background:transparent !important;
+    }
+    .logo-band{
+      padding:18px 0 10px;
+    }
+    .logo-band-inner{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .hero-logo-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      line-height:0;
+    }
+    .hero-logo-img{
+      display:block;
+      width:min(64vw,360px);
+      max-width:360px;
+      height:auto;
+      object-fit:contain;
+      filter:drop-shadow(0 0 12px rgba(212,168,67,.12));
+    }
+    .site-logo-header,
+    .exclusive-banner,
+    .mobile-sticky-cta,
+    .nav-toggle,
+    .brand,
+    .brand-title,
+    .brand-sub{
+      display:none !important;
+    }
 
-  /* Footer */
-  .page-footer {
-    margin-top: 32px;
-    padding: 20px 18px;
-    border-top: 1px solid var(--border);
-    text-align: center;
-  }
-  .footer-links { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-bottom: 12px; }
-  .footer-links a { font-size: .78rem; color: var(--muted); text-decoration: none; }
-  .footer-links a:active { color: var(--gold); }
-  .footer-copy { font-size: .7rem; color: rgba(255,255,255,.2); }
+    @media (max-width:760px){
+      .navbar-shell{min-height:58px;}
+      .nav-links-shell{justify-content:flex-start;}
+      .nav-links-shell a{
+        font-size:.82rem;
+        padding:8px 12px;
+      }
+      .logo-band{
+        padding:14px 0 8px;
+      }
+      .hero-logo-img{
+        width:min(76vw,290px);
+      }
+    }
+  </style>
 
-  @media (min-width: 600px) {
-    .ab-cover { width: 84px; min-width: 84px; height: 84px; }
-    .ab-title { font-size: 1.1rem; }
-    .how-bar { gap: 16px; }
-  }
-  @media (min-width: 900px) {
-    .nav-home:hover { color: var(--gold); }
-    .btn-stream:hover { background: #e8c05a; }
-    .btn-buy:hover { background: rgba(212,168,67,.08); }
-  }
+  <link href="css/animations.css" rel="stylesheet"/>
+
+  <style>
+    /* ── Compact horizontal audiobook cards ── */
+    .page-audiobooks .grid.grid-3,
+    .page-audiobooks .grid.grid-2 {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+    }
+    .page-audiobooks .card.product {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: stretch !important;
+      border-radius: 14px !important;
+      overflow: hidden !important;
+      border: 1px solid rgba(255,255,255,.07) !important;
+      background: rgba(255,255,255,.03) !important;
+      min-height: 160px !important;
+    }
+    .page-audiobooks .ab-available {
+      border: 1px solid rgba(212,168,67,.25) !important;
+    }
+    /* Cover — portrait on left */
+    .page-audiobooks .product-cover {
+      width: 110px !important;
+      min-width: 110px !important;
+      max-width: 110px !important;
+      padding: 0 !important;
+      background: none !important;
+      border-bottom: none !important;
+      border-right: 1px solid rgba(255,255,255,.06) !important;
+      flex-shrink: 0 !important;
+    }
+    .page-audiobooks .product-cover img {
+      width: 110px !important;
+      height: 100% !important;
+      min-height: 160px !important;
+      object-fit: cover !important;
+      border-radius: 0 !important;
+      max-height: none !important;
+      display: block !important;
+    }
+    /* Body — right side */
+    .page-audiobooks .product-body {
+      flex: 1 !important;
+      padding: 10px 12px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      gap: 6px !important;
+      min-width: 0 !important;
+    }
+    /* Hide badge and subtitle */
+    .page-audiobooks .only-here-badge,
+    .page-audiobooks .muted { display: none !important; }
+    /* Title */
+    .page-audiobooks .product-title {
+      font-size: .88rem !important;
+      line-height: 1.25 !important;
+      white-space: normal !important;
+      overflow: visible !important;
+      text-overflow: unset !important;
+    }
+    /* Price */
+    .page-audiobooks .price-tag {
+      font-size: 1rem !important;
+      margin: 2px 0 !important;
+    }
+    /* Sample audio */
+    .page-audiobooks .audio-sample { margin: 0 !important; }
+    .page-audiobooks .audio-sample audio {
+      height: 32px !important;
+      width: 100% !important;
+      margin-top: 4px !important;
+    }
+    /* Hide paypal note */
+    .page-audiobooks .paypal-note { display: none !important; }
+    /* 3 action buttons in a row */
+    .page-audiobooks .paypal-form { margin-top: 0 !important; }
+    .page-audiobooks .book-actions-row {
+      display: flex !important;
+      gap: 6px !important;
+      margin-top: 6px !important;
+    }
+    .page-audiobooks .book-actions-row .btn {
+      flex: 1 !important;
+      font-size: .72rem !important;
+      padding: 8px 4px !important;
+      justify-content: center !important;
+      text-align: center !important;
+      white-space: nowrap !important;
+    }
+    /* Hero section compact */
+    .page-audiobooks .page-hero {
+      padding: 12px 0 8px !important;
+    }
+    .page-audiobooks .page-hero h1 {
+      font-size: clamp(1.3rem, 5vw, 2rem) !important;
+      margin-bottom: 4px !important;
+    }
+    .page-audiobooks .page-hero .lead {
+      font-size: .82rem !important;
+      margin-bottom: 8px !important;
+    }
+    .page-audiobooks .pill-row {
+      gap: 4px !important;
+    }
+    .page-audiobooks .pill-row .pill {
+      font-size: .68rem !important;
+      padding: 3px 8px !important;
+    }
+    /* Logo smaller on audiobooks */
+    .page-audiobooks .logo-band {
+      padding: 8px 0 6px !important;
+    }
+    .page-audiobooks .hero-logo-img {
+      width: min(35vw, 140px) !important;
+    }
+    /* Section heads */
+    .page-audiobooks .section-head h2 {
+      font-size: 1rem !important;
+      margin-bottom: 4px !important;
+    }
+  </style>
+
+  <style>
+    .nav-account { display: none !important; }
+    html.vip-active .nav-account { display: flex !important; }
   </style>
 </head>
-<body>
+<body class="page-audiobooks">
 
-  <!-- Nav -->
-  <nav class="top-nav">
-    <a href="index.html" class="nav-home">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      Home
-    </a>
-    <div class="nav-logo">
-      <a href="index.html"><img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books"></a>
+<header class="site-header">
+    <div class="container navbar navbar-shell">
+      <nav class="nav-links nav-links-shell" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="books.html">Books</a>
+        <a href="music.html">Music</a>
+        <a href="video.html">Videos</a>
+        <a href="audiobooks.html" class="active">Audiobooks</a>
+        <a href="contact.html">Contact</a>
+        <a href="unlock.html" class="vip-link nav-cta">VIP Access</a>
+        <a href="login.html" class="nav-account" style="border:1px solid rgba(73,180,110,.3);color:#a8f5bf !important;">👤 My Account</a>
+      </nav>
     </div>
-    <div style="width:60px;"></div>
-  </nav>
+  </header>
 
-  <!-- Hero -->
-  <div class="page-hero">
-    <div class="page-eyebrow">E.D. Lewis · Exclusive Audiobooks</div>
-    <h1 class="page-title">Only Here.<br>Nowhere Else.</h1>
-    <p class="page-desc">Not on Amazon. Not on Audible. These audiobooks are exclusive to SumnuBooks.com — stream with VIP or own the MP3 forever.</p>
-    <div class="hero-pills">
-      <span class="hero-pill">🔒 Exclusive to SumnuBooks</span>
-      <span class="hero-pill">Ch 1–2 Free</span>
-      <span class="hero-pill">VIP Stream $9.99/mo</span>
-      <span class="hero-pill">Buy to Own $12.99</span>
+  <section class="logo-band">
+    <div class="container logo-band-inner">
+      <a href="index.html" class="hero-logo-link" aria-label="Sumnu Books home">
+        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
+      </a>
     </div>
+  </section>
+
+
+</div>
+
+<main class="section">
+  <div class="container">
+
+    <section class="page-hero">
+      <p class="kicker">Exclusive Audiobooks</p>
+      <h1>Only Here. Nowhere Else.</h1>
+      <p class="lead">Not on Amazon or Audible. Buy direct — DRM-free MP3, keep forever.</p>
+      <div class="pill-row">
+        <span class="pill">🔒 Exclusive to SumnuBooks.com</span>
+        <span class="pill">💰 $12.99 each</span>
+        <span class="pill">📱 MP3 — Any device</span>
+        <span class="pill">♾️ Keep forever</span>
+      </div>
+    </section>
+
+    <!-- Available audiobooks -->
+    <section style="margin-top:28px;">
+      <div class="section-head">
+        <h2>Available Now — $12.99 Each</h2>
+      </div>
+      <div class="grid grid-3" style="margin-top:14px;">
+        <article id="ab1" class="card product ab-available">
+          <div class="product-cover">
+            <img alt="A PENNY FOR MY THOUGHTS cover" src="images/books/book1.jpg"/>
+          </div>
+          <div class="product-body">
+            <div class="product-title">A PENNY FOR MY THOUGHTS</div>
+            <div class="price-tag">$12.99</div>
+            <div class="audio-sample" data-audio-wrap="">
+              <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-1" type="button">🎧 SAMPLE</button>
+              <audio controls="" id="ab-sample-1" preload="none">
+                <source src="audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch2.mp3" type="audio/mpeg"/>
+              </audio>
+            </div>
+            <div class="book-actions-row">
+              <a class="btn btn-primary" href="https://payhip.com/b/9sX8Z" target="_blank">💳 BUY</a>
+              <a class="btn btn-secondary" href="audiobooks.html">▶ STREAM</a>
+            </div>
+          </div>
+        </article>
+        <article id="ab2" class="card product ab-available">
+          <div class="product-cover">
+            <img alt="UNPLUGGED: 30 DAYS OF CHAOS cover" src="images/books/book2.jpg"/>
+          </div>
+          <div class="product-body">
+            <div class="product-title">UNPLUGGED: 30 DAYS OF CHAOS</div>
+            <div class="price-tag">$12.99</div>
+            <div class="audio-sample" data-audio-wrap="">
+              <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-2" type="button">🎧 SAMPLE</button>
+              <audio controls="" id="ab-sample-2" preload="none">
+                <source src="audio/audiobooks/unplugged/unplugged-ch2.mp3" type="audio/mpeg"/>
+              </audio>
+            </div>
+            <div class="book-actions-row">
+              <a class="btn btn-primary" href="https://payhip.com/b/zXevO" target="_blank">💳 BUY</a>
+              <a class="btn btn-secondary" href="audiobooks.html">▶ STREAM</a>
+            </div>
+          </div>
+        </article>
+        <article id="ab3" class="card product ab-available">
+          <div class="product-cover">
+            <img alt="THE JAILHOUSE LAWYER cover" src="images/books/book3.jpg"/>
+          </div>
+          <div class="product-body">
+            <div class="product-title">THE JAILHOUSE LAWYER</div>
+            <div class="price-tag">$12.99</div>
+            <div class="audio-sample" data-audio-wrap="">
+              <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-3" type="button">🎧 SAMPLE</button>
+              <audio controls="" id="ab-sample-3" preload="none">
+                <source src="audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch1.mp3" type="audio/mpeg"/>
+              </audio>
+            </div>
+            <div class="book-actions-row">
+              <a class="btn btn-primary" href="#" target="_blank" style="opacity:.5;pointer-events:none;">💳 BUY</a>
+              <a class="btn btn-secondary" href="jailhouse-lawyer-stream.html">▶ STREAM</a>
+            </div>
+          </div>
+        </article>
+        <article id="ab4" class="card product ab-available">
+          <div class="product-cover">
+            <img alt="STILL STANDING cover" src="images/books/still-standing.jpg"/>
+          </div>
+          <div class="product-body">
+            <div class="product-title">STILL STANDING</div>
+            <div class="price-tag">$12.99</div>
+            <div class="audio-sample" data-audio-wrap="">
+              <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-4" type="button">🎧 SAMPLE</button>
+              <audio controls="" id="ab-sample-4" preload="none">
+                <source src="audio/audiobooks/still-standing/Still-Standing-Ch1.mp3" type="audio/mpeg"/>
+              </audio>
+            </div>
+            <div class="book-actions-row">
+              <a class="btn btn-primary" href="#" target="_blank" style="opacity:.5;pointer-events:none;">💳 BUY</a>
+              <a class="btn btn-secondary" href="still-standing-stream.html">▶ STREAM</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Upcoming audiobooks -->
+    <section style="margin-top:36px;">
+      <div class="section-head">
+        <h2>Coming Soon — Notify Me</h2>
+        <p class="muted">More audiobooks in production. Get notified first.</p>
+      </div>
+      <div class="grid grid-3" style="margin-top:14px;">
+
+        <article class="card product ab-upcoming" aria-label="Chandra: Forbidden Obsession audiobook upcoming">
+          <div class="product-cover">
+            <img alt="Chandra: Forbidden Obsession cover" src="images/books/book4.jpg"/>
+          </div>
+          <div class="product-body">
+            <span class="pill" style="margin-bottom:8px; display:inline-block;">🔜 Coming Soon</span>
+            <h3 class="product-title">CHANDRA: FORBIDDEN OBSESSION</h3>
+            <p class="muted">Audiobook in production</p>
+            <div class="actions">
+              <a class="btn btn-primary btn-small" href="/cdn-cgi/l/email-protection#6e1d0f020b1d2e1d1b03001b0c0101051d400d0103511d1b0c040b0d1a532f1b0a07010c0101054b5c5e20011a0708070d0f1a0701004b5c5e3c0b1f1b0b1d1a" rel="noopener" target="_blank">Notify Me</a>
+              <a class="btn btn-secondary btn-small" href="books.html">See Book</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card product ab-upcoming" aria-label="The Echo: Origins audiobook upcoming">
+          <div class="product-cover">
+            <img alt="The Echo: Origins cover" src="images/books/book7.jpg"/>
+          </div>
+          <div class="product-body">
+            <span class="pill" style="margin-bottom:8px; display:inline-block;">🔜 Coming Soon</span>
+            <h3 class="product-title">THE ECHO: ORIGINS</h3>
+            <p class="muted">Audiobook in production</p>
+            <div class="actions">
+              <a class="btn btn-primary btn-small" href="/cdn-cgi/l/email-protection#552634393026152620383b20373a3a3e267b363a386a2620373f303621681420313c3a373a3a3e7067651b3a213c333c3634213c3a3b70676507302420302621" rel="noopener" target="_blank">Notify Me</a>
+              <a class="btn btn-secondary btn-small" href="books.html">See Book</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
   </div>
+</main>
 
-  <!-- How it works bar -->
-  <div class="how-bar">
-    <div class="how-item"><span class="how-icon">▶</span> Stream free Chapters 1–2</div>
-    <div class="how-sep">·</div>
-    <div class="how-item"><span class="how-icon">🔓</span> VIP unlocks everything</div>
-    <div class="how-sep">·</div>
-    <div class="how-item"><span class="how-icon">💾</span> Buy = DRM-free MP3 forever</div>
-  </div>
-
-  <!-- Available now -->
-  <div class="section-head">
-    <div class="section-label">Available Now</div>
-  </div>
-
-  <div class="ab-list">
-
-    <!-- A Penny For My Thoughts -->
-    <div class="ab-card">
-      <div class="ab-cover">
-        <img src="images/covers-square/a-penny-for-my-thoughts.jpg" alt="A Penny For My Thoughts" loading="lazy">
-      </div>
-      <div class="ab-info">
-        <div class="ab-eyebrow">Urban Thriller</div>
-        <div class="ab-title">A Penny For My Thoughts</div>
-        <div class="ab-meta">50 chapters · E.D. Lewis · Ch 1–2 free</div>
-        <div class="ab-actions">
-          <a class="btn-stream" href="audiobook.html?slug=a-penny-for-my-thoughts">▶ Stream</a>
-          <a class="btn-buy" href="https://payhip.com/b/9sX8Z" target="_blank" rel="noopener">💾 Buy $12.99</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Unplugged -->
-    <div class="ab-card">
-      <div class="ab-cover">
-        <img src="images/covers-square/unplugged.jpg" alt="Unplugged: 30 Days of Chaos" loading="lazy">
-      </div>
-      <div class="ab-info">
-        <div class="ab-eyebrow">Dystopian Suspense</div>
-        <div class="ab-title">Unplugged: 30 Days of Chaos</div>
-        <div class="ab-meta">18 chapters · E.D. Lewis · Ch 1–2 free</div>
-        <div class="ab-actions">
-          <a class="btn-stream" href="audiobook.html?slug=unplugged">▶ Stream</a>
-          <a class="btn-buy" href="https://payhip.com/b/zXevO" target="_blank" rel="noopener">💾 Buy $12.99</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- The Jailhouse Lawyer -->
-    <div class="ab-card">
-      <div class="ab-cover">
-        <img src="images/covers-square/the-jailhouse-lawyer.jpg" alt="The Jailhouse Lawyer" loading="lazy">
-      </div>
-      <div class="ab-info">
-        <div class="ab-eyebrow">Legal Thriller</div>
-        <div class="ab-title">The Jailhouse Lawyer</div>
-        <div class="ab-meta">20 chapters · E.D. Lewis · Ch 1–2 free</div>
-        <div class="ab-actions">
-          <a class="btn-stream" href="audiobook.html?slug=the-jailhouse-lawyer">▶ Stream</a>
-          <a class="btn-buy disabled" href="#">💾 Buy — Coming Soon</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Still Standing -->
-    <div class="ab-card">
-      <div class="ab-cover">
-        <img src="images/covers-square/still-standing.jpg" alt="Still Standing" loading="lazy">
-      </div>
-      <div class="ab-info">
-        <div class="ab-eyebrow">Nonfiction</div>
-        <div class="ab-title">Still Standing</div>
-        <div class="ab-meta">15 chapters · E.D. Lewis · Ch 1–2 free</div>
-        <div class="ab-actions">
-          <a class="btn-stream" href="audiobook.html?slug=still-standing">▶ Stream</a>
-          <a class="btn-buy disabled" href="#">💾 Buy — Coming Soon</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Coming soon -->
-  <div class="section-head" style="margin-top:24px;">
-    <div class="section-label">Coming Soon</div>
-  </div>
-
-  <div class="ab-list">
-
-    <!-- Chandra -->
-    <div class="ab-card coming-soon">
-      <div class="ab-cover">
-        <img src="images/covers-square/chandra.jpg" alt="Chandra: Forbidden Obsession" loading="lazy">
-      </div>
-      <div class="ab-info">
-        <div class="ab-eyebrow">Psychological Thriller</div>
-        <div class="ab-title">Chandra: Forbidden Obsession</div>
-        <div class="ab-meta">20 chapters · E.D. Lewis</div>
-        <span class="coming-soon-badge">🔜 In Production</span>
-      </div>
-    </div>
-
-    <!-- The Echo: Origins -->
-    <div class="ab-card coming-soon">
-      <div class="ab-cover">
-        <img src="images/covers-square/the-echo-origins.jpg" alt="The Echo: Origins" loading="lazy">
-      </div>
-      <div class="ab-info">
-        <div class="ab-eyebrow">Superhero Sci-Fi</div>
-        <div class="ab-title">The Echo: Origins</div>
-        <div class="ab-meta">15 chapters · E.D. Lewis</div>
-        <span class="coming-soon-badge">🔜 In Production</span>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- VIP CTA -->
-  <div class="vip-cta">
-    <div class="vip-cta-label">Sumnu Books VIP</div>
-    <div class="vip-cta-title">Stream Everything for $9.99/mo</div>
-    <p class="vip-cta-desc">All audiobooks, all audio series, and all music — one membership. Cancel anytime. 7-day free trial.</p>
-    <a class="btn-vip" href="unlock.html">🔓 Start Free Trial</a>
-  </div>
-
-  <!-- Footer -->
-  <div class="page-footer">
-    <div class="footer-links">
-      <a href="index.html">Home</a>
-      <a href="books.html">Books</a>
-      <a href="music.html">Music</a>
-      <a href="unlock.html">VIP Access</a>
-      <a href="contact.html">Contact</a>
-    </div>
-    <div class="footer-copy">© 2025 SumnuVision LLC · E.D. Lewis · All rights reserved</div>
-  </div>
-
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <h3>Sumnu Books</h3>
+      <p>Sci-Fi • Thriller • Urban Fiction</p>
+      <p style="margin-top:6px; font-size:.82rem; color:var(--gold,#ffd700); font-weight:700;">🎧 Exclusive A
+  <script src="js/animations.js"></script>
 </body>
 </html>
