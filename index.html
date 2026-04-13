@@ -1881,13 +1881,22 @@ function initRadio() {
     }
     current = next;
     const track = siteData.radioTracks[current];
-    player.src = track.audio;
     setTrackUi(track);
-    player.play().then(() => {
-      playBtn.textContent = '⏸ Pause radio';
-    }).catch(() => {
-      playBtn.textContent = '▶ Play radio';
-    });
+    player.pause();
+    player.src = '';
+    player.load();
+    player.src = track.audio;
+    // Wait for canplay before calling play — prevents stutter/pause on mobile
+    function onCanPlay() {
+      player.removeEventListener('canplay', onCanPlay);
+      player.play().then(() => {
+        playBtn.textContent = '⏸ Pause radio';
+      }).catch(() => {
+        playBtn.textContent = '▶ Play radio';
+      });
+    }
+    player.addEventListener('canplay', onCanPlay);
+    player.load();
   }
 
   playBtn.addEventListener('click', () => {
@@ -1896,6 +1905,20 @@ function initRadio() {
       return;
     }
     if (player.paused) {
+      // If readyState is too low, wait for canplay first
+      if (player.readyState < 3) {
+        playBtn.textContent = '⏳ Loading...';
+        function onReady() {
+          player.removeEventListener('canplay', onReady);
+          player.play().then(() => {
+            playBtn.textContent = '⏸ Pause radio';
+          }).catch(() => {
+            playBtn.textContent = '▶ Play radio';
+          });
+        }
+        player.addEventListener('canplay', onReady);
+        return;
+      }
       player.play().then(() => {
         playBtn.textContent = '⏸ Pause radio';
       }).catch(() => {});

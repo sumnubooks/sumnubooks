@@ -844,6 +844,40 @@
         image: `images/series/other-man/other-man-ep${i+1}.jpg`,
         audio: `audio/series/other-man/other-man-ep${i+1}.mp3`
       }))
+    },
+    {
+      slug: 'stolen-passage',
+      title: 'Stolen Passage',
+      eyebrow: 'Cinematic Thriller',
+      tagline: "Some people aren't passengers. They're cargo. And not everyone makes it to shore.",
+      cover: 'images/series/stolen-passage/stolen-passage-cover.jpg',
+      comingSoon: true,
+      releaseDate: 'April 20, 2026',
+      freeCount: 0,
+      unit: 'Chapter',
+      chapters: Array.from({length:20}, (_,i) => `Chapter ${i+1}`),
+      items: Array.from({length:20}, (_,i) => ({
+        number: i+1,
+        image: `images/series/stolen-passage/stolen-passage-ch${i+1}.jpg`,
+        audio: `audio/series/stolen-passage/stolen-passage-ch${i+1}.mp3`
+      }))
+    },
+    {
+      slug: 'she-still-here',
+      title: 'She Still Here',
+      eyebrow: 'Audio Drama',
+      tagline: 'Coming April 20, 2026. Exclusively on SumnuBooks.',
+      cover: 'images/series/she-still-here/she-still-here-cover.jpg',
+      comingSoon: true,
+      releaseDate: 'April 20, 2026',
+      freeCount: 0,
+      unit: 'Episode',
+      chapters: Array.from({length:8}, (_,i) => `Episode ${i+1}`),
+      items: Array.from({length:8}, (_,i) => ({
+        number: i+1,
+        image: `images/series/she-still-here/she-still-here-ep${i+1}.jpg`,
+        audio: `audio/series/she-still-here/she-still-here-ep${i+1}.mp3`
+      }))
     }
   ];
 
@@ -863,6 +897,22 @@
 
   if (!series) {
     document.body.innerHTML = '<p style="color:#fff;padding:40px 20px;font-family:sans-serif">Series not found. <a href="index.html" style="color:#d4a843">Go home</a></p>';
+  } else if (series.comingSoon) {
+    // Coming soon — show teaser screen
+    document.getElementById('backdropImg').src = series.cover;
+    document.body.innerHTML = `
+      <div style="position:fixed;inset:0;background:url('${series.cover}') center/cover no-repeat;filter:blur(40px) brightness(.3);z-index:0;"></div>
+      <div style="position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center;font-family:'DM Sans',sans-serif;">
+        <img src="${series.cover}" alt="${series.title}" style="width:min(280px,72vw);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.7);margin-bottom:28px;">
+        <div style="font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#d4a843;margin-bottom:10px;">${series.eyebrow}</div>
+        <h1 style="font-size:clamp(1.8rem,6vw,2.8rem);color:#fff;margin:0 0 12px;line-height:1.05;">${series.title}</h1>
+        <p style="color:rgba(255,255,255,.6);font-size:.98rem;line-height:1.7;max-width:38ch;margin:0 0 24px;">${series.tagline}</p>
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;border:1px solid rgba(212,168,67,.4);background:rgba(212,168,67,.1);color:#d4a843;font-weight:800;font-size:.9rem;letter-spacing:.06em;margin-bottom:28px;">
+          🗓 Dropping ${series.releaseDate}
+        </div>
+        <br>
+        <a href="vip-audio-dramas_netflix_mobile.html" style="color:rgba(255,255,255,.4);font-size:.84rem;text-decoration:none;">← Back to all series</a>
+      </div>`;
   } else {
     init();
   }

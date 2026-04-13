@@ -220,8 +220,23 @@
     }
   };
 
+  // First run at 50ms is blind (Outseta not loaded yet) — skip the DOM class toggle
+  // so we don't flash vip-active on/off before we have real data.
+  // All subsequent retries apply the class normally.
   const retrySchedule = [50, 300, 900, 1800, 3200, 5000];
-  retrySchedule.forEach(ms => setTimeout(refreshState, ms));
+  retrySchedule.forEach((ms, i) => {
+    setTimeout(i === 0 ? async function() {
+      // Quiet first probe — only update state, never touch the DOM class
+      const user = await fetchUser();
+      const vip = deriveVip(user);
+      const nextUserKey = userKey(user);
+      state.user = user || null;
+      state.vip = !!vip;
+      state.lastUserKey = nextUserKey;
+      state.lastVip = state.vip;
+      // Don't emit events or touch DOM yet — wait for the 300ms run
+    } : refreshState, ms);
+  });
   window.addEventListener('focus', refreshState);
   document.addEventListener('visibilitychange', function () {
     if (!document.hidden) refreshState();
