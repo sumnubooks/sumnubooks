@@ -13,8 +13,8 @@
     };
   </script>
   <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
-  <title>Sumnu Books VIP — Stream Series, Audiobooks & Music</title>
-  <meta name="description" content="A Netflix-style premium audio experience from Sumnu Books. Start free with sample episodes, audiobook samples, and Sumnu Radio. Unlock full access across the site." />
+  <title>Sumnu Books VIP — Cinematic Audio Series (Not Just Audiobooks)</title>
+  <meta name="description" content="This isn’t just an audiobook platform. It’s a cinematic audio experience. Start free and unlock intense, story-driven series built like Netflix — only on SumnuBooks." />
   <link href="css/site.css" rel="stylesheet"/>
 
   <style>
@@ -343,6 +343,303 @@
       }
     }
 
+    .home-hero {
+      padding: 12px 0 12px;
+    }
+    .hero-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(220px, .85fr);
+      gap: 24px;
+      align-items: center;
+      padding: 8px 0 10px;
+    }
+    .hero-copy {
+      min-width: 0;
+    }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold, #d4a843);
+    }
+    .hero-kicker::before {
+      content: '';
+      width: 18px;
+      height: 1px;
+      background: rgba(212,168,67,.55);
+      display: inline-block;
+    }
+    .hero-title {
+      margin: 0 0 12px;
+      max-width: 11ch;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 6.2vw, 4.5rem);
+      line-height: .96;
+      color: #fff;
+      text-wrap: balance;
+    }
+    .hero-title .gold { color: var(--gold, #d4a843); }
+    .hero-sub {
+      max-width: 620px;
+      font-size: 1rem;
+      line-height: 1.72;
+      color: rgba(255,255,255,.68);
+      margin-bottom: 18px;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .hero-proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .hero-proof span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(212,168,67,.18);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.58);
+      font-size: .76rem;
+      font-weight: 700;
+      letter-spacing: .03em;
+    }
+    .hero-spotlight {
+      position: relative;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      border-radius: 26px;
+      overflow: hidden;
+      border: 1px solid rgba(212,168,67,.18);
+      background: rgba(9,14,28,.88);
+      box-shadow: 0 22px 60px rgba(0,0,0,.34);
+      min-height: 100%;
+    }
+    .hero-spotlight-media {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+    }
+    .hero-spotlight-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-spotlight-media::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(6,8,15,.94) 0%, rgba(6,8,15,.28) 50%, transparent 100%);
+    }
+    .hero-spotlight-copy {
+      position: absolute;
+      inset: auto 0 0 0;
+      z-index: 2;
+      padding: 18px 18px 20px;
+    }
+    .hero-spotlight-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold, #d4a843);
+    }
+    .hero-spotlight-title {
+      margin: 0 0 6px;
+      font-size: 1.38rem;
+      line-height: 1.02;
+      color: #fff;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .hero-spotlight-text {
+      margin: 0 0 12px;
+      color: rgba(255,255,255,.72);
+      line-height: 1.55;
+      font-size: .9rem;
+    }
+    .hero-spotlight-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gold, #d4a843);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .story-intro {
+      padding-top: 6px;
+      padding-bottom: 8px;
+    }
+    .story-intro-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .story-chip {
+      padding: 16px 16px 15px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.07);
+      background: rgba(10,14,28,.86);
+    }
+    .story-chip strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold, #d4a843);
+    }
+    .story-chip span {
+      display: block;
+      color: rgba(255,255,255,.58);
+      line-height: 1.55;
+      font-size: .88rem;
+    }
+    .section-intro {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .section-intro .section-copy {
+      max-width: 640px;
+    }
+    .section-intro p {
+      margin: 6px 0 0;
+      color: rgba(255,255,255,.5);
+      line-height: 1.55;
+      font-size: .9rem;
+    }
+    .how-it-works {
+      padding-top: 8px;
+      padding-bottom: 4px;
+    }
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .how-card {
+      padding: 18px;
+      border-radius: 20px;
+      border: 1px solid rgba(212,168,67,.14);
+      background: linear-gradient(180deg, rgba(12,16,28,.94), rgba(8,12,22,.98));
+    }
+    .how-step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      margin-bottom: 12px;
+      border-radius: 999px;
+      background: rgba(212,168,67,.12);
+      border: 1px solid rgba(212,168,67,.2);
+      color: var(--gold, #d4a843);
+      font-size: .82rem;
+      font-weight: 800;
+    }
+    .how-card h3 {
+      margin: 0 0 8px;
+      color: #fff;
+      font-size: 1rem;
+    }
+    .how-card p {
+      margin: 0;
+      color: rgba(255,255,255,.58);
+      line-height: 1.6;
+      font-size: .88rem;
+    }
+    .final-cta {
+      padding-top: 12px;
+    }
+    .final-cta-shell {
+      padding: 24px 24px 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(212,168,67,.18);
+      background: radial-gradient(circle at top left, rgba(212,168,67,.12), transparent 30%), linear-gradient(180deg, rgba(11,16,28,.96), rgba(7,10,20,.99));
+      text-align: center;
+    }
+    .final-cta-shell h2 {
+      margin: 0 0 10px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: #fff;
+      line-height: 1.04;
+    }
+    .final-cta-shell p {
+      max-width: 680px;
+      margin: 0 auto 16px;
+      color: rgba(255,255,255,.6);
+      line-height: 1.65;
+      font-size: .96rem;
+    }
+    @media (max-width: 980px) {
+      .hero-shell {
+        grid-template-columns: 1fr;
+      }
+      .hero-copy {
+        order: 1;
+      }
+      .hero-spotlight {
+        max-width: 420px;
+      }
+      .story-intro-grid,
+      .how-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 760px) {
+      .home-hero {
+        padding-top: 8px;
+      }
+      .hero-shell {
+        gap: 18px;
+      }
+      .hero-title {
+        max-width: none;
+        font-size: clamp(2rem, 10vw, 3.2rem);
+      }
+      .hero-sub {
+        font-size: .92rem;
+      }
+      .hero-actions .btn {
+        flex: 1 1 100%;
+      }
+      .hero-proof span {
+        font-size: .72rem;
+      }
+      .section-intro {
+        align-items: flex-start;
+      }
+      .section-intro p {
+        font-size: .84rem;
+      }
+      .final-cta-shell {
+        padding: 20px 18px;
+      }
+    }
+
   </style>
 
   <style>
@@ -618,8 +915,8 @@
         <div class="mkt-banner-copy">
           <span class="mkt-banner-label">Sumnu Books</span>
           <div class="mkt-banner-divider"></div>
-          <span class="mkt-banner-text">Audio series, audiobooks &amp; music — exclusive content you won't find anywhere else.</span>
-          <a href="unlock.html" class="mkt-banner-btn">7-Day Free Trial</a>
+          <span class="mkt-banner-text">Start free with cinematic audio series built for tension, drama, and immersive listening.</span>
+          <a href="unlock.html" class="mkt-banner-btn">Start Listening Free</a>
         </div>
         <button class="mkt-banner-close" id="mktBannerClose" aria-label="Dismiss banner">✕</button>
       </div>
@@ -627,10 +924,68 @@
   </div>
 
   <main>
+
+  <section class="section home-hero">
+    <div class="container">
+      <div class="hero-shell">
+        <div class="hero-copy">
+          <div class="hero-kicker">Cinematic audio series</div>
+          <h1 class="hero-title">This is <span class="gold">not</span> an audiobook.</h1>
+          <p class="hero-sub">
+            Stories built like streaming drama — full of tension, betrayal, momentum, and moments you feel, not just hear.
+            Start free, then unlock the full experience across Sumnu Books.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="unlock.html">Start Listening Free</a>
+            <a class="btn btn-secondary" href="#seriesShelf">Explore Series</a>
+          </div>
+          <div class="hero-proof">
+            <span>Free sample episodes</span>
+            <span>Original audio dramas</span>
+            <span>VIP unlock available</span>
+          </div>
+        </div>
+
+        <a class="hero-spotlight" href="series.html?slug=here-eat-this" aria-label="Start Here... Eat This">
+          <div class="hero-spotlight-media">
+            <img src="images/series/here-eat-this/here-eat-this-cover.jpg" alt="Here... Eat This cover">
+          </div>
+          <div class="hero-spotlight-copy">
+            <div class="hero-spotlight-kicker">Start with this</div>
+            <h2 class="hero-spotlight-title">Here... Eat This</h2>
+            <p class="hero-spotlight-text">One dinner. Two people. Something is wrong.</p>
+            <span class="hero-spotlight-cta">Start listening →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section story-intro">
+    <div class="container">
+      <div class="story-intro-grid">
+        <div class="story-chip">
+          <strong>Not books. Not podcasts.</strong>
+          <span>Serialized stories designed to pull listeners in fast and keep the pressure building.</span>
+        </div>
+        <div class="story-chip">
+          <strong>Built for mobile listening</strong>
+          <span>Short episodes, chapter playback, and premium access that feels clean and simple.</span>
+        </div>
+        <div class="story-chip">
+          <strong>Exclusive to Sumnu</strong>
+          <span>Start with free episodes, then unlock the titles and scenes you cannot get anywhere else.</span>
+        </div>
+      </div>
+    </div>
+  </section>
     <section class="section shelf-start" id="seriesShelf">
       <div class="container">
-        <div class="section-head compact-head">
-          <h2>Series</h2>
+        <div class="section-head compact-head section-intro">
+          <div class="section-copy">
+            <h2>Start With This</h2>
+            <p>Lead with the stories built like premium streaming drama. Start free, then unlock the full season.</p>
+          </div>
         </div>
         <div class="shelf" id="seriesGrid"></div>
       </div>
@@ -638,8 +993,11 @@
 
     <section class="section" id="audiobookShelf">
       <div class="container">
-        <div class="section-head compact-head">
-          <h2>Audiobooks</h2>
+        <div class="section-head compact-head section-intro">
+          <div class="section-copy">
+            <h2>More To Explore</h2>
+            <p>Full-length audiobooks, chapter access, and premium listening built around your strongest titles.</p>
+          </div>
         </div>
         <div class="shelf" id="audiobookGrid"></div>
       </div>
@@ -647,8 +1005,11 @@
 
     <section class="section" id="musicShelf">
       <div class="container">
-        <div class="section-head compact-head music-head">
-          <h2>Music</h2>
+        <div class="section-head compact-head music-head section-intro">
+          <div class="section-copy">
+            <h2>Listen Beyond The Series</h2>
+            <p>Soundtracks, albums, and Sumnu Radio keep the world moving even after the story ends.</p>
+          </div>
         </div>
         <div class="shelf wide" id="musicGrid"></div>
 
@@ -663,6 +1024,35 @@
             <button class="btn btn-secondary btn-small" id="radioNextBtn">⏭ Next</button>
           </div>
           <audio id="radioAudio" preload="none"></audio>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section how-it-works">
+      <div class="container">
+        <div class="section-head compact-head section-intro">
+          <div class="section-copy">
+            <h2>Start Free. Unlock The Full Story.</h2>
+            <p>No complicated flow. Sample the story first, then open the rest when you are ready to keep going.</p>
+          </div>
+        </div>
+        <div class="how-grid">
+          <div class="how-card">
+            <div class="how-step">1</div>
+            <h3>Press play on the free episodes</h3>
+            <p>Get pulled in with sample scenes, opening chapters, and entry points across the site.</p>
+          </div>
+          <div class="how-card">
+            <div class="how-step">2</div>
+            <h3>Choose the story that hits</h3>
+            <p>Move from suspense series to full audiobooks without changing how the site feels or works.</p>
+          </div>
+          <div class="how-card">
+            <div class="how-step">3</div>
+            <h3>Unlock full access</h3>
+            <p>Once VIP is active, the locked content opens cleanly so the story can keep moving.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -775,11 +1165,22 @@
     </div>
   </section>
 
+
+  <section class="section final-cta">
+    <div class="container">
+      <div class="final-cta-shell">
+        <h2>You do not just hear these stories. You step into them.</h2>
+        <p>Start with the free episodes. Explore the series shelf. Then unlock the titles that stay with people after the screen is off and the room gets quiet.</p>
+        <a class="btn btn-primary" href="unlock.html">Start Listening Free</a>
+      </div>
+    </div>
+  </section>
+
   <footer class="footer">
     <div class="container footer-grid">
       <div>
         <strong class="gold">SUMNU BOOKS VIP</strong><br />
-        Free samples on the front end. Premium access behind one clean gateway.
+        Cinematic audio series, premium audiobooks, and immersive listening built for the Sumnu world.
       </div>
       <div>
         <a class="link-pill" href="contact.html">Need help?</a>
