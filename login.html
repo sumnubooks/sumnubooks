@@ -69,7 +69,7 @@
     .account-shell {
       width: min(100%, 900px);
       display: grid;
-      grid-template-columns: 1.05fr .95fr;
+      grid-template-columns: 1fr;
       gap: 20px;
     }
     .account-card, .account-side {
@@ -187,7 +187,6 @@
 
     @media (max-width: 860px) {
       .account-shell { grid-template-columns: 1fr; }
-      .account-side { display: none; }
     }
   </style>
   <link href="css/animations.css" rel="stylesheet"/>
@@ -252,21 +251,15 @@
             <a class="btn-primary-full" href="index.html"
                style="margin-bottom:12px;">▶ Go to your content</a>
           </div>
-          <div id="outseta-profile-wrap" style="margin-top:16px;">
-            <p style="color:var(--muted,#aeb6c8);font-size:.88rem;margin-bottom:12px;">
-              Manage your subscription, billing, and password:
-            </p>
-            <!-- Outseta inline profile embed -->
-            <div data-o-profile="true" style="min-height:200px;"></div>
-            <!-- Fallback direct link if embed doesn't render -->
-            <div id="profileFallback" style="display:none;margin-top:8px;">
-              <a href="https://sumnuvision-llc.outseta.com/profile" target="_blank"
-                 class="btn-secondary-full" style="margin-top:8px;">
-                Open Account Settings ↗
-              </a>
-            </div>
+          
+          <div style="margin-top:16px;">
+            <a href="https://sumnuvision-llc.outseta.com/profile" target="_blank"
+               class="btn-secondary-full" style="margin-bottom:12px;">
+              Open Account Settings ↗
+            </a>
           </div>
           <div style="margin-top:16px;">
+
             <button class="btn-secondary-full" id="logoutBtn">
               Log out
             </button>
@@ -294,24 +287,7 @@
         </div>
 
       </section>
-
-      <aside class="account-side">
-        <div class="kicker">Why create an account?</div>
-        <h2>Your access,<br>on every device.</h2>
-        <p>
-          Your VIP subscription is tied to your account — not to one
-          browser or device. Log in anywhere and your full access is
-          immediately restored.
-        </p>
-        <div class="benefits">
-          <div>✅ Phone, tablet, laptop — all synced</div>
-          <div>✅ New browser? Log in and you're in</div>
-          <div>✅ Manage billing and cancel from your account</div>
-          <div>✅ New content drops automatically unlocked</div>
-        </div>
-      </aside>
-
-    </div>
+</div>
   </main>
 
   <script src="js/auth.js"></script>
