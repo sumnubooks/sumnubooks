@@ -1536,6 +1536,22 @@ const siteData = {
     },
     {
       type: 'series',
+      slug: 'the-echo-origins',
+      title: 'The Echo: Origins',
+      label: 'Superhero sci-fi',
+      meta: 'Part One, Season 1 • 7 episodes • episodes 1–2 free',
+      tagline: 'The beginning of Echo starts here. Seven opening episodes launch Part One, Season 1.',
+      cover: 'images/series/the-echo-origins/the-echo-origins-cover.jpg',
+      items: Array.from({length:7}, (_,i) => ({
+        number: i + 1,
+        title: `Episode ${i+1}`,
+        description: i < 2 ? 'Free sample episode.' : 'VIP episode.',
+        image: 'images/series/the-echo-origins/the-echo-origins-cover.jpg',
+        audio: `audio/series/the-echo-origins/the-echo-origins-ep${i+1}.mp3`
+      }))
+    },
+    {
+      type: 'series',
       slug: 'she-still-exists',
       title: 'She Still Exists',
       label: 'Sci-fi thriller',
