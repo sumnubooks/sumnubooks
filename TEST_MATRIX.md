@@ -30,6 +30,21 @@ Not in scope: `/audio/**` outside that Penny folder, Payhip, EPUB, Amazon.
 | 7 | Payhip unaffected | BUY / Buy & Download still `https://payhip.com/b/9sX8Z`. No Edge on Payhip. Purchase/download flow is off-site. | **PASS (code + preview UI)**: Penny BUY / Buy & Download still `https://payhip.com/b/9sX8Z`. Unplugged audio still 200 (not gated). | No |
 | 8 | Rollback exists | `ROLLBACK.md` lists exact delete/revert steps for Edge, toml, cookie bridge, STREAM CTA, landing, docs. | **Verified in repo.** | No |
 
+## Landing copy (preview only)
+
+Marketing final copy is on `/audiobooks/a-penny-for-my-thoughts` only. Exact strings:
+
+- Headline: A Penny For My Thoughts
+- Subhead: Street-lit thriller by E. D. Lewis. Sample free — then listen full with VIP, or buy & download to own it.
+- Sample CTA: Listen free sample
+- VIP CTA: Listen Full with VIP
+- VIP micro: Full listen while your membership is active · Stream/listen access · Free trial available (no downloads language; no MIXEMC)
+- Own CTA: Buy & Download — $12.99
+- Own micro: DRM-free MP3 · Keep forever · Exclusive to SumnuBooks — not on Amazon or Audible
+- Chooser: VIP = access while you’re a member. $12.99 = own the files. Sample free, then pick what fits.
+- Narrator/Runtime: TBD pending Eric verify (not invented)
+- Cross-sell is footer-only (`/audiobooks.html`); does not sit on Payhip/Outseta buttons.
+
 ## Scope checks on Deploy Preview (2026-09-19)
 
 - Unplugged sample `.../unplugged/unplugged-ch2.mp3` still **200** (Penny-only path).
