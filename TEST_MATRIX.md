@@ -21,14 +21,20 @@ Not in scope: `/audio/**` outside that Penny folder, Payhip, EPUB, Amazon.
 
 | # | Case | How to test on Deploy Preview | Result | Needs Eric VIP account? |
 | --- | --- | --- | --- | --- |
-| 1 | Free sample works | Open `/audiobooks` SAMPLE (ch2) and `/audiobooks/a-penny-for-my-thoughts` sample player. Logged-out `curl -I` of ch1 and ch2 should be **200**. | Pending Deploy Preview. Local/prod files exist (ch1 + ch2 200 on current production). | No |
-| 2 | Logged-out cannot get protected chapters | Logged-out `curl -I` of ch3 (and any ch4+). Expect **401**, empty body, no `audio/mpeg`. Direct URL in a private window must not play. | Pending Deploy Preview. | No |
+| 1 | Free sample works | Open `/audiobooks` SAMPLE (ch2) and `/audiobooks/a-penny-for-my-thoughts` sample player. Logged-out `curl -I` of ch1 and ch2 should be **200**. | **PASS on Deploy Preview** (`https://deploy-preview-1--sumnubooks.netlify.app`): ch1 and ch2 return **200 audio/mpeg**. Range on ch2 returns **206**. Landing + catalog sample players load. | No |
+| 2 | Logged-out cannot get protected chapters | Logged-out `curl -I` of ch3 (and any ch4+). Expect **401**, empty body, no `audio/mpeg`. Direct URL in a private window must not play. | **PASS on Deploy Preview**: ch3 returns **401**, `Cache-Control: private, no-store`, **0-byte body**. | No |
 | 3 | Non-VIP cannot | Sign in with a logged-in but non-VIP Outseta user, then request ch3. Expect **403** (or 401 if no valid token cookie). | Pending. | Yes — need a non-VIP member account if Eric has one |
 | 4 | Active VIP complete listen | Eric VIP: open `audiobook.html?slug=a-penny-for-my-thoughts`, confirm cookie `sumnu_outseta_access_token` is set, play ch3+ through later chapters. | Pending. | **Yes — Eric VIP test account** |
 | 5 | Expired loses access | Expired / cancelled VIP token+profile must not unlock ch3+. After logout, cookie cleared, ch3 returns 401. | Pending. | **Yes — expired/non-entitled account or Eric after cancelling** |
 | 6 | Playback / seek / chapter | VIP: play, pause, seek, ±15s, next/prev, chapter sheet. Range requests should still 206/200 via `context.next()`. | Pending. | **Yes — Eric VIP** |
-| 7 | Payhip unaffected | BUY / Buy & Download still `https://payhip.com/b/9sX8Z`. No Edge on Payhip. Purchase/download flow is off-site. | Code verified on branch: Payhip href unchanged. Deploy Preview: click-through. | No |
+| 7 | Payhip unaffected | BUY / Buy & Download still `https://payhip.com/b/9sX8Z`. No Edge on Payhip. Purchase/download flow is off-site. | **PASS (code + preview UI)**: Penny BUY / Buy & Download still `https://payhip.com/b/9sX8Z`. Unplugged audio still 200 (not gated). | No |
 | 8 | Rollback exists | `ROLLBACK.md` lists exact delete/revert steps for Edge, toml, cookie bridge, STREAM CTA, landing, docs. | **Verified in repo.** | No |
+
+## Scope checks on Deploy Preview (2026-09-19)
+
+- Unplugged sample `.../unplugged/unplugged-ch2.mp3` still **200** (Penny-only path).
+- EPUB `.../ebooks/a-penny-for-my-thoughts.epub` still **200** (HOLD, no Edge).
+- Preview landing `/audiobooks/a-penny-for-my-thoughts` **200**.
 
 ## Verified in this repo / against current production (pre-preview)
 
