@@ -1,0 +1,9 @@
+# PREVIEW / NON-PRODUCTION ONLY
+# Do not merge this branch to main.
+# Do not deploy these Edge rules with production production settings.
+# Netlify Deploy Preview is the intended surface.
+
+# Penny-only audio gate. Not site-wide /audio/**
+[[edge_functions]]
+  function = "protect-penny-audio"
+  path = "/audio/audiobooks/a-penny-for-my-thoughts/*"
