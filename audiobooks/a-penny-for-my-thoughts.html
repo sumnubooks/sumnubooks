@@ -13,7 +13,7 @@
   </script>
   <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
   <title>A Penny For My Thoughts — Preview · Sumnu Books</title>
-  <meta name="description" content="PREVIEW ONLY. Listen with VIP or buy the DRM-free download of A Penny For My Thoughts."/>
+  <meta name="description" content="Street-lit thriller by E. D. Lewis. Sample free — then listen full with VIP, or buy &amp; download to own it."/>
   <link href="/css/site.css" rel="stylesheet"/>
   <style>
     .preview-banner {
@@ -45,7 +45,7 @@
     .nav-links-shell a.active, .nav-links-shell a:hover {
       color: var(--text, #fff); background: rgba(255,255,255,.06);
     }
-    .penny-hero { padding: 28px 0 12px; }
+    .penny-hero { padding: 28px 0 8px; }
     .penny-grid {
       display: grid;
       grid-template-columns: minmax(180px, 280px) 1fr;
@@ -60,60 +60,130 @@
       box-shadow: 0 18px 40px rgba(0,0,0,.45);
     }
     .penny-cover img { width: 100%; display: block; }
-    .penny-kicker {
-      color: var(--gold, #d4a843);
-      font-size: .74rem;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
     .penny-title {
       font-family: Georgia, serif;
       font-size: clamp(1.8rem, 4vw, 2.6rem);
       line-height: 1.08;
-      margin: 0 0 10px;
+      margin: 0 0 12px;
     }
-    .penny-copy { color: #9aa3b7; line-height: 1.7; max-width: 56ch; }
+    .penny-subhead {
+      color: #c8ccd6;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      max-width: 58ch;
+      margin: 0 0 16px;
+    }
+    .penny-copy { color: #9aa3b7; line-height: 1.7; max-width: 58ch; }
+    .penny-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 8px;
+      display: grid;
+      gap: 8px;
+    }
+    .penny-bullets li {
+      color: #c8ccd6;
+      font-size: .92rem;
+      line-height: 1.45;
+      padding-left: 1.1em;
+      position: relative;
+    }
+    .penny-bullets li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--gold, #d4a843);
+    }
     .cta-split {
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 16px;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
       margin-top: 22px;
       align-items: stretch;
     }
-    .cta-left, .cta-right {
+    .cta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .cta-right {
+      padding-left: 18px;
+      border-left: 1px solid rgba(255,255,255,.08);
+    }
+    .cta-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
     }
-    .cta-right {
-      justify-content: flex-end;
-      padding-left: 16px;
-      border-left: 1px solid rgba(255,255,255,.08);
+    .cta-micro {
+      color: #9aa3b7;
+      font-size: .8rem;
+      line-height: 1.5;
+      max-width: 36ch;
+    }
+    .chooser {
+      margin-top: 20px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(212,168,67,.22);
+      background: rgba(212,168,67,.06);
+      color: #e8eaf0;
+      font-size: .92rem;
+      line-height: 1.6;
     }
     .sample-box {
-      margin-top: 18px;
+      margin-top: 22px;
       padding: 14px;
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.08);
       background: rgba(255,255,255,.03);
     }
     .sample-box audio { width: 100%; margin-top: 8px; }
-    .hold-note {
+    .meta-tbd {
       margin-top: 18px;
-      font-size: .78rem;
+      font-size: .8rem;
       color: #6b7280;
     }
+    .faq-block { margin-top: 36px; padding-bottom: 12px; }
+    .faq-block h2 {
+      font-family: Georgia, serif;
+      font-size: 1.35rem;
+      margin: 0 0 12px;
+    }
+    .faq-item {
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+      margin-bottom: 10px;
+      padding: 0 16px;
+    }
+    .faq-item summary {
+      cursor: pointer;
+      font-weight: 700;
+      padding: 14px 0;
+      list-style: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item p {
+      margin: 0 0 14px;
+      color: #9aa3b7;
+      line-height: 1.65;
+    }
+    .cross-sell {
+      margin: 28px 0 40px;
+      font-size: .86rem;
+      color: #6b7280;
+    }
+    .cross-sell a { color: #9aa3b7; }
     @media (max-width: 760px) {
       .penny-grid, .cta-split { grid-template-columns: 1fr; }
       .cta-right {
-        justify-content: flex-start;
         padding-left: 0;
         border-left: 0;
         border-top: 1px solid rgba(255,255,255,.08);
-        padding-top: 14px;
+        padding-top: 16px;
       }
     }
   </style>
@@ -139,32 +209,65 @@
           <img src="/images/books/book1.jpg" alt="A Penny For My Thoughts cover"/>
         </div>
         <div>
-          <p class="penny-kicker">Exclusive audiobook · Preview landing</p>
           <h1 class="penny-title">A Penny For My Thoughts</h1>
-          <p class="penny-copy">Marketing copy placeholder. He took her. He didn’t expect to care. Stream the full listen with an active VIP membership, or buy the DRM-free download to keep forever.</p>
-          <p class="penny-copy">VIP = listen / stream while entitled. Downloads are a separate Payhip purchase — $12.99.</p>
+          <p class="penny-subhead">Street-lit thriller by E. D. Lewis. Sample free — then listen full with VIP, or buy &amp; download to own it.</p>
+
+          <ul class="penny-bullets">
+            <li>Exclusive audiobook — only on SumnuBooks</li>
+            <li>Free sample before you choose</li>
+            <li>Street heat, chase, and a destiny you can’t explain</li>
+          </ul>
 
           <div class="cta-split">
-            <div class="cta-left">
-              <a class="btn btn-secondary" href="#penny-sample">Free Sample</a>
-              <a class="btn btn-primary" href="/audiobook.html?slug=a-penny-for-my-thoughts">Listen Full with VIP</a>
+            <div class="cta-col cta-left">
+              <div class="cta-actions">
+                <a class="btn btn-secondary" href="#penny-sample">Listen free sample</a>
+                <a class="btn btn-primary" href="/audiobook.html?slug=a-penny-for-my-thoughts">Listen Full with VIP</a>
+              </div>
+              <p class="cta-micro">Full listen while your membership is active · Stream/listen access · Free trial available</p>
             </div>
-            <div class="cta-right">
-              <a class="btn btn-primary" href="https://payhip.com/b/9sX8Z" target="_blank" rel="noopener">Buy &amp; Download $12.99</a>
+            <div class="cta-col cta-right">
+              <div class="cta-actions">
+                <a class="btn btn-primary" href="https://payhip.com/b/9sX8Z" target="_blank" rel="noopener">Buy &amp; Download — $12.99</a>
+              </div>
+              <p class="cta-micro">DRM-free MP3 · Keep forever · Exclusive to SumnuBooks — not on Amazon or Audible</p>
             </div>
           </div>
 
+          <p class="chooser">VIP = access while you’re a member. $12.99 = own the files. Sample free, then pick what fits.</p>
+
           <div class="sample-box" id="penny-sample">
-            <strong>Free sample</strong>
-            <div class="penny-copy" style="margin-top:6px">Chapter 2 — the same clip used as SAMPLE on /audiobooks. Chapter 1 (homepage prologue) is also allowlisted.</div>
+            <strong>Listen free sample</strong>
             <audio controls preload="none">
               <source src="/audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch2.mp3" type="audio/mpeg"/>
             </audio>
           </div>
 
-          <p class="hold-note">MIXEMC / trial is intentionally off this primary CTA row. Amazon and EPUB are on hold — no links changed or added here.</p>
+          <p class="meta-tbd">Narrator / Runtime: TBD pending Eric verify</p>
         </div>
       </div>
+
+      <section class="faq-block" aria-labelledby="penny-faq">
+        <h2 id="penny-faq">Access vs own</h2>
+        <details class="faq-item" open>
+          <summary>What’s the difference between VIP and Buy &amp; Download?</summary>
+          <p>VIP = access while you’re a member. $12.99 = own the files. Sample free, then pick what fits.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Does VIP include downloads?</summary>
+          <p>No. VIP is listen/stream access while your membership is active. Downloads are the $12.99 Buy &amp; Download purchase.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I sample first?</summary>
+          <p>Yes. Sample free, then choose Listen Full with VIP or Buy &amp; Download — $12.99.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What happens if my VIP membership ends?</summary>
+          <p>VIP listen access lasts while you are entitled. When membership is no longer active, protected chapters are no longer available to stream. If you bought the $12.99 download, you own those files.</p>
+        </details>
+      </section>
+
+      <p class="cross-sell">Looking for other exclusive titles? <a href="/audiobooks.html">Browse audiobooks</a> — this is secondary only and does not start checkout.</p>
     </div>
   </main>
 
