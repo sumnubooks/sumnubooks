@@ -42,7 +42,7 @@ Marketing final copy is on `/audiobooks/a-penny-for-my-thoughts` only. Exact str
 - Own CTA: Buy & Download — $12.99
 - Own micro: DRM-free MP3 · Keep forever · Exclusive to SumnuBooks — not on Amazon or Audible
 - Chooser: VIP = access while you’re a member. $12.99 = own the files. Sample free, then pick what fits.
-- Narrator/Runtime: TBD pending Eric verify (not invented)
+- Narrator/Runtime: omitted on customer-facing preview UI until authoritative (no TBD placeholder)
 - Cross-sell is footer-only (`/audiobooks.html`); does not sit on Payhip/Outseta buttons.
 
 ## Scope checks on Deploy Preview (2026-09-19)
@@ -59,17 +59,24 @@ Marketing final copy is on `/audiobooks/a-penny-for-my-thoughts` only. Exact str
 - JWKS live at `https://sumnuvision-llc.outseta.com/.well-known/jwks`.
 - Player VIP route already exists: `audiobook.html?slug=a-penny-for-my-thoughts`. STREAM on `/audiobooks` for Penny now points there and is labeled **Listen with VIP**.
 
-## Ch50 investigation (notes only)
+## Ch50 investigation (HOLD UI — do not change 50→49)
 
-Do not create, remove, or rename audio files to match UI.
+Searched for a real Ch50 asset to restore. **None found. Did not invent a file. Did not change the 50-chapter UI.**
 
-| Surface | What it claims | Files |
-| --- | --- | --- |
-| `audiobook.html` | Generates **50** items, `audio/...-ch1.mp3` … `...-ch50.mp3` | Player will request ch50 |
-| Homepage `index.html` catalog | `meta: 'prologue free • 50 audio files'` | Item 1 = file ch1 labeled Prologue; items 2–50 = files ch2–ch50 labeled Chapter 1–49 |
-| Production HEAD (2026-09-19) | — | ch49 = 200; **ch50 = 404** |
+Paths / evidence checked (2026-09-19):
 
-Likely UI/file-count mismatch: 49 published MP3s vs 50 generated slots. Leave files as-is.
+| Check | Result |
+| --- | --- |
+| Git index `audio/audiobooks/a-penny-for-my-thoughts/` | **49** MP3s: `...-ch1.mp3` … `...-ch49.mp3`. **No `...-ch50.mp3`.** |
+| `git rev-list --all --objects` for penny/ch50 | No object path ever named penny ch50 |
+| Git LFS | Not in use |
+| Local `find` for `*ch50*`, `*chapter*50*`, `*penny*.mp3` | No ch50 file |
+| Images `images/audiobooks/a-penny-for-my-thoughts/` | Cover only; no ch50 jpg |
+| Production HEAD canonical `...-ch50.mp3` | **404** (ch49 **200**) |
+| Alternate prod names (`Ch50`, `chapter-50`, `ch-50`, `epilogue`, `.m4a`, `book1/…`) | All **404** |
+| Preview Edge on those Penny-folder names | **401** (protected, not allowlisted) — not a restore candidate |
+
+UI HOLD: `audiobook.html` still generates 50 slots; homepage still says “50 audio files”. Restore only if Eric later supplies the missing asset.
 
 ## EPUB / Amazon / MIXEMC hard stops
 
