@@ -15,6 +15,9 @@ Explicit prefixes only — **not** site-wide `/audio/**`. Live main sample count
 | `/audio/audiobooks/still-standing/*` | `Still-Standing-Ch1.mp3`, `Still-Standing-Ch2.mp3` | Ch3+ |
 | `/audio/audiobooks/the-jailhouse-lawyer/*` | `The-Jailhouse-Lawyer-Ch1.mp3`, `The-Jailhouse-Lawyer-Ch2.mp3` | Ch3+ |
 | `/audio/audiobooks/chandra/*` | `chandra-ch1.mp3`, `chandra-ch2.mp3` **if present** (none in git) | any other file in folder |
+| `/audio/series/the-echo-origins/*` | `the-echo-origins-ep1.mp3`, `ep2` | ep3+ (UI “Episode 6.5” is **ep7**, not a `6.5` filename) |
+| `/audio/series/she-still-exists/*` | `she-still-exists-ch1.mp3`, `ch2` | ch3+ |
+| `/audio/series/other-man/*` | `other-man-ep1.mp3`, `ep2` | ep3+ |
 
 Out of scope (must stay ungated): `/audio/music/**`, `/audio/audiobooks/unplugged/**`, Payhip, EPUB.
 
@@ -25,6 +28,25 @@ Exact allowlist filenames used by Edge (regex also anchors `[12]` so Ch10/ep10 n
 - Still Standing: `Still-Standing-Ch1.mp3`, `Still-Standing-Ch2.mp3`
 - Jailhouse Lawyer: `The-Jailhouse-Lawyer-Ch1.mp3`, `The-Jailhouse-Lawyer-Ch2.mp3`
 - Chandra: `chandra-ch1.mp3`, `chandra-ch2.mp3` (folder empty in git — no files created)
+- Echo: `the-echo-origins-ep1.mp3`, `the-echo-origins-ep2.mp3`
+- She Still Exists: `she-still-exists-ch1.mp3`, `she-still-exists-ch2.mp3`
+- Other Man: `other-man-ep1.mp3`, `other-man-ep2.mp3`
+
+## Active VIP playback (P1)
+
+Logged-out 401 is not enough. After login on the **preview origin**, Edge must allow protected media.
+
+**Root cause (fixed on this branch):** Edge treated Outseta `AccountStage` `1`/`7` as active, but Outseta uses **`2` Trialing / `3` Subscribing**. JWT includes `outseta:planUid` and **no** `accountStage`, so the JWT fallback never fired. `GET /profile?fields=*` also omitted `CurrentSubscription.Plan`, so an Active VIP cookie still got **403** — player chrome visible, no sound. `<audio>` only sends the cookie (not `Authorization`).
+
+**How Eric verifies on Deploy Preview:**
+
+1. Open https://deploy-preview-1--sumnubooks.netlify.app/login and sign in as Active VIP.
+2. Open https://deploy-preview-1--sumnubooks.netlify.app/preview-vip-audio-diag.html
+3. Pass if: `pageVipFlag=true`, `cookiePresent=true`, `edgeDiag.vip=true`, `pennyCh3=200` (header `X-Sumnu-Edge: allow-vip`).
+4. Play Penny / HET / Jailhouse / Still Standing **chapter 3** — expect sound + seek/Range, not a silent control bar.
+5. Logged-out / private window: same chapter 3 still **401**.
+
+JSON probe (after login, cookie sent automatically in-browser): `/__preview/vip-audio-diag`
 
 ## Extended prefix curl (Deploy Preview)
 
@@ -45,6 +67,14 @@ Path patterns match live URLs (directory prefixes are lowercase; filenames keep 
 | Unplugged (out of scope) | `unplugged-ch2.mp3`, `unplugged-ch3.mp3` | — | **PASS** — both **200** |
 | Payhip | `https://payhip.com/b/9sX8Z` | — | **PASS** — preview landing still that URL; no Edge on Payhip |
 | /login blank-panel | `panel show signed-out-box` + **Log in to my account** | — | **PASS** — still in DP HTML |
+| Echo / She Still Exists / Other Man | ep1/ch1, ep2/ch2 | ep3 / ch3 (and Echo ep7 = UI 6.5) | Pending this deploy — were **200** before Edge (playback ≠ access control) |
+| Active VIP protected play | cookie + JWT plan `jW70XZmq` | ch3/ep3 **200/206** + sound | Pending Eric on diag page after this deploy |
+
+## Log only (do not delay P1)
+
+- **Chandra:** files absent — ch1/ch2 **404**, ch3 prefix **401**. Player lists invented `chandra-chN.mp3` slots. No files created.
+- **The Maytricks:** homepage path `audio/music/the-maytricks/The May Tricks 01 The Beginning.mp3` **404**. Live file is `audio/music/the-maytricks/01 The Beginning.mp3`.
+- **List Complete:** `01 Forgot All About Me.mp3` **200**; later catalog names (`05 I Do Believe final jne 22 2019mix.mp3`, `10 Porn Star.mp3`) **404** — dead tracks.
 
 ## Rows
 
@@ -53,7 +83,7 @@ Path patterns match live URLs (directory prefixes are lowercase; filenames keep 
 | 1 | Free sample works | Open `/audiobooks` SAMPLE (ch2) and `/audiobooks/a-penny-for-my-thoughts` sample player. Logged-out `curl -I` of ch1 and ch2 should be **200**. | **PASS on Deploy Preview** (`https://deploy-preview-1--sumnubooks.netlify.app`): ch1 and ch2 return **200 audio/mpeg**. Range on ch2 returns **206**. Landing + catalog sample players load. | No |
 | 2 | Logged-out cannot get protected chapters | Logged-out `curl -I` of ch3 (and any ch4+). Expect **401**, empty body, no `audio/mpeg`. Direct URL in a private window must not play. | **PASS on Deploy Preview**: ch3 returns **401**, `Cache-Control: private, no-store`, **0-byte body**. | No |
 | 3 | Non-VIP cannot | Sign in with a logged-in but non-VIP Outseta user, then request ch3. Expect **403** (or 401 if no valid token cookie). | Pending. | Yes — need a non-VIP member account if Eric has one |
-| 4 | Active VIP complete listen | Eric VIP: open `audiobook.html?slug=a-penny-for-my-thoughts`, confirm cookie `sumnu_outseta_access_token` is set, play ch3+ through later chapters. | Pending. | **Yes — Eric VIP test account** |
+| 4 | Active VIP complete listen | Eric VIP on preview origin: `/preview-vip-audio-diag.html` must show `vip=true` and Penny ch3 HEAD **200**. Then play Penny / HET / Jailhouse / Still Standing ch3+ with sound (not silent chrome). | Pending Eric after VIP-derivation fix. | **Yes — Eric VIP test account** |
 | 5 | Expired loses access | Expired / cancelled VIP token+profile must not unlock ch3+. After logout, cookie cleared, ch3 returns 401. | Pending. | **Yes — expired/non-entitled account or Eric after cancelling** |
 | 6 | Playback / seek / chapter | VIP: play, pause, seek, ±15s, next/prev, chapter sheet. Range requests should still 206/200 via `context.next()`. | Pending. | **Yes — Eric VIP** |
 | 7 | Payhip unaffected | BUY / Buy & Download still `https://payhip.com/b/9sX8Z`. No Edge on Payhip. Purchase/download flow is off-site. | **PASS (code + preview UI)**: Penny BUY / Buy & Download still `https://payhip.com/b/9sX8Z`. Unplugged audio still 200 (not gated). | No |

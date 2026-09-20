@@ -22,3 +22,19 @@
 [[edge_functions]]
   function = "protect-vip-audio"
   path = "/audio/audiobooks/chandra/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/series/the-echo-origins/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/series/she-still-exists/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/series/other-man/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/__preview/vip-audio-diag"

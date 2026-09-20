@@ -3,19 +3,17 @@
  * Explicit VIP audio prefixes — NOT site-wide /audio/**
  *
  * Allowlists (free samples only; do not invent missing files):
- *   Penny   /audio/audiobooks/a-penny-for-my-thoughts/*
- *           …-ch1.mp3 (Prologue), …-ch2.mp3 (Chapter 1)
- *   HET     /audio/series/here-eat-this/*
- *           here-eat-this-ep1.mp3, here-eat-this-ep2.mp3  (freeCount: 2)
- *   Still   /audio/audiobooks/still-standing/*
- *           Still-Standing-Ch1.mp3, Still-Standing-Ch2.mp3
- *   Jail    /audio/audiobooks/the-jailhouse-lawyer/*
- *           The-Jailhouse-Lawyer-Ch1.mp3, The-Jailhouse-Lawyer-Ch2.mp3
- *   Chandra /audio/audiobooks/chandra/*
- *           chandra-ch1.mp3, chandra-ch2.mp3 if present — do not create
+ *   Penny     …-ch1.mp3, …-ch2.mp3
+ *   HET       here-eat-this-ep1/ep2
+ *   Still     Still-Standing-Ch1/Ch2
+ *   Jail      The-Jailhouse-Lawyer-Ch1/Ch2
+ *   Chandra   chandra-ch1/ch2 if present — do not create
+ *   Echo      the-echo-origins-ep1/ep2  (ep7 = UI "Episode 6.5")
+ *   SSE       she-still-exists-ch1/ch2
+ *   Other Man other-man-ep1/ep2
  *
- * Protected files in those folders require Outseta VIP (plan jW70XZmq):
- *   JWKS + GET /api/v1/profile?fields=*
+ * Protected files require Outseta VIP plan jW70XZmq.
+ * Cookie `sumnu_outseta_access_token` is enough — <audio> cannot send Authorization.
  *
  * Music / radio under /audio/music/** stay ungated.
  * EPUB HOLD — does not touch /ebooks/**
@@ -25,9 +23,26 @@ import { createRemoteJWKSet, jwtVerify } from "https://esm.sh/jose@5.9.6?target=
 
 const DEFAULT_DOMAIN = "sumnuvision-llc.outseta.com";
 const DEFAULT_PLAN_UID = "jW70XZmq";
-const ACTIVE_TEXT = new Set(["active", "trialing", "trial", "past_due", "non_renewing", "subscribing"]);
-const ACTIVE_NUMERIC = new Set([1, 7]);
+const ACTIVE_TEXT = new Set([
+  "active", "trialing", "trial", "past_due", "pastdue",
+  "non_renewing", "subscribing", "cancelling", "canceling"
+]);
+// Outseta AccountStage: 2 Trialing, 3 Subscribing, 4 Cancelling,
+// 7 Past Due, 8 Cancelling Trial. NOT 5 Expired / 6 TrialExpired / 9 Paused.
+const ACTIVE_NUMERIC = new Set([2, 3, 4, 7, 8]);
+const DEAD_NUMERIC = new Set([5, 6, 9]);
 const TOKEN_COOKIES = ["sumnu_outseta_access_token", "Outseta.nocode.accessToken"];
+const PROFILE_FIELDS = [
+  "*",
+  "Account.Uid",
+  "Account.AccountStage",
+  "Account.AccountStageLabel",
+  "Account.CurrentSubscription.*",
+  "Account.CurrentSubscription.Plan.*",
+  "Account.Subscriptions.*",
+  "PersonAccount.Account.AccountStage",
+  "PersonAccount.Account.CurrentSubscription.Plan.Uid"
+].join(",");
 
 const ALLOWLIST = new Set([
   "/audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch1.mp3",
@@ -39,7 +54,13 @@ const ALLOWLIST = new Set([
   "/audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch1.mp3",
   "/audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch2.mp3",
   "/audio/audiobooks/chandra/chandra-ch1.mp3",
-  "/audio/audiobooks/chandra/chandra-ch2.mp3"
+  "/audio/audiobooks/chandra/chandra-ch2.mp3",
+  "/audio/series/the-echo-origins/the-echo-origins-ep1.mp3",
+  "/audio/series/the-echo-origins/the-echo-origins-ep2.mp3",
+  "/audio/series/she-still-exists/she-still-exists-ch1.mp3",
+  "/audio/series/she-still-exists/she-still-exists-ch2.mp3",
+  "/audio/series/other-man/other-man-ep1.mp3",
+  "/audio/series/other-man/other-man-ep2.mp3"
 ]);
 
 const ALLOWLIST_RE = [
@@ -47,7 +68,10 @@ const ALLOWLIST_RE = [
   /\/here-eat-this-ep[12]\.mp3$/i,
   /\/Still-Standing-Ch[12]\.mp3$/i,
   /\/The-Jailhouse-Lawyer-Ch[12]\.mp3$/i,
-  /\/chandra-ch[12]\.mp3$/i
+  /\/chandra-ch[12]\.mp3$/i,
+  /\/the-echo-origins-ep[12]\.mp3$/i,
+  /\/she-still-exists-ch[12]\.mp3$/i,
+  /\/other-man-ep[12]\.mp3$/i
 ];
 
 let jwks = null;
@@ -73,13 +97,14 @@ function planUid(context) {
   return env(context, "OUTSETA_VIP_PLAN_UID", DEFAULT_PLAN_UID);
 }
 
-function deny(status) {
+function deny(status, reason) {
   return new Response(null, {
     status,
     headers: {
       "Cache-Control": "private, no-store",
       "CDN-Cache-Control": "no-store",
-      "Netlify-CDN-Cache-Control": "no-store"
+      "Netlify-CDN-Cache-Control": "no-store",
+      "X-Sumnu-Edge": reason || `deny-${status}`
     }
   });
 }
@@ -98,6 +123,11 @@ function isAllowlisted(pathname) {
   return ALLOWLIST_RE.some((re) => re.test(path));
 }
 
+function isDiagPath(pathname) {
+  const path = normalizePath(pathname).replace(/\/+$/, "");
+  return path === "/__preview/vip-audio-diag";
+}
+
 function readCookie(header, name) {
   if (!header) return "";
   const parts = header.split(";");
@@ -106,22 +136,80 @@ function readCookie(header, name) {
     if (idx === -1) continue;
     const key = part.slice(0, idx).trim();
     if (key !== name) continue;
-    return decodeURIComponent(part.slice(idx + 1).trim());
+    try {
+      return decodeURIComponent(part.slice(idx + 1).trim());
+    } catch (_err) {
+      return part.slice(idx + 1).trim();
+    }
   }
+  return "";
+}
+
+function looksLikeJwt(value) {
+  const token = String(value || "").trim().replace(/^Bearer\s+/i, "");
+  const parts = token.split(".");
+  if (parts.length !== 3 || token.length < 40) return false;
+  try {
+    let pad = parts[0].replace(/-/g, "+").replace(/_/g, "/");
+    while (pad.length % 4) pad += "=";
+    const json = atob(pad);
+    const hdr = JSON.parse(json);
+    return !!(hdr && (hdr.alg || hdr.typ === "JWT"));
+  } catch (_err) {
+    return false;
+  }
+}
+
+function extractJwtFromValue(raw) {
+  const value = String(raw || "").trim().replace(/^Bearer\s+/i, "");
+  if (!value) return "";
+  if (looksLikeJwt(value)) return value;
+  if (value.charAt(0) === "{" || value.charAt(0) === "[") {
+    try {
+      const obj = JSON.parse(value);
+      const keys = [
+        "accessToken", "access_token", "AccessToken",
+        "jwt", "id_token", "idToken", "token"
+      ];
+      for (const key of keys) {
+        const nested = obj && obj[key];
+        if (looksLikeJwt(nested)) return String(nested).trim().replace(/^Bearer\s+/i, "");
+      }
+      const deeper = obj && obj.tokens && (obj.tokens.accessToken || obj.tokens.access_token);
+      if (looksLikeJwt(deeper)) return String(deeper).trim().replace(/^Bearer\s+/i, "");
+    } catch (_err) {}
+  }
+  const embedded = value.match(/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/);
+  if (embedded && looksLikeJwt(embedded[0])) return embedded[0];
   return "";
 }
 
 function extractToken(request) {
   const auth = request.headers.get("authorization") || request.headers.get("Authorization") || "";
   const bearer = auth.match(/^Bearer\s+(.+)$/i);
-  if (bearer && bearer[1]) return bearer[1].trim();
+  if (bearer && bearer[1]) {
+    const fromAuth = extractJwtFromValue(bearer[1]);
+    if (fromAuth) return fromAuth;
+  }
 
   const cookieHeader = request.headers.get("cookie") || "";
   for (const name of TOKEN_COOKIES) {
     const value = readCookie(cookieHeader, name);
-    if (value && value.split(".").length === 3) return value.replace(/^Bearer\s+/i, "");
+    const token = extractJwtFromValue(value);
+    if (token) return token;
   }
   return "";
+}
+
+function cookieMeta(request) {
+  const cookieHeader = request.headers.get("cookie") || "";
+  for (const name of TOKEN_COOKIES) {
+    const value = readCookie(cookieHeader, name);
+    if (value) {
+      return { name, chars: value.length, jwt: !!extractJwtFromValue(value) };
+    }
+  }
+  return { name: "", chars: 0, jwt: false };
 }
 
 function getPath(obj, path) {
@@ -145,6 +233,7 @@ function collectSubscriptionCandidates(user) {
     ["currentSubscription"],
     ["PersonAccount", "Subscriptions"],
     ["PersonAccount", "subscriptions"],
+    ["PersonAccount", "Account", "CurrentSubscription"],
     ["Memberships"],
     ["memberships"],
     ["Plans"],
@@ -167,12 +256,26 @@ function statusOf(entry) {
     entry.SubscriptionStatus ?? entry.subscriptionStatus ??
     entry.PlanStatus ?? entry.planStatus ??
     entry.AccountStage ?? entry.accountStage ??
+    entry.AccountStageLabel ?? entry.accountStageLabel ??
     entry.BillingStage ?? entry.billingStage
   );
   if (typeof raw === "number") return raw;
   const num = Number(raw);
   if (!Number.isNaN(num) && cleanString(raw) !== "") return num;
   return cleanString(raw).toLowerCase();
+}
+
+function statusIsActive(status) {
+  if (typeof status === "number") return ACTIVE_NUMERIC.has(status) && !DEAD_NUMERIC.has(status);
+  if (typeof status === "string" && status) return ACTIVE_TEXT.has(status);
+  return false;
+}
+
+function statusIsDead(status) {
+  if (typeof status === "number") return DEAD_NUMERIC.has(status);
+  if (typeof status !== "string") return false;
+  return status === "canceled" || status === "cancelled" || status === "expired" ||
+    status === "trialexpired" || status === "trial_expired" || status === "paused";
 }
 
 function planUidOf(entry) {
@@ -197,58 +300,44 @@ function entryLooksActive(entry, expectedPlan) {
   const status = statusOf(entry);
   const uid = planUidOf(entry);
   const planName = planNameOf(entry);
-  const activeByStatus =
-    (typeof status === "number" && ACTIVE_NUMERIC.has(status)) ||
-    (typeof status === "string" && ACTIVE_TEXT.has(status));
-  const notDead =
-    status !== "canceled" &&
-    status !== "cancelled" &&
-    status !== "expired" &&
-    status !== 3 &&
-    status !== 4;
+  const notDead = !statusIsDead(status);
 
-  if (activeByStatus && (!uid || uid === expectedPlan || planName.includes("vip"))) return true;
+  if (statusIsActive(status) && (!uid || uid === expectedPlan || planName.includes("vip"))) return true;
   if (uid && uid === expectedPlan && notDead) return true;
   if (planName && planName.includes("vip") && notDead) return true;
   return false;
 }
 
+function jwtPlanOf(payload) {
+  if (!payload) return "";
+  return cleanString(
+    payload["outseta:planUid"] ||
+    payload.planUid ||
+    payload["outseta:PlanUid"]
+  );
+}
+
 function deriveVip(profile, expectedPlan, jwtPayload) {
+  const jwtPlan = jwtPlanOf(jwtPayload);
+  if (jwtPlan && jwtPlan === expectedPlan) return true;
+
   if (profile && typeof profile === "object") {
     const candidates = collectSubscriptionCandidates(profile);
     if (candidates.some((entry) => entryLooksActive(entry, expectedPlan))) return true;
 
-    const accountStatus = statusOf(
-      getPath(profile, ["Account", "MembershipStatus"]) ||
-      getPath(profile, ["Account", "membershipStatus"]) ||
-      getPath(profile, ["Account", "AccountStage"]) ||
-      getPath(profile, ["Account", "accountStage"]) ||
-      getPath(profile, ["MembershipStatus"]) ||
-      getPath(profile, ["membershipStatus"]) ||
+    const accountStage = statusOf(
+      getPath(profile, ["Account"]) ||
+      getPath(profile, ["PersonAccount", "Account"]) ||
       ""
     );
-    if (
-      (typeof accountStatus === "number" && ACTIVE_NUMERIC.has(accountStatus)) ||
-      (typeof accountStatus === "string" && ACTIVE_TEXT.has(accountStatus))
-    ) {
+    if (statusIsActive(accountStage)) {
       const accountPlan = cleanString(
         getPath(profile, ["Account", "CurrentSubscription", "Plan", "Uid"]) ||
         getPath(profile, ["Account", "currentSubscription", "Plan", "Uid"]) ||
-        getPath(profile, ["Account", "CurrentSubscription", "plan", "uid"])
+        getPath(profile, ["PersonAccount", "Account", "CurrentSubscription", "Plan", "Uid"])
       );
       if (!accountPlan || accountPlan === expectedPlan) return true;
     }
-  }
-
-  if (jwtPayload) {
-    const jwtPlan = cleanString(jwtPayload["outseta:planUid"] || jwtPayload.planUid);
-    const jwtStage = cleanString(
-      jwtPayload["outseta:accountStage"] ||
-      jwtPayload["outseta:subscriptionStage"] ||
-      jwtPayload.accountStage ||
-      ""
-    ).toLowerCase();
-    if (jwtPlan === expectedPlan && jwtStage && ACTIVE_TEXT.has(jwtStage)) return true;
   }
 
   return false;
@@ -269,57 +358,145 @@ async function verifyJwt(token, domain) {
 }
 
 async function fetchProfile(token, domain) {
-  const response = await fetch(`https://${domain}/api/v1/profile?fields=*`, {
-    headers: { Authorization: `bearer ${token}` }
-  });
-  if (!response.ok) return null;
-  return response.json();
+  const response = await fetch(
+    `https://${domain}/api/v1/profile?fields=${encodeURIComponent(PROFILE_FIELDS)}`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  if (!response.ok) return { ok: false, status: response.status, profile: null };
+  try {
+    return { ok: true, status: response.status, profile: await response.json() };
+  } catch (_err) {
+    return { ok: false, status: response.status, profile: null };
+  }
 }
 
-async function passThrough(context, { cachePrivate }) {
-  const origin = await context.next();
-  const headers = new Headers(origin.headers);
+async function evaluateAccess(request, context) {
+  const token = extractToken(request);
+  const cookie = cookieMeta(request);
+  const domain = outsetaDomain(context);
+  const expectedPlan = planUid(context);
+  const result = {
+    cookiePresent: !!cookie.name,
+    cookieName: cookie.name || null,
+    cookieChars: cookie.chars,
+    tokenChars: token.length,
+    jwtExtracted: !!token,
+    jwtVerified: false,
+    jwtHasVipPlan: false,
+    profileOk: false,
+    profileHttp: 0,
+    vip: false,
+    reason: "no-token"
+  };
+
+  if (!token) return result;
+
+  let payload = null;
+  try {
+    payload = await verifyJwt(token, domain);
+    result.jwtVerified = true;
+  } catch (_err) {
+    payload = null;
+    result.jwtVerified = false;
+  }
+
+  result.jwtHasVipPlan = jwtPlanOf(payload) === expectedPlan;
+
+  let profile = null;
+  try {
+    const fetched = await fetchProfile(token, domain);
+    result.profileHttp = fetched.status;
+    result.profileOk = fetched.ok;
+    profile = fetched.profile;
+  } catch (_err) {
+    profile = null;
+  }
+
+  if (!result.jwtVerified && !result.profileOk) {
+    result.reason = "token-unverified";
+    return result;
+  }
+
+  result.vip = deriveVip(profile, expectedPlan, payload);
+  if (result.vip) {
+    result.reason = result.jwtHasVipPlan ? "jwt-plan" : "profile-vip";
+  } else {
+    result.reason = "not-vip";
+  }
+  return result;
+}
+
+function applyPrivateHeaders(headers, cachePrivate, edgeTag) {
   if (cachePrivate) {
     headers.set("Cache-Control", "private, no-store");
     headers.set("CDN-Cache-Control", "no-store");
     headers.set("Netlify-CDN-Cache-Control", "no-store");
     headers.set("Vary", "Cookie, Authorization");
   }
-  return new Response(origin.body, {
-    status: origin.status,
-    statusText: origin.statusText,
-    headers
+  if (edgeTag) headers.set("X-Sumnu-Edge", edgeTag);
+}
+
+async function passThrough(context, { cachePrivate, edgeTag }) {
+  const origin = await context.next();
+  try {
+    applyPrivateHeaders(origin.headers, cachePrivate, edgeTag);
+    return origin;
+  } catch (_err) {
+    const headers = new Headers(origin.headers);
+    applyPrivateHeaders(headers, cachePrivate, edgeTag);
+    return new Response(origin.body, {
+      status: origin.status,
+      statusText: origin.statusText,
+      headers
+    });
+  }
+}
+
+function diagResponse(evalResult) {
+  return new Response(JSON.stringify({
+    previewOnly: true,
+    doNotMerge: true,
+    cookiePresent: evalResult.cookiePresent,
+    cookieName: evalResult.cookieName,
+    cookieChars: evalResult.cookieChars,
+    tokenChars: evalResult.tokenChars,
+    jwtExtracted: evalResult.jwtExtracted,
+    jwtVerified: evalResult.jwtVerified,
+    jwtHasVipPlan: evalResult.jwtHasVipPlan,
+    profileOk: evalResult.profileOk,
+    profileHttp: evalResult.profileHttp,
+    vip: evalResult.vip,
+    reason: evalResult.reason,
+    expected: {
+      loggedOut: "cookiePresent=false, vip=false, reason=no-token",
+      activeVip: "cookiePresent=true, jwtExtracted=true, vip=true, then protected audio 200/206"
+    }
+  }, null, 2), {
+    status: 200,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "private, no-store",
+      "CDN-Cache-Control": "no-store",
+      "X-Sumnu-Edge": "diag"
+    }
   });
 }
 
 export default async (request, context) => {
   const url = new URL(request.url);
+
+  if (isDiagPath(url.pathname)) {
+    return diagResponse(await evaluateAccess(request, context));
+  }
+
   if (isAllowlisted(url.pathname)) {
-    return passThrough(context, { cachePrivate: false });
+    return passThrough(context, { cachePrivate: false, edgeTag: "allow-sample" });
   }
 
-  const token = extractToken(request);
-  if (!token) return deny(401);
+  const evalResult = await evaluateAccess(request, context);
+  if (!evalResult.jwtExtracted) return deny(401, "deny-notoken");
+  if (!evalResult.jwtVerified && !evalResult.profileOk) return deny(401, "deny-unverified");
+  if (!evalResult.vip) return deny(403, "deny-notvip");
 
-  const domain = outsetaDomain(context);
-  const expectedPlan = planUid(context);
-
-  let payload = null;
-  try {
-    payload = await verifyJwt(token, domain);
-  } catch (_err) {
-    return deny(401);
-  }
-
-  let profile = null;
-  try {
-    profile = await fetchProfile(token, domain);
-  } catch (_err) {
-    profile = null;
-  }
-
-  if (!profile) return deny(401);
-  if (!deriveVip(profile, expectedPlan, payload)) return deny(403);
-
-  return passThrough(context, { cachePrivate: true });
+  return passThrough(context, { cachePrivate: true, edgeTag: "allow-vip" });
 };

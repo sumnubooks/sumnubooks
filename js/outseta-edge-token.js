@@ -1,11 +1,9 @@
 /**
  * PREVIEW ONLY — copies the Outseta JWT from localStorage / Outseta SDK
  * into a first-party cookie so Netlify Edge can verify VIP on
- * explicit preview prefixes (Penny, Here Eat This, Still Standing,
- * Jailhouse Lawyer, Chandra).
+ * explicit preview prefixes. HTML5 <audio> cannot send Authorization.
  *
- * Site auth stays on tokenStorage: 'local'. This does not change VIP
- * derivation. Logout clears the cookie.
+ * Site auth stays on tokenStorage: 'local'. Logout clears the cookie.
  */
 (function () {
   var COOKIE = "sumnu_outseta_access_token";
@@ -17,10 +15,40 @@
 
   function looksLikeJwt(value) {
     var token = clean(value);
-    return token.split(".").length === 3 && token.length > 40;
+    var parts = token.split(".");
+    if (parts.length !== 3 || token.length < 40) return false;
+    try {
+      var pad = parts[0].replace(/-/g, "+").replace(/_/g, "/");
+      while (pad.length % 4) pad += "=";
+      var hdr = JSON.parse(atob(pad));
+      return !!(hdr && (hdr.alg || hdr.typ === "JWT"));
+    } catch (_err) {
+      return false;
+    }
   }
 
-  function readFromOutseta() {
+  function extractJwt(raw) {
+    var value = clean(raw);
+    if (!value) return "";
+    if (looksLikeJwt(value)) return value;
+    if (value.charAt(0) === "{" || value.charAt(0) === "[") {
+      try {
+        var obj = JSON.parse(value);
+        var keys = ["accessToken", "access_token", "AccessToken", "jwt", "id_token", "idToken", "token"];
+        for (var i = 0; i < keys.length; i++) {
+          if (obj && looksLikeJwt(obj[keys[i]])) return clean(obj[keys[i]]);
+        }
+        if (obj && obj.tokens && looksLikeJwt(obj.tokens.accessToken)) {
+          return clean(obj.tokens.accessToken);
+        }
+      } catch (_err) {}
+    }
+    var embedded = value.match(/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/);
+    if (embedded && looksLikeJwt(embedded[0])) return embedded[0];
+    return "";
+  }
+
+  function readFromOutsetaSync() {
     try {
       if (!window.Outseta) return "";
       var candidates = [
@@ -34,20 +62,49 @@
         try {
           var result = candidates[i].call(window.Outseta.auth || window.Outseta);
           if (result && typeof result.then === "function") continue;
-          if (looksLikeJwt(result)) return clean(result);
+          var token = extractJwt(result);
+          if (token) return token;
         } catch (_err) {}
       }
     } catch (_err) {}
     return "";
   }
 
+  function readFromOutsetaAsync(done) {
+    try {
+      if (!window.Outseta) return done("");
+      var fn = window.Outseta.getAccessToken ||
+        (window.Outseta.auth && window.Outseta.auth.getAccessToken);
+      if (typeof fn !== "function") return done("");
+      var result = fn.call(window.Outseta.auth || window.Outseta);
+      if (result && typeof result.then === "function") {
+        result.then(function (value) { done(extractJwt(value)); }).catch(function () { done(""); });
+        return;
+      }
+      done(extractJwt(result));
+    } catch (_err) {
+      done("");
+    }
+  }
+
   function readFromStorage() {
     try {
+      var preferred = [
+        "Outseta.nocode.accessToken",
+        "outseta.accessToken",
+        "outseta:accessToken"
+      ];
+      var i;
+      for (i = 0; i < preferred.length; i++) {
+        var preferredValue = localStorage.getItem(preferred[i]);
+        var preferredToken = extractJwt(preferredValue);
+        if (preferredToken) return preferredToken;
+      }
       var keys = Object.keys(localStorage || {});
-      for (var i = 0; i < keys.length; i++) {
+      for (i = 0; i < keys.length; i++) {
         if (!/outseta|token|jwt|access/i.test(keys[i])) continue;
-        var value = localStorage.getItem(keys[i]);
-        if (looksLikeJwt(value)) return clean(value);
+        var token = extractJwt(localStorage.getItem(keys[i]));
+        if (token) return token;
       }
     } catch (_err) {}
     return "";
@@ -64,16 +121,31 @@
     document.cookie = COOKIE + "=; Path=/; Max-Age=0; SameSite=Lax" + secure;
   }
 
-  function sync() {
-    var token = readFromOutseta() || readFromStorage();
+  function cookiePresent() {
+    return document.cookie.split(";").some(function (part) {
+      return part.trim().indexOf(COOKIE + "=") === 0;
+    });
+  }
+
+  function applyToken(token) {
     if (token) setCookie(token);
     else clearCookie();
     return token;
   }
 
+  function sync() {
+    var token = readFromOutsetaSync() || readFromStorage();
+    applyToken(token);
+    readFromOutsetaAsync(function (asyncToken) {
+      if (asyncToken) applyToken(asyncToken);
+    });
+    return token;
+  }
+
   window.SumnuEdgeToken = {
     sync: sync,
-    clear: clearCookie
+    clear: clearCookie,
+    present: cookiePresent
   };
 
   sync();
@@ -83,6 +155,7 @@
   window.addEventListener("outseta:logout", clearCookie);
   window.addEventListener("accessToken.set", sync);
   window.addEventListener("storage", sync);
-  setTimeout(sync, 400);
-  setTimeout(sync, 1200);
+  setTimeout(sync, 200);
+  setTimeout(sync, 600);
+  setTimeout(sync, 1600);
 })();

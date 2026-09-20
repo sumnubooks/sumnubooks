@@ -13,7 +13,9 @@ Delete:
 
 ## 2. Remove path config
 
-Delete `netlify.toml`, or remove every `protect-vip-audio` `[[edge_functions]]` block (Penny, Here Eat This, Still Standing, Jailhouse Lawyer, Chandra). Do not leave a leftover site-wide `/audio/**` rule.
+Delete `netlify.toml`, or remove every `protect-vip-audio` `[[edge_functions]]` block (Penny, Here Eat This, Still Standing, Jailhouse Lawyer, Chandra, Echo, She Still Exists, Other Man, `/__preview/vip-audio-diag`). Do not leave a leftover site-wide `/audio/**` rule.
+
+Also delete preview-only `preview-vip-audio-diag.html`.
 
 ## 3. Remove the cookie bridge
 

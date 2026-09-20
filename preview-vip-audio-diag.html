@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Preview VIP audio diagnostic</title>
+  <script>
+    var o_options = {
+      domain: 'sumnuvision-llc.outseta.com',
+      tokenStorage: 'local',
+      auth: { authenticationCallbackUrl: (window.location.origin || '') + '/' }
+    };
+  </script>
+  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
+  <style>
+    body { font-family: system-ui, sans-serif; background:#0b0d14; color:#e8e8f0; margin:0; padding:24px; }
+    main { max-width: 720px; margin: 0 auto; }
+    h1 { font-size: 1.25rem; }
+    .warn { color:#d4a843; font-size:.85rem; }
+    pre { background:#151821; padding:14px; border-radius:10px; overflow:auto; font-size:12px; }
+    button, a.btn { display:inline-block; margin:6px 8px 6px 0; padding:10px 14px; border-radius:8px; border:0; background:#d4a843; color:#111; font-weight:700; text-decoration:none; cursor:pointer; }
+    .row { margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="warn">PREVIEW ONLY — do not merge. No token values are printed.</p>
+    <h1>VIP audio diagnostic</h1>
+    <p>Eric: log in as Active VIP on this origin, then open this page. Cookie + Edge must both say VIP before protected chapters will play.</p>
+    <div class="row">
+      <a class="btn" href="login.html">Log in</a>
+      <button type="button" id="runBtn">Re-run checks</button>
+    </div>
+    <pre id="out">Running…</pre>
+  </main>
+  <script src="js/outseta-edge-token.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    async function run() {
+      if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
+      var vip = !!(window.SumnuAuth && window.SumnuAuth.isVip());
+      var cookie = !!(window.SumnuEdgeToken && window.SumnuEdgeToken.present());
+      var diag = null;
+      var audio = null;
+      try {
+        diag = await fetch("/__preview/vip-audio-diag", { credentials: "same-origin", cache: "no-store" }).then(function (r) { return r.json(); });
+      } catch (err) {
+        diag = { error: String(err) };
+      }
+      try {
+        var res = await fetch("/audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch3.mp3", {
+          method: "HEAD",
+          credentials: "same-origin",
+          cache: "no-store"
+        });
+        audio = {
+          pennyCh3: res.status,
+          edge: res.headers.get("X-Sumnu-Edge"),
+          type: res.headers.get("content-type")
+        };
+      } catch (err) {
+        audio = { error: String(err) };
+      }
+      document.getElementById("out").textContent = JSON.stringify({
+        pageVipFlag: vip,
+        cookiePresent: cookie,
+        edgeDiag: diag,
+        protectedHead: audio,
+        passIf: "pageVipFlag=true, cookiePresent=true, edgeDiag.vip=true, pennyCh3=200"
+      }, null, 2);
+    }
+    document.getElementById("runBtn").onclick = run;
+    window.addEventListener("outseta:ready", run);
+    window.addEventListener("outseta:login", run);
+    window.addEventListener("outseta:refresh", run);
+    setTimeout(run, 500);
+    setTimeout(run, 1600);
+  </script>
+</body>
+</html>

@@ -353,11 +353,24 @@
       cover: 'images/covers-square/unplugged.jpg',
       freeCount: 2,
       payhip: 'https://payhip.com/b/zXevO',
-      items: Array.from({length:18}, (_,i) => ({
-        number: i+1,
-        image: `images/audiobooks/unplugged/unplugged-ch${i+1}.jpg`,
-        audio: `audio/audiobooks/unplugged/unplugged-ch${i+1}.mp3`
-      }))
+      countLabel: '1 Prologue + 16 Chapters',
+      freeLabel: 'Prologue + Chapter 1 Free',
+      items: [
+        {
+          number: 0,
+          label: 'PROL',
+          title: 'Prologue',
+          image: 'images/audiobooks/unplugged/unplugged-ch1.jpg',
+          audio: 'audio/audiobooks/unplugged/unplugged-ch1.mp3'
+        },
+        ...Array.from({length:16}, (_,i) => ({
+          number: i+1,
+          label: `CH ${i+1}`,
+          title: `Chapter ${i+1}`,
+          image: `images/audiobooks/unplugged/unplugged-ch${i+2}.jpg`,
+          audio: `audio/audiobooks/unplugged/unplugged-ch${i+2}.mp3`
+        }))
+      ]
     },
     {
       slug: 'chandra',
@@ -457,6 +470,7 @@
   }
 
   function loadChapter(i, play) {
+    if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
     if (!canAccess(i)) { triggerUnlock(); return; }
     currentIndex = i;
     const item = book.items[i];
@@ -528,6 +542,7 @@
 
   function wireControls() {
     document.getElementById('btnPlay').addEventListener('click', () => {
+      if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
       const btn = document.getElementById('btnPlay');
       const frame = document.getElementById('coverFrame');
       if (audio.paused) {

@@ -971,6 +971,7 @@
      LOAD CHAPTER
   ══════════════════════════════════ */
   function loadChapter(i, play) {
+    if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
     if (!canAccess(i)) { triggerUnlock(); return; }
     currentIndex = i;
     const item = series.items[i];
@@ -1068,6 +1069,7 @@
   function wireControls() {
     // Play/Pause
     document.getElementById('btnPlay').addEventListener('click', () => {
+      if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
       const btn = document.getElementById('btnPlay');
       const frame = document.getElementById('coverFrame');
       if (audio.paused) {
