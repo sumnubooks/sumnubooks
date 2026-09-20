@@ -1,7 +1,8 @@
 /**
  * PREVIEW ONLY — copies the Outseta JWT from localStorage / Outseta SDK
  * into a first-party cookie so Netlify Edge can verify VIP on
- * /audio/audiobooks/a-penny-for-my-thoughts/* requests.
+ * explicit preview prefixes (Penny, Here Eat This, Still Standing,
+ * Jailhouse Lawyer, Chandra).
  *
  * Site auth stays on tokenStorage: 'local'. This does not change VIP
  * derivation. Logout clears the cookie.

@@ -2,24 +2,18 @@
 
 **This branch is PREVIEW / NON-PRODUCTION ONLY. Do not merge to main. Do not deploy these Edge rules with production production settings.**
 
-Use these steps to remove the Penny-only Edge gate and revert preview UI before any future production discussion.
+Use these steps to remove the preview VIP Edge gates and revert preview UI before any future production discussion.
 
 ## 1. Remove the Edge Function
 
 Delete:
 
-- `netlify/edge-functions/protect-penny-audio.js`
+- `netlify/edge-functions/protect-vip-audio.js`
 - the `netlify/edge-functions/` folder if it is then empty
 
 ## 2. Remove path config
 
-Delete `netlify.toml`, or remove this block if other Netlify config has been added later:
-
-```toml
-[[edge_functions]]
-  function = "protect-penny-audio"
-  path = "/audio/audiobooks/a-penny-for-my-thoughts/*"
-```
+Delete `netlify.toml`, or remove every `protect-vip-audio` `[[edge_functions]]` block (Penny, Here Eat This, Still Standing, Jailhouse Lawyer, Chandra). Do not leave a leftover site-wide `/audio/**` rule.
 
 ## 3. Remove the cookie bridge
 
@@ -32,6 +26,7 @@ Remove this script tag from:
 - `audiobook.html`
 - `index.html`
 - `audiobooks/a-penny-for-my-thoughts.html` (if that preview page is kept)
+- `series.html`
 
 ```html
 <script src="js/outseta-edge-token.js"></script>

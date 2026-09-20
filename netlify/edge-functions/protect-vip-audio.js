@@ -1,27 +1,24 @@
 /**
  * PREVIEW / NON-PRODUCTION ONLY
- * Protects ONLY /audio/audiobooks/a-penny-for-my-thoughts/*
+ * Explicit VIP audio prefixes — NOT site-wide /audio/**
  *
- * Allowlist (matches CURRENT live free-sample behavior; does not change main counts):
- *   - /audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch1.mp3
- *       Display: Prologue. Free sample file 1 of 2.
- *   - /audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch2.mp3
- *       Display: Chapter 1. /audiobooks SAMPLE clip. Free sample file 2 of 2.
+ * Allowlists (free samples only; do not invent missing files):
+ *   Penny   /audio/audiobooks/a-penny-for-my-thoughts/*
+ *           …-ch1.mp3 (Prologue), …-ch2.mp3 (Chapter 1)
+ *   HET     /audio/series/here-eat-this/*
+ *           here-eat-this-ep1.mp3, here-eat-this-ep2.mp3  (freeCount: 2)
+ *   Still   /audio/audiobooks/still-standing/*
+ *           Still-Standing-Ch1.mp3, Still-Standing-Ch2.mp3
+ *   Jail    /audio/audiobooks/the-jailhouse-lawyer/*
+ *           The-Jailhouse-Lawyer-Ch1.mp3, The-Jailhouse-Lawyer-Ch2.mp3
+ *   Chandra /audio/audiobooks/chandra/*
+ *           chandra-ch1.mp3, chandra-ch2.mp3 if present — do not create
  *
- * Choice: allowlist BOTH ch1 and ch2 so catalog sample, homepage prologue,
- * and VIP-player free chapters keep working. All other Penny chapter files
- * require a verified Outseta VIP entitlement for plan jW70XZmq.
+ * Protected files in those folders require Outseta VIP (plan jW70XZmq):
+ *   JWKS + GET /api/v1/profile?fields=*
  *
- * Outseta verification (official):
- *   1) JWKS: https://<domain>/.well-known/jwks  + jose jwtVerify
- *   2) Fresh entitlement: GET /api/v1/profile?fields=* with Bearer token
- *      (JWT planUid can be stale after expiry)
- *
- * Pass-through uses context.next() so Range / 206 / seek still work.
- * Protected responses are Cache-Control: private, no-store so CDN cannot
- * re-serve a VIP-fetched chapter to logged-out visitors.
- *
- * EPUB: HOLD — this function does not touch /ebooks/**
+ * Music / radio under /audio/music/** stay ungated.
+ * EPUB HOLD — does not touch /ebooks/**
  */
 
 import { createRemoteJWKSet, jwtVerify } from "https://esm.sh/jose@5.9.6?target=denonext";
@@ -34,8 +31,24 @@ const TOKEN_COOKIES = ["sumnu_outseta_access_token", "Outseta.nocode.accessToken
 
 const ALLOWLIST = new Set([
   "/audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch1.mp3",
-  "/audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch2.mp3"
+  "/audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch2.mp3",
+  "/audio/series/here-eat-this/here-eat-this-ep1.mp3",
+  "/audio/series/here-eat-this/here-eat-this-ep2.mp3",
+  "/audio/audiobooks/still-standing/Still-Standing-Ch1.mp3",
+  "/audio/audiobooks/still-standing/Still-Standing-Ch2.mp3",
+  "/audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch1.mp3",
+  "/audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch2.mp3",
+  "/audio/audiobooks/chandra/chandra-ch1.mp3",
+  "/audio/audiobooks/chandra/chandra-ch2.mp3"
 ]);
+
+const ALLOWLIST_RE = [
+  /\/a-penny-for-my-thoughts-ch[12]\.mp3$/i,
+  /\/here-eat-this-ep[12]\.mp3$/i,
+  /\/Still-Standing-Ch[12]\.mp3$/i,
+  /\/The-Jailhouse-Lawyer-Ch[12]\.mp3$/i,
+  /\/chandra-ch[12]\.mp3$/i
+];
 
 let jwks = null;
 
@@ -82,7 +95,7 @@ function normalizePath(pathname) {
 function isAllowlisted(pathname) {
   const path = normalizePath(pathname);
   if (ALLOWLIST.has(path)) return true;
-  return /\/a-penny-for-my-thoughts-ch[12]\.mp3$/i.test(path);
+  return ALLOWLIST_RE.some((re) => re.test(path));
 }
 
 function readCookie(header, name) {

@@ -1,9 +1,24 @@
 # PREVIEW / NON-PRODUCTION ONLY
 # Do not merge this branch to main.
 # Do not deploy these Edge rules with production production settings.
-# Netlify Deploy Preview is the intended surface.
+# Explicit prefixes only — not site-wide /audio/**
 
-# Penny-only audio gate. Not site-wide /audio/**
 [[edge_functions]]
-  function = "protect-penny-audio"
+  function = "protect-vip-audio"
   path = "/audio/audiobooks/a-penny-for-my-thoughts/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/series/here-eat-this/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/audiobooks/still-standing/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/audiobooks/the-jailhouse-lawyer/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/audiobooks/chandra/*"

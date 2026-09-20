@@ -4,18 +4,42 @@
 
 Fill Deploy Preview results after Netlify builds this branch. Rows that need Eric’s VIP test account are marked.
 
-## Allowlist documented on this branch
+## Allowlists documented on this branch
 
-Edge allowlists **both** current free-sample files. Live `freeCount` values on main were not changed.
+Explicit prefixes only — **not** site-wide `/audio/**`. Live main sample counts were not changed. No missing Chandra files were invented.
 
-| File | Why it is allowlisted |
-| --- | --- |
-| `/audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch1.mp3` | Homepage Penny freeCount is **1** (prologue / first file). Player `freeCount: 2` also treats ch1 as free. |
-| `/audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch2.mp3` | `/audiobooks` SAMPLE clip. Player `freeCount: 2` also treats ch2 as free. |
+| Prefix | Allowlist (logged-out 200) | Protected (logged-out 401) |
+| --- | --- | --- |
+| `/audio/audiobooks/a-penny-for-my-thoughts/*` | `…-ch1.mp3` (Prologue), `…-ch2.mp3` (Chapter 1) | ch3+ |
+| `/audio/series/here-eat-this/*` | `here-eat-this-ep1.mp3`, `here-eat-this-ep2.mp3` (freeCount: 2) | ep3+ |
+| `/audio/audiobooks/still-standing/*` | `Still-Standing-Ch1.mp3`, `Still-Standing-Ch2.mp3` | Ch3+ |
+| `/audio/audiobooks/the-jailhouse-lawyer/*` | `The-Jailhouse-Lawyer-Ch1.mp3`, `The-Jailhouse-Lawyer-Ch2.mp3` | Ch3+ |
+| `/audio/audiobooks/chandra/*` | `chandra-ch1.mp3`, `chandra-ch2.mp3` **if present** (none in git) | any other file in folder |
 
-Protected: any other path under `/audio/audiobooks/a-penny-for-my-thoughts/*` (ch3+).
+Out of scope (must stay ungated): `/audio/music/**`, `/audio/audiobooks/unplugged/**`, Payhip, EPUB.
 
-Not in scope: `/audio/**` outside that Penny folder, Payhip, EPUB, Amazon.
+Exact allowlist filenames used by Edge (regex also anchors `[12]` so Ch10/ep10 never match as samples):
+
+- Penny: `a-penny-for-my-thoughts-ch1.mp3`, `a-penny-for-my-thoughts-ch2.mp3`
+- HET: `here-eat-this-ep1.mp3`, `here-eat-this-ep2.mp3`
+- Still Standing: `Still-Standing-Ch1.mp3`, `Still-Standing-Ch2.mp3`
+- Jailhouse Lawyer: `The-Jailhouse-Lawyer-Ch1.mp3`, `The-Jailhouse-Lawyer-Ch2.mp3`
+- Chandra: `chandra-ch1.mp3`, `chandra-ch2.mp3` (folder empty in git — no files created)
+
+## Extended prefix curl (Deploy Preview)
+
+Fill after Netlify SUCCESS on this revision. Logged-out unless noted.
+
+| Prefix | Sample files (expect 200) | Protected files (expect 401) | Result |
+| --- | --- | --- | --- |
+| Penny | ch1, ch2 | ch3 | Pending deploy |
+| Here Eat This | ep1, ep2 | ep3 | Pending deploy |
+| Still Standing | Ch1, Ch2 | Ch3 | Pending deploy |
+| Jailhouse Lawyer | Ch1, Ch2 | Ch3 | Pending deploy |
+| Chandra | ch1/ch2 if present | any other file | Pending — files absent in git (expect 404, not invented) |
+| Music (out of scope) | `/audio/music/...` if present | — | Pending deploy (must stay 200, not 401) |
+| Unplugged (out of scope) | `unplugged-ch2.mp3` | — | Pending deploy (must stay 200) |
+| Payhip | `https://payhip.com/b/9sX8Z` | — | Pending (must stay off-site, no Edge) |
 
 ## Rows
 
