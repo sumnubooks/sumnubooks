@@ -11,7 +11,7 @@
       load: 'auth,profile',
       monitorDom: true,
       auth: {
-        authenticationCallbackUrl: 'https://sumnubooks.com/'
+        authenticationCallbackUrl: (window.location.origin || '') + '/'
       }
     };
   </script>
@@ -227,20 +227,24 @@
         <div class="kicker">Member Account</div>
         <h1 id="pageHeadline">My Account</h1>
 
-        <!-- Signed OUT state -->
-        <div class="panel signed-out-box" id="signedOutPanel">
+        <!-- Signed OUT state — visible immediately (do not wait on Outseta) -->
+        <div class="panel show signed-out-box" id="signedOutPanel">
           <p class="sub">
             Log in to restore your VIP access on this device. Your access
             follows your account — not your browser.
           </p>
           <div class="action-stack">
-            <button class="btn-primary-full" id="loginBtn">
+            <a class="btn-primary-full" id="loginBtn"
+               href="https://sumnuvision-llc.outseta.com/auth?widgetMode=login">
               Log in to my account
-            </button>
+            </a>
             <a class="btn-secondary-full" href="unlock.html">
               Not a member yet? Start free trial →
             </a>
           </div>
+          <noscript>
+            <p class="sub" style="margin-top:14px">JavaScript is off. Use Log in to my account above to open hosted login.</p>
+          </noscript>
         </div>
 
         <!-- Signed IN + VIP state -->
@@ -290,11 +294,12 @@
 </div>
   </main>
 
+  <script src="js/outseta-edge-token.js"></script>
   <script src="js/auth.js"></script>
   <script>
     var PLAN_UID       = 'jW70XZmq'; // ← replace this
     var OUTSETA_DOMAIN = 'sumnuvision-llc.outseta.com';
-    var RETURN_URL     = 'https://sumnubooks.com/index.html';
+    var RETURN_URL     = (window.location.origin || '') + '/index.html';
 
     function showPanel(id) {
       ['signedOutPanel','signedInVipPanel','signedInFreePanel'].forEach(function(p) {
@@ -325,15 +330,33 @@
       }
     }
 
-    // Login button
-    document.getElementById('loginBtn').addEventListener('click', function () {
-      if (window.Outseta && window.Outseta.auth) {
+    function hostedLoginUrl() {
+      return 'https://' + OUTSETA_DOMAIN +
+        '/auth?widgetMode=login&redirectUri=' + encodeURIComponent(window.location.href);
+    }
+
+    function openExistingMemberLogin(event) {
+      if (window.SumnuAuth && typeof window.SumnuAuth.login === 'function' && window.Outseta && window.Outseta.auth) {
+        if (event) event.preventDefault();
+        window.SumnuAuth.login(window.location.href);
+        return;
+      }
+      if (window.Outseta && window.Outseta.auth && typeof window.Outseta.auth.open === 'function') {
+        if (event) event.preventDefault();
         window.Outseta.auth.open({
           widgetMode: 'login',
           redirectUri: window.location.href
         });
+        return;
       }
-    });
+      window.location.href = hostedLoginUrl();
+    }
+
+    var loginBtn = document.getElementById('loginBtn');
+    if (loginBtn) {
+      loginBtn.setAttribute('href', hostedLoginUrl());
+      loginBtn.addEventListener('click', openExistingMemberLogin);
+    }
 
     // Upgrade button (free user → pay)
     document.getElementById('upgradeBtn').addEventListener('click', function () {
@@ -367,6 +390,16 @@
     window.addEventListener('outseta:login',  applyState);
     window.addEventListener('outseta:logout', function () { showPanel('signedOutPanel'); });
     window.addEventListener('outseta:refresh', applyState);
+
+    showPanel('signedOutPanel');
+    applyState();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', applyState);
+    }
+    setTimeout(applyState, 0);
+    setTimeout(applyState, 250);
+    setTimeout(applyState, 800);
+    setTimeout(applyState, 2000);
   </script>
   <script src="js/animations.js"></script>
 </body>

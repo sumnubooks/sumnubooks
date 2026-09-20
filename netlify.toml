@@ -1,0 +1,31 @@
+# PREVIEW / NON-PRODUCTION ONLY
+# Do not merge this branch to main.
+# Do not deploy these Edge rules with production production settings.
+# Explicit prefixes only — not site-wide /audio/**
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/audiobooks/a-penny-for-my-thoughts/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/series/here-eat-this/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/audiobooks/still-standing/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/audiobooks/the-jailhouse-lawyer/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/audiobooks/chandra/*"
+
+# CEO HOLD: do not add Echo / She Still Exists / Other Man until
+# Eric Active VIP PASS on Penny / HET / Jailhouse / Still Standing.
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/__preview/vip-audio-diag"

@@ -8,7 +8,7 @@
     var o_options = {
       domain: 'sumnuvision-llc.outseta.com',
       tokenStorage: 'local',
-      auth: { authenticationCallbackUrl: 'https://sumnubooks.com/' }
+      auth: { authenticationCallbackUrl: (window.location.origin || '') + '/' }
     };
   </script>
   <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
@@ -326,11 +326,24 @@
       cover: 'images/covers-square/a-penny-for-my-thoughts.jpg',
       freeCount: 2,
       payhip: 'https://payhip.com/b/9sX8Z',
-      items: Array.from({length:50}, (_,i) => ({
-        number: i+1,
-        image: `images/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch${i+1}.jpg`,
-        audio: `audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch${i+1}.mp3`
-      }))
+      countLabel: '1 Prologue + 48 Chapters',
+      freeLabel: 'Prologue + Chapter 1 Free',
+      items: [
+        {
+          number: 0,
+          label: 'PROL',
+          title: 'Prologue',
+          image: 'images/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch1.jpg',
+          audio: 'audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch1.mp3'
+        },
+        ...Array.from({length:48}, (_,i) => ({
+          number: i+1,
+          label: `CH ${i+1}`,
+          title: `Chapter ${i+1}`,
+          image: `images/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch${i+2}.jpg`,
+          audio: `audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch${i+2}.mp3`
+        }))
+      ]
     },
     {
       slug: 'unplugged',
@@ -340,11 +353,24 @@
       cover: 'images/covers-square/unplugged.jpg',
       freeCount: 2,
       payhip: 'https://payhip.com/b/zXevO',
-      items: Array.from({length:18}, (_,i) => ({
-        number: i+1,
-        image: `images/audiobooks/unplugged/unplugged-ch${i+1}.jpg`,
-        audio: `audio/audiobooks/unplugged/unplugged-ch${i+1}.mp3`
-      }))
+      countLabel: '1 Prologue + 16 Chapters',
+      freeLabel: 'Prologue + Chapter 1 Free',
+      items: [
+        {
+          number: 0,
+          label: 'PROL',
+          title: 'Prologue',
+          image: 'images/audiobooks/unplugged/unplugged-ch1.jpg',
+          audio: 'audio/audiobooks/unplugged/unplugged-ch1.mp3'
+        },
+        ...Array.from({length:16}, (_,i) => ({
+          number: i+1,
+          label: `CH ${i+1}`,
+          title: `Chapter ${i+1}`,
+          image: `images/audiobooks/unplugged/unplugged-ch${i+2}.jpg`,
+          audio: `audio/audiobooks/unplugged/unplugged-ch${i+2}.mp3`
+        }))
+      ]
     },
     {
       slug: 'chandra',
@@ -417,8 +443,8 @@
     document.title = `${book.title} · Sumnu Books`;
 
     document.getElementById('bookPills').innerHTML = `
-      <span class="book-pill">${book.items.length} Chapters</span>
-      <span class="book-pill">Ch 1–2 Free</span>
+      <span class="book-pill">${book.countLabel || (book.items.length + ' Chapters')}</span>
+      <span class="book-pill">${book.freeLabel || 'Ch 1–2 Free'}</span>
       <span class="book-pill">VIP Stream</span>
       <span class="book-pill">Buy to Own</span>
     `;
@@ -433,8 +459,8 @@
       buyBar.classList.add('coming-soon');
     }
 
-    document.getElementById('sheetTitle').textContent = 'Chapters';
-    document.getElementById('chapterTriggerLabel').textContent = `${book.items.length} Chapters`;
+    document.getElementById('sheetTitle').textContent = book.countLabel || 'Chapters';
+    document.getElementById('chapterTriggerLabel').textContent = book.countLabel || `${book.items.length} Chapters`;
     document.getElementById('trackSeries').textContent = book.title;
 
     buildChapterSheet();
@@ -444,6 +470,7 @@
   }
 
   function loadChapter(i, play) {
+    if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
     if (!canAccess(i)) { triggerUnlock(); return; }
     currentIndex = i;
     const item = book.items[i];
@@ -452,8 +479,9 @@
     artEl.onerror = () => { artEl.src = book.cover; artEl.onerror = null; };
     artEl.src = item.image;
 
-    document.getElementById('trackTitle').textContent = `Chapter ${item.number}`;
-    document.getElementById('trackChapter').textContent = `Chapter ${item.number} of ${book.items.length}`;
+    const title = item.title || `Chapter ${item.number}`;
+    document.getElementById('trackTitle').textContent = title;
+    document.getElementById('trackChapter').textContent = `${title} · ${i + 1} of ${book.items.length}`;
     setProgress(0);
     document.getElementById('timeCurrent').textContent = '0:00';
     document.getElementById('timeRemaining').textContent = '—';
@@ -514,6 +542,7 @@
 
   function wireControls() {
     document.getElementById('btnPlay').addEventListener('click', () => {
+      if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
       const btn = document.getElementById('btnPlay');
       const frame = document.getElementById('coverFrame');
       if (audio.paused) {
@@ -565,9 +594,9 @@
       const row = document.createElement('div');
       row.className = `chapter-row${i===0?' active':''}`;
       row.innerHTML = `
-        <span class="ch-num">CH ${item.number}</span>
+        <span class="ch-num">${item.label || ('CH ' + item.number)}</span>
         <div class="ch-art"><img src="${item.image}" alt="" loading="lazy" onerror="this.src='${book.cover}'"></div>
-        <div class="ch-title">Chapter ${item.number}</div>
+        <div class="ch-title">${item.title || ('Chapter ' + item.number)}</div>
         <div class="ch-playing"><div class="ch-bar"></div><div class="ch-bar"></div><div class="ch-bar"></div></div>
         ${!ok ? '<span class="ch-locked">🔒 VIP</span>' : ''}
       `;
@@ -601,9 +630,14 @@
   }
 
   function triggerUnlock() {
+    // Existing members: login first. New VIP signup stays on /unlock.
+    if (window.SumnuAuth && typeof window.SumnuAuth.login === 'function') {
+      window.SumnuAuth.login(window.location.href);
+      return;
+    }
     if (window.Outseta && window.Outseta.auth) {
-      window.Outseta.auth.open({widgetMode:'register', planUid:'jW70XZmq', redirectUri: window.location.href});
-    } else { window.location.href = 'unlock.html'; }
+      window.Outseta.auth.open({widgetMode:'login', redirectUri: window.location.href});
+    } else { window.location.href = 'login.html'; }
   }
 
   function syncVipAccess() {
@@ -621,6 +655,7 @@
   window.addEventListener('outseta:logout', syncVipAccess);
   </script>
 
+  <script src="js/outseta-edge-token.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/animations.js"></script>
 </body>

@@ -8,7 +8,7 @@
     var o_options = {
       domain: 'sumnuvision-llc.outseta.com',
       tokenStorage: 'local',
-      auth: { authenticationCallbackUrl: 'https://sumnubooks.com/' }
+      auth: { authenticationCallbackUrl: (window.location.origin || '') + '/' }
     };
   </script>
   <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
@@ -971,6 +971,7 @@
      LOAD CHAPTER
   ══════════════════════════════════ */
   function loadChapter(i, play) {
+    if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
     if (!canAccess(i)) { triggerUnlock(); return; }
     currentIndex = i;
     const item = series.items[i];
@@ -1068,6 +1069,7 @@
   function wireControls() {
     // Play/Pause
     document.getElementById('btnPlay').addEventListener('click', () => {
+      if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
       const btn = document.getElementById('btnPlay');
       const frame = document.getElementById('coverFrame');
       if (audio.paused) {
@@ -1245,6 +1247,7 @@
   window.addEventListener('outseta:logout', syncVipAccess);
   </script>
 
+  <script src="js/outseta-edge-token.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/animations.js"></script>
 </body>
