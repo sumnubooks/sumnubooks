@@ -8,6 +8,12 @@
 (function () {
   var COOKIE = "sumnu_outseta_access_token";
   var MAX_AGE = 60 * 60 * 12;
+  var AUTH_COOKIES = [
+    "sumnu_outseta_access_token",
+    "Outseta.nocode.accessToken",
+    "Outseta.nocode.idToken"
+  ];
+  var blockedUntilLogin = false;
 
   function clean(value) {
     return value == null ? "" : String(value).trim().replace(/^Bearer\s+/i, "");
@@ -116,9 +122,41 @@
       "; Path=/; Max-Age=" + MAX_AGE + "; SameSite=Lax" + secure;
   }
 
-  function clearCookie() {
+  function expireCookie(name) {
     var secure = window.location.protocol === "https:" ? "; Secure" : "";
-    document.cookie = COOKIE + "=; Path=/; Max-Age=0; SameSite=Lax" + secure;
+    document.cookie = name + "=; Path=/; Max-Age=0; SameSite=Lax" + secure;
+    document.cookie = name + "=; Path=/; Max-Age=0" + secure;
+  }
+
+  function clearCookie() {
+    expireCookie(COOKIE);
+  }
+
+  function collectAuthCookieNames() {
+    var names = AUTH_COOKIES.slice();
+    try {
+      document.cookie.split(";").forEach(function (part) {
+        var name = part.split("=")[0].trim();
+        if (name && /outseta|sumnu_outseta/i.test(name) && names.indexOf(name) === -1) {
+          names.push(name);
+        }
+      });
+    } catch (_err) {}
+    return names;
+  }
+
+  function clearAllCookies() {
+    collectAuthCookieNames().forEach(expireCookie);
+    blockedUntilLogin = true;
+  }
+
+  function blockUntilLogin() {
+    blockedUntilLogin = true;
+    collectAuthCookieNames().forEach(expireCookie);
+  }
+
+  function allowSync() {
+    blockedUntilLogin = false;
   }
 
   function cookiePresent() {
@@ -134,9 +172,17 @@
   }
 
   function sync() {
+    if (blockedUntilLogin) {
+      collectAuthCookieNames().forEach(expireCookie);
+      return "";
+    }
     var token = readFromOutsetaSync() || readFromStorage();
     applyToken(token);
     readFromOutsetaAsync(function (asyncToken) {
+      if (blockedUntilLogin) {
+        collectAuthCookieNames().forEach(expireCookie);
+        return;
+      }
       if (asyncToken) applyToken(asyncToken);
     });
     return token;
@@ -144,16 +190,31 @@
 
   window.SumnuEdgeToken = {
     sync: sync,
-    clear: clearCookie,
+    clear: clearAllCookies,
+    clearAll: clearAllCookies,
+    blockUntilLogin: blockUntilLogin,
+    allowSync: allowSync,
     present: cookiePresent
   };
 
   sync();
   window.addEventListener("outseta:ready", sync);
-  window.addEventListener("outseta:login", sync);
-  window.addEventListener("outseta:refresh", sync);
-  window.addEventListener("outseta:logout", clearCookie);
-  window.addEventListener("accessToken.set", sync);
+  window.addEventListener("outseta:login", function () {
+    blockedUntilLogin = false;
+    sync();
+  });
+  window.addEventListener("outseta:refresh", function () {
+    if (blockedUntilLogin) {
+      collectAuthCookieNames().forEach(expireCookie);
+      return;
+    }
+    sync();
+  });
+  window.addEventListener("outseta:logout", clearAllCookies);
+  window.addEventListener("accessToken.set", function () {
+    blockedUntilLogin = false;
+    sync();
+  });
   window.addEventListener("storage", sync);
   setTimeout(sync, 200);
   setTimeout(sync, 600);
