@@ -8,7 +8,7 @@
     var o_options = {
       domain: 'sumnuvision-llc.outseta.com',
       tokenStorage: 'local',
-      auth: { authenticationCallbackUrl: 'https://sumnubooks.com/' }
+      auth: { authenticationCallbackUrl: (window.location.origin || '') + '/' }
     };
   </script>
   <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
@@ -444,6 +444,7 @@
   }
 
   function loadChapter(i, play) {
+    if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
     if (!canAccess(i)) { triggerUnlock(); return; }
     currentIndex = i;
     const item = book.items[i];
@@ -514,6 +515,7 @@
 
   function wireControls() {
     document.getElementById('btnPlay').addEventListener('click', () => {
+      if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
       const btn = document.getElementById('btnPlay');
       const frame = document.getElementById('coverFrame');
       if (audio.paused) {
@@ -601,9 +603,14 @@
   }
 
   function triggerUnlock() {
+    // Existing members: login first. New VIP signup stays on /unlock.
+    if (window.SumnuAuth && typeof window.SumnuAuth.login === 'function') {
+      window.SumnuAuth.login(window.location.href);
+      return;
+    }
     if (window.Outseta && window.Outseta.auth) {
-      window.Outseta.auth.open({widgetMode:'register', planUid:'jW70XZmq', redirectUri: window.location.href});
-    } else { window.location.href = 'unlock.html'; }
+      window.Outseta.auth.open({widgetMode:'login', redirectUri: window.location.href});
+    } else { window.location.href = 'login.html'; }
   }
 
   function syncVipAccess() {
@@ -621,6 +628,7 @@
   window.addEventListener('outseta:logout', syncVipAccess);
   </script>
 
+  <script src="js/outseta-edge-token.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/animations.js"></script>
 </body>
