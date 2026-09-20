@@ -326,6 +326,7 @@
       cover: 'images/covers-square/a-penny-for-my-thoughts.jpg',
       freeCount: 2,
       payhip: 'https://payhip.com/b/9sX8Z',
+      price: '12.99',
       items: Array.from({length:49}, (_,i) => ({
         number: i+1,
         title: i === 0 ? 'Prologue' : `Chapter ${i}`,
@@ -341,6 +342,7 @@
       cover: 'images/covers-square/unplugged.jpg',
       freeCount: 2,
       payhip: 'https://payhip.com/b/zXevO',
+      price: '12.99',
       items: Array.from({length:17}, (_,i) => ({
         number: i+1,
         title: i === 0 ? 'Prologue' : `Chapter ${i}`,
@@ -369,7 +371,8 @@
       tagline: 'Inside the walls, knowledge is power.',
       cover: 'images/covers-square/the-jailhouse-lawyer.jpg',
       freeCount: 2,
-      payhip: null,
+      payhip: 'https://payhip.com/b/A9uaI',
+      price: '12.99',
       items: Array.from({length:20}, (_,i) => ({
         number: i+1,
         image: `images/audiobooks/the-jailhouse-lawyer/the-jailhouse-lawyer-ch${i+1}.jpg`,
@@ -383,7 +386,8 @@
       tagline: 'Before the empire... there was the beginning.',
       cover: 'images/covers-square/still-standing.jpg',
       freeCount: 2,
-      payhip: null,
+      payhip: 'https://payhip.com/b/kOFJL',
+      price: '12.99',
       items: Array.from({length:15}, (_,i) => ({
         number: i+1,
         image: `images/audiobooks/still-standing/still-standing-ch${i+1}.jpg`,
@@ -437,6 +441,7 @@
     const buyBtn = document.getElementById('buyBtn');
     if (book.payhip) {
       buyBtn.href = book.payhip;
+      buyBtn.textContent = `Buy $${book.price || '12.99'}`;
     } else {
       buyBar.innerHTML = '<span class="coming-soon-badge">🔜 Purchase link coming soon</span>';
       buyBar.classList.add('coming-soon');
