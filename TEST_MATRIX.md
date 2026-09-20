@@ -79,6 +79,10 @@ Ch50 search (no asset to restore): git has 49 MP3s (`ch1`–`ch49`); history/LFS
 - Amazon: no link changes.
 - MIXEMC / trial: not used as a primary CTA on the Penny preview landing.
 
+## Preview auth callback (entitlement testing)
+
+Outseta `authenticationCallbackUrl` is `(window.location.origin || '') + '/'` so Deploy Preview login returns to `deploy-preview-1--sumnubooks.netlify.app`, not production. `/login` Log in stays `widgetMode:'login'`. Locked Penny chapters call **login**, not register-only. Cookie bridge on `/login` and the player syncs `sumnu_outseta_access_token`. Edge VIP checks unchanged.
+
 ## Env vars (preview Netlify site)
 
 No secrets are committed. JWKS is public. Set on the preview site if you want overrides:
