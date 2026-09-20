@@ -15,9 +15,8 @@ Explicit prefixes only — **not** site-wide `/audio/**`. Live main sample count
 | `/audio/audiobooks/still-standing/*` | `Still-Standing-Ch1.mp3`, `Still-Standing-Ch2.mp3` | Ch3+ |
 | `/audio/audiobooks/the-jailhouse-lawyer/*` | `The-Jailhouse-Lawyer-Ch1.mp3`, `The-Jailhouse-Lawyer-Ch2.mp3` | Ch3+ |
 | `/audio/audiobooks/chandra/*` | `chandra-ch1.mp3`, `chandra-ch2.mp3` **if present** (none in git) | any other file in folder |
-| `/audio/series/the-echo-origins/*` | `the-echo-origins-ep1.mp3`, `ep2` | ep3+ (UI “Episode 6.5” is **ep7**, not a `6.5` filename) |
-| `/audio/series/she-still-exists/*` | `she-still-exists-ch1.mp3`, `ch2` | ch3+ |
-| `/audio/series/other-man/*` | `other-man-ep1.mp3`, `ep2` | ep3+ |
+
+**HOLD — no Edge:** `/audio/series/the-echo-origins/*`, `/audio/series/she-still-exists/*`, `/audio/series/other-man/*` until Eric Active VIP PASS on Penny / HET / Jailhouse / Still Standing. Mid-chapter logged-out **200** is expected until then.
 
 Out of scope (must stay ungated): `/audio/music/**`, `/audio/audiobooks/unplugged/**`, Payhip, EPUB.
 
@@ -28,9 +27,6 @@ Exact allowlist filenames used by Edge (regex also anchors `[12]` so Ch10/ep10 n
 - Still Standing: `Still-Standing-Ch1.mp3`, `Still-Standing-Ch2.mp3`
 - Jailhouse Lawyer: `The-Jailhouse-Lawyer-Ch1.mp3`, `The-Jailhouse-Lawyer-Ch2.mp3`
 - Chandra: `chandra-ch1.mp3`, `chandra-ch2.mp3` (folder empty in git — no files created)
-- Echo: `the-echo-origins-ep1.mp3`, `the-echo-origins-ep2.mp3`
-- She Still Exists: `she-still-exists-ch1.mp3`, `she-still-exists-ch2.mp3`
-- Other Man: `other-man-ep1.mp3`, `other-man-ep2.mp3`
 
 ## Active VIP playback (P1)
 
@@ -67,7 +63,7 @@ Path patterns match live URLs (directory prefixes are lowercase; filenames keep 
 | Unplugged (out of scope) | `unplugged-ch2.mp3`, `unplugged-ch3.mp3` | — | **PASS** — both **200** |
 | Payhip | `https://payhip.com/b/9sX8Z` | — | **PASS** — preview landing still that URL; no Edge on Payhip |
 | /login blank-panel | `panel show signed-out-box` + **Log in to my account** | — | **PASS** — still in DP HTML |
-| Echo / She Still Exists / Other Man | ep1/ch1, ep2/ch2 | ep3 / ch3 (and Echo ep7 = UI 6.5) | Pending this deploy — were **200** before Edge (playback ≠ access control) |
+| Echo / She Still Exists / Other Man | — | **HOLD — no Edge** | Do not gate until Eric VIP PASS. Mid-chapter **200** expected |
 | Active VIP protected play | cookie + JWT plan `jW70XZmq` | ch3/ep3 **200/206** + sound | Pending Eric on diag page after this deploy |
 
 ## Log only (do not delay P1)

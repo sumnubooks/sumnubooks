@@ -8,9 +8,9 @@
  *   Still     Still-Standing-Ch1/Ch2
  *   Jail      The-Jailhouse-Lawyer-Ch1/Ch2
  *   Chandra   chandra-ch1/ch2 if present — do not create
- *   Echo      the-echo-origins-ep1/ep2  (ep7 = UI "Episode 6.5")
- *   SSE       she-still-exists-ch1/ch2
- *   Other Man other-man-ep1/ep2
+ *
+ * HOLD: Echo / She Still Exists / Other Man — no Edge until
+ * Eric Active VIP PASS on Penny / HET / Jailhouse / Still Standing.
  *
  * Protected files require Outseta VIP plan jW70XZmq.
  * Cookie `sumnu_outseta_access_token` is enough — <audio> cannot send Authorization.
@@ -54,13 +54,7 @@ const ALLOWLIST = new Set([
   "/audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch1.mp3",
   "/audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch2.mp3",
   "/audio/audiobooks/chandra/chandra-ch1.mp3",
-  "/audio/audiobooks/chandra/chandra-ch2.mp3",
-  "/audio/series/the-echo-origins/the-echo-origins-ep1.mp3",
-  "/audio/series/the-echo-origins/the-echo-origins-ep2.mp3",
-  "/audio/series/she-still-exists/she-still-exists-ch1.mp3",
-  "/audio/series/she-still-exists/she-still-exists-ch2.mp3",
-  "/audio/series/other-man/other-man-ep1.mp3",
-  "/audio/series/other-man/other-man-ep2.mp3"
+  "/audio/audiobooks/chandra/chandra-ch2.mp3"
 ]);
 
 const ALLOWLIST_RE = [
@@ -68,10 +62,7 @@ const ALLOWLIST_RE = [
   /\/here-eat-this-ep[12]\.mp3$/i,
   /\/Still-Standing-Ch[12]\.mp3$/i,
   /\/The-Jailhouse-Lawyer-Ch[12]\.mp3$/i,
-  /\/chandra-ch[12]\.mp3$/i,
-  /\/the-echo-origins-ep[12]\.mp3$/i,
-  /\/she-still-exists-ch[12]\.mp3$/i,
-  /\/other-man-ep[12]\.mp3$/i
+  /\/chandra-ch[12]\.mp3$/i
 ];
 
 let jwks = null;

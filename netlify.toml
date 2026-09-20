@@ -23,17 +23,8 @@
   function = "protect-vip-audio"
   path = "/audio/audiobooks/chandra/*"
 
-[[edge_functions]]
-  function = "protect-vip-audio"
-  path = "/audio/series/the-echo-origins/*"
-
-[[edge_functions]]
-  function = "protect-vip-audio"
-  path = "/audio/series/she-still-exists/*"
-
-[[edge_functions]]
-  function = "protect-vip-audio"
-  path = "/audio/series/other-man/*"
+# CEO HOLD: do not add Echo / She Still Exists / Other Man until
+# Eric Active VIP PASS on Penny / HET / Jailhouse / Still Standing.
 
 [[edge_functions]]
   function = "protect-vip-audio"
