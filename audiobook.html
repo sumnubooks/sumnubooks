@@ -326,8 +326,9 @@
       cover: 'images/covers-square/a-penny-for-my-thoughts.jpg',
       freeCount: 2,
       payhip: 'https://payhip.com/b/9sX8Z',
-      items: Array.from({length:50}, (_,i) => ({
+      items: Array.from({length:49}, (_,i) => ({
         number: i+1,
+        title: i === 0 ? 'Prologue' : `Chapter ${i}`,
         image: `images/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch${i+1}.jpg`,
         audio: `audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch${i+1}.mp3`
       }))
@@ -340,8 +341,9 @@
       cover: 'images/covers-square/unplugged.jpg',
       freeCount: 2,
       payhip: 'https://payhip.com/b/zXevO',
-      items: Array.from({length:18}, (_,i) => ({
+      items: Array.from({length:17}, (_,i) => ({
         number: i+1,
+        title: i === 0 ? 'Prologue' : `Chapter ${i}`,
         image: `images/audiobooks/unplugged/unplugged-ch${i+1}.jpg`,
         audio: `audio/audiobooks/unplugged/unplugged-ch${i+1}.mp3`
       }))
@@ -394,6 +396,13 @@
   const book = audiobookData.find(b => b.slug === params.get('slug'));
   const isVip = () => !!(window.SumnuAuth && window.SumnuAuth.isVip());
   const canAccess = i => i < (book ? book.freeCount : 0) || isVip();
+  const displayTitle = item => item.title || `Chapter ${item.number}`;
+  const displayShort = item => {
+    const title = displayTitle(item);
+    if (title === 'Prologue') return 'PRO';
+    const match = /^Chapter (\d+)$/.exec(title);
+    return match ? `CH ${match[1]}` : `CH ${item.number}`;
+  };
 
   const audio = document.getElementById('abAudio');
   let currentIndex = 0;
@@ -453,8 +462,8 @@
     artEl.onerror = () => { artEl.src = book.cover; artEl.onerror = null; };
     artEl.src = item.image;
 
-    document.getElementById('trackTitle').textContent = `Chapter ${item.number}`;
-    document.getElementById('trackChapter').textContent = `Chapter ${item.number} of ${book.items.length}`;
+    document.getElementById('trackTitle').textContent = displayTitle(item);
+    document.getElementById('trackChapter').textContent = `${displayTitle(item)} of ${book.items.length}`;
     setProgress(0);
     document.getElementById('timeCurrent').textContent = '0:00';
     document.getElementById('timeRemaining').textContent = '—';
@@ -567,9 +576,9 @@
       const row = document.createElement('div');
       row.className = `chapter-row${i===0?' active':''}`;
       row.innerHTML = `
-        <span class="ch-num">CH ${item.number}</span>
+        <span class="ch-num">${displayShort(item)}</span>
         <div class="ch-art"><img src="${item.image}" alt="" loading="lazy" onerror="this.src='${book.cover}'"></div>
-        <div class="ch-title">Chapter ${item.number}</div>
+        <div class="ch-title">${displayTitle(item)}</div>
         <div class="ch-playing"><div class="ch-bar"></div><div class="ch-bar"></div><div class="ch-bar"></div></div>
         ${!ok ? '<span class="ch-locked">🔒 VIP</span>' : ''}
       `;
