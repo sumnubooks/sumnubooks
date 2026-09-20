@@ -28,18 +28,23 @@ Exact allowlist filenames used by Edge (regex also anchors `[12]` so Ch10/ep10 n
 
 ## Extended prefix curl (Deploy Preview)
 
-Fill after Netlify SUCCESS on this revision. Logged-out unless noted.
+Verified **2026-09-20** after `netlify/sumnubooks/deploy-preview` **SUCCESS** on `70f3800` (`https://deploy-preview-1--sumnubooks.netlify.app`). Logged-out `curl -sI` unless noted.
+
+An earlier curl during **PENDING** still served the old Penny-only Edge (HET/Still/Jailhouse Ch3/ep3 looked like 200). After SUCCESS, those prefixes 401.
+
+Path patterns match live URLs (directory prefixes are lowercase; filenames keep catalog case: `Still-Standing-ChN.mp3`, `The-Jailhouse-Lawyer-ChN.mp3`). One function `protect-vip-audio` is bound to five explicit `[[edge_functions]]` paths — not `/audio/**`.
 
 | Prefix | Sample files (expect 200) | Protected files (expect 401) | Result |
 | --- | --- | --- | --- |
-| Penny | ch1, ch2 | ch3 | Pending deploy |
-| Here Eat This | ep1, ep2 | ep3 | Pending deploy |
-| Still Standing | Ch1, Ch2 | Ch3 | Pending deploy |
-| Jailhouse Lawyer | Ch1, Ch2 | Ch3 | Pending deploy |
-| Chandra | ch1/ch2 if present | any other file | Pending — files absent in git (expect 404, not invented) |
-| Music (out of scope) | `/audio/music/...` if present | — | Pending deploy (must stay 200, not 401) |
-| Unplugged (out of scope) | `unplugged-ch2.mp3` | — | Pending deploy (must stay 200) |
-| Payhip | `https://payhip.com/b/9sX8Z` | — | Pending (must stay off-site, no Edge) |
+| Penny | ch1, ch2 | ch3, ch10 | **PASS** — ch1/ch2 **200 audio/mpeg**; ch3/ch10 **401** empty `private,no-store` |
+| Here Eat This | ep1, ep2 | ep3, ep8 | **PASS** — ep1/ep2 **200**; ep3/ep8 **401**. Range on ep1 **206** |
+| Still Standing | `Still-Standing-Ch1.mp3`, `Ch2` | `Ch3`, `Ch10`, lowercase `still-standing-ch3.mp3` | **PASS** — Ch1/Ch2 **200**; Ch3/Ch10/lc-Ch3 **401** |
+| Jailhouse Lawyer | `The-Jailhouse-Lawyer-Ch1.mp3`, `Ch2` | `Ch3`, `Ch10` | **PASS** — Ch1/Ch2 **200**; Ch3/Ch10 **401** |
+| Chandra | ch1/ch2 if present | ch3 | **PASS / no files invented** — ch1/ch2 **404**; ch3 **401** (prefix live) |
+| Music (out of scope) | `/audio/music/chapter-7/1-Chapter 7 Intro.mp3`, `/audio/music/the-profit-e/01 Rest In Unpeace.mp3` | — | **PASS** — both **200 audio/mpeg** (not 401) |
+| Unplugged (out of scope) | `unplugged-ch2.mp3`, `unplugged-ch3.mp3` | — | **PASS** — both **200** |
+| Payhip | `https://payhip.com/b/9sX8Z` | — | **PASS** — preview landing still that URL; no Edge on Payhip |
+| /login blank-panel | `panel show signed-out-box` + **Log in to my account** | — | **PASS** — still in DP HTML |
 
 ## Rows
 
