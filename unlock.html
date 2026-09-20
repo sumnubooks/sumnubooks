@@ -440,6 +440,7 @@
         window.Outseta.auth.open({
           widgetMode: 'register',
           planUid: PLAN_UID,
+          redirectUri: window.location.href
         });
       } else {
         // Fallback: go to Outseta hosted checkout page
@@ -455,7 +456,10 @@
           widgetMode: 'login',
           redirectUri: window.location.href
         });
+        return;
       }
+      window.location.href = 'https://' + OUTSETA_DOMAIN +
+        '/auth?widgetMode=login&redirectUri=' + encodeURIComponent(window.location.href);
     }
 
     document.getElementById('subscribeBtn').addEventListener('click', openCheckout);
