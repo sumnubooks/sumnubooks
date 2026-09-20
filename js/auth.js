@@ -1,6 +1,24 @@
 
 (function () {
   const PLAN_UID = 'jW70XZmq';
+  const SIGNED_OUT_KEY = 'sumnuAuthSignedOut';
+  const CLEARED_TOKEN_KEY = 'sumnuAuthClearedToken';
+  const KEEP_STORAGE_KEYS = new Set([
+    'sumnuLastPlayed',
+    'sumnuBannerDismissed',
+    'splashSeen',
+    SIGNED_OUT_KEY,
+    CLEARED_TOKEN_KEY
+  ]);
+  const AUTH_STORAGE_KEYS = [
+    'Outseta.nocode.accessToken',
+    'Outseta.nocode.idToken'
+  ];
+  const AUTH_COOKIE_NAMES = [
+    'sumnu_outseta_access_token',
+    'Outseta.nocode.accessToken',
+    'Outseta.nocode.idToken'
+  ];
   const ACTIVE_TEXT_STATUSES = new Set(['active', 'trialing', 'trial', 'past_due', 'non_renewing']);
   const ACTIVE_NUMERIC_STATUSES = new Set([1, 7]);
   const state = {
@@ -11,7 +29,8 @@
     lastVip: false,
     readyEmitted: false,
     booting: true,
-    nullReadsAfterLogin: 0
+    nullReadsAfterLogin: 0,
+    signedOut: false
   };
 
   function emit(name, detail) {
@@ -34,10 +53,186 @@
   function hasOutsetaTokenHint() {
     try {
       const keys = Object.keys(localStorage || {});
-      return keys.some(k => /outseta|token|jwt|access/i.test(k) && cleanString(localStorage.getItem(k)));
+      return keys.some(k => isAuthStorageKey(k) && cleanString(localStorage.getItem(k)));
     } catch (e) {
       return false;
     }
+  }
+
+  function isKeepStorageKey(key) {
+    if (KEEP_STORAGE_KEYS.has(key)) return true;
+    if (/^sumnu_reader_/i.test(key)) return true;
+    if (/^sumnuLast/i.test(key)) return true;
+    if (/^sumnuBanner/i.test(key)) return true;
+    if (key === 'outseta.debug' || key === 'outseta.options-override') return true;
+    return false;
+  }
+
+  function isAuthStorageKey(key) {
+    if (!key || isKeepStorageKey(key)) return false;
+    if (AUTH_STORAGE_KEYS.indexOf(key) !== -1) return true;
+    if (/^Outseta\.nocode\./i.test(key)) return true;
+    if (/outseta/i.test(key) && /token|jwt|user|profile|account/i.test(key)) return true;
+    if (/^(accessToken|idToken|refreshToken|access_token|id_token|refresh_token)$/i.test(key)) return true;
+    return false;
+  }
+
+  function storageLooksLikeAuthValue(raw) {
+    const value = cleanString(raw);
+    if (!value) return false;
+    if (/^eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/.test(value)) return true;
+    if (value.charAt(0) !== '{' && value.charAt(0) !== '[') return false;
+    try {
+      const obj = JSON.parse(value);
+      if (!obj || typeof obj !== 'object') return false;
+      return !!(
+        obj.accessToken || obj.access_token || obj.AccessToken ||
+        obj.idToken || obj.id_token || obj.refreshToken ||
+        obj.tokens || obj.Uid || obj.Email
+      );
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function readSignedOutFlag() {
+    try {
+      return sessionStorage.getItem(SIGNED_OUT_KEY) === '1';
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function snapshotAccessToken() {
+    try {
+      if (window.Outseta && typeof window.Outseta.getAccessToken === 'function') {
+        const token = window.Outseta.getAccessToken();
+        if (token && typeof token.then !== 'function') return cleanString(token);
+      }
+    } catch (e) {}
+    try {
+      return cleanString(
+        localStorage.getItem('Outseta.nocode.accessToken') ||
+        sessionStorage.getItem('Outseta.nocode.accessToken')
+      );
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function rememberClearedToken() {
+    const token = snapshotAccessToken();
+    try {
+      if (token) sessionStorage.setItem(CLEARED_TOKEN_KEY, token);
+      else sessionStorage.removeItem(CLEARED_TOKEN_KEY);
+    } catch (e) {}
+  }
+
+  function currentTokenIsFreshLogin() {
+    const current = snapshotAccessToken();
+    if (!current) return false;
+    try {
+      const cleared = sessionStorage.getItem(CLEARED_TOKEN_KEY) || '';
+      return !cleared || current !== cleared;
+    } catch (e) {
+      return true;
+    }
+  }
+
+  function setSignedOutFlag(on) {
+    state.signedOut = !!on;
+    try {
+      if (on) sessionStorage.setItem(SIGNED_OUT_KEY, '1');
+      else {
+        sessionStorage.removeItem(SIGNED_OUT_KEY);
+        sessionStorage.removeItem(CLEARED_TOKEN_KEY);
+      }
+    } catch (e) {}
+  }
+
+  function isSignedOutLatch() {
+    return !!(state.signedOut || readSignedOutFlag());
+  }
+
+  function clearAuthStorage() {
+    [localStorage, sessionStorage].forEach(function (store) {
+      if (!store) return;
+      try {
+        AUTH_STORAGE_KEYS.forEach(function (key) {
+          try { store.removeItem(key); } catch (e) {}
+        });
+        const keys = Object.keys(store);
+        keys.forEach(function (key) {
+          if (isAuthStorageKey(key)) {
+            try { store.removeItem(key); } catch (e) {}
+            return;
+          }
+          if (isKeepStorageKey(key)) return;
+          if (/token|jwt/i.test(key) && storageLooksLikeAuthValue(store.getItem(key))) {
+            try { store.removeItem(key); } catch (e) {}
+          }
+        });
+      } catch (e) {}
+    });
+  }
+
+  function clearAuthCookies() {
+    if (window.SumnuEdgeToken && typeof window.SumnuEdgeToken.clearAll === 'function') {
+      window.SumnuEdgeToken.clearAll();
+      return;
+    }
+    const names = AUTH_COOKIE_NAMES.slice();
+    try {
+      document.cookie.split(';').forEach(function (part) {
+        const name = part.split('=')[0].trim();
+        if (name && /outseta|sumnu_outseta/i.test(name) && names.indexOf(name) === -1) {
+          names.push(name);
+        }
+      });
+    } catch (e) {}
+    const secure = window.location.protocol === 'https:' ? '; Secure' : '';
+    names.forEach(function (name) {
+      document.cookie = name + '=; Path=/; Max-Age=0; SameSite=Lax' + secure;
+      document.cookie = name + '=; Path=/; Max-Age=0' + secure;
+    });
+  }
+
+  function clearOutsetaSdk() {
+    try {
+      if (window.Outseta && typeof window.Outseta.setAccessToken === 'function') {
+        window.Outseta.setAccessToken(null);
+      }
+    } catch (e) {}
+    try {
+      if (window.Outseta && typeof window.Outseta.setIdToken === 'function') {
+        window.Outseta.setIdToken(null);
+      }
+    } catch (e) {}
+  }
+
+  function blockEdgeTokenSync() {
+    if (window.SumnuEdgeToken && typeof window.SumnuEdgeToken.blockUntilLogin === 'function') {
+      window.SumnuEdgeToken.blockUntilLogin();
+    } else {
+      clearAuthCookies();
+    }
+  }
+
+  function allowEdgeTokenSync() {
+    if (window.SumnuEdgeToken && typeof window.SumnuEdgeToken.allowSync === 'function') {
+      window.SumnuEdgeToken.allowSync();
+    }
+  }
+
+  function clearAllAuthState() {
+    clearOutsetaSdk();
+    clearAuthStorage();
+    blockEdgeTokenSync();
+  }
+
+  function markSignedInFromToken() {
+    setSignedOutFlag(false);
+    allowEdgeTokenSync();
   }
 
   function collectSubscriptionCandidates(user) {
@@ -204,15 +399,29 @@
     const previousUserKey = state.lastUserKey;
     const previousVip = state.lastVip;
 
+    if (isSignedOutLatch() && !options.allowRehydrate) {
+      if (currentTokenIsFreshLogin()) {
+        markSignedInFromToken();
+      } else {
+        state.nullReadsAfterLogin = 0;
+        clearAllAuthState();
+        return applyResolvedState(null, previousUserKey, previousVip);
+      }
+    }
+
     const user = await fetchUserStable();
     let nextUser = user;
     let nextUserKey = userKey(nextUser);
+
+    if (nextUserKey) {
+      markSignedInFromToken();
+    }
 
     if (!nextUser && previousUserKey) {
       const tokenHint = hasOutsetaTokenHint();
 
       // Prevent flicker: do not instantly demote a signed-in user on a transient null read.
-      if (tokenHint && !options.forceSignOut) {
+      if (tokenHint && !options.forceSignOut && !isSignedOutLatch()) {
         state.nullReadsAfterLogin += 1;
         if (state.nullReadsAfterLogin < 4) {
           nextUser = state.user;
@@ -222,6 +431,12 @@
     } else {
       state.nullReadsAfterLogin = 0;
     }
+
+    return applyResolvedState(nextUser, previousUserKey, previousVip);
+  }
+
+  function applyResolvedState(nextUser, previousUserKey, previousVip) {
+    let nextUserKey = userKey(nextUser);
 
     const nextVip = deriveVip(nextUser);
     const signedIn = !!nextUserKey;
@@ -276,13 +491,29 @@
     },
     logout: function () {
       state.nullReadsAfterLogin = 0;
+      rememberClearedToken();
+      setSignedOutFlag(true);
+
+      // Official Outseta.logout() lives on the nocode module (not auth.signOut,
+      // which does not exist) and redirects to "/". Clear tokens in place so
+      // leftover JWTs cannot rehydrate the session after navigation.
       try {
-        if (window.Outseta && window.Outseta.auth && typeof window.Outseta.auth.signOut === 'function') {
+        if (window.Outseta && typeof window.Outseta.setAccessToken === 'function') {
+          window.Outseta.setAccessToken(null);
+        } else if (window.Outseta && window.Outseta.auth && typeof window.Outseta.auth.signOut === 'function') {
           window.Outseta.auth.signOut();
         } else if (window.Outseta && window.Outseta.auth && typeof window.Outseta.auth.logout === 'function') {
           window.Outseta.auth.logout();
         }
       } catch (err) {}
+      try {
+        if (window.Outseta && typeof window.Outseta.setIdToken === 'function') {
+          window.Outseta.setIdToken(null);
+        }
+      } catch (err) {}
+
+      clearAuthStorage();
+      blockEdgeTokenSync();
 
       state.user = null;
       state.vip = false;
@@ -292,10 +523,24 @@
       setDomFlags(false, false);
       emit('outseta:logout', { user: null, vip: false });
       emit('outseta:refresh', { user: null, vip: false });
+
+      // Outseta may rewrite storage asynchronously; wipe again after it settles.
+      setTimeout(clearAllAuthState, 50);
+      setTimeout(clearAllAuthState, 250);
+      setTimeout(clearAllAuthState, 800);
     }
   };
 
   async function boot() {
+    if (readSignedOutFlag()) {
+      if (currentTokenIsFreshLogin()) {
+        markSignedInFromToken();
+      } else {
+        state.signedOut = true;
+        clearAllAuthState();
+      }
+    }
+
     // Wait for Outseta to load instead of probing too early and causing guest flashes
     const started = Date.now();
     while (!(window.Outseta && (typeof window.Outseta.getUser === 'function' || (window.Outseta.auth && typeof window.Outseta.auth.getUser === 'function')))) {
@@ -326,5 +571,16 @@
   window.addEventListener('storage', function () { scheduleRefresh(80); });
 
   // Some Outseta builds fire auth lifecycle events; listen if present without requiring them.
-  window.addEventListener('accessToken.set', function () { scheduleRefresh(60); });
+  window.addEventListener('accessToken.set', function () {
+    markSignedInFromToken();
+    scheduleRefresh(60);
+  });
+  try {
+    if (window.Outseta && typeof window.Outseta.on === 'function') {
+      window.Outseta.on('accessToken.set', function () {
+        markSignedInFromToken();
+        scheduleRefresh(60);
+      });
+    }
+  } catch (e) {}
 })();
