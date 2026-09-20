@@ -1600,15 +1600,15 @@ const siteData = {
       slug: 'a-penny-for-my-thoughts',
       title: 'A Penny for My Thoughts',
       label: 'Urban thriller',
-      meta: 'prologue free • 50 audio files',
+      meta: '1 Prologue + 48 Chapters',
       tagline: 'A premium chapter-by-chapter audiobook experience. Starts with the prologue, then moves into the full chapter list.',
       cover: 'images/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-cover.jpg',
       items: [
         { number: 1, title: 'Prologue', description: 'Free sample prologue.', image: 'images/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch1.jpg', audio: 'audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch1.mp3' },
-        ...Array.from({length:49}, (_,i) => ({
+        ...Array.from({length:48}, (_,i) => ({
           number: i + 2,
           title: `Chapter ${i+1}`,
-          description: i === 0 ? 'VIP chapter.' : 'VIP chapter.',
+          description: i === 0 ? 'Free chapter.' : 'VIP chapter.',
           image: `images/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch${i+2}.jpg`,
           audio: `audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch${i+2}.mp3`
         }))
@@ -1861,9 +1861,10 @@ function resolveEntry(type, slug) {
 
 function showModal(entry) {
   const twoChFree = ['the-jailhouse-lawyer', 'still-standing'];
-  const freeCount = entry.type === 'series' ? 2 : entry.type === 'audiobook' ? (twoChFree.includes(entry.slug) ? 2 : 1) : isVip() ? 999 : 0;
+  const pennySlug = 'a-penny-for-my-thoughts';
+  const freeCount = entry.type === 'series' ? 2 : entry.type === 'audiobook' ? (entry.slug === pennySlug || twoChFree.includes(entry.slug) ? 2 : 1) : isVip() ? 999 : 0;
   const pills = [
-    entry.type === 'series' ? 'Episodes 1–2 free' : entry.type === 'audiobook' ? (twoChFree.includes(entry.slug) ? 'Ch 1–2 free' : 'Prologue free') : 'Albums inside VIP',
+    entry.type === 'series' ? 'Episodes 1–2 free' : entry.type === 'audiobook' ? (entry.slug === pennySlug ? 'Prologue + Chapter 1 Free' : (twoChFree.includes(entry.slug) ? 'Ch 1–2 free' : 'Prologue free')) : 'Albums inside VIP',
     isVip() ? 'VIP ACTIVE' : '$5 unlock',
     entry.label
   ];

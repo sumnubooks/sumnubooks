@@ -59,24 +59,19 @@ Marketing final copy is on `/audiobooks/a-penny-for-my-thoughts` only. Exact str
 - JWKS live at `https://sumnuvision-llc.outseta.com/.well-known/jwks`.
 - Player VIP route already exists: `audiobook.html?slug=a-penny-for-my-thoughts`. STREAM on `/audiobooks` for Penny now points there and is labeled **Listen with VIP**.
 
-## Ch50 investigation (HOLD UI — do not change 50→49)
+## Chapter structure (owner-approved preview mapping)
 
-Searched for a real Ch50 asset to restore. **None found. Did not invent a file. Did not change the 50-chapter UI.**
+Display/player mapping only. **No audio files renamed, duplicated, created, or re-encoded.** Edge allowlist still **ch1 + ch2**.
 
-Paths / evidence checked (2026-09-19):
-
-| Check | Result |
+| File | Player label |
 | --- | --- |
-| Git index `audio/audiobooks/a-penny-for-my-thoughts/` | **49** MP3s: `...-ch1.mp3` … `...-ch49.mp3`. **No `...-ch50.mp3`.** |
-| `git rev-list --all --objects` for penny/ch50 | No object path ever named penny ch50 |
-| Git LFS | Not in use |
-| Local `find` for `*ch50*`, `*chapter*50*`, `*penny*.mp3` | No ch50 file |
-| Images `images/audiobooks/a-penny-for-my-thoughts/` | Cover only; no ch50 jpg |
-| Production HEAD canonical `...-ch50.mp3` | **404** (ch49 **200**) |
-| Alternate prod names (`Ch50`, `chapter-50`, `ch-50`, `epilogue`, `.m4a`, `book1/…`) | All **404** |
-| Preview Edge on those Penny-folder names | **401** (protected, not allowlisted) — not a restore candidate |
+| `...-ch1.mp3` | Prologue (free) |
+| `...-ch2.mp3` | Chapter 1 (free) |
+| `...-ch3.mp3` … `...-ch49.mp3` | Chapter 2 … Chapter 48 (VIP / Payhip) |
 
-UI HOLD: `audiobook.html` still generates 50 slots; homepage still says “50 audio files”. Restore only if Eric later supplies the missing asset.
+Customer-facing count: **1 Prologue + 48 Chapters** (49 playable parts). Phantom ch50 slot removed.
+
+Ch50 search (no asset to restore): git has 49 MP3s (`ch1`–`ch49`); history/LFS/alternate names/production HEAD found no `ch50`.
 
 ## EPUB / Amazon / MIXEMC hard stops
 

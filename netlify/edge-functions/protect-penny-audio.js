@@ -4,9 +4,9 @@
  *
  * Allowlist (matches CURRENT live free-sample behavior; does not change main counts):
  *   - /audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch1.mp3
- *       Homepage Penny freeCount is 1 (prologue / first file). Player freeCount is 2.
+ *       Display: Prologue. Free sample file 1 of 2.
  *   - /audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch2.mp3
- *       /audiobooks SAMPLE clip. Player freeCount includes ch2.
+ *       Display: Chapter 1. /audiobooks SAMPLE clip. Free sample file 2 of 2.
  *
  * Choice: allowlist BOTH ch1 and ch2 so catalog sample, homepage prologue,
  * and VIP-player free chapters keep working. All other Penny chapter files
