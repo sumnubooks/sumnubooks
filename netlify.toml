@@ -1,0 +1,19 @@
+# VIP audio Edge — explicit prefixes only (not site-wide /audio/**).
+# One shared function. Title-specific rules are allowlist config, not
+# separate auth paths. Echo / She Still Exists / Other Man are not gated.
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/audiobooks/a-penny-for-my-thoughts/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/series/here-eat-this/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/audiobooks/the-jailhouse-lawyer/*"
+
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/audiobooks/still-standing/*"

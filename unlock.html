@@ -9,7 +9,7 @@
       domain: 'sumnuvision-llc.outseta.com',
       tokenStorage: 'local',
       auth: {
-        authenticationCallbackUrl: 'https://sumnubooks.com/'
+        authenticationCallbackUrl: (window.location.origin || '') + '/'
       }
     };
   </script>
@@ -426,12 +426,13 @@
     </div>
   </main>
 
+  <script src="js/outseta-edge-token.js"></script>
   <script src="js/auth.js"></script>
   <script>
     // ── Outseta config for this page ──────────────────────────
     var PLAN_UID       = 'jW70XZmq'; // ← replace this
     var OUTSETA_DOMAIN = 'sumnuvision-llc.outseta.com';
-    var RETURN_URL     = 'https://sumnubooks.com/index.html';
+    var RETURN_URL     = (window.location.origin || '') + '/index.html';
 
     function openCheckout () {
       if (window.Outseta && window.Outseta.auth) {
@@ -439,6 +440,7 @@
         window.Outseta.auth.open({
           widgetMode: 'register',
           planUid: PLAN_UID,
+          redirectUri: window.location.href
         });
       } else {
         // Fallback: go to Outseta hosted checkout page
@@ -452,8 +454,12 @@
       if (window.Outseta && window.Outseta.auth) {
         window.Outseta.auth.open({
           widgetMode: 'login',
+          redirectUri: window.location.href
         });
+        return;
       }
+      window.location.href = 'https://' + OUTSETA_DOMAIN +
+        '/auth?widgetMode=login&redirectUri=' + encodeURIComponent(window.location.href);
     }
 
     document.getElementById('subscribeBtn').addEventListener('click', openCheckout);
