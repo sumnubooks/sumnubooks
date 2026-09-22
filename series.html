@@ -818,27 +818,6 @@
   ══════════════════════════════════ */
   const seriesData = [
     {
-      slug: 'she-still-exists',
-      title: 'She Still Exists',
-      eyebrow: 'Sci-Fi Thriller · Yesterday Project',
-      tagline: "He built a world for the woman he lost — and inside it, she's helping him find her killer without knowing she's dead.",
-      cover: 'images/covers-square/she-still-exists.jpg',
-      freeCount: 2,
-      unit: 'Chapter',
-      chapters: [
-        'The Last Piece','Soup and Secrets','The Man on the Phone',
-        'Ghost in the Machine','Sub-Level Three','The Weight of Knowing',
-        'Before Dani','They Know','What She Remembered','Hunted',
-        'What Carver Lost','One More Night','The Trigger',
-        'The Truth About Her World','She Still Exists'
-      ],
-      items: Array.from({length:6}, (_,i) => ({
-        number: i+1,
-        image: `images/covers-square/she-still-exists-ch${i+1}.jpg`,
-        audio: `audio/series/she-still-exists/she-still-exists-ch${i+1}.mp3`
-      }))
-    },
-    {
       slug: 'here-eat-this',
       title: 'Here... Eat This',
       eyebrow: 'Suspense Drama',
@@ -944,6 +923,9 @@
      BOOTSTRAP
   ══════════════════════════════════ */
   const params = new URLSearchParams(window.location.search);
+  if (params.get('slug') === 'she-still-exists') {
+    window.location.replace('audiobook.html?slug=she-still-exists');
+  }
   const series = seriesData.find(s => s.slug === params.get('slug'));
   const isVip = () => !!(window.SumnuAuth && window.SumnuAuth.isVip());
   const canAccess = i => i < (series ? series.freeCount : 0) || isVip();
@@ -954,7 +936,9 @@
   let speedIdx = 1;
   let isDragging = false;
 
-  if (!series) {
+  if (params.get('slug') === 'she-still-exists') {
+    // Complete audiobook — player lives on audiobook.html.
+  } else if (!series) {
     document.body.innerHTML = '<p style="color:#fff;padding:40px 20px;font-family:sans-serif">Series not found. <a href="index.html" style="color:#d4a843">Go home</a></p>';
   } else if (series.comingSoon) {
     // Coming soon — show teaser screen
