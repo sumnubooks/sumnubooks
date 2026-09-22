@@ -356,13 +356,10 @@
       eyebrow: 'Psychological Thriller · Audiobook',
       tagline: 'She survived the streets. It\'s what she knows that will get her killed.',
       cover: 'images/covers-square/chandra.jpg',
-      freeCount: 2,
+      comingSoon: true,
+      freeCount: 0,
       payhip: null,
-      items: Array.from({length:20}, (_,i) => ({
-        number: i+1,
-        image: `images/audiobooks/chandra/chandra-ch${i+1}.jpg`,
-        audio: `audio/audiobooks/chandra/chandra-ch${i+1}.mp3`
-      }))
+      items: []
     },
     {
       slug: 'the-jailhouse-lawyer',
@@ -431,6 +428,25 @@
 
   if (!book) {
     document.body.innerHTML = '<p style="color:#fff;padding:40px 20px;font-family:sans-serif">Audiobook not found. <a href="index.html" style="color:#d4a843">Go home</a></p>';
+  } else if (book.comingSoon) {
+    document.title = `${book.title} · Coming Soon · Sumnu Books`;
+    document.body.innerHTML = `
+      <div style="position:fixed;inset:0;background:url('${book.cover}') center/cover no-repeat;filter:blur(40px) brightness(.3);z-index:0;"></div>
+      <div style="position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center;font-family:'DM Sans',sans-serif;">
+        <img src="${book.cover}" alt="${book.title}" style="width:min(280px,72vw);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.7);margin-bottom:28px;">
+        <div style="font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#d4a843;margin-bottom:10px;">${book.eyebrow}</div>
+        <h1 style="font-size:clamp(1.8rem,6vw,2.8rem);color:#fff;margin:0 0 12px;line-height:1.05;">${book.title}</h1>
+        <p style="color:rgba(255,255,255,.6);font-size:.98rem;line-height:1.7;max-width:38ch;margin:0 0 24px;">${book.tagline}</p>
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;border:1px solid rgba(212,168,67,.4);background:rgba(212,168,67,.1);color:#d4a843;font-weight:800;font-size:.9rem;letter-spacing:.06em;margin-bottom:20px;">
+          🔜 Coming Soon
+        </div>
+        <p style="color:rgba(255,255,255,.45);font-size:.88rem;margin:0 0 24px;max-width:36ch;">Audiobook in production. No sample or stream yet — get notified when it drops.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:28px;">
+          <a href="mailto:therealericlewis@sumnubooks.com?subject=Notify%20me%20when%20Chandra%20audiobook%20is%20ready" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border-radius:999px;background:#d4a843;color:#0a0a0a;font-weight:800;font-size:.9rem;text-decoration:none;">Notify Me</a>
+          <a href="audiobooks.html" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.75);font-weight:700;font-size:.9rem;text-decoration:none;">Audiobooks shelf</a>
+        </div>
+        <a href="index.html" style="color:rgba(255,255,255,.4);font-size:.84rem;text-decoration:none;">← Back home</a>
+      </div>`;
   } else {
     init();
   }
