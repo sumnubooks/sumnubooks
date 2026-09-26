@@ -392,6 +392,24 @@
       }))
     },
     {
+      slug: 'the-echo',
+      title: 'The Echo',
+      eyebrow: 'Superhero Sci-Fi · Audiobook',
+      tagline: 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.',
+      cover: 'images/covers-square/the-echo-origins.jpg',
+      freeCount: 2,
+      payhip: null,
+      price: '12.99',
+      // PAYHIP LINK PENDING ERIC — price approved; Payhip listing URL not created yet.
+      payhipPending: true,
+      items: Array.from({length:15}, (_,i) => ({
+        number: i+1,
+        title: `Chapter ${i+1}`,
+        image: 'images/covers-square/the-echo-origins.jpg',
+        audio: `audio/audiobooks/the-echo/the-echo-origins-ch${i+1}.mp3`
+      }))
+    },
+    {
       slug: 'she-still-exists',
       title: 'She Still Exists',
       eyebrow: 'Sci-Fi Thriller · Audiobook',
@@ -473,6 +491,14 @@
     if (book.payhip) {
       buyBtn.href = book.payhip;
       buyBtn.textContent = `Buy $${book.price || '12.99'}`;
+    } else if (book.payhipPending) {
+      // PAYHIP LINK PENDING ERIC — disabled placeholder until the Payhip URL exists.
+      buyBtn.removeAttribute('href');
+      buyBtn.removeAttribute('target');
+      buyBtn.setAttribute('aria-disabled', 'true');
+      buyBtn.style.opacity = '.55';
+      buyBtn.style.pointerEvents = 'none';
+      buyBtn.textContent = `$${book.price} · Coming soon`;
     } else {
       buyBar.innerHTML = '<span class="coming-soon-badge">🔜 Purchase link coming soon</span>';
       buyBar.classList.add('coming-soon');

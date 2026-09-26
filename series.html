@@ -639,6 +639,7 @@
     gap: 10px;
   }
   .buy-bar.is-live { display: flex; }
+  .buy-btn.is-pending { opacity: .55; cursor: not-allowed; pointer-events: none; filter: grayscale(.6); }
   .buy-bar-text { flex: 1; min-width: 0; }
   .buy-bar-label { font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
   .buy-bar-desc { font-size: .75rem; color: rgba(255,255,255,.45); line-height: 1.3; }
@@ -721,6 +722,7 @@
         <div class="buy-bar-label">Own It Forever</div>
         <div class="buy-bar-desc">DRM-free MP3 download — any device, keep it forever</div>
       </div>
+      <!-- PAYHIP LINK PENDING ERIC: titles with payhipPending render a disabled "$price · Coming soon" button here -->
       <a class="buy-btn" id="buyBtn" href="#" target="_blank" rel="noopener">Buy</a>
     </div>
 
@@ -835,26 +837,11 @@
       }))
     },
     {
-      slug: 'the-echo-origins',
-      title: 'The Echo: Origins',
-      eyebrow: 'Superhero Sci-Fi · Part One, Season 1',
-      tagline: 'The beginning of Echo starts here. Power awakens, pressure builds, and the first seven episodes launch the world of Part One.',
-      cover: 'images/cover-square/the-echo-origins.jpg',
-      freeCount: 2,
-      unit: 'Episode',
-      chapters: ['Episode 1','Episode 2','Episode 3','Episode 4','Episode 5','Episode 6','Episode 6.5','Episode 7'],
-      items: Array.from({length:8}, (_,i) => ({
-        number: i+1,
-        image: 'images/series/the-echo-origins/the-echo-origins-cover.jpg',
-        audio: `audio/series/the-echo-origins/the-echo-origins-ep${i+1}.mp3`
-      }))
-    },
-    {
       slug: 'before-our-water-breaks',
       title: 'Before Our Water Breaks',
       eyebrow: 'Drama · SumnuBooks Audio',
       tagline: 'As told by the woman who burned it all down.',
-      cover: 'images/cover-square/before-our-water-breaks.jpg',
+      cover: 'images/covers-square/before-our-water-breaks.jpg',
       freeCount: 2,
       payhip: 'https://payhip.com/b/BL9JG',
       price: '5.99',
@@ -871,7 +858,7 @@
       title: 'Other Man',
       eyebrow: 'Psychological Thriller',
       tagline: "He didn't steal his life. He replaced it.",
-      cover: 'images/cover-square/other-man.jpg',
+      cover: 'images/covers-square/other-man.jpg',
       freeCount: 2,
       payhip: 'https://payhip.com/b/eS05k',
       price: '5.99',
@@ -885,19 +872,21 @@
     },
     {
       slug: 'stolen-passage',
-      title: 'Stolen Passage',
-      eyebrow: 'Cinematic Thriller',
-      tagline: "Some people aren't passengers. They're cargo. And not everyone makes it to shore.",
-      cover: 'images/cover-square/stolen-passage.jpg',
-      comingSoon: true,
-      releaseDate: 'April 20, 2026',
-      freeCount: 0,
+      title: 'Stolen Passage — Part One',
+      eyebrow: 'Cinematic Thriller · Chapters 1–10 of 20',
+      tagline: "Some people aren't passengers. They're cargo. And not everyone makes it to shore. Chapters 1–10 of 20.",
+      note: 'Chapters 1–10 of 20',
+      cover: 'images/covers-square/stolen-passage.jpg',
+      freeCount: 2,
+      price: '5.99',
+      // PAYHIP LINK PENDING ERIC — price approved; Payhip listing URL not created yet.
+      payhipPending: true,
       unit: 'Chapter',
-      chapters: Array.from({length:20}, (_,i) => `Chapter ${i+1}`),
-      items: Array.from({length:20}, (_,i) => ({
+      chapters: Array.from({length:10}, (_,i) => `Chapter ${i+1}`),
+      items: Array.from({length:10}, (_,i) => ({
         number: i+1,
-        image: `images/series/stolen-passage/stolen-passage-ch${i+1}.jpg`,
-        audio: `audio/series/stolen-passage/stolen-passage-ch${i+1}.mp3`
+        image: `images/series/stolen-passage/stolen-passage-ep${i+1}.jpg`,
+        audio: `audio/series/stolen-passage/Stolen_Passage_Chapter_${i+1}.mp3`
       }))
     },
     {
@@ -905,7 +894,7 @@
       title: 'She Still Here',
       eyebrow: 'Audio Drama',
       tagline: 'Coming April 20, 2026. Exclusively on SumnuBooks.',
-      cover: 'images/cover-square/she-still-here.jpg',
+      cover: 'images/covers-square/she-still-here.jpg',
       comingSoon: true,
       releaseDate: 'April 20, 2026',
       freeCount: 0,
@@ -926,6 +915,10 @@
   if (params.get('slug') === 'she-still-exists') {
     window.location.replace('audiobook.html?slug=she-still-exists');
   }
+  // The Echo: Origins series was replaced by The Echo audiobook.
+  if (params.get('slug') === 'the-echo-origins') {
+    window.location.replace('audiobook.html?slug=the-echo');
+  }
   const series = seriesData.find(s => s.slug === params.get('slug'));
   const isVip = () => !!(window.SumnuAuth && window.SumnuAuth.isVip());
   const canAccess = i => i < (series ? series.freeCount : 0) || isVip();
@@ -936,7 +929,7 @@
   let speedIdx = 1;
   let isDragging = false;
 
-  if (params.get('slug') === 'she-still-exists') {
+  if (params.get('slug') === 'she-still-exists' || params.get('slug') === 'the-echo-origins') {
     // Complete audiobook — player lives on audiobook.html.
   } else if (!series) {
     document.body.innerHTML = '<p style="color:#fff;padding:40px 20px;font-family:sans-serif">Series not found. <a href="index.html" style="color:#d4a843">Go home</a></p>';
@@ -986,6 +979,16 @@
       const buyBtn = document.getElementById('buyBtn');
       buyBtn.href = series.payhip;
       buyBtn.textContent = `Buy $${series.price || '5.99'}`;
+      buyBar.classList.add('is-live');
+    } else if (series.payhipPending) {
+      // PAYHIP LINK PENDING ERIC — disabled placeholder until the Payhip URL exists.
+      const buyBar = document.getElementById('buyBar');
+      const buyBtn = document.getElementById('buyBtn');
+      buyBtn.removeAttribute('href');
+      buyBtn.removeAttribute('target');
+      buyBtn.setAttribute('aria-disabled', 'true');
+      buyBtn.classList.add('is-pending');
+      buyBtn.textContent = `$${series.price} · Coming soon`;
       buyBar.classList.add('is-live');
     }
 

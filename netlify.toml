@@ -17,3 +17,13 @@
 [[edge_functions]]
   function = "protect-vip-audio"
   path = "/audio/audiobooks/still-standing/*"
+
+# Stolen Passage — Part One (Ch1–2 free via allowlist; Ch3–10 VIP)
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/series/stolen-passage/*"
+
+# The Echo audiobook (Ch1–2 free via allowlist; Ch3–15 VIP)
+[[edge_functions]]
+  function = "protect-vip-audio"
+  path = "/audio/audiobooks/the-echo/*"

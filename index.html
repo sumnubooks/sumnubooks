@@ -1536,22 +1536,6 @@ const siteData = {
     },
     {
       type: 'series',
-      slug: 'the-echo-origins',
-      title: 'The Echo: Origins',
-      label: 'Superhero sci-fi',
-      meta: 'Part One, Season 1 • 7 episodes • episodes 1–2 free',
-      tagline: 'The beginning of Echo starts here. Seven opening episodes launch Part One, Season 1.',
-      cover: 'images/series/the-echo-origins/the-echo-origins-cover.jpg',
-      items: Array.from({length:7}, (_,i) => ({
-        number: i + 1,
-        title: `Episode ${i+1}`,
-        description: i < 2 ? 'Free sample episode.' : 'VIP episode.',
-        image: 'images/series/the-echo-origins/the-echo-origins-cover.jpg',
-        audio: `audio/series/the-echo-origins/the-echo-origins-ep${i+1}.mp3`
-      }))
-    },
-    {
-      type: 'series',
       slug: 'other-man',
       title: 'Other Man',
       label: 'Psychological thriller',
@@ -1569,13 +1553,20 @@ const siteData = {
     {
       type: 'series',
       slug: 'stolen-passage',
-      title: 'Stolen Passage',
+      title: 'Stolen Passage — Part One',
       label: 'Cinematic thriller',
-      meta: 'Dropping April 20, 2026',
+      meta: 'Chapters 1–10 of 20 • chapters 1–2 free',
+      note: 'Chapters 1–10 of 20',
       tagline: "Some people aren't passengers. They're cargo. And not everyone makes it to shore.",
       cover: 'images/series/stolen-passage/stolen-passage-cover.jpg',
-      comingSoon: true,
-      items: []
+      freeCount: 2,
+      items: Array.from({length:10}, (_,i) => ({
+        number: i + 1,
+        title: `Chapter ${i+1}`,
+        description: i < 2 ? 'Free sample chapter.' : 'VIP chapter.',
+        image: `images/series/stolen-passage/stolen-passage-ep${i+1}.jpg`,
+        audio: `audio/series/stolen-passage/Stolen_Passage_Chapter_${i+1}.mp3`
+      }))
     },
   ],
   audiobooks: [
@@ -1663,6 +1654,23 @@ const siteData = {
         description: i < 2 ? 'Free chapter.' : 'VIP audiobook chapter.',
         image: 'images/books/still-standing.jpg',
         audio: `audio/audiobooks/still-standing/Still-Standing-Ch${i+1}.mp3`
+      }))
+    },
+    {
+      type: 'audiobook',
+      slug: 'the-echo',
+      title: 'The Echo',
+      label: 'Superhero sci-fi audiobook',
+      meta: 'Ch 1–2 free • 15 chapters',
+      tagline: 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.',
+      cover: 'images/covers-square/the-echo-origins.jpg',
+      freeCount: 2,
+      items: Array.from({length:15}, (_,i) => ({
+        number: i + 1,
+        title: `Chapter ${i+1}`,
+        description: i < 2 ? 'Free chapter.' : 'VIP audiobook chapter.',
+        image: 'images/covers-square/the-echo-origins.jpg',
+        audio: `audio/audiobooks/the-echo/the-echo-origins-ch${i+1}.mp3`
       }))
     },
     {
@@ -1857,7 +1865,7 @@ function resolveEntry(type, slug) {
 }
 
 function showModal(entry) {
-  const twoChFree = ['the-jailhouse-lawyer', 'still-standing', 'she-still-exists'];
+  const twoChFree = ['the-jailhouse-lawyer', 'still-standing', 'she-still-exists', 'the-echo'];
   const freeCount = entry.type === 'series' ? 2 : entry.type === 'audiobook' ? (twoChFree.includes(entry.slug) ? 2 : 1) : isVip() ? 999 : 0;
   const pills = [
     entry.type === 'series' ? 'Episodes 1–2 free' : entry.type === 'audiobook' ? (twoChFree.includes(entry.slug) ? 'Ch 1–2 free' : 'Prologue free') : 'Albums inside VIP',

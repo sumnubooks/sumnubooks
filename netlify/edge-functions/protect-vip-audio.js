@@ -7,13 +7,15 @@
  *   HET       here-eat-this-ep1.mp3, here-eat-this-ep2.mp3
  *   Jailhouse The-Jailhouse-Lawyer-Ch1.mp3, …-Ch2.mp3
  *   Still     Still-Standing-Ch1.mp3, Still-Standing-Ch2.mp3
+ *   Stolen    Stolen_Passage_Chapter_1.mp3, Stolen_Passage_Chapter_2.mp3
+ *   Echo      the-echo-origins-ch1.mp3, the-echo-origins-ch2.mp3 (audiobooks/the-echo)
  *
  * Protected files require Outseta VIP plan jW70XZmq.
  * Cookie `sumnu_outseta_access_token` is enough — HTML5 <audio> cannot
  * send Authorization. JWT `outseta:planUid` and Outseta AccountStage
  * 2=Trialing / 3=Subscribing must entitle (not only 1/7).
  *
- * Not gated: Echo, She Still Exists, Other Man, Unplugged, /audio/music/**,
+ * Not gated: legacy Echo series path (/audio/series/the-echo-origins), She Still Exists, Other Man, Unplugged, /audio/music/**,
  * /ebooks/**.
  */
 
@@ -50,14 +52,20 @@ const ALLOWLIST = new Set([
   "/audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch1.mp3",
   "/audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch2.mp3",
   "/audio/audiobooks/still-standing/Still-Standing-Ch1.mp3",
-  "/audio/audiobooks/still-standing/Still-Standing-Ch2.mp3"
+  "/audio/audiobooks/still-standing/Still-Standing-Ch2.mp3",
+  "/audio/series/stolen-passage/Stolen_Passage_Chapter_1.mp3",
+  "/audio/series/stolen-passage/Stolen_Passage_Chapter_2.mp3",
+  "/audio/audiobooks/the-echo/the-echo-origins-ch1.mp3",
+  "/audio/audiobooks/the-echo/the-echo-origins-ch2.mp3"
 ]);
 
 const ALLOWLIST_RE = [
   /\/a-penny-for-my-thoughts-ch[12]\.mp3$/i,
   /\/here-eat-this-ep[12]\.mp3$/i,
   /\/The-Jailhouse-Lawyer-Ch[12]\.mp3$/i,
-  /\/Still-Standing-Ch[12]\.mp3$/i
+  /\/Still-Standing-Ch[12]\.mp3$/i,
+  /\/Stolen_Passage_Chapter_[12]\.mp3$/i,
+  /\/audiobooks\/the-echo\/the-echo-origins-ch[12]\.mp3$/i
 ];
 
 let jwks = null;
