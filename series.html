@@ -722,7 +722,7 @@
         <div class="buy-bar-label">Own It Forever</div>
         <div class="buy-bar-desc">DRM-free MP3 download — any device, keep it forever</div>
       </div>
-      <!-- PAYHIP LINK PENDING ERIC: titles with payhipPending render a disabled "$price · Link coming soon" button here -->
+      <!-- PAYHIP LINK PENDING ERIC: titles with payhipPending render a disabled "$price · Coming soon" button here -->
       <a class="buy-btn" id="buyBtn" href="#" target="_blank" rel="noopener">Buy</a>
     </div>
 
@@ -988,7 +988,7 @@
       buyBtn.removeAttribute('target');
       buyBtn.setAttribute('aria-disabled', 'true');
       buyBtn.classList.add('is-pending');
-      buyBtn.textContent = `$${series.price} · Link coming soon`;
+      buyBtn.textContent = `$${series.price} · Coming soon`;
       buyBar.classList.add('is-live');
     }
 
