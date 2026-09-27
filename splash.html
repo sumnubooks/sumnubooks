@@ -3,16 +3,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <script>
-    var o_options = {
-      domain: 'sumnuvision-llc.outseta.com',
-      tokenStorage: 'local',
-      auth: {
-        authenticationCallbackUrl: 'https://sumnubooks.com/'
-      }
-    };
-  </script>
-  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
   <title>Sumnu Books</title>
   <meta name="description" content="Sumnu Books animated splash screen" />
   <style>
@@ -211,6 +201,7 @@
     }
   </style>
   <link href="css/animations.css" rel="stylesheet"/>
+<link href="css/mobile.css" rel="stylesheet"/>
 </head>
 <body>
   <main class="splash" id="splash">
@@ -220,7 +211,7 @@
     <div class="wrap">
       <div class="logo-box">
         <div class="logo-glow"></div>
-        <img class="logo" src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo">
+        <img class="logo" src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" width="640" height="640">
         <div class="shine"></div>
       </div>
 
@@ -258,5 +249,6 @@
     setTimeout(enterSite, delay);
   </script>
   <script src="js/animations.js"></script>
+<script src="js/mobile-nav.js" defer></script>
 </body>
 </html>

@@ -4,16 +4,6 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-  <script>
-    var o_options = {
-      domain: 'sumnuvision-llc.outseta.com',
-      tokenStorage: 'local',
-      auth: {
-        authenticationCallbackUrl: 'https://sumnubooks.com/'
-      }
-    };
-  </script>
-  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
 <title>Contact — Sumnu Books</title>
 <link href="css/site.css" rel="stylesheet"/>
 
@@ -118,10 +108,7 @@
   </style>
 
   <link href="css/animations.css" rel="stylesheet"/>
-<style>
-    .nav-account { display: none; }
-    html.vip-active .nav-account { display: inline-flex; }
-  </style>
+<link href="css/mobile.css" rel="stylesheet"/>
 </head>
 <body>
 
@@ -134,8 +121,6 @@
         <a href="video.html">Videos</a>
         <a href="audiobooks.html">Audiobooks</a>
         <a href="contact.html" class="active">Contact</a>
-        <a href="unlock.html" class="vip-link nav-cta">VIP Access</a>
-        <a href="login.html" class="nav-account" style="border:1px solid rgba(73,180,110,.25);color:#a8f5bf !important;padding:8px 12px;border-radius:999px;font-size:.82rem;font-weight:700;text-decoration:none;white-space:nowrap;">My Account</a>
       </nav>
     </div>
   </header>
@@ -143,7 +128,7 @@
   <section class="logo-band">
     <div class="container logo-band-inner">
       <a href="index.html" class="hero-logo-link" aria-label="Sumnu Books home">
-        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
+        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img" width="640" height="640">
       </a>
     </div>
   </section>
@@ -246,7 +231,6 @@ function buildMailto(){
         <li><a href="music.html">Music (8 albums)</a></li>
         <li><a href="video.html">Videos</a></li>
         <li><a href="audiobooks.html">&#127911; Audiobooks</a></li>
-        <li><a href="unlock.html">&#128274; VIP Access</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
@@ -266,5 +250,6 @@ function buildMailto(){
 </footer>
 
   <script src="js/animations.js"></script>
+<script src="js/mobile-nav.js" defer></script>
 </body>
 </html>

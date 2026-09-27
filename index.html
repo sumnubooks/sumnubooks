@@ -3,144 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <script>
-    var o_options = {
-      domain: 'sumnuvision-llc.outseta.com',
-      tokenStorage: 'local',
-      auth: {
-        authenticationCallbackUrl: 'https://sumnubooks.com/'
-      }
-    };
-  </script>
-  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
-  <title>Sumnu Books VIP — Cinematic Audio Series (Not Just Audiobooks)</title>
-  <meta name="description" content="This isn’t just an audiobook platform. It’s a cinematic audio experience. Start free and unlock intense, story-driven series built like Netflix — on SumnuBooks." />
+  <title>Sumnu Books — Cinematic Audio Series (Not Just Audiobooks)</title>
+  <meta name="description" content="This isn’t just an audiobook platform. It’s a cinematic audio experience. Start free with intense, story-driven series built like Netflix — on SumnuBooks." />
   <link href="css/site.css" rel="stylesheet"/>
 
   <style>
     .shelf-start { padding-top: 26px; }
-
-    .guest-only { display: block; }
-    .vip-only { display: none; }
-
-    html.vip-active .guest-only { display: none !important; }
-    html.vip-active .vip-only { display: block !important; }
-
-    .vip-home-hero {
-      padding: 14px 0 6px;
-    }
-    .vip-welcome-shell {
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(250px, .85fr);
-      gap: 20px;
-      align-items: stretch;
-    }
-    .vip-welcome-card,
-    .vip-quick-card {
-      border: 1px solid rgba(212,168,67,.16);
-      border-radius: 24px;
-      background: linear-gradient(180deg, rgba(9,14,28,.96), rgba(7,10,20,.99));
-      box-shadow: 0 18px 42px rgba(0,0,0,.28);
-    }
-    .vip-welcome-card {
-      padding: 24px 22px;
-    }
-    .vip-welcome-kicker,
-    .vip-quick-kicker {
-      font-size: .7rem;
-      font-weight: 800;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--gold, #d4a843);
-      margin-bottom: 10px;
-    }
-    .vip-welcome-title {
-      margin: 0 0 8px;
-      font-size: clamp(1.7rem, 4vw, 2.4rem);
-      line-height: 1.04;
-      color: #fff;
-      font-family: var(--font-display, Georgia, serif);
-    }
-    .vip-welcome-sub {
-      margin: 0 0 16px;
-      color: var(--muted, rgba(255,255,255,.55));
-      font-size: .95rem;
-      line-height: 1.65;
-      max-width: 42ch;
-    }
-    .vip-welcome-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
-    }
-    .vip-welcome-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .vip-welcome-pills span {
-      display: inline-flex;
-      align-items: center;
-      min-height: 34px;
-      padding: 0 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.03);
-      color: rgba(255,255,255,.58);
-      font-size: .78rem;
-      font-weight: 600;
-    }
-    .vip-quick-card {
-      padding: 20px 18px;
-    }
-    .vip-quick-links {
-      display: grid;
-      gap: 10px;
-    }
-    .vip-quick-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.06);
-      background: rgba(255,255,255,.03);
-      color: #fff;
-      text-decoration: none;
-      font-weight: 700;
-    }
-    .vip-quick-link small {
-      display: block;
-      color: rgba(255,255,255,.42);
-      font-size: .76rem;
-      font-weight: 500;
-      margin-top: 3px;
-    }
-    .vip-quick-link:hover {
-      border-color: rgba(212,168,67,.22);
-      background: rgba(212,168,67,.06);
-    }
-    @media (max-width: 860px) {
-      .vip-welcome-shell {
-        grid-template-columns: 1fr;
-      }
-    }
-    @media (max-width: 760px) {
-      .vip-home-hero { padding-top: 8px; }
-      .vip-welcome-card,
-      .vip-quick-card {
-        border-radius: 20px;
-      }
-      .vip-welcome-card { padding: 20px 18px; }
-      .vip-welcome-sub { font-size: .9rem; }
-      .vip-welcome-actions .btn {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-
 
     /* ── Marketing Banner ── */
     #marketingBanner {
@@ -989,72 +857,8 @@
   </style>
 
   <link href="css/animations.css" rel="stylesheet"/>
-<style>
-    .nav-account { display: none; }
-    html.vip-active .nav-account { display: inline-flex; }
-  </style>
 
-  <style id="vip-home-cleanup-overrides">
-    .vip-welcome-shell--single {
-      grid-template-columns: minmax(0, 1fr) !important;
-      max-width: 760px;
-      margin: 0 auto;
-    }
-    .vip-home-hero .vip-welcome-card {
-      width: 100%;
-    }
-    .vip-home-hero .vip-welcome-sub {
-      max-width: 46ch;
-    }
-    .vip-home-hero .vip-welcome-actions {
-      margin-bottom: 0 !important;
-    }
-    @media (max-width: 760px) {
-      .vip-home-hero .vip-welcome-shell--single {
-        max-width: 100%;
-      }
-      .vip-home-hero .vip-welcome-title {
-        font-size: clamp(2rem, 10vw, 3.1rem) !important;
-        line-height: 1.02;
-      }
-      .vip-home-hero .vip-welcome-sub {
-        max-width: none;
-        font-size: 1rem;
-        line-height: 1.6;
-      }
-    }
-  </style>
-
-<style id="vip-home-final-overrides">
-  .vip-home-hero{padding:10px 0 0 !important;}
-  .vip-welcome-shell,
-  .vip-welcome-shell--single{
-    display:block !important;
-    max-width:560px !important;
-    margin:0 auto !important;
-  }
-  .vip-welcome-card--minimal{
-    padding:18px 18px 16px !important;
-    border-radius:20px !important;
-  }
-  .vip-welcome-card--minimal .vip-welcome-title{
-    margin:0 !important;
-    font-size:clamp(2rem, 8vw, 3rem) !important;
-    line-height:1.02 !important;
-  }
-  .vip-welcome-card--minimal .vip-welcome-kicker{
-    margin-bottom:8px !important;
-    font-size:.64rem !important;
-  }
-
-  /* hard-hide removed VIP homepage elements */
-  .vip-only .vip-quick-card,
-  .vip-only .vip-welcome-sub,
-  .vip-only .vip-welcome-actions,
-  .vip-only .vip-welcome-pills{
-    display:none !important;
-  }
-
+<style id="home-final-overrides">
   /* smaller homepage only */
   #seriesGrid, #audiobookGrid, #musicGrid{gap:12px !important;}
   #seriesGrid .card-tile, #audiobookGrid .card-tile, #musicGrid .card-tile{border-radius:18px !important;}
@@ -1068,6 +872,7 @@
   .radio-dock-art{width:62px !important; height:62px !important; border-radius:14px !important;}
   .btn, .radio-dock-controls .btn{min-height:44px !important; padding:0 16px !important; font-size:.88rem !important;}
 </style>
+<link href="css/mobile.css" rel="stylesheet"/>
 </head>
 <body>
 <div id="siteSplash" class="site-splash" aria-hidden="true">
@@ -1079,6 +884,7 @@
       src="images/logos/sumnu-books-logo.png"
       alt="Sumnu Books"
       class="site-splash-logo"
+      width="640" height="640"
     />
     <div class="site-splash-text">
       Tap anywhere or wait a moment to <strong>enter</strong>
@@ -1096,35 +902,27 @@
         <a href="video.html">Videos</a>
         <a href="audiobooks.html">Audiobooks</a>
         <a href="contact.html">Contact</a>
-        <a href="unlock.html" class="vip-link nav-cta">VIP Access</a>
-        <a href="login.html" class="nav-account" style="border:1px solid rgba(73,180,110,.25);color:#a8f5bf !important;padding:8px 12px;border-radius:999px;font-size:.82rem;font-weight:700;text-decoration:none;white-space:nowrap;">My Account</a>
       </nav>
     </div>
   </header>
 
-  <!-- Promo strip -->
-  <div id="promoBanner" style="background:linear-gradient(90deg,rgba(212,168,67,.15),rgba(232,97,42,.1),rgba(212,168,67,.15));border-bottom:1px solid rgba(212,168,67,.25);padding:8px 16px;text-align:center;font-size:.8rem;color:#edf1f7;position:relative;">
-    🎉 <strong>50% off</strong> first month — code <span style="background:rgba(212,168,67,.2);border:1px dashed rgba(212,168,67,.6);color:#ffd700;font-weight:900;letter-spacing:.08em;padding:1px 8px;border-radius:5px;margin:0 2px;">MIXEMC</span> at checkout &nbsp;·&nbsp; <a href="unlock.html" style="color:#d4a843;font-weight:800;text-decoration:underline;">Start free trial →</a>
-    <button onclick="this.parentElement.style.display='none'" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:#9aa3b7;font-size:1rem;cursor:pointer;padding:4px;">✕</button>
-  </div>
-
   <section class="logo-band">
     <div class="container logo-band-inner">
       <a href="index.html" class="hero-logo-link" aria-label="Sumnu Books home">
-        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
+        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img" width="640" height="640">
       </a>
     </div>
   </section>
 
-  <!-- ── Marketing Banner — hidden for VIP members ── -->
-  <div id="marketingBanner" class="guest-only" style="display:none;">
+  <!-- ── Marketing Banner ── -->
+  <div id="marketingBanner" style="display:none;">
     <div class="container">
       <div id="mktBannerInner">
         <div class="mkt-banner-copy">
           <span class="mkt-banner-label">Sumnu Books</span>
           <div class="mkt-banner-divider"></div>
           <span class="mkt-banner-text">Start free with cinematic audio series built for tension, drama, and immersive listening.</span>
-          <a href="unlock.html" class="mkt-banner-btn">Start Listening Free</a>
+          <a href="#seriesShelf" class="mkt-banner-btn">Start Listening Free</a>
         </div>
         <button class="mkt-banner-close" id="mktBannerClose" aria-label="Dismiss banner">✕</button>
       </div>
@@ -1133,7 +931,7 @@
 
   <main>
 
-  <section class="section home-hero guest-only">
+  <section class="section home-hero">
     <div class="container">
       <div class="hero-shell">
         <div class="hero-copy">
@@ -1141,22 +939,22 @@
           <h1 class="hero-title">This is <span class="gold">not</span> an audiobook.</h1>
           <p class="hero-sub">
             Stories built like streaming drama — full of tension, betrayal, momentum, and moments you feel, not just hear.
-            Start free, then unlock the full experience across Sumnu Books.
+            Start free with sample episodes and chapters across Sumnu Books.
           </p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="unlock.html">Start Listening Free</a>
-            <a class="btn btn-secondary" href="#seriesShelf">Explore Series</a>
+            <a class="btn btn-primary" href="#seriesShelf">Start Listening Free</a>
+            <a class="btn btn-secondary" href="audiobooks.html">Explore Audiobooks</a>
           </div>
           <div class="hero-proof">
             <span>Free sample episodes</span>
             <span>Original audio dramas</span>
-            <span>VIP unlock available</span>
+            <span>Full titles to own</span>
           </div>
         </div>
 
         <a class="hero-spotlight" href="series.html?slug=here-eat-this" aria-label="Start Here... Eat This">
           <div class="hero-spotlight-media">
-            <img src="images/series/here-eat-this/here-eat-this-cover.jpg" alt="Here... Eat This cover">
+            <img src="images/series/here-eat-this/here-eat-this-cover.jpg" alt="Here... Eat This cover" width="800" height="1200">
           </div>
           <div class="hero-spotlight-copy">
             <div class="hero-spotlight-kicker">Start with this</div>
@@ -1169,55 +967,7 @@
     </div>
   </section>
 
-  <section class="section vip-home-hero vip-only" aria-live="polite">
-    <div class="container">
-      <div class="vip-welcome-shell">
-        <div class="vip-welcome-card">
-          <div class="vip-welcome-kicker">Member home</div>
-          <h1 class="vip-welcome-title" id="vipWelcomeTitle">Welcome back</h1>
-          <p class="vip-welcome-sub">Pick up where you left off, jump into the latest drops, and move straight into the stories without the sales pitch.</p>
-          <div class="vip-welcome-actions">
-            <a class="btn btn-primary" href="#resumeCard">Continue Listening</a>
-            <a class="btn btn-secondary" href="#seriesShelf">Go To Series</a>
-          </div>
-          <div class="vip-welcome-pills">
-            <span>VIP unlocked</span>
-            <span>Latest drops below</span>
-            <span>Music + audiobooks included</span>
-          </div>
-        </div>
-
-        <div class="vip-quick-card">
-          <div class="vip-quick-kicker">Quick access</div>
-          <div class="vip-quick-links">
-            <a class="vip-quick-link" href="#seriesShelf">
-              <div>
-                Series library
-                <small>Jump straight into episodic stories</small>
-              </div>
-              <span>→</span>
-            </a>
-            <a class="vip-quick-link" href="#audiobookShelf">
-              <div>
-                Audiobooks
-                <small>Continue full-length listening</small>
-              </div>
-              <span>→</span>
-            </a>
-            <a class="vip-quick-link" href="#musicShelf">
-              <div>
-                Music + radio
-                <small>Play albums and Sumnu Radio</small>
-              </div>
-              <span>→</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section story-intro guest-only">
+  <section class="section story-intro">
     <div class="container">
       <div class="story-intro-grid">
         <div class="story-chip">
@@ -1226,11 +976,11 @@
         </div>
         <div class="story-chip">
           <strong>Built for mobile listening</strong>
-          <span>Short episodes, chapter playback, and premium access that feels clean and simple.</span>
+          <span>Short episodes and chapter playback that feel clean and simple.</span>
         </div>
         <div class="story-chip">
           <strong>Listen now on SumnuBooks</strong>
-          <span>Start with free episodes, then unlock the full titles and scenes.</span>
+          <span>Start with free episodes, then pick up the full titles.</span>
         </div>
       </div>
     </div>
@@ -1240,7 +990,7 @@
         <div class="section-head compact-head section-intro">
           <div class="section-copy">
             <h2>Start With This</h2>
-            <p>Lead with the stories built like premium streaming drama. Start free, then unlock the full season.</p>
+            <p>Lead with the stories built like premium streaming drama. Start free with the opening episodes.</p>
           </div>
         </div>
         <div class="shelf" id="seriesGrid"></div>
@@ -1279,18 +1029,18 @@
             <button class="btn btn-primary btn-small" id="radioPlayBtn">▶ Play radio</button>
             <button class="btn btn-secondary btn-small" id="radioNextBtn">⏭ Next</button>
           </div>
-          <audio id="radioAudio" preload="none"></audio>
+          <audio playsinline id="radioAudio" preload="none"></audio>
         </div>
       </div>
     </section>
 
 
-    <section class="section how-it-works guest-only">
+    <section class="section how-it-works">
       <div class="container">
         <div class="section-head compact-head section-intro">
           <div class="section-copy">
-            <h2>Start Free. Unlock The Full Story.</h2>
-            <p>No complicated flow. Sample the story first, then open the rest when you are ready to keep going.</p>
+            <h2>Start Free. Own The Full Story.</h2>
+            <p>No complicated flow. Sample the story first, then get the full title when you are ready to keep going.</p>
           </div>
         </div>
         <div class="how-grid">
@@ -1306,8 +1056,8 @@
           </div>
           <div class="how-card">
             <div class="how-step">3</div>
-            <h3>Unlock full access</h3>
-            <p>Once VIP is active, the locked content opens cleanly so the story can keep moving.</p>
+            <h3>Get the full title</h3>
+            <p>Ready for the rest? Use the Buy button on the title page to keep the story moving.</p>
           </div>
         </div>
       </div>
@@ -1327,7 +1077,7 @@
   </main>
 
   <!-- ── Email Signup ── -->
-  <section id="emailSignup" class="guest-only" style="padding:28px 0; border-top:1px solid rgba(255,255,255,.07);">
+  <section id="emailSignup" style="padding:28px 0; border-top:1px solid rgba(255,255,255,.07);">
     <div class="container">
       <div id="signupWrap">
         <div style="text-align:center; margin-bottom:18px;">
@@ -1422,12 +1172,12 @@
   </section>
 
 
-  <section class="section final-cta guest-only">
+  <section class="section final-cta">
     <div class="container">
       <div class="final-cta-shell">
         <h2>You do not just hear these stories. You step into them.</h2>
-        <p>Start with the free episodes. Explore the series shelf. Then unlock the titles that stay with people after the screen is off and the room gets quiet.</p>
-        <a class="btn btn-primary" href="unlock.html">Start Listening Free</a>
+        <p>Start with the free episodes. Explore the series shelf. Then pick up the titles that stay with people after the screen is off and the room gets quiet.</p>
+        <a class="btn btn-primary" href="#seriesShelf">Start Listening Free</a>
       </div>
     </div>
   </section>
@@ -1435,7 +1185,7 @@
   <footer class="footer">
     <div class="container footer-grid">
       <div>
-        <strong class="gold">SUMNU BOOKS VIP</strong><br />
+        <strong class="gold">SUMNU BOOKS</strong><br />
         Cinematic audio series, premium audiobooks, and immersive listening built for the Sumnu world.
       </div>
       <div>
@@ -1444,8 +1194,8 @@
     </div>
   </footer>
 
-  <div class="mobile-bar guest-only">
-    <a class="btn btn-primary" href="unlock.html" id="mobileUnlockBtn">🔓 Unlock all access</a>
+  <div class="mobile-bar">
+    <a class="btn btn-primary" href="#seriesShelf" id="mobileListenBtn">▶ Start listening free</a>
   </div>
 
   <div class="modal" id="detailModal" aria-hidden="true">
@@ -1513,7 +1263,7 @@ const siteData = {
       items: Array.from({length:8}, (_,i) => ({
         number: i + 1,
         title: `Episode ${i+1}`,
-        description: i < 2 ? 'Free sample episode.' : 'VIP episode.',
+        description: i < 2 ? 'Free sample episode.' : 'Full-series episode.',
         image: `images/series/before-our-water-breaks/before-our-water-breaks-ep${i+1}.jpg`,
         audio: `audio/series/before-our-water-breaks/before-our-water-breaks-ep${i+1}.mp3`
       }))
@@ -1529,7 +1279,7 @@ const siteData = {
       items: Array.from({length:8}, (_,i) => ({
         number: i + 1,
         title: `Episode ${i+1}`,
-        description: i < 2 ? 'Free sample episode.' : 'VIP episode.',
+        description: i < 2 ? 'Free sample episode.' : 'Full-series episode.',
         image: `images/series/here-eat-this/here-eat-this-ep${i+1}.jpg`,
         audio: `audio/series/here-eat-this/here-eat-this-ep${i+1}.mp3`
       }))
@@ -1545,7 +1295,7 @@ const siteData = {
       items: Array.from({length:8}, (_,i) => ({
         number: i + 1,
         title: `Episode ${i+1}`,
-        description: i < 2 ? 'Free sample episode.' : 'VIP episode.',
+        description: i < 2 ? 'Free sample episode.' : 'Full-series episode.',
         image: `images/series/other-man/other-man-ep${i+1}.jpg`,
         audio: `audio/series/other-man/other-man-ep${i+1}.mp3`
       }))
@@ -1563,7 +1313,7 @@ const siteData = {
       items: Array.from({length:10}, (_,i) => ({
         number: i + 1,
         title: `Chapter ${i+1}`,
-        description: i < 2 ? 'Free sample chapter.' : 'VIP chapter.',
+        description: i < 2 ? 'Free sample chapter.' : 'Full-book chapter.',
         image: `images/series/stolen-passage/stolen-passage-ep${i+1}.jpg`,
         audio: `audio/series/stolen-passage/Stolen_Passage_Chapter_${i+1}.mp3`
       }))
@@ -1583,7 +1333,7 @@ const siteData = {
         ...Array.from({length:49}, (_,i) => ({
           number: i + 2,
           title: `Chapter ${i+1}`,
-          description: i === 0 ? 'VIP chapter.' : 'VIP chapter.',
+          description: 'Full-book chapter.',
           image: `images/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch${i+2}.jpg`,
           audio: `audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch${i+2}.mp3`
         }))
@@ -1602,7 +1352,7 @@ const siteData = {
         ...Array.from({length:17}, (_,i) => ({
           number: i + 2,
           title: `Chapter ${i+1}`,
-          description: 'VIP chapter.',
+          description: 'Full-book chapter.',
           image: `images/audiobooks/unplugged/unplugged-ch${i+2}.jpg`,
           audio: `audio/audiobooks/unplugged/unplugged-ch${i+2}.mp3`
         }))
@@ -1633,7 +1383,7 @@ const siteData = {
       items: Array.from({length:20}, (_,i) => ({
         number: i + 1,
         title: `Chapter ${i+1}`,
-        description: i < 2 ? 'Free chapter.' : 'VIP audiobook chapter.',
+        description: i < 2 ? 'Free chapter.' : 'Full-book chapter.',
         image: 'images/books/book3.jpg',
         audio: `audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch${i+1}.mp3`
       }))
@@ -1651,7 +1401,7 @@ const siteData = {
       items: Array.from({length:15}, (_,i) => ({
         number: i + 1,
         title: `Chapter ${i+1}`,
-        description: i < 2 ? 'Free chapter.' : 'VIP audiobook chapter.',
+        description: i < 2 ? 'Free chapter.' : 'Full-book chapter.',
         image: 'images/books/still-standing.jpg',
         audio: `audio/audiobooks/still-standing/Still-Standing-Ch${i+1}.mp3`
       }))
@@ -1668,7 +1418,7 @@ const siteData = {
       items: Array.from({length:15}, (_,i) => ({
         number: i + 1,
         title: `Chapter ${i+1}`,
-        description: i < 2 ? 'Free chapter.' : 'VIP audiobook chapter.',
+        description: i < 2 ? 'Free chapter.' : 'Full-book chapter.',
         image: 'images/covers-square/the-echo-origins.jpg',
         audio: `audio/audiobooks/the-echo/the-echo-origins-ch${i+1}.mp3`
       }))
@@ -1685,16 +1435,28 @@ const siteData = {
       items: Array.from({length:15}, (_,i) => ({
         number: i + 1,
         title: `Chapter ${i+1}`,
-        description: i < 2 ? 'Free chapter.' : 'VIP audiobook chapter.',
+        description: i < 2 ? 'Free chapter.' : 'Full-book chapter.',
         image: 'images/series/she-still-exists/she-still-exists-cover.jpg',
         audio: `audio/series/she-still-exists/she-still-exists-ch${i+1}.mp3`
       }))
     }
   ],
-  music: [{"type": "music", "slug": "chapter-7", "title": "Chapter 7", "label": "Album", "meta": "full album with VIP", "tagline": "Chapter 7 stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/chapter-7.jpg", "items": [{"number": 1, "title": "Chapter 7 Intro", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/1-Chapter 7 Intro.mp3"}, {"number": 2, "title": "Pretty Close", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/2-Pretty Close.mp3"}, {"number": 3, "title": "At Least I Tried", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/3-At Least I Tried.mp3"}, {"number": 4, "title": "I've Seen", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/4-I've Seen.mp3"}, {"number": 5, "title": "Uncrowned King", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/5-Uncrowned King.mp3"}, {"number": 6, "title": "Nobody Told Me", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/6-Nobody Told Me.mp3"}, {"number": 7, "title": "Still Kinda Ballin", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/7-Still Kinda Ballin.mp3"}, {"number": 8, "title": "My Homies And I", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/8-My Homies And I.mp3"}, {"number": 9, "title": "Brain Damaged", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/9-Brain Damaged.mp3"}, {"number": 10, "title": "Break a Punks Jaw... Again", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/10-Break_a_Punks_Jaw...Again.mp3"}, {"number": 11, "title": "Summertime Groove", "description": "VIP album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/11-Summertime Groove.mp3"}]}, {"type": "music", "slug": "the-profit-e", "title": "The Profit E", "label": "Album", "meta": "full album with VIP", "tagline": "The Profit E stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/the-profit-e.jpg", "items": [{"number": 1, "title": "Rest In Unpeace", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/01 Rest In Unpeace.mp3"}, {"number": 2, "title": "The Profit", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/02 The Profit.mp3"}, {"number": 3, "title": "Light 2 Da Dark", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/03 Light 2 Da Dark.mp3"}, {"number": 4, "title": "Don't Die", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/04 Don't Die.mp3"}, {"number": 5, "title": "I Am", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/05 I Am.mp3"}, {"number": 6, "title": "Time Bomb", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/06 Time Bomb.mp3"}, {"number": 7, "title": "Dark Side (feat Julian Lamont)", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/07 Dark Side (feat Julian Lamont).mp3"}, {"number": 8, "title": "Vibrations", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/08 Vibrations.mp3"}, {"number": 9, "title": "The Profit (feat Aaron Neville)", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/09 The Profit (feat Aaron Neville).mp3"}, {"number": 10, "title": "DarkSide mellow mix", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/10 DarkSide mellow mix.mp3"}, {"number": 11, "title": "Rest in Unpeace remix", "description": "VIP album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/11 Rest in Unpeace remix.mp3"}]}, {"type": "music", "slug": "the-maytricks", "title": "The May Tricks", "label": "Album", "meta": "full album with VIP", "tagline": "The May Tricks stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/the-maytricks.jpg", "items": [{"number": 1, "title": "The Beginning", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 01 The Beginning.mp3"}, {"number": 2, "title": "The MayTricks", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 02 MayTricks.mp3"}, {"number": 3, "title": "Journey", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 03 Journey.mp3"}, {"number": 4, "title": "Sorry That I Left The Game", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 04 Sorry.mp3"}, {"number": 5, "title": "Dust N The Wind", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 05 Dust N The Wind.mp3"}, {"number": 6, "title": "Going Higher", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 06 Going Higher.mp3"}, {"number": 7, "title": "Walking N The Rain", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 07 Walking N the Rain.mp3"}, {"number": 8, "title": "Green Eggs N Ham", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 09 Green Eggs N Ham.mp3"}, {"number": 9, "title": "The 90's", "description": "VIP album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 10 The 90's.mp3"}]}, {"type": "music", "slug": "destiny", "title": "Destiny", "label": "Album", "meta": "full album with VIP", "tagline": "Destiny stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/destiny.jpg", "items": [{"number": 1, "title": "The Hit Skit", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/01-The Hit Skit.mp3"}, {"number": 2, "title": "Shit-List", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/02-Shit-List.mp3"}, {"number": 3, "title": "Inside My Mind", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/03-Inside My Mind.mp3"}, {"number": 4, "title": "Destiny", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/04-Destiny.mp3"}, {"number": 5, "title": "The D-Sucker (skit)", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/05-The D-Sucker (skit).mp3"}, {"number": 6, "title": "I Like", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/06-I Like.mp3"}, {"number": 7, "title": "More Game", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/07-More Game.mp3"}, {"number": 8, "title": "Money", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/08-Money.mp3"}, {"number": 9, "title": "Straight Mackin", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/09-Straight Mackin.mp3"}, {"number": 10, "title": "The Message (skit)", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/10-The Message (skit).mp3"}, {"number": 11, "title": "The Target", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/11-The Target.mp3"}, {"number": 12, "title": "That's All She Wrote", "description": "VIP album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/12-That's All She Wrote.mp3"}]}, {"type": "music", "slug": "list-complete", "title": "List Complete", "label": "Album", "meta": "full album with VIP", "tagline": "List Complete stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/list-complete.jpg", "buy": "", "items": [{"number": 1, "title": "Forgot All About Me", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/01 Forgot All About Me.mp3"}, {"number": 2, "title": "Cum In Your Mind", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/02 Cum In Your Mind.mp3"}, {"number": 3, "title": "Cum In Your Mind remix", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/02 Cum In Your Mind remix.mp3"}, {"number": 4, "title": "EMC & DJ Regg1210", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/03 EMC & DJ Regg1210.mp3"}, {"number": 5, "title": "Cloned Brother", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/04 Cloned Brother.mp3"}, {"number": 6, "title": "I Do Believe", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/05 I Do Believe final jne 22 2019mix.mp3"}, {"number": 7, "title": "Act Right", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/06 Act Right.mp3"}, {"number": 8, "title": "Truth", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/07 Truth.mp3"}, {"number": 9, "title": "It's Been A Minute", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/08 It's Been A Minute.mp3"}, {"number": 10, "title": "Preception", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/09 Preception.mp3"}, {"number": 11, "title": "Porn Star", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/10 Porn Star.mp3"}, {"number": 12, "title": "You Can Ride With Me", "description": "VIP album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/11 You Can Ride With Me.mp3"}]}, {"type": "music", "slug": "lost-and-found", "title": "Lost and Found", "label": "Album", "meta": "full album with VIP", "tagline": "Lost and Found stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/lost-and-found.jpg", "items": [{"number": 1, "title": "Step Up", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Step Up.mp3"}, {"number": 2, "title": "Take a Ride With Me", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Take a Ride With Me.mp3"}, {"number": 3, "title": "Playa Partnas", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Playa Partnas.mp3"}, {"number": 4, "title": "Show Ya Gold", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Show Ya Gold.mp3"}, {"number": 5, "title": "Show Yo Golds (Chopped and Screwed)", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Show Yo Golds (Chopped and Screwed).mp3"}, {"number": 6, "title": "Holla Back Remix", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Holla Back Remix.mp3"}, {"number": 7, "title": "Holla Back", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Holla Back.mp3"}, {"number": 8, "title": "I Wanna", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/I Wanna.mp3"}, {"number": 9, "title": "Fo Sho", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Fo Sho.mp3"}, {"number": 10, "title": "Get High To This", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Get High To This.mp3"}, {"number": 11, "title": "Hater Hateing", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Hater Hateing.mp3"}, {"number": 12, "title": "Ho", "description": "VIP album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Ho.mp3"}]}, {"type": "music", "slug": "night-vision", "title": "Night Vision", "label": "Album", "meta": "full album with VIP", "tagline": "Night Vision stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/night-vision.jpg", "items": [{"number": 1, "title": "Night Vision", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/01 Night Vision.mp3"}, {"number": 2, "title": "I'm Bad", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/02 I'm Bad.mp3"}, {"number": 3, "title": "Tell Me bout Yo Hood", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/03 Tell Me bout Yo Hood.mp3"}, {"number": 4, "title": "Old School", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/04 Old School.mp3"}, {"number": 5, "title": "When You Cum", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/05 When You Cum.mp3"}, {"number": 6, "title": "Smack That Ass", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/06 Smack That Ass.mp3"}, {"number": 7, "title": "Sneeky Bitch", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/07 Sneeky Bitch.mp3"}, {"number": 8, "title": "Pussy", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/08 Pussy.mp3"}, {"number": 9, "title": "Cums from Pimpin", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/09 Cums from Pimpin.mp3"}, {"number": 10, "title": "Never Shed A Tear", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/10 Never Shed A Tear.mp3"}, {"number": 11, "title": "Sunshine", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/11 Sunshine.mp3"}, {"number": 12, "title": "DJ Reg Cuttin Up", "description": "VIP album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/12 DJ Reg Cuttin Up.mp3"}]}, {"type": "music", "slug": "nocternal-life", "title": "Nocternal Life", "label": "Album", "meta": "full album with VIP", "tagline": "Nocternal Life stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/nocternal-life.jpg", "items": [{"number": 1, "title": "INTRO", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/01 INTRO.mp3"}, {"number": 2, "title": "THE DON", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/02 THE DON.mp3"}, {"number": 3, "title": "NO DRAMA", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/03 NO DRAMA.mp3"}, {"number": 4, "title": "ALL FOR YOU", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/04 ALL FOR YOU.mp3"}, {"number": 5, "title": "FUCK THE DON", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/06 FUCK THE DON.mp3"}, {"number": 6, "title": "1 ON 1", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/07 1 ON 1.mp3"}, {"number": 7, "title": "NOCTURNAL LIFE", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/08 NOCTURNAL LIFE.mp3"}, {"number": 8, "title": "SHUT UM DOWN", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/09 SHUT UM DOWN.mp3"}, {"number": 9, "title": "SHAME", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/11 SHAME.mp3"}, {"number": 10, "title": "BLACK MASK", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/13 BLACK MASK.mp3"}, {"number": 11, "title": "RIDE (REMIX)", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/15 RIDE (REMIX).mp3"}, {"number": 12, "title": "ROLL UP", "description": "VIP album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/16 ROLL UP.mp3"}]}, {"type": "music", "slug": "rdm", "title": "RDM", "label": "Album", "meta": "full album with VIP", "tagline": "RDM stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/rdm.jpg", "buy": "", "items": [{"number": 1, "title": "Never Felt the Way I Feel For You", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/01 Never Felt the Way I Feel For You.mp3"}, {"number": 2, "title": "Making Love", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/02 Making Love.mp3"}, {"number": 3, "title": "Pretty Green Eyes", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/03 Pretty Green Eyes.mp3"}, {"number": 4, "title": "Lets Try Again", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/04 Lets Try Again.mp3"}, {"number": 5, "title": "You Use To Be Mine", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/05 You Use To Be Mine.mp3"}, {"number": 6, "title": "When In Love", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/06 When In Love.mp3"}, {"number": 7, "title": "Cheating On You", "description": "VIP album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/07 Cheating On You.mp3"}]}, {"type": "music", "slug": "still-pimpin", "title": "Still Pimpin", "label": "Album", "meta": "full album with VIP", "tagline": "Still Pimpin stays visible on the homepage, but full album playback is part of the VIP all-access layer.", "cover": "images/music/still-pimpin.jpg", "buy": "https://payhip.com/b/VygoG", "items": [{"number": 1, "title": "Intro", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/01 Intro.mp3"}, {"number": 2, "title": "Payback", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/02 Payback.mp3"}, {"number": 3, "title": "Still Pimpin", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/03 Still Pimpin.mp3"}, {"number": 4, "title": "Yes You Can", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/04 Yes You Can.mp3"}, {"number": 5, "title": "Get Rich", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/06 Get Rich.mp3"}, {"number": 6, "title": "Pimp Shit", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/07 Pimp Shit.mp3"}, {"number": 7, "title": "Pussie Seller", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/08 Pussie Seller.mp3"}, {"number": 8, "title": "I'm A Celebrity", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/09 I'm A Celebrity.mp3"}, {"number": 9, "title": "ITalk Shit", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/10 ITalk Shit.mp3"}, {"number": 10, "title": "BitchesHoes&Sluts", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/11 BitchesHoes&Sluts.mp3"}, {"number": 11, "title": "Backstabbers", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/12 Backstabbers.mp3"}, {"number": 12, "title": "The Remix", "description": "VIP album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/13 The Remix.mp3"}]}],
+  music: [{"type": "music", "slug": "chapter-7", "title": "Chapter 7", "label": "Album", "meta": "album • tracks on Sumnu Radio", "tagline": "Hear tracks from Chapter 7 in the free Sumnu Radio shuffle, or open the music page.", "cover": "images/music/chapter-7.jpg", "items": [{"number": 1, "title": "Chapter 7 Intro", "description": "Album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/1-Chapter 7 Intro.mp3"}, {"number": 2, "title": "Pretty Close", "description": "Album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/2-Pretty Close.mp3"}, {"number": 3, "title": "At Least I Tried", "description": "Album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/3-At Least I Tried.mp3"}, {"number": 4, "title": "I've Seen", "description": "Album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/4-I've Seen.mp3"}, {"number": 5, "title": "Uncrowned King", "description": "Album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/5-Uncrowned King.mp3"}, {"number": 6, "title": "Nobody Told Me", "description": "Album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/6-Nobody Told Me.mp3"}, {"number": 7, "title": "Still Kinda Ballin", "description": "Album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/7-Still Kinda Ballin.mp3"}, {"number": 8, "title": "My Homies And I", "description": "Album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/8-My Homies And I.mp3"}, {"number": 9, "title": "Brain Damaged", "description": "Album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/9-Brain Damaged.mp3"}, {"number": 10, "title": "Break a Punks Jaw... Again", "description": "Album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/10-Break_a_Punks_Jaw...Again.mp3"}, {"number": 11, "title": "Summertime Groove", "description": "Album track.", "image": "images/music/chapter-7.jpg", "audio": "audio/music/chapter-7/11-Summertime Groove.mp3"}]}, {"type": "music", "slug": "the-profit-e", "title": "The Profit E", "label": "Album", "meta": "album • tracks on Sumnu Radio", "tagline": "Hear tracks from The Profit E in the free Sumnu Radio shuffle, or open the music page.", "cover": "images/music/the-profit-e.jpg", "items": [{"number": 1, "title": "Rest In Unpeace", "description": "Album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/01 Rest In Unpeace.mp3"}, {"number": 2, "title": "The Profit", "description": "Album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/02 The Profit.mp3"}, {"number": 3, "title": "Light 2 Da Dark", "description": "Album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/03 Light 2 Da Dark.mp3"}, {"number": 4, "title": "Don't Die", "description": "Album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/04 Don't Die.mp3"}, {"number": 5, "title": "I Am", "description": "Album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/05 I Am.mp3"}, {"number": 6, "title": "Time Bomb", "description": "Album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/06 Time Bomb.mp3"}, {"number": 7, "title": "Dark Side (feat Julian Lamont)", "description": "Album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/07 Dark Side (feat Julian Lamont).mp3"}, {"number": 8, "title": "Vibrations", "description": "Album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/08 Vibrations.mp3"}, {"number": 9, "title": "The Profit (feat Aaron Neville)", "description": "Album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/09 The Profit (feat Aaron Neville).mp3"}, {"number": 10, "title": "DarkSide mellow mix", "description": "Album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/10 DarkSide mellow mix.mp3"}, {"number": 11, "title": "Rest in Unpeace remix", "description": "Album track.", "image": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/11 Rest in Unpeace remix.mp3"}]}, {"type": "music", "slug": "the-maytricks", "title": "The May Tricks", "label": "Album", "meta": "album • tracks on Sumnu Radio", "tagline": "Hear tracks from The May Tricks in the free Sumnu Radio shuffle, or open the music page.", "cover": "images/music/the-maytricks.jpg", "items": [{"number": 1, "title": "The Beginning", "description": "Album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 01 The Beginning.mp3"}, {"number": 2, "title": "The MayTricks", "description": "Album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 02 MayTricks.mp3"}, {"number": 3, "title": "Journey", "description": "Album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 03 Journey.mp3"}, {"number": 4, "title": "Sorry That I Left The Game", "description": "Album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 04 Sorry.mp3"}, {"number": 5, "title": "Dust N The Wind", "description": "Album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 05 Dust N The Wind.mp3"}, {"number": 6, "title": "Going Higher", "description": "Album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 06 Going Higher.mp3"}, {"number": 7, "title": "Walking N The Rain", "description": "Album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 07 Walking N the Rain.mp3"}, {"number": 8, "title": "Green Eggs N Ham", "description": "Album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 09 Green Eggs N Ham.mp3"}, {"number": 9, "title": "The 90's", "description": "Album track.", "image": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 10 The 90's.mp3"}]}, {"type": "music", "slug": "destiny", "title": "Destiny", "label": "Album", "meta": "album • tracks on Sumnu Radio", "tagline": "Hear tracks from Destiny in the free Sumnu Radio shuffle, or open the music page.", "cover": "images/music/destiny.jpg", "items": [{"number": 1, "title": "The Hit Skit", "description": "Album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/01-The Hit Skit.mp3"}, {"number": 2, "title": "Shit-List", "description": "Album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/02-Shit-List.mp3"}, {"number": 3, "title": "Inside My Mind", "description": "Album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/03-Inside My Mind.mp3"}, {"number": 4, "title": "Destiny", "description": "Album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/04-Destiny.mp3"}, {"number": 5, "title": "The D-Sucker (skit)", "description": "Album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/05-The D-Sucker (skit).mp3"}, {"number": 6, "title": "I Like", "description": "Album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/06-I Like.mp3"}, {"number": 7, "title": "More Game", "description": "Album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/07-More Game.mp3"}, {"number": 8, "title": "Money", "description": "Album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/08-Money.mp3"}, {"number": 9, "title": "Straight Mackin", "description": "Album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/09-Straight Mackin.mp3"}, {"number": 10, "title": "The Message (skit)", "description": "Album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/10-The Message (skit).mp3"}, {"number": 11, "title": "The Target", "description": "Album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/11-The Target.mp3"}, {"number": 12, "title": "That's All She Wrote", "description": "Album track.", "image": "images/music/destiny.jpg", "audio": "audio/music/destiny/12-That's All She Wrote.mp3"}]}, {"type": "music", "slug": "list-complete", "title": "List Complete", "label": "Album", "meta": "album • tracks on Sumnu Radio", "tagline": "Hear tracks from List Complete in the free Sumnu Radio shuffle, or open the music page.", "cover": "images/music/list-complete.jpg", "buy": "", "items": [{"number": 1, "title": "Forgot All About Me", "description": "Album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/01 Forgot All About Me.mp3"}, {"number": 2, "title": "Cum In Your Mind", "description": "Album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/02 Cum In Your Mind.mp3"}, {"number": 3, "title": "Cum In Your Mind remix", "description": "Album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/02 Cum In Your Mind remix.mp3"}, {"number": 4, "title": "EMC & DJ Regg1210", "description": "Album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/03 EMC & DJ Regg1210.mp3"}, {"number": 5, "title": "Cloned Brother", "description": "Album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/04 Cloned Brother.mp3"}, {"number": 6, "title": "I Do Believe", "description": "Album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/05 I Do Believe final jne 22 2019mix.mp3"}, {"number": 7, "title": "Act Right", "description": "Album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/06 Act Right.mp3"}, {"number": 8, "title": "Truth", "description": "Album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/07 Truth.mp3"}, {"number": 9, "title": "It's Been A Minute", "description": "Album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/08 It's Been A Minute.mp3"}, {"number": 10, "title": "Preception", "description": "Album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/09 Preception.mp3"}, {"number": 11, "title": "Porn Star", "description": "Album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/10 Porn Star.mp3"}, {"number": 12, "title": "You Can Ride With Me", "description": "Album track.", "image": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/11 You Can Ride With Me.mp3"}]}, {"type": "music", "slug": "lost-and-found", "title": "Lost and Found", "label": "Album", "meta": "album • tracks on Sumnu Radio", "tagline": "Hear tracks from Lost and Found in the free Sumnu Radio shuffle, or open the music page.", "cover": "images/music/lost-and-found.jpg", "items": [{"number": 1, "title": "Step Up", "description": "Album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Step Up.mp3"}, {"number": 2, "title": "Take a Ride With Me", "description": "Album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Take a Ride With Me.mp3"}, {"number": 3, "title": "Playa Partnas", "description": "Album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Playa Partnas.mp3"}, {"number": 4, "title": "Show Ya Gold", "description": "Album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Show Ya Gold.mp3"}, {"number": 5, "title": "Show Yo Golds (Chopped and Screwed)", "description": "Album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Show Yo Golds (Chopped and Screwed).mp3"}, {"number": 6, "title": "Holla Back Remix", "description": "Album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Holla Back Remix.mp3"}, {"number": 7, "title": "Holla Back", "description": "Album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Holla Back.mp3"}, {"number": 8, "title": "I Wanna", "description": "Album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/I Wanna.mp3"}, {"number": 9, "title": "Fo Sho", "description": "Album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Fo Sho.mp3"}, {"number": 10, "title": "Get High To This", "description": "Album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Get High To This.mp3"}, {"number": 11, "title": "Hater Hateing", "description": "Album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Hater Hateing.mp3"}, {"number": 12, "title": "Ho", "description": "Album track.", "image": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Ho.mp3"}]}, {"type": "music", "slug": "night-vision", "title": "Night Vision", "label": "Album", "meta": "album • tracks on Sumnu Radio", "tagline": "Hear tracks from Night Vision in the free Sumnu Radio shuffle, or open the music page.", "cover": "images/music/night-vision.jpg", "items": [{"number": 1, "title": "Night Vision", "description": "Album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/01 Night Vision.mp3"}, {"number": 2, "title": "I'm Bad", "description": "Album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/02 I'm Bad.mp3"}, {"number": 3, "title": "Tell Me bout Yo Hood", "description": "Album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/03 Tell Me bout Yo Hood.mp3"}, {"number": 4, "title": "Old School", "description": "Album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/04 Old School.mp3"}, {"number": 5, "title": "When You Cum", "description": "Album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/05 When You Cum.mp3"}, {"number": 6, "title": "Smack That Ass", "description": "Album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/06 Smack That Ass.mp3"}, {"number": 7, "title": "Sneeky Bitch", "description": "Album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/07 Sneeky Bitch.mp3"}, {"number": 8, "title": "Pussy", "description": "Album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/08 Pussy.mp3"}, {"number": 9, "title": "Cums from Pimpin", "description": "Album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/09 Cums from Pimpin.mp3"}, {"number": 10, "title": "Never Shed A Tear", "description": "Album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/10 Never Shed A Tear.mp3"}, {"number": 11, "title": "Sunshine", "description": "Album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/11 Sunshine.mp3"}, {"number": 12, "title": "DJ Reg Cuttin Up", "description": "Album track.", "image": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/12 DJ Reg Cuttin Up.mp3"}]}, {"type": "music", "slug": "nocternal-life", "title": "Nocternal Life", "label": "Album", "meta": "album • tracks on Sumnu Radio", "tagline": "Hear tracks from Nocternal Life in the free Sumnu Radio shuffle, or open the music page.", "cover": "images/music/nocternal-life.jpg", "items": [{"number": 1, "title": "INTRO", "description": "Album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/01 INTRO.mp3"}, {"number": 2, "title": "THE DON", "description": "Album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/02 THE DON.mp3"}, {"number": 3, "title": "NO DRAMA", "description": "Album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/03 NO DRAMA.mp3"}, {"number": 4, "title": "ALL FOR YOU", "description": "Album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/04 ALL FOR YOU.mp3"}, {"number": 5, "title": "FUCK THE DON", "description": "Album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/06 FUCK THE DON.mp3"}, {"number": 6, "title": "1 ON 1", "description": "Album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/07 1 ON 1.mp3"}, {"number": 7, "title": "NOCTURNAL LIFE", "description": "Album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/08 NOCTURNAL LIFE.mp3"}, {"number": 8, "title": "SHUT UM DOWN", "description": "Album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/09 SHUT UM DOWN.mp3"}, {"number": 9, "title": "SHAME", "description": "Album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/11 SHAME.mp3"}, {"number": 10, "title": "BLACK MASK", "description": "Album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/13 BLACK MASK.mp3"}, {"number": 11, "title": "RIDE (REMIX)", "description": "Album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/15 RIDE (REMIX).mp3"}, {"number": 12, "title": "ROLL UP", "description": "Album track.", "image": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/16 ROLL UP.mp3"}]}, {"type": "music", "slug": "rdm", "title": "RDM", "label": "Album", "meta": "album • tracks on Sumnu Radio", "tagline": "Hear tracks from RDM in the free Sumnu Radio shuffle, or open the music page.", "cover": "images/music/rdm.jpg", "buy": "", "items": [{"number": 1, "title": "Never Felt the Way I Feel For You", "description": "Album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/01 Never Felt the Way I Feel For You.mp3"}, {"number": 2, "title": "Making Love", "description": "Album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/02 Making Love.mp3"}, {"number": 3, "title": "Pretty Green Eyes", "description": "Album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/03 Pretty Green Eyes.mp3"}, {"number": 4, "title": "Lets Try Again", "description": "Album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/04 Lets Try Again.mp3"}, {"number": 5, "title": "You Use To Be Mine", "description": "Album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/05 You Use To Be Mine.mp3"}, {"number": 6, "title": "When In Love", "description": "Album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/06 When In Love.mp3"}, {"number": 7, "title": "Cheating On You", "description": "Album track.", "image": "images/music/rdm.jpg", "audio": "audio/music/rdm/07 Cheating On You.mp3"}]}, {"type": "music", "slug": "still-pimpin", "title": "Still Pimpin", "label": "Album", "meta": "album • tracks on Sumnu Radio", "tagline": "Hear tracks from Still Pimpin in the free Sumnu Radio shuffle, or open the music page.", "cover": "images/music/still-pimpin.jpg", "buy": "https://payhip.com/b/VygoG", "items": [{"number": 1, "title": "Intro", "description": "Album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/01 Intro.mp3"}, {"number": 2, "title": "Payback", "description": "Album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/02 Payback.mp3"}, {"number": 3, "title": "Still Pimpin", "description": "Album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/03 Still Pimpin.mp3"}, {"number": 4, "title": "Yes You Can", "description": "Album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/04 Yes You Can.mp3"}, {"number": 5, "title": "Get Rich", "description": "Album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/06 Get Rich.mp3"}, {"number": 6, "title": "Pimp Shit", "description": "Album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/07 Pimp Shit.mp3"}, {"number": 7, "title": "Pussie Seller", "description": "Album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/08 Pussie Seller.mp3"}, {"number": 8, "title": "I'm A Celebrity", "description": "Album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/09 I'm A Celebrity.mp3"}, {"number": 9, "title": "ITalk Shit", "description": "Album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/10 ITalk Shit.mp3"}, {"number": 10, "title": "BitchesHoes&Sluts", "description": "Album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/11 BitchesHoes&Sluts.mp3"}, {"number": 11, "title": "Backstabbers", "description": "Album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/12 Backstabbers.mp3"}, {"number": 12, "title": "The Remix", "description": "Album track.", "image": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/13 The Remix.mp3"}]}],
   radioTracks: [{"title": "Rest In Unpeace", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/01 Rest In Unpeace.mp3"}, {"title": "The Profit", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/02 The Profit.mp3"}, {"title": "Light 2 Da Dark", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/03 Light 2 Da Dark.mp3"}, {"title": "Don't Die", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/04 Don't Die.mp3"}, {"title": "I Am", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/05 I Am.mp3"}, {"title": "Time Bomb", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/06 Time Bomb.mp3"}, {"title": "Dark Side (feat Julian Lamont)", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/07 Dark Side (feat Julian Lamont).mp3"}, {"title": "Vibrations", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/08 Vibrations.mp3"}, {"title": "The Profit (feat Aaron Neville)", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/09 The Profit (feat Aaron Neville).mp3"}, {"title": "DarkSide mellow mix", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/10 DarkSide mellow mix.mp3"}, {"title": "Rest in Unpeace remix", "album": "The Profit E", "cover": "images/music/the-profit-e.jpg", "audio": "audio/music/the-profit-e/11 Rest in Unpeace remix.mp3"}, {"title": "The Beginning", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 01 The Beginning.mp3"}, {"title": "The MayTricks", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 02 MayTricks.mp3"}, {"title": "Journey", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 03 Journey.mp3"}, {"title": "Sorry That I Left The Game", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 04 Sorry.mp3"}, {"title": "Dust N The Wind", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 05 Dust N The Wind.mp3"}, {"title": "Going Higher", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 06 Going Higher.mp3"}, {"title": "Walking N The Rain", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 07 Walking N the Rain.mp3"}, {"title": "Green Eggs N Ham", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 09 Green Eggs N Ham.mp3"}, {"title": "The 90's", "album": "The May Tricks", "cover": "images/music/the-maytricks.jpg", "audio": "audio/music/the-maytricks/The May Tricks 10 The 90's.mp3"}, {"title": "The Hit Skit", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/01-The Hit Skit.mp3"}, {"title": "Shit-List", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/02-Shit-List.mp3"}, {"title": "Inside My Mind", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/03-Inside My Mind.mp3"}, {"title": "Destiny", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/04-Destiny.mp3"}, {"title": "The D-Sucker (skit)", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/05-The D-Sucker (skit).mp3"}, {"title": "I Like", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/06-I Like.mp3"}, {"title": "More Game", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/07-More Game.mp3"}, {"title": "Money", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/08-Money.mp3"}, {"title": "Straight Mackin", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/09-Straight Mackin.mp3"}, {"title": "The Message (skit)", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/10-The Message (skit).mp3"}, {"title": "The Target", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/11-The Target.mp3"}, {"title": "That's All She Wrote", "album": "Destiny", "cover": "images/music/destiny.jpg", "audio": "audio/music/destiny/12-That's All She Wrote.mp3"}, {"title": "Forgot All About Me", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/01 Forgot All About Me.mp3"}, {"title": "Cum In Your Mind", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/02 Cum In Your Mind.mp3"}, {"title": "Cum In Your Mind remix", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/02 Cum In Your Mind remix.mp3"}, {"title": "EMC & DJ Regg1210", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/03 EMC & DJ Regg1210.mp3"}, {"title": "Cloned Brother", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/04 Cloned Brother.mp3"}, {"title": "I Do Believe", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/05 I Do Believe final jne 22 2019mix.mp3"}, {"title": "Act Right", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/06 Act Right.mp3"}, {"title": "Truth", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/07 Truth.mp3"}, {"title": "It's Been A Minute", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/08 It's Been A Minute.mp3"}, {"title": "Preception", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/09 Preception.mp3"}, {"title": "Porn Star", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/10 Porn Star.mp3"}, {"title": "You Can Ride With Me", "album": "List Complete", "cover": "images/music/list-complete.jpg", "audio": "audio/music/list-complete/11 You Can Ride With Me.mp3"}, {"title": "Step Up", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Step Up.mp3"}, {"title": "Take a Ride With Me", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Take a Ride With Me.mp3"}, {"title": "Playa Partnas", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Playa Partnas.mp3"}, {"title": "Show Ya Gold", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Show Ya Gold.mp3"}, {"title": "Show Yo Golds (Chopped and Screwed)", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Show Yo Golds (Chopped and Screwed).mp3"}, {"title": "Holla Back Remix", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Holla Back Remix.mp3"}, {"title": "Holla Back", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Holla Back.mp3"}, {"title": "I Wanna", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/I Wanna.mp3"}, {"title": "Fo Sho", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Fo Sho.mp3"}, {"title": "Get High To This", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Get High To This.mp3"}, {"title": "Hater Hateing", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Hater Hateing.mp3"}, {"title": "Ho", "album": "Lost and Found", "cover": "images/music/lost-and-found.jpg", "audio": "audio/music/lost-and-found/Ho.mp3"}, {"title": "Night Vision", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/01 Night Vision.mp3"}, {"title": "I'm Bad", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/02 I'm Bad.mp3"}, {"title": "Tell Me bout Yo Hood", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/03 Tell Me bout Yo Hood.mp3"}, {"title": "Old School", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/04 Old School.mp3"}, {"title": "When You Cum", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/05 When You Cum.mp3"}, {"title": "Smack That Ass", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/06 Smack That Ass.mp3"}, {"title": "Sneeky Bitch", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/07 Sneeky Bitch.mp3"}, {"title": "Pussy", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/08 Pussy.mp3"}, {"title": "Cums from Pimpin", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/09 Cums from Pimpin.mp3"}, {"title": "Never Shed A Tear", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/10 Never Shed A Tear.mp3"}, {"title": "Sunshine", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/11 Sunshine.mp3"}, {"title": "DJ Reg Cuttin Up", "album": "Night Vision", "cover": "images/music/night-vision.jpg", "audio": "audio/music/night-vision/12 DJ Reg Cuttin Up.mp3"}, {"title": "INTRO", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/01 INTRO.mp3"}, {"title": "THE DON", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/02 THE DON.mp3"}, {"title": "NO DRAMA", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/03 NO DRAMA.mp3"}, {"title": "ALL FOR YOU", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/04 ALL FOR YOU.mp3"}, {"title": "FUCK THE DON", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/06 FUCK THE DON.mp3"}, {"title": "1 ON 1", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/07 1 ON 1.mp3"}, {"title": "NOCTURNAL LIFE", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/08 NOCTURNAL LIFE.mp3"}, {"title": "SHUT UM DOWN", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/09 SHUT UM DOWN.mp3"}, {"title": "SHAME", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/11 SHAME.mp3"}, {"title": "BLACK MASK", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/13 BLACK MASK.mp3"}, {"title": "RIDE (REMIX)", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/15 RIDE (REMIX).mp3"}, {"title": "ROLL UP", "album": "Nocternal Life", "cover": "images/music/nocternal-life.jpg", "audio": "audio/music/nocternal-life/16 ROLL UP.mp3"}, {"title": "Never Felt the Way I Feel For You", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/01 Never Felt the Way I Feel For You.mp3"}, {"title": "Making Love", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/02 Making Love.mp3"}, {"title": "Pretty Green Eyes", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/03 Pretty Green Eyes.mp3"}, {"title": "Lets Try Again", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/04 Lets Try Again.mp3"}, {"title": "You Use To Be Mine", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/05 You Use To Be Mine.mp3"}, {"title": "When In Love", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/06 When In Love.mp3"}, {"title": "Cheating On You", "album": "RDM", "cover": "images/music/rdm.jpg", "audio": "audio/music/rdm/07 Cheating On You.mp3"}, {"title": "Intro", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/01 Intro.mp3"}, {"title": "Payback", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/02 Payback.mp3"}, {"title": "Still Pimpin", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/03 Still Pimpin.mp3"}, {"title": "Yes You Can", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/04 Yes You Can.mp3"}, {"title": "Get Rich", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/06 Get Rich.mp3"}, {"title": "Pimp Shit", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/07 Pimp Shit.mp3"}, {"title": "Pussie Seller", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/08 Pussie Seller.mp3"}, {"title": "I'm A Celebrity", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/09 I'm A Celebrity.mp3"}, {"title": "ITalk Shit", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/10 ITalk Shit.mp3"}, {"title": "BitchesHoes&Sluts", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/11 BitchesHoes&Sluts.mp3"}, {"title": "Backstabbers", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/12 Backstabbers.mp3"}, {"title": "The Remix", "album": "Still Pimpin", "cover": "images/music/still-pimpin.jpg", "audio": "audio/music/still-pimpin/13 The Remix.mp3"}]
 };
 
+
+// No paywall: the homepage only lists/streams the free sample items.
+// Paid episodes/chapters are not exposed here (and are blocked server-side).
+const HOME_TWO_CH_FREE = ['the-jailhouse-lawyer', 'still-standing', 'she-still-exists', 'the-echo'];
+function homeFreeCount(entry) {
+  if (entry.type === 'series') return 2;
+  if (entry.type === 'audiobook') return HOME_TWO_CH_FREE.includes(entry.slug) ? 2 : 1;
+  return (entry.items || []).length; // music: free listening
+}
+siteData.series.concat(siteData.audiobooks).forEach(entry => {
+  entry.items = entry.items.slice(0, homeFreeCount(entry));
+});
 
 function getLegacyFallback(path) {
   if (path === 'images/music/radio-cover.jpg') return ['images/music/the-profit-e.jpg'];
@@ -1768,7 +1530,6 @@ function wireImageFallbacks(root = document) {
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-const isVip = () => !!(window.SumnuAuth && window.SumnuAuth.isVip());
 
 
 
@@ -1800,7 +1561,6 @@ function buildCard(item, freeLabel, locked = false) {
       <div class="card-cover">${imgMarkup(item.cover, `${item.title} cover`)}</div>
       <div class="card-gradient"></div>
       ${freeLabel ? `<div class="card-free">${freeLabel}</div>` : ''}
-      ${locked ? '<div class="card-lock">VIP</div>' : ''}
       <div class="card-copy">
         <div class="card-kicker">${item.label}</div>
         <div class="card-title">${item.title}</div>
@@ -1834,21 +1594,21 @@ function renderShelves() {
 }
 
 function makeItemRow(parent, item, index, freeCount) {
-  const unlocked = isVip() || index < freeCount;
+  const playable = index < freeCount;
   const tag = '';
   return `
-    <article class="media-item ${unlocked ? '' : 'locked'}">
+    <article class="media-item ${playable ? '' : 'locked'}">
       <div class="media-text">
         <h4>${item.title}</h4>
       </div>
       <div class="media-actions">
-        ${unlocked ? `
+        ${playable ? `
           <div class="track-audio">
-            <audio controls preload="none" data-parent="${parent.slug}" data-type="${parent.type}" data-title="${parent.title} — ${item.title}">
+            <audio playsinline controls preload="none" data-parent="${parent.slug}" data-type="${parent.type}" data-title="${parent.title} — ${item.title}">
               <source src="${item.audio}" type="audio/mpeg"${withAudioFallback(item.audio)}>
             </audio>
           </div>` : `
-          <a class="btn btn-primary btn-small" href="unlock.html">🔓 VIP</a>`}
+          <span class="pill">Album track</span>`}
       </div>
     </article>`;
 }
@@ -1865,13 +1625,13 @@ function resolveEntry(type, slug) {
 }
 
 function showModal(entry) {
-  const twoChFree = ['the-jailhouse-lawyer', 'still-standing', 'she-still-exists', 'the-echo'];
-  const freeCount = entry.type === 'series' ? 2 : entry.type === 'audiobook' ? (twoChFree.includes(entry.slug) ? 2 : 1) : isVip() ? 999 : 0;
+  const twoChFree = HOME_TWO_CH_FREE;
+  const freeCount = homeFreeCount(entry);
   const pills = [
-    entry.type === 'series' ? 'Episodes 1–2 free' : entry.type === 'audiobook' ? (twoChFree.includes(entry.slug) ? 'Ch 1–2 free' : 'Prologue free') : 'Albums inside VIP',
-    isVip() ? 'VIP ACTIVE' : '$5 unlock',
+    entry.type === 'series' ? 'Episodes 1–2 free' : entry.type === 'audiobook' ? (twoChFree.includes(entry.slug) ? 'Ch 1–2 free' : 'Prologue free') : 'Free listening',
     entry.label
   ];
+  const titlePage = entry.type === 'series' ? `series.html?slug=${entry.slug}` : entry.type === 'audiobook' ? `audiobook.html?slug=${entry.slug}` : '';
 
   $('#modalBody').innerHTML = `
     <section class="detail-hero">
@@ -1880,9 +1640,9 @@ function showModal(entry) {
         <div class="card-kicker">${entry.label}</div>
         <h2 id="modalTitle">${entry.title}</h2>
         <p>${entry.tagline}</p>
-        <div class="detail-pills">${pills.map(p => `<span class="pill ${p.includes('VIP') ? 'gold' : ''}">${p}</span>`).join('')}</div>
+        <div class="detail-pills">${pills.map(p => `<span class="pill">${p}</span>`).join('')}</div>
         <div class="inline-actions">
-          ${isVip() ? '<span class="btn btn-secondary">VIP unlocked</span>' : '<a class="btn btn-primary" href="unlock.html">🔓 Unlock all access</a>'}
+          ${titlePage ? `<a class="btn btn-primary" href="${titlePage}">Open title page</a>` : ''}
           ${entry.type === 'music' && entry.buy ? `<a class="btn btn-secondary" href="${entry.buy}" target="_blank" rel="noopener">Buy Album — $10.00</a>` : ''}
           ${entry.type === 'music' ? '<a class="btn btn-ghost" href="music.html">Open music page</a>' : ''}
         </div>
@@ -2094,94 +1854,13 @@ function wireUi() {
 }
 
 renderShelves();
-updateHomepageMode();
 updateResumeCard();
 initRadio();
 wireUi();
 
-if (isVip()) {
-  ['heroUnlockBtn','vipCtaBtn','mobileUnlockBtn'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.textContent = '✅ VIP unlocked'; el.classList.remove('btn-primary'); el.classList.add('btn-secondary'); el.href = '#'; }
-  });
-}
-// Re-render once Outseta confirms paid status
-function updateHomepageMode() {
-  var vip = isVip();
-  document.documentElement.classList.toggle('vip-active', !!vip);
-  document.documentElement.classList.toggle('vip-inactive', !vip);
-
-  var vipTitle = document.getElementById('vipWelcomeTitle');
-  if (!vipTitle) return;
-
-  if (!vip) {
-    vipTitle.textContent = 'Welcome back';
-    return;
-  }
-
-  function setGreeting(user) {
-    var firstName = '';
-    if (user && typeof user === 'object') {
-      firstName =
-        user.FirstName ||
-        user.firstName ||
-        user['First Name'] ||
-        (user.Name ? String(user.Name).trim().split(/\s+/)[0] : '') ||
-        (user.name ? String(user.name).trim().split(/\s+/)[0] : '') ||
-        (user.Email ? String(user.Email).split('@')[0] : '') ||
-        (user.email ? String(user.email).split('@')[0] : '');
-    }
-    vipTitle.textContent = firstName ? ('Welcome back, ' + firstName) : 'Welcome back';
-  }
-
-  if (window.SumnuAuth && typeof window.SumnuAuth.currentUser === 'function') {
-    var current = window.SumnuAuth.currentUser();
-    if (current) {
-      setGreeting(current);
-      return;
-    }
-  }
-
-  vipTitle.textContent = 'Welcome back';
-}
-
-function applyVipState() {
-  renderShelves();
-  var vip = isVip();
-  ["heroUnlockBtn","vipCtaBtn","mobileUnlockBtn"].forEach(function(id) {
-    var el = document.getElementById(id);
-    if (!el) return;
-    if (vip) {
-      el.textContent = "VIP unlocked";
-      el.classList.remove("btn-primary");
-      el.classList.add("btn-secondary");
-      el.href = "#";
-    } else {
-      el.textContent = "Unlock all access";
-      el.classList.add("btn-primary");
-      el.classList.remove("btn-secondary");
-      el.href = "unlock.html";
-    }
-  });
-  updateHomepageMode();
-}
-window.addEventListener("outseta:ready", function() {
-  applyVipState();
-});
-window.addEventListener("outseta:login", function() {
-  applyVipState();
-});
-window.addEventListener("outseta:logout", function() {
-  applyVipState();
-});
-window.addEventListener("outseta:refresh", function() {
-  applyVipState();
-});
-
 // Always rebuild homepage shelves on initial load and when returning via browser cache
 function repaintHomeShelves() {
   try { renderShelves(); } catch (e) {}
-  try { updateHomepageMode(); } catch (e) {}
   try { updateResumeCard(); } catch (e) {}
   try { initRadio(); } catch (e) {}
 }
@@ -2203,9 +1882,6 @@ window.addEventListener('pageshow', function() {
     var closeBtn = document.getElementById('mktBannerClose');
     if (!banner) return;
 
-    // Hide banner completely for VIP members
-    if (isVip()) return;
-
     // Hide if user already dismissed it this session
     if (sessionStorage.getItem('sumnuBannerDismissed')) return;
 
@@ -2219,20 +1895,12 @@ window.addEventListener('pageshow', function() {
     });
   }
 
-  // Run after VIP state is known
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initBanner);
   } else {
     setTimeout(initBanner, 300);
   }
 
-  // Also re-check if VIP state changes (e.g. user logs in)
-  window.addEventListener('outseta:refresh', function() {
-    if (isVip()) {
-      var banner = document.getElementById('marketingBanner');
-      if (banner) banner.style.display = 'none';
-    }
-  });
 })();
 
 // ── Email signup form — AJAX submit so page doesn't reload ──
@@ -2262,8 +1930,7 @@ window.addEventListener('pageshow', function() {
   });
 })();
 </script>
-  <script src="js/outseta-edge-token.js"></script>
-  <script src="js/auth.js"></script>
   <script src="js/animations.js"></script>
+<script src="js/mobile-nav.js" defer></script>
 </body>
 </html>

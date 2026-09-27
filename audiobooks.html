@@ -3,14 +3,6 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-  <script>
-    var o_options = {
-      domain: 'sumnuvision-llc.outseta.com',
-      tokenStorage: 'local',
-      auth: { authenticationCallbackUrl: 'https://sumnubooks.com/' }
-    };
-  </script>
-  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
 <title>Audiobooks by E.D. Lewis — SumnuBooks</title>
 <meta name="description" content="Audiobooks by E.D. Lewis. Listen now on SumnuBooks. Instant access."/>
 <link href="css/site.css" rel="stylesheet"/>
@@ -276,10 +268,7 @@
       margin-bottom: 4px !important;
     }
   </style>
-<style>
-    .nav-account { display: none; }
-    html.vip-active .nav-account { display: inline-flex; }
-  </style>
+<link href="css/mobile.css" rel="stylesheet"/>
 </head>
 <body class="page-audiobooks">
 
@@ -292,8 +281,6 @@
         <a href="video.html">Videos</a>
         <a href="audiobooks.html" class="active">Audiobooks</a>
         <a href="contact.html">Contact</a>
-        <a href="unlock.html" class="vip-link nav-cta">VIP Access</a>
-        <a href="login.html" class="nav-account" style="border:1px solid rgba(73,180,110,.25);color:#a8f5bf !important;padding:8px 12px;border-radius:999px;font-size:.82rem;font-weight:700;text-decoration:none;white-space:nowrap;">My Account</a>
       </nav>
     </div>
   </header>
@@ -301,7 +288,7 @@
   <section class="logo-band">
     <div class="container logo-band-inner">
       <a href="index.html" class="hero-logo-link" aria-label="Sumnu Books home">
-        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
+        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img" width="640" height="640">
       </a>
     </div>
   </section>
@@ -332,14 +319,14 @@
       <div class="grid grid-3" style="margin-top:14px;">
         <article id="ab1" class="card product ab-available">
           <div class="product-cover">
-            <img alt="A PENNY FOR MY THOUGHTS cover" src="images/books/book1.jpg"/>
+            <img alt="A PENNY FOR MY THOUGHTS cover" src="images/books/book1.jpg" width="400" height="600"/>
           </div>
           <div class="product-body">
             <div class="product-title">A PENNY FOR MY THOUGHTS</div>
             <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-1" type="button">🎧 SAMPLE</button>
-              <audio controls="" id="ab-sample-1" preload="none">
+              <audio playsinline controls="" id="ab-sample-1" preload="none">
                 <source src="audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch2.mp3" type="audio/mpeg"/>
               </audio>
             </div>
@@ -351,14 +338,14 @@
         </article>
         <article id="ab2" class="card product ab-available">
           <div class="product-cover">
-            <img alt="UNPLUGGED: 30 DAYS OF CHAOS cover" src="images/books/book2.jpg"/>
+            <img alt="UNPLUGGED: 30 DAYS OF CHAOS cover" src="images/books/book2.jpg" width="400" height="600" loading="lazy" decoding="async"/>
           </div>
           <div class="product-body">
             <div class="product-title">UNPLUGGED: 30 DAYS OF CHAOS</div>
             <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-2" type="button">🎧 SAMPLE</button>
-              <audio controls="" id="ab-sample-2" preload="none">
+              <audio playsinline controls="" id="ab-sample-2" preload="none">
                 <source src="audio/audiobooks/unplugged/unplugged-ch2.mp3" type="audio/mpeg"/>
               </audio>
             </div>
@@ -370,14 +357,14 @@
         </article>
         <article id="ab3" class="card product ab-available">
           <div class="product-cover">
-            <img alt="THE JAILHOUSE LAWYER cover" src="images/books/book3.jpg"/>
+            <img alt="THE JAILHOUSE LAWYER cover" src="images/books/book3.jpg" width="400" height="608" loading="lazy" decoding="async"/>
           </div>
           <div class="product-body">
             <div class="product-title">THE JAILHOUSE LAWYER</div>
             <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-3" type="button">🎧 SAMPLE</button>
-              <audio controls="" id="ab-sample-3" preload="none">
+              <audio playsinline controls="" id="ab-sample-3" preload="none">
                 <source src="audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch1.mp3" type="audio/mpeg"/>
               </audio>
             </div>
@@ -389,14 +376,14 @@
         </article>
         <article id="ab4" class="card product ab-available">
           <div class="product-cover">
-            <img alt="STILL STANDING cover" src="images/books/still-standing.jpg"/>
+            <img alt="STILL STANDING cover" src="images/books/still-standing.jpg" width="400" height="600" loading="lazy" decoding="async"/>
           </div>
           <div class="product-body">
             <div class="product-title">STILL STANDING</div>
             <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-4" type="button">🎧 SAMPLE</button>
-              <audio controls="" id="ab-sample-4" preload="none">
+              <audio playsinline controls="" id="ab-sample-4" preload="none">
                 <source src="audio/audiobooks/still-standing/Still-Standing-Ch1.mp3" type="audio/mpeg"/>
               </audio>
             </div>
@@ -408,14 +395,14 @@
         </article>
         <article id="ab5" class="card product ab-available">
           <div class="product-cover">
-            <img alt="THE ECHO cover" src="images/covers-square/the-echo-origins.jpg"/>
+            <img alt="THE ECHO cover" src="images/covers-square/the-echo-origins.jpg" width="1000" height="1000" loading="lazy" decoding="async"/>
           </div>
           <div class="product-body">
             <div class="product-title">THE ECHO</div>
             <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-5" type="button">🎧 SAMPLE</button>
-              <audio controls="" id="ab-sample-5" preload="none">
+              <audio playsinline controls="" id="ab-sample-5" preload="none">
                 <source src="audio/audiobooks/the-echo/the-echo-origins-ch1.mp3" type="audio/mpeg"/>
               </audio>
             </div>
@@ -439,7 +426,7 @@
 
         <article class="card product ab-upcoming" aria-label="Chandra: Forbidden Obsession audiobook upcoming">
           <div class="product-cover">
-            <img alt="Chandra: Forbidden Obsession cover" src="images/books/book4.jpg"/>
+            <img alt="Chandra: Forbidden Obsession cover" src="images/books/book4.jpg" width="400" height="600" loading="lazy" decoding="async"/>
           </div>
           <div class="product-body">
             <span class="pill" style="margin-bottom:8px; display:inline-block;">🔜 Coming Soon</span>
@@ -454,7 +441,7 @@
 
         <article class="card product ab-upcoming" id="the-clock" style="scroll-margin-top:90px;" aria-label="The Clock audiobook coming soon">
           <div class="product-cover">
-            <img alt="The Clock by E. D. Lewis cover" src="images/covers-square/the-clock.jpg"/>
+            <img alt="The Clock by E. D. Lewis cover" src="images/covers-square/the-clock.jpg" width="1000" height="1000" loading="lazy" decoding="async"/>
           </div>
           <div class="product-body">
             <span class="pill" style="margin-bottom:8px; display:inline-block;">🔜 Coming soon</span>
@@ -486,7 +473,6 @@
         <li><a href="music.html">Music (8 albums)</a></li>
         <li><a href="video.html">Videos</a></li>
         <li><a href="audiobooks.html">&#127911; Audiobooks</a></li>
-        <li><a href="unlock.html">&#128274; VIP Access</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </div>
@@ -506,5 +492,6 @@
 </footer>
 
   <script src="js/animations.js"></script>
+<script src="js/mobile-nav.js" defer></script>
 </body>
 </html>

@@ -1,29 +1,47 @@
-# VIP audio Edge — explicit prefixes only (not site-wide /audio/**).
-# One shared function. Title-specific rules are allowlist config, not
-# separate auth paths. Echo / She Still Exists / Other Man are not gated.
+# Paid-audio block — no login/membership. Every file under these two
+# prefixes goes through one edge function that serves only the free
+# sample chapters/episodes (1–2 per title) and returns 403 for the rest.
+# /audio/music/** (Sumnu Radio) stays public.
 
+# Case-insensitive on purpose: Netlify serves /AUDIO/Series/... from the
+# same files, so a plain lowercase path match could be bypassed.
 [[edge_functions]]
-  function = "protect-vip-audio"
-  path = "/audio/audiobooks/a-penny-for-my-thoughts/*"
+  function = "protect-paid-audio"
+  pattern = '^/+[aA][uU][dD][iI][oO]/+(?:[aA][uU][dD][iI][oO][bB][oO][oO][kK][sS]|[sS][eE][rR][iI][eE][sS])(?:/.*)?$'
 
-[[edge_functions]]
-  function = "protect-vip-audio"
-  path = "/audio/series/here-eat-this/*"
+# Retired membership pages → Audiobooks (Buy buttons live there).
+[[redirects]]
+  from = "/unlock.html"
+  to = "/audiobooks.html"
+  status = 301
+  force = true
 
-[[edge_functions]]
-  function = "protect-vip-audio"
-  path = "/audio/audiobooks/the-jailhouse-lawyer/*"
+[[redirects]]
+  from = "/unlock"
+  to = "/audiobooks.html"
+  status = 301
+  force = true
 
-[[edge_functions]]
-  function = "protect-vip-audio"
-  path = "/audio/audiobooks/still-standing/*"
+[[redirects]]
+  from = "/login.html"
+  to = "/audiobooks.html"
+  status = 301
+  force = true
 
-# Stolen Passage — Part One (Ch1–2 free via allowlist; Ch3–10 VIP)
-[[edge_functions]]
-  function = "protect-vip-audio"
-  path = "/audio/series/stolen-passage/*"
+[[redirects]]
+  from = "/login"
+  to = "/audiobooks.html"
+  status = 301
+  force = true
 
-# The Echo audiobook (Ch1–2 free via allowlist; Ch3–15 VIP)
-[[edge_functions]]
-  function = "protect-vip-audio"
-  path = "/audio/audiobooks/the-echo/*"
+[[redirects]]
+  from = "/vip-audio-dramas_netflix_mobile.html"
+  to = "/audiobooks.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/vip-audio-dramas_netflix_mobile"
+  to = "/audiobooks.html"
+  status = 301
+  force = true

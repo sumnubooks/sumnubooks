@@ -7,14 +7,6 @@
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
   />
   <title>SumnuBooks Reader</title>
-  <script>
-    var o_options = {
-      domain: 'sumnuvision-llc.outseta.com',
-      tokenStorage: 'local',
-      auth: { authenticationCallbackUrl: 'https://sumnubooks.com/' }
-    };
-  </script>
-  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
   <script src="https://cdn.jsdelivr.net/npm/epubjs@0.3.71/dist/epub.min.js"></script>
   <script>
     // Patch for Android Chrome: epub.js detectStore() fails when
@@ -647,6 +639,7 @@
       }
     }
   </style>
+<link href="css/mobile.css" rel="stylesheet"/>
 </head>
 <body>
   <div class="app">
@@ -800,22 +793,12 @@
     // Optional back button destination
     const DEFAULT_BACK_URL = "audiobooks.html";
 
-    // Free chapter count — first N chapters readable without VIP
+    // Free sample: first N table-of-contents entries are listed as readable.
     const FREE_CHAPTERS = 2;
 
-    // VIP check
-    const isVip = () => !!(window.SumnuAuth && window.SumnuAuth.isVip());
-
-    function triggerUnlock() {
-      if (window.Outseta && window.Outseta.auth) {
-        window.Outseta.auth.open({
-          widgetMode: 'register',
-          planUid: 'jW70XZmq',
-          redirectUri: window.location.href
-        });
-      } else {
-        window.location.href = 'unlock.html';
-      }
+    // Past the sample: send readers to the Books page to buy the full ebook.
+    function goToBuy() {
+      window.location.href = 'books.html';
     }
 
     // =========================
@@ -996,7 +979,7 @@
 
         const btn = document.createElement("button");
         btn.className = "toc-item";
-        const locked = index >= FREE_CHAPTERS && !isVip();
+        const locked = index >= FREE_CHAPTERS;
         btn.textContent = locked ? `🔒 ${item.label}` : item.label;
         btn.dataset.href = item.href || "";
         btn.style.opacity = locked ? '0.5' : '1';
@@ -1004,7 +987,7 @@
         btn.addEventListener("click", async () => {
           if (!item.href || !state.rendition) return;
           if (locked) {
-            triggerUnlock();
+            goToBuy();
             return;
           }
           closePanels();
@@ -1351,5 +1334,6 @@
       }
     }, 12000);
   </script>
+<script src="js/mobile-nav.js" defer></script>
 </body>
 </html>

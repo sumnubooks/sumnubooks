@@ -1,3 +1,8 @@
+> **Superseded — paywall removed (feature/remove-paywall, Sep 2026).** The site no longer uses
+> Outseta, VIP, `js/auth.js` or login. Free sample chapters/episodes (1–2) play openly; paid audio
+> is blocked server-side by `netlify/edge-functions/protect-paid-audio.js`; full titles are sold via
+> the Payhip/Amazon Buy links. Notes below describe the old membership setup (history only).
+
 # SUMNUBOOKS SITE NOTES — READ BEFORE MAKING CHANGES
 
 ## 1) CURRENT STABILITY RULE

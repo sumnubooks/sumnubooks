@@ -92,7 +92,7 @@
       return `
         <article class="card product book-card" data-book="${b.id}">
           <div class="book-cover-wrap">
-            <img src="${b.cover}" alt="${escapeHtml(b.title)} cover" loading="lazy">
+            <img src="${b.cover}" alt="${escapeHtml(b.title)} cover" loading="lazy" decoding="async" width="400" height="600">
           </div>
           <div class="book-detail-panel" data-book-panel="${b.id}">
             <button class="book-close-btn" data-book-close="${b.id}" aria-label="Close">✕ Back</button>

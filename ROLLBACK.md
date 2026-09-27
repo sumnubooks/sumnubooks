@@ -1,3 +1,8 @@
+> **Superseded — paywall removed (feature/remove-paywall, Sep 2026).** Outseta, VIP, login and
+> unlock are gone. Paid audio is now blocked by `netlify/edge-functions/protect-paid-audio.js`
+> (samples ch/ep 1–2 only, everything else 403). To roll that change back, revert its merge
+> commit on `main`. The steps below describe the old Outseta setup and are kept for history only.
+
 # Rollback — VIP Edge access control
 
 This document matches the clean production PR only (Penny, Here Eat This, Jailhouse Lawyer, Still Standing). It does not include preview diagnostics, Chandra, Echo / She Still Exists / Other Man, or Penny landing-page work.
