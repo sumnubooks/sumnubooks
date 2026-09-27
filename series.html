@@ -1021,19 +1021,17 @@
     document.getElementById('timeCurrent').textContent = '0:00';
     document.getElementById('timeRemaining').textContent = '—';
 
-    // Load audio
+    // Load audio (mobile data: only fetch once the listener presses play)
     audio.pause();
-    audio.src = item.audio;
+    if (play) { audio.src = item.audio; } else { audio.removeAttribute('src'); }
     audio.load();
 
     const btn = document.getElementById('btnPlay');
     if (play) {
-      audio.addEventListener('canplay', function onReady() {
-        audio.removeEventListener('canplay', onReady);
-        audio.play().catch(() => {
-          btn.classList.remove('is-playing');
-          document.getElementById('coverFrame').classList.remove('is-playing');
-        });
+      // play() straight from the tap keeps iOS Safari happy.
+      audio.play().catch(() => {
+        btn.classList.remove('is-playing');
+        document.getElementById('coverFrame').classList.remove('is-playing');
       });
       btn.classList.add('is-playing');
       document.getElementById('coverFrame').classList.add('is-playing');
@@ -1100,13 +1098,9 @@
       if (audio.paused) {
         if (audio.readyState === 0) {
           audio.src = series.items[currentIndex].audio;
-          audio.load();
-          audio.addEventListener('canplay', function onReady() {
-            audio.removeEventListener('canplay', onReady);
-            audio.play().catch(() => {
-              btn.classList.remove('is-playing');
-              frame.classList.remove('is-playing');
-            });
+          audio.play().catch(() => {
+            btn.classList.remove('is-playing');
+            frame.classList.remove('is-playing');
           });
         } else {
           audio.play().catch(() => {
