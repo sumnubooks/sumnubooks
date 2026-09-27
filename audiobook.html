@@ -188,7 +188,8 @@
     .back-btn:hover { color: var(--gold); }
   }
   </style>
-  </head>
+  <link href="css/mobile.css" rel="stylesheet"/>
+</head>
 <body>
 
   <div class="player-backdrop"><img id="backdropImg" src="" alt=""></div>
@@ -300,7 +301,7 @@
     <div class="chapter-scroll" id="chapterScroll"></div>
   </div>
 
-  <audio id="abAudio" preload="metadata"></audio>
+  <audio playsinline id="abAudio" preload="metadata"></audio>
 
   <script>
   'use strict';
@@ -685,5 +686,6 @@
   </script>
 
   <script src="js/animations.js"></script>
+<script src="js/mobile-nav.js" defer></script>
 </body>
 </html>

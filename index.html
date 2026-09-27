@@ -872,6 +872,7 @@
   .radio-dock-art{width:62px !important; height:62px !important; border-radius:14px !important;}
   .btn, .radio-dock-controls .btn{min-height:44px !important; padding:0 16px !important; font-size:.88rem !important;}
 </style>
+<link href="css/mobile.css" rel="stylesheet"/>
 </head>
 <body>
 <div id="siteSplash" class="site-splash" aria-hidden="true">
@@ -883,6 +884,7 @@
       src="images/logos/sumnu-books-logo.png"
       alt="Sumnu Books"
       class="site-splash-logo"
+      width="640" height="640"
     />
     <div class="site-splash-text">
       Tap anywhere or wait a moment to <strong>enter</strong>
@@ -907,7 +909,7 @@
   <section class="logo-band">
     <div class="container logo-band-inner">
       <a href="index.html" class="hero-logo-link" aria-label="Sumnu Books home">
-        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
+        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img" width="640" height="640">
       </a>
     </div>
   </section>
@@ -952,7 +954,7 @@
 
         <a class="hero-spotlight" href="series.html?slug=here-eat-this" aria-label="Start Here... Eat This">
           <div class="hero-spotlight-media">
-            <img src="images/series/here-eat-this/here-eat-this-cover.jpg" alt="Here... Eat This cover">
+            <img src="images/series/here-eat-this/here-eat-this-cover.jpg" alt="Here... Eat This cover" width="800" height="1200">
           </div>
           <div class="hero-spotlight-copy">
             <div class="hero-spotlight-kicker">Start with this</div>
@@ -1027,7 +1029,7 @@
             <button class="btn btn-primary btn-small" id="radioPlayBtn">▶ Play radio</button>
             <button class="btn btn-secondary btn-small" id="radioNextBtn">⏭ Next</button>
           </div>
-          <audio id="radioAudio" preload="none"></audio>
+          <audio playsinline id="radioAudio" preload="none"></audio>
         </div>
       </div>
     </section>
@@ -1450,7 +1452,7 @@ const HOME_TWO_CH_FREE = ['the-jailhouse-lawyer', 'still-standing', 'she-still-e
 function homeFreeCount(entry) {
   if (entry.type === 'series') return 2;
   if (entry.type === 'audiobook') return HOME_TWO_CH_FREE.includes(entry.slug) ? 2 : 1;
-  return 0;
+  return (entry.items || []).length; // music: free listening
 }
 siteData.series.concat(siteData.audiobooks).forEach(entry => {
   entry.items = entry.items.slice(0, homeFreeCount(entry));
@@ -1602,7 +1604,7 @@ function makeItemRow(parent, item, index, freeCount) {
       <div class="media-actions">
         ${playable ? `
           <div class="track-audio">
-            <audio controls preload="none" data-parent="${parent.slug}" data-type="${parent.type}" data-title="${parent.title} — ${item.title}">
+            <audio playsinline controls preload="none" data-parent="${parent.slug}" data-type="${parent.type}" data-title="${parent.title} — ${item.title}">
               <source src="${item.audio}" type="audio/mpeg"${withAudioFallback(item.audio)}>
             </audio>
           </div>` : `
@@ -1626,7 +1628,7 @@ function showModal(entry) {
   const twoChFree = HOME_TWO_CH_FREE;
   const freeCount = homeFreeCount(entry);
   const pills = [
-    entry.type === 'series' ? 'Episodes 1–2 free' : entry.type === 'audiobook' ? (twoChFree.includes(entry.slug) ? 'Ch 1–2 free' : 'Prologue free') : 'Tracks on Sumnu Radio',
+    entry.type === 'series' ? 'Episodes 1–2 free' : entry.type === 'audiobook' ? (twoChFree.includes(entry.slug) ? 'Ch 1–2 free' : 'Prologue free') : 'Free listening',
     entry.label
   ];
   const titlePage = entry.type === 'series' ? `series.html?slug=${entry.slug}` : entry.type === 'audiobook' ? `audiobook.html?slug=${entry.slug}` : '';
@@ -1929,5 +1931,6 @@ window.addEventListener('pageshow', function() {
 })();
 </script>
   <script src="js/animations.js"></script>
+<script src="js/mobile-nav.js" defer></script>
 </body>
 </html>

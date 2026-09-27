@@ -135,6 +135,7 @@
     }
   </style>
   <link href="css/animations.css" rel="stylesheet"/>
+<link href="css/mobile.css" rel="stylesheet"/>
 </head>
 <body>
   <header class="site-header">
@@ -153,7 +154,7 @@
   <section class="logo-band">
     <div class="container logo-band-inner">
       <a href="index.html" aria-label="Sumnu Books home">
-        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img">
+        <img src="images/logos/sumnu-books-logo.png" alt="Sumnu Books logo" class="hero-logo-img" width="640" height="640">
       </a>
     </div>
   </section>
@@ -176,7 +177,7 @@
           <button class="btn btn-primary" id="radioPlayBtn">▶ Play radio</button>
           <button class="btn btn-secondary" id="radioNextBtn">⏭ Next</button>
         </div>
-        <audio id="radioAudio" preload="none"></audio>
+        <audio playsinline id="radioAudio" preload="none"></audio>
       </section>
 
       <section>
@@ -202,7 +203,7 @@
       $('#albumsGrid').innerHTML = MUSIC_DATA.map(album => `
         <article class="album-card" data-slug="${album.slug}" tabindex="0" role="button" aria-label="Open ${album.title}">
           <div class="album-cover">
-            <img src="${album.cover}" alt="${album.title} cover" loading="lazy">
+            <img src="${album.cover}" alt="${album.title} cover" loading="lazy" decoding="async" width="400" height="400">
             <div class="album-badge">ALBUM</div>
             <div class="album-copy">
               <div class="album-title">${album.title}</div>
@@ -229,12 +230,12 @@
 
       $('#albumPanel').innerHTML = `
         <div class="panel-cover">
-          <img src="${album.cover}" alt="${album.title} cover" loading="lazy">
+          <img src="${album.cover}" alt="${album.title} cover" loading="lazy" decoding="async" width="400" height="400">
         </div>
         <div class="panel-meta">
           <h3>${album.title}</h3>
           <div class="panel-sub">${album.artist}${album.year && album.year !== '—' ? ' • ' + album.year : ''}</div>
-          <div class="panel-message">Tracks from this album play in the free Sumnu Radio shuffle above.</div>
+          <div class="panel-message">Listen free below — no account needed.${album.buy ? ' Buy the album to own the files.' : ''}</div>
 
           <div class="panel-actions">
             ${album.buy ? `<a class="btn btn-primary" href="${album.buy}" target="_blank" rel="noopener">Buy Album — $10.00</a>` : ""}
@@ -246,6 +247,11 @@
                 <div class="track-num">${track.num || (i+1)}</div>
                 <div class="track-name">${track.title}</div>
                 <div class="track-actions">
+                  <div class="track-audio">
+                    <audio controls preload="none" playsinline>
+                      <source src="${track.audio}" type="audio/mpeg">
+                    </audio>
+                  </div>
                   <a class="chip-btn ${track.video ? '' : 'is-hidden'}" href="${track.video || '#'}" target="_blank" rel="noopener">Video</a>
                 </div>
               </div>
@@ -331,5 +337,6 @@
   </script>
 
   <script src="js/animations.js"></script>
+<script src="js/mobile-nav.js" defer></script>
 </body>
 </html>
