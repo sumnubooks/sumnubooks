@@ -4,14 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#06080f" />
-  <script>
-    var o_options = {
-      domain: 'sumnuvision-llc.outseta.com',
-      tokenStorage: 'local',
-      auth: { authenticationCallbackUrl: (window.location.origin || '') + '/' }
-    };
-  </script>
-  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
   <title>Audiobook · Sumnu Books</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -196,11 +188,7 @@
     .back-btn:hover { color: var(--gold); }
   }
   </style>
-  <style>
-    .nav-account { display: none; }
-    html.vip-active .nav-account { display: inline-flex; }
-  </style>
-</head>
+  </head>
 <body>
 
   <div class="player-backdrop"><img id="backdropImg" src="" alt=""></div>
@@ -428,8 +416,13 @@
 
   const params = new URLSearchParams(window.location.search);
   const book = audiobookData.find(b => b.slug === params.get('slug'));
-  const isVip = () => !!(window.SumnuAuth && window.SumnuAuth.isVip());
-  const canAccess = i => i < (book ? book.freeCount : 0) || isVip();
+  // No paywall: only the free sample chapters are in the player.
+  // Paid chapters are not listed or streamed here (server also blocks them).
+  if (book && !book.comingSoon) {
+    book.totalChapters = book.items.length;
+    book.items = book.items.slice(0, book.freeCount);
+  }
+  const canAccess = i => !!book && i < book.items.length;
   const displayTitle = item => item.title || `Chapter ${item.number}`;
   const displayShort = item => {
     const title = displayTitle(item);
@@ -479,9 +472,8 @@
     document.title = `${book.title} · Sumnu Books`;
 
     document.getElementById('bookPills').innerHTML = `
-      <span class="book-pill">${book.items.length} Chapters</span>
-      <span class="book-pill">Ch 1–2 Free</span>
-      <span class="book-pill">VIP Stream</span>
+      <span class="book-pill">${book.totalChapters} Chapters</span>
+      <span class="book-pill">Ch 1–${book.freeCount} Free</span>
       <span class="book-pill">Buy to Own</span>
     `;
 
@@ -504,8 +496,8 @@
       buyBar.classList.add('coming-soon');
     }
 
-    document.getElementById('sheetTitle').textContent = 'Chapters';
-    document.getElementById('chapterTriggerLabel').textContent = `${book.items.length} Chapters`;
+    document.getElementById('sheetTitle').textContent = 'Free Sample Chapters';
+    document.getElementById('chapterTriggerLabel').textContent = `${book.items.length} Free Chapters`;
     document.getElementById('trackSeries').textContent = book.title;
 
     buildChapterSheet();
@@ -515,8 +507,7 @@
   }
 
   function loadChapter(i, play) {
-    if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
-    if (!canAccess(i)) { triggerUnlock(); return; }
+    if (!canAccess(i)) { goToBuy(); return; }
     currentIndex = i;
     const item = book.items[i];
 
@@ -525,7 +516,7 @@
     artEl.src = item.image;
 
     document.getElementById('trackTitle').textContent = displayTitle(item);
-    document.getElementById('trackChapter').textContent = `${displayTitle(item)} of ${book.items.length}`;
+    document.getElementById('trackChapter').textContent = `${displayTitle(item)} of ${book.totalChapters}`;
     setProgress(0);
     document.getElementById('timeCurrent').textContent = '0:00';
     document.getElementById('timeRemaining').textContent = '—';
@@ -581,12 +572,11 @@
     btn.classList.remove('is-playing');
     frame.classList.remove('is-playing');
     const next = currentIndex + 1;
-    if (next < book.items.length) canAccess(next) ? loadChapter(next, true) : triggerUnlock();
+    if (next < book.items.length) loadChapter(next, true); else goToBuy();
   });
 
   function wireControls() {
     document.getElementById('btnPlay').addEventListener('click', () => {
-      if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
       const btn = document.getElementById('btnPlay');
       const frame = document.getElementById('coverFrame');
       if (audio.paused) {
@@ -611,7 +601,7 @@
     document.getElementById('btnRewind').addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime-15); });
     document.getElementById('btnForward').addEventListener('click', () => { audio.currentTime = Math.min(audio.duration||0, audio.currentTime+15); });
     document.getElementById('btnPrev').addEventListener('click', () => { if (currentIndex > 0 && canAccess(currentIndex-1)) loadChapter(currentIndex-1, !audio.paused); });
-    document.getElementById('btnNext').addEventListener('click', () => { const n = currentIndex+1; if (n < book.items.length) canAccess(n) ? loadChapter(n, !audio.paused) : triggerUnlock(); });
+    document.getElementById('btnNext').addEventListener('click', () => { const n = currentIndex+1; if (n < book.items.length) loadChapter(n, !audio.paused); else goToBuy(); });
     document.getElementById('btnSpeed').addEventListener('click', () => { speedIdx=(speedIdx+1)%speeds.length; audio.playbackRate=speeds[speedIdx]; document.getElementById('btnSpeed').textContent=speeds[speedIdx]+'x'; });
 
     const input = document.getElementById('progressInput');
@@ -642,11 +632,21 @@
         <div class="ch-art"><img src="${item.image}" alt="" loading="lazy" onerror="this.src='${book.cover}'"></div>
         <div class="ch-title">${displayTitle(item)}</div>
         <div class="ch-playing"><div class="ch-bar"></div><div class="ch-bar"></div><div class="ch-bar"></div></div>
-        ${!ok ? '<span class="ch-locked">🔒 VIP</span>' : ''}
       `;
-      row.addEventListener('click', () => { if (ok) { loadChapter(i, true); closeSheet(); } else { triggerUnlock(); } });
+      row.addEventListener('click', () => { if (ok) { loadChapter(i, true); closeSheet(); } else { goToBuy(); } });
       scroll.appendChild(row);
     });
+    if (book.totalChapters > book.items.length) {
+      const rest = document.createElement('div');
+      rest.className = 'chapter-row';
+      rest.innerHTML = `
+        <span class="ch-num">+${book.totalChapters - book.items.length}</span>
+        <div class="ch-title">Chapters ${book.items.length + 1}–${book.totalChapters} ${book.payhip || book.payhipPending ? 'come with the full audiobook' : 'are not part of the free sample'}</div>
+        ${book.payhip ? '<span class="ch-locked">Buy</span>' : book.payhipPending ? '<span class="ch-locked">Coming soon</span>' : ''}
+      `;
+      rest.addEventListener('click', () => { closeSheet(); goToBuy(); });
+      scroll.appendChild(rest);
+    }
   }
 
   function openSheet() {
@@ -673,34 +673,17 @@
     sheet.addEventListener('touchend', e => { if (e.changedTouches[0].clientY - startY > 60) closeSheet(); }, {passive:true});
   }
 
-  function triggerUnlock() {
-    // Existing members: login first. New VIP signup stays on /unlock.
-    if (window.SumnuAuth && typeof window.SumnuAuth.login === 'function') {
-      window.SumnuAuth.login(window.location.href);
-      return;
-    }
-    if (window.Outseta && window.Outseta.auth) {
-      window.Outseta.auth.open({widgetMode:'login', redirectUri: window.location.href});
-    } else { window.location.href = 'login.html'; }
+  function goToBuy() {
+    // Paid chapters: point the listener at the Buy button (no account needed).
+    const bar = document.getElementById('buyBar');
+    if (!bar) return;
+    bar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    bar.style.transition = 'box-shadow .3s ease';
+    bar.style.boxShadow = '0 0 0 3px rgba(212,168,67,.75)';
+    setTimeout(() => { bar.style.boxShadow = ''; }, 1600);
   }
-
-  function syncVipAccess() {
-    buildChapterSheet();
-    if (!canAccess(currentIndex)) {
-      audio.pause();
-      loadChapter(0, false);
-      closeSheet();
-    }
-  }
-
-  window.addEventListener('outseta:ready', syncVipAccess);
-  window.addEventListener('outseta:login', syncVipAccess);
-  window.addEventListener('outseta:refresh', syncVipAccess);
-  window.addEventListener('outseta:logout', syncVipAccess);
   </script>
 
-  <script src="js/outseta-edge-token.js"></script>
-  <script src="js/auth.js"></script>
   <script src="js/animations.js"></script>
 </body>
 </html>

@@ -4,14 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#06080f" />
-  <script>
-    var o_options = {
-      domain: 'sumnuvision-llc.outseta.com',
-      tokenStorage: 'local',
-      auth: { authenticationCallbackUrl: (window.location.origin || '') + '/' }
-    };
-  </script>
-  <script src="https://cdn.outseta.com/outseta.min.js" data-options="o_options"></script>
   <title>Series · Sumnu Books</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -680,11 +672,7 @@
   }
 
   </style>
-  <style>
-    .nav-account { display: none; }
-    html.vip-active .nav-account { display: inline-flex; }
-  </style>
-</head>
+  </head>
 <body>
 
   <!-- Blurred backdrop -->
@@ -893,10 +881,9 @@
       slug: 'she-still-here',
       title: 'She Still Here',
       eyebrow: 'Audio Drama',
-      tagline: 'Coming April 20, 2026.',
+      tagline: 'Coming soon.',
       cover: 'images/covers-square/she-still-here.jpg',
       comingSoon: true,
-      releaseDate: 'April 20, 2026',
       freeCount: 0,
       unit: 'Episode',
       chapters: Array.from({length:8}, (_,i) => `Episode ${i+1}`),
@@ -920,8 +907,13 @@
     window.location.replace('audiobook.html?slug=the-echo');
   }
   const series = seriesData.find(s => s.slug === params.get('slug'));
-  const isVip = () => !!(window.SumnuAuth && window.SumnuAuth.isVip());
-  const canAccess = i => i < (series ? series.freeCount : 0) || isVip();
+  // No paywall: only the free sample episodes/chapters are in the player.
+  // Paid ones are not listed or streamed here (server also blocks them).
+  if (series && !series.comingSoon) {
+    series.totalItems = series.items.length;
+    series.items = series.items.slice(0, series.freeCount);
+  }
+  const canAccess = i => !!series && i < series.items.length;
 
   const audio = document.getElementById('abAudio');
   let currentIndex = 0;
@@ -944,10 +936,10 @@
         <h1 style="font-size:clamp(1.8rem,6vw,2.8rem);color:#fff;margin:0 0 12px;line-height:1.05;">${series.title}</h1>
         <p style="color:rgba(255,255,255,.6);font-size:.98rem;line-height:1.7;max-width:38ch;margin:0 0 24px;">${series.tagline}</p>
         <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;border:1px solid rgba(212,168,67,.4);background:rgba(212,168,67,.1);color:#d4a843;font-weight:800;font-size:.9rem;letter-spacing:.06em;margin-bottom:28px;">
-          🗓 Dropping ${series.releaseDate}
+          🔜 Coming soon
         </div>
         <br>
-        <a href="vip-audio-dramas_netflix_mobile.html" style="color:rgba(255,255,255,.4);font-size:.84rem;text-decoration:none;">← Back to all series</a>
+        <a href="index.html#seriesShelf" style="color:rgba(255,255,255,.4);font-size:.84rem;text-decoration:none;">← Back to all series</a>
       </div>`;
   } else {
     init();
@@ -969,9 +961,8 @@
 
     // Pills
     document.getElementById('seriesPills').innerHTML = `
-      <span class="series-pill">${series.items.length} ${ul}s</span>
-      <span class="series-pill">${ul}s 1–2 Free</span>
-      <span class="series-pill">VIP Full Access</span>
+      <span class="series-pill">${series.totalItems} ${ul}s</span>
+      <span class="series-pill">${ul}s 1–${series.freeCount} Free</span>
     `;
 
     if (series.payhip) {
@@ -993,8 +984,8 @@
     }
 
     // Sheet title
-    document.getElementById('sheetTitle').textContent = `${ul}s`;
-    document.getElementById('chapterTriggerLabel').textContent = `${series.items.length} ${ul}s`;
+    document.getElementById('sheetTitle').textContent = `Free Sample ${ul}s`;
+    document.getElementById('chapterTriggerLabel').textContent = `${series.items.length} Free ${ul}s`;
 
     buildChapterSheet();
     loadChapter(0, false);
@@ -1006,8 +997,7 @@
      LOAD CHAPTER
   ══════════════════════════════════ */
   function loadChapter(i, play) {
-    if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
-    if (!canAccess(i)) { triggerUnlock(); return; }
+    if (!canAccess(i)) { goToBuy(); return; }
     currentIndex = i;
     const item = series.items[i];
     const ul = series.unit;
@@ -1022,7 +1012,7 @@
     document.getElementById('trackSeries').textContent = series.title;
     document.getElementById('trackTitle').textContent = title;
     document.getElementById('trackChapter').textContent =
-      `${ul} ${item.number} of ${series.items.length}`;
+      `${ul} ${item.number} of ${series.totalItems}`;
 
     // Reset progress
     setProgress(0);
@@ -1093,9 +1083,8 @@
     btn.classList.remove('is-playing');
     document.getElementById('coverFrame').classList.remove('is-playing');
     const next = currentIndex + 1;
-    if (next < series.items.length) {
-      canAccess(next) ? loadChapter(next, true) : triggerUnlock();
-    }
+    if (next < series.items.length) loadChapter(next, true);
+    else goToBuy();
   });
 
   /* ══════════════════════════════════
@@ -1104,7 +1093,6 @@
   function wireControls() {
     // Play/Pause
     document.getElementById('btnPlay').addEventListener('click', () => {
-      if (window.SumnuEdgeToken) window.SumnuEdgeToken.sync();
       const btn = document.getElementById('btnPlay');
       const frame = document.getElementById('coverFrame');
       if (audio.paused) {
@@ -1148,8 +1136,8 @@
 
     document.getElementById('btnNext').addEventListener('click', () => {
       const next = currentIndex + 1;
-      if (next < series.items.length)
-        canAccess(next) ? loadChapter(next, !audio.paused) : triggerUnlock();
+      if (next < series.items.length) loadChapter(next, !audio.paused);
+      else goToBuy();
     });
 
     document.getElementById('btnSpeed').addEventListener('click', () => {
@@ -1207,18 +1195,28 @@
           <div class="ch-bar"></div>
           <div class="ch-bar"></div>
         </div>
-        ${!ok ? '<span class="ch-locked">🔒 VIP</span>' : ''}
       `;
       row.addEventListener('click', () => {
         if (ok) {
           loadChapter(i, true);
           closeSheet();
         } else {
-          triggerUnlock();
+          goToBuy();
         }
       });
       scroll.appendChild(row);
     });
+    if (series.totalItems > series.items.length) {
+      const rest = document.createElement('div');
+      rest.className = 'chapter-row';
+      rest.innerHTML = `
+        <span class="ch-num">+${series.totalItems - series.items.length}</span>
+        <div class="ch-info"><div class="ch-title">${ul}s ${series.items.length + 1}–${series.totalItems} ${series.payhip ? 'come with the full purchase' : series.payhipPending ? 'come with the full release' : 'are not part of the free sample'}</div></div>
+        ${series.payhip ? '<span class="ch-locked">Buy</span>' : series.payhipPending ? '<span class="ch-locked">Coming soon</span>' : ''}
+      `;
+      rest.addEventListener('click', () => { closeSheet(); goToBuy(); });
+      scroll.appendChild(rest);
+    }
   }
 
   function openSheet() {
@@ -1253,41 +1251,19 @@
   }
 
   /* ══════════════════════════════════
-     UNLOCK
+     BUY PROMPT
   ══════════════════════════════════ */
-  function triggerUnlock() {
-    // Existing members: login first. New VIP signup stays on /unlock.
-    if (window.SumnuAuth && typeof window.SumnuAuth.login === 'function') {
-      window.SumnuAuth.login(window.location.href);
-      return;
-    }
-    if (window.Outseta && window.Outseta.auth) {
-      window.Outseta.auth.open({
-        widgetMode: 'login',
-        redirectUri: window.location.href
-      });
-    } else {
-      window.location.href = 'login.html';
-    }
+  function goToBuy() {
+    // Paid episodes/chapters: point the listener at the Buy button (no account needed).
+    const bar = document.getElementById('buyBar');
+    if (!bar) return;
+    bar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    bar.style.transition = 'box-shadow .3s ease';
+    bar.style.boxShadow = '0 0 0 3px rgba(212,168,67,.75)';
+    setTimeout(() => { bar.style.boxShadow = ''; }, 1600);
   }
-
-  function syncVipAccess() {
-    buildChapterSheet();
-    if (!canAccess(currentIndex)) {
-      audio.pause();
-      loadChapter(0, false);
-      closeSheet();
-    }
-  }
-
-  window.addEventListener('outseta:ready', syncVipAccess);
-  window.addEventListener('outseta:login', syncVipAccess);
-  window.addEventListener('outseta:refresh', syncVipAccess);
-  window.addEventListener('outseta:logout', syncVipAccess);
   </script>
 
-  <script src="js/outseta-edge-token.js"></script>
-  <script src="js/auth.js"></script>
   <script src="js/animations.js"></script>
 </body>
 </html>
