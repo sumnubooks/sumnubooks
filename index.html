@@ -926,8 +926,9 @@
     .hero-spotlight-title { font-size: 1.5rem; }
     .hero-spotlight-text { margin-bottom: 12px; }
     .hero-spotlight-cta {
-      align-self: flex-start; min-height: 44px; padding: 0 16px; border-radius: 999px;
-      background: linear-gradient(90deg, #f07b2f, #d4a843); color: #0a0c16; font-size: .875rem; letter-spacing: .04em;
+      align-self: flex-start; min-height: 44px; padding: 0 14px; border-radius: 999px;
+      background: linear-gradient(90deg, #f07b2f, #d4a843); color: #0a0c16; font-size: .8125rem; letter-spacing: .02em;
+      display: inline-flex; align-items: center; white-space: nowrap; max-width: 100%;
     }
     /* Menu panel fully opaque so page content never shows through */
     html.sb-nav-open .site-header #navLinks { background: #06080f !important; backdrop-filter: none !important; }
@@ -941,6 +942,7 @@
     .mobile-bar.is-hidden { transform: translateY(110%); opacity: 0; pointer-events: none; }
     body:has(.modal.open) .mobile-bar, html.sb-nav-open .mobile-bar { display: none !important; }
   }
+  @media (max-width: 359px) { .hero-spotlight-cta { padding: 0 10px; font-size: .75rem; letter-spacing: 0; } }
 </style>
 </head>
 <body>
