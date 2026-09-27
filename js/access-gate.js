@@ -56,7 +56,7 @@
       +   '<p class="pw-sub">This content is for VIP members only. One subscription unlocks every audio drama, every audiobook, and the full music catalog.</p>'
       +   '<div class="pw-perks">'
       +     '<div>🎧 All audio drama series — every episode, every season</div>'
-      +     '<div>📖 Exclusive audiobooks — not on Amazon or Audible</div>'
+      +     '<div>📖 Audiobooks by E.D. Lewis</div>'
       +     '<div>🎵 Full music catalog — all 8 albums</div>'
       +     '<div>📱 Works on every device — phone, tablet, laptop</div>'
       +   '</div>'
