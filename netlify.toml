@@ -3,13 +3,11 @@
 # sample chapters/episodes (1–2 per title) and returns 403 for the rest.
 # /audio/music/** (Sumnu Radio) stays public.
 
+# Case-insensitive on purpose: Netlify serves /AUDIO/Series/... from the
+# same files, so a plain lowercase path match could be bypassed.
 [[edge_functions]]
   function = "protect-paid-audio"
-  path = "/audio/audiobooks/*"
-
-[[edge_functions]]
-  function = "protect-paid-audio"
-  path = "/audio/series/*"
+  pattern = '^/+[aA][uU][dD][iI][oO]/+(?:[aA][uU][dD][iI][oO][bB][oO][oO][kK][sS]|[sS][eE][rR][iI][eE][sS])(?:/.*)?$'
 
 # Retired membership pages → Audiobooks (Buy buttons live there).
 [[redirects]]

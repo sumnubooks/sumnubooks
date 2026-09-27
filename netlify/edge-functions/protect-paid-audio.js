@@ -1,7 +1,7 @@
 /**
  * Paid-audio block (no login, no membership, no third-party auth).
  *
- * Runs on every file under /audio/audiobooks/* and /audio/series/*
+ * Runs on every file under /audio/audiobooks/* and /audio/series/* (any letter case)
  * (see netlify.toml). Only the free sample files below are served;
  * everything else (paid chapters/episodes, stray files) gets 403 and is
  * never cached. Paid audio is sold as downloads through Payhip, so the
