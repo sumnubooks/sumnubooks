@@ -356,14 +356,14 @@
       title: 'The Jailhouse Lawyer',
       eyebrow: 'Legal Thriller · Audiobook',
       tagline: 'Inside the walls, knowledge is power.',
-      cover: 'images/covers-square/the-jailhouse-lawyer.jpg',
+      cover: 'images/covers-square/the-jailhouse-lawyer.jpg?v=20260928',
       freeCount: 2,
       payhip: 'https://payhip.com/b/A9uaI',
       price: '12.99',
       items: Array.from({length:20}, (_,i) => ({
         number: i+1,
-        image: `images/audiobooks/the-jailhouse-lawyer/the-jailhouse-lawyer-ch${i+1}.jpg`,
-        audio: `audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch${i+1}.mp3`
+        image: 'images/covers-square/the-jailhouse-lawyer.jpg?v=20260928',
+        audio: `audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch${i+1}.mp3${i < 2 ? '?v=20260928' : ''}`
       }))
     },
     {

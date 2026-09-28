@@ -1438,14 +1438,14 @@ const siteData = {
       label: 'Audiobook',
       meta: 'Ch 1–2 free • 20 chapters',
       tagline: 'Inside the walls, knowledge is power.',
-      cover: 'images/books/book3.jpg',
+      cover: 'images/books/book3.jpg?v=20260928',
       freeCount: 2,
       items: Array.from({length:20}, (_,i) => ({
         number: i + 1,
         title: `Chapter ${i+1}`,
         description: i < 2 ? 'Free chapter.' : 'Full-book chapter.',
-        image: 'images/books/book3.jpg',
-        audio: `audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch${i+1}.mp3`
+        image: 'images/books/book3.jpg?v=20260928',
+        audio: `audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch${i+1}.mp3${i < 2 ? '?v=20260928' : ''}`
       }))
     },
     {
