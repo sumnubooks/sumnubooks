@@ -32,7 +32,7 @@ window.SUMNU_DATA={
       "price": "$14.99",
       "genre": "Urban Fiction",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book3.jpg",
+      "cover": "images/books/book3.jpg?v=20260928",
       "audioSample": "audio/audiobooks/book3-sample.mp3",
       "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
     },
