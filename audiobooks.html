@@ -389,7 +389,7 @@
             </div>
             <div class="book-actions-row">
               <a class="btn btn-primary" href="https://payhip.com/b/kOFJL" target="_blank" rel="noopener">💳 BUY</a>
-              <a class="btn btn-secondary" href="still-standing-stream.html">▶ STREAM</a>
+              <a class="btn btn-secondary" href="audiobook.html?slug=still-standing">▶ STREAM</a>
             </div>
           </div>
         </article>
@@ -491,6 +491,36 @@
   <div class="copy">SumnuBooks.com &mdash; Independent. Direct. Real.</div>
 </footer>
 
+<script>
+// SAMPLE buttons: play/pause the free sample <audio> named by data-audio-id.
+// Only one sample plays at a time (also when using the native controls).
+(function () {
+  var btns = Array.prototype.slice.call(document.querySelectorAll('[data-audio-btn][data-audio-id]'));
+  function pauseOthers(keep) {
+    Array.prototype.forEach.call(document.querySelectorAll('audio'), function (o) { if (o !== keep && !o.paused) o.pause(); });
+  }
+  function sync() {
+    btns.forEach(function (b) {
+      var a = document.getElementById(b.getAttribute('data-audio-id'));
+      var on = !!a && !a.paused;
+      b.classList.toggle('is-playing', on);
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.textContent = on ? '\u23F8 PAUSE' : '\uD83C\uDFA7 SAMPLE';
+    });
+  }
+  btns.forEach(function (btn) {
+    var a = document.getElementById(btn.getAttribute('data-audio-id'));
+    if (!a) return;
+    btn.setAttribute('aria-pressed', 'false');
+    btn.setAttribute('aria-controls', a.id);
+    ['play', 'pause', 'ended'].forEach(function (ev) { a.addEventListener(ev, sync); });
+    btn.addEventListener('click', function () {
+      if (a.paused) { pauseOthers(a); a.play().catch(sync); } else { a.pause(); }
+    });
+  });
+  document.addEventListener('play', function (e) { if (e.target && e.target.tagName === 'AUDIO') pauseOthers(e.target); }, true);
+})();
+</script>
   <script src="js/animations.js"></script>
 <script src="js/mobile-nav.js" defer></script>
 </body>
