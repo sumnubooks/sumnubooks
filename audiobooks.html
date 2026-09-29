@@ -4,6 +4,14 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Audiobooks by E.D. Lewis — SumnuBooks</title>
+<script>
+  // audiobooks.html#<slug> (fragments never reach the server) -> that book's player.
+  (function () {
+    var h = ''; try { h = decodeURIComponent((location.hash || '').slice(1)); } catch (e) {}
+    var S = ['a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','the-echo','the-clock','she-still-exists'];
+    if (S.indexOf(h) > -1) location.replace('audiobook.html?slug=' + encodeURIComponent(h));
+  })();
+</script>
 <meta name="description" content="Audiobooks by E.D. Lewis. Listen now on SumnuBooks. Instant access."/>
 <link href="css/site.css" rel="stylesheet"/>
 <style>

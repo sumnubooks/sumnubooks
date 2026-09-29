@@ -320,6 +320,18 @@
     .card-tile .card-lock {
       z-index: 3 !important;
     }
+    /* Share icon on home audiobook tiles (44px tap target) */
+    .card-tile .tile-share {
+      position: absolute; bottom: 8px; right: 8px; z-index: 4;
+      width: 44px; height: 44px; padding: 0; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(212,168,67,.55); background: rgba(9,16,26,.78);
+      color: #d4a843; cursor: pointer; -webkit-tap-highlight-color: transparent;
+      backdrop-filter: blur(6px);
+    }
+    .card-tile .tile-share svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .card-tile .tile-share:active { background: rgba(212,168,67,.25); }
+    .card-tile .tile-share:focus-visible { outline: 2px solid #d4a843; outline-offset: 2px; }
     .radio-tile .card-copy {
       min-height: 94px;
     }
@@ -1616,11 +1628,17 @@ siteData.radioTracks = siteData.music.flatMap(album =>
   }))
 );
 
+// Share icon on home audiobook tiles (handled by js/share.js; the tile click ignores it).
+function tileShare(item) {
+  if (item.type !== 'audiobook') return '';
+  return `<button type="button" class="tile-share" data-share-slug="${item.slug}" aria-label="Share ${item.title}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>`;
+}
+
 function buildCard(item, freeLabel, locked = false) {
   if (item.comingSoon) {
     return `
       <article class="card-tile" data-type="${item.type}" data-slug="${item.slug}" data-coming-soon="true" tabindex="0" role="button" aria-label="${item.title} — Coming Soon" style="cursor:default;">
-        <div class="card-cover">${imgMarkup(item.cover, `${item.title} cover`)}</div>
+        <div class="card-cover">${imgMarkup(item.cover, `${item.title} cover`)}${tileShare(item)}</div>
         <div class="card-gradient"></div>
         <div class="card-free" style="background:rgba(212,168,67,.18);border:1px solid rgba(212,168,67,.5);color:#d4a843;font-weight:800;">${item.comingSoonBadge || '🗓 APR 20'}</div>
         <div class="card-copy">
@@ -1632,7 +1650,7 @@ function buildCard(item, freeLabel, locked = false) {
   }
   return `
     <article class="card-tile ${locked ? 'is-locked' : ''}" data-type="${item.type}" data-slug="${item.slug}" tabindex="0" role="button" aria-label="Open ${item.title}">
-      <div class="card-cover">${imgMarkup(item.cover, `${item.title} cover`)}</div>
+      <div class="card-cover">${imgMarkup(item.cover, `${item.title} cover`)}${tileShare(item)}</div>
       <div class="card-gradient"></div>
       ${freeLabel ? `<div class="card-free">${freeLabel}</div>` : ''}
       <div class="card-copy">
@@ -1716,6 +1734,7 @@ function showModal(entry) {
         <div class="detail-pills">${pills.map(p => `<span class="pill">${p}</span>`).join('')}</div>
         <div class="inline-actions">
           ${titlePage ? `<a class="btn btn-primary" href="${titlePage}">Open title page</a>` : ''}
+          ${entry.type === 'audiobook' ? `<button type="button" class="btn btn-secondary modal-share" data-share-slug="${entry.slug}" aria-label="Share ${entry.title}">↗ Share</button>` : ''}
           ${entry.type === 'music' && entry.buy ? `<a class="btn btn-secondary" href="${entry.buy}" target="_blank" rel="noopener">Buy Album — $10.00</a>` : ''}
           ${entry.type === 'music' ? '<a class="btn btn-ghost" href="music.html">Open music page</a>' : ''}
         </div>
@@ -1735,6 +1754,18 @@ function closeModal() {
   $('#detailModal').classList.remove('open');
   $('#detailModal').setAttribute('aria-hidden', 'true');
   $$('#detailModal audio').forEach(a => { try { a.pause(); } catch (e) {} });
+  setPlayParam(null);
+}
+
+// Keep the address bar shareable while a book plays on home: /?play=<slug>
+// (the edge function serves that book's link-preview tags for it).
+function setPlayParam(slug) {
+  try {
+    const u = new URL(window.location.href);
+    if (slug) { if (u.searchParams.get('play') === slug) return; u.searchParams.set('play', slug); }
+    else { if (!u.searchParams.has('play')) return; u.searchParams.delete('play'); }
+    history.replaceState(history.state, '', u.pathname + (u.searchParams.toString() ? '?' + u.searchParams.toString() : '') + u.hash);
+  } catch (e) {}
 }
 
 function wireAudioState() {
@@ -1765,6 +1796,7 @@ function wireAudioState() {
 
     audio.addEventListener('play', () => {
       audios.forEach(other => { if (other !== audio) other.pause(); });
+      if (audio.dataset.type === 'audiobook') setPlayParam(audio.dataset.parent);
       const thisSrc = audio.querySelector('source')?.getAttribute('src') || '';
       localStorage.setItem(LAST_PLAY_KEY, JSON.stringify({
         title: audio.dataset.title,
@@ -1888,6 +1920,7 @@ function wireUi() {
 
   ['seriesGrid','audiobookGrid','musicGrid'].forEach(id => {
     $('#' + id).addEventListener('click', e => {
+      if (e.target.closest('[data-share-slug]')) return; // tile Share icon — js/share.js handles it
       const tile = e.target.closest('.card-tile');
       if (!tile) return;
       if (tile.dataset.comingSoon) return; // coming soon — no action
@@ -1913,6 +1946,7 @@ function wireUi() {
     });
     $('#' + id).addEventListener('keydown', e => {
       if (e.key !== 'Enter' && e.key !== ' ') return;
+      if (e.target.closest('[data-share-slug]')) return;
       const tile = e.target.closest('.card-tile');
       if (tile) { e.preventDefault(); tile.click(); }
     });
@@ -1927,6 +1961,17 @@ renderShelves();
 updateResumeCard();
 initRadio();
 wireUi();
+
+// Opening /?play=<slug> directly: show that book's free chapters (same as Resume).
+(function openPlayParam() {
+  try {
+    const slug = new URLSearchParams(window.location.search).get('play');
+    const entry = slug && siteData.audiobooks.find(x => x.slug === slug && !x.comingSoon);
+    if (!entry) return;
+    if (slug === 'she-still-exists') { window.location.replace('audiobook.html?slug=she-still-exists'); return; }
+    showModal(entry);
+  } catch (e) {}
+})();
 
 // Always rebuild homepage shelves on initial load and when returning via browser cache
 function repaintHomeShelves() {
@@ -2001,6 +2046,7 @@ window.addEventListener('pageshow', function() {
 })();
 </script>
   <script src="js/animations.js"></script>
+<script src="js/share.js" defer></script>
 <script src="js/mobile-nav.js" defer></script>
 
 <script>

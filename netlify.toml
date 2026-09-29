@@ -19,6 +19,23 @@
   function = "og-audiobook"
   path = "/audiobook"
 
+# Home while a book plays (/?play=<slug>) and list-page ?slug= links.
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/"
+
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/index.html"
+
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/audiobooks.html"
+
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/audiobooks"
+
 # Retired membership pages → Audiobooks (Buy buttons live there).
 [[redirects]]
   from = "/unlock.html"
