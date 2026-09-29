@@ -1,7 +1,9 @@
 /* Sumnu Books — per-audiobook Share.
    Phones (touch + Web Share API): native share sheet via navigator.share.
    Desktop / unsupported: copy the link + "Link copied" toast with Facebook / X / WhatsApp links.
-   Shared URL always points at the production player for that slug, with UTM tags. */
+   Shared URL is always https://sumnubooks.com/listen/<slug>: the og-audiobook edge function
+   gives link-preview crawlers that book's meta and sends people to the player
+   (audiobook.html?slug=<slug>&utm_source=share&utm_medium=social&utm_campaign=<slug>). */
 (function () {
   var SITE = 'https://sumnubooks.com';
   // Player titles/taglines (keep in sync with audiobook.html + og-audiobook.js).
@@ -17,8 +19,7 @@
   };
 
   function shareUrl(slug) {
-    var s = encodeURIComponent(slug);
-    return SITE + '/audiobook.html?slug=' + s + '&utm_source=share&utm_medium=social&utm_campaign=' + s;
+    return SITE + '/listen/' + encodeURIComponent(slug);
   }
 
   function isPhone() {
@@ -103,7 +104,7 @@
   function share(opts) {
     var known = BOOKS[opts.slug] || [];
     opts = { slug: opts.slug, title: opts.title || known[0] || document.title, text: opts.text || known[1] || '' };
-    // Always the absolute player URL for the slug (never location.href / list-page anchors).
+    // Always the absolute /listen/<slug> URL (never location.href / list-page anchors).
     var url = shareUrl(opts.slug);
     // url is passed on its own; text is the tagline only (no URL in text).
     var data = { title: opts.title, text: opts.text, url: url };

@@ -11,6 +11,15 @@
 
 # Per-audiobook link previews (Open Graph / Twitter) for shared player links.
 # Crawlers don't run JS, so the edge function writes the <head> meta per ?slug.
+# Share URL: /listen/<slug> (crawlers: per-book meta; people: 302 to the player).
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/listen/*"
+
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/listen"
+
 [[edge_functions]]
   function = "og-audiobook"
   path = "/audiobook.html"
