@@ -241,6 +241,18 @@
       line-height: 1.2 !important;
       letter-spacing: .04em !important;
     }
+    /* Per-card Share icon (44px tap target) */
+    .page-audiobooks .card-title-row { display: flex !important; align-items: flex-start !important; justify-content: space-between !important; gap: 6px !important; }
+    .page-audiobooks .card-title-row .product-title { flex: 1 !important; min-width: 0 !important; padding-top: 12px !important; }
+    .page-audiobooks .card-share {
+      flex: 0 0 44px !important; width: 44px !important; height: 44px !important; margin: -4px -6px 0 0 !important;
+      display: inline-flex !important; align-items: center !important; justify-content: center !important;
+      border-radius: 50% !important; border: 1px solid rgba(212,168,67,.35) !important; background: rgba(212,168,67,.06) !important;
+      color: #d4a843 !important; cursor: pointer !important; padding: 0 !important; -webkit-tap-highlight-color: transparent;
+    }
+    .page-audiobooks .card-share svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .page-audiobooks .card-share:active { background: rgba(212,168,67,.2) !important; }
+    .page-audiobooks .card-share:focus-visible { outline: 2px solid #d4a843; outline-offset: 2px; }
     /* Hero section compact */
     .page-audiobooks .page-hero {
       padding: 12px 0 8px !important;
@@ -319,7 +331,7 @@
     <!-- Available audiobooks -->
     <section style="margin-top:28px;">
       <div class="section-head">
-        <h2>Available Now — $12.99 Each</h2>
+        <h2>Available Now</h2>
       </div>
       <div class="grid grid-3" style="margin-top:14px;">
         <article id="ab1" class="card product ab-available">
@@ -327,7 +339,10 @@
             <img alt="A PENNY FOR MY THOUGHTS cover" src="images/books/book1.jpg" width="400" height="600"/>
           </div>
           <div class="product-body">
-            <div class="product-title">A PENNY FOR MY THOUGHTS</div>
+            <div class="card-title-row">
+              <div class="product-title">A PENNY FOR MY THOUGHTS</div>
+              <button type="button" class="card-share" data-share-slug="a-penny-for-my-thoughts" data-share-title="A Penny For My Thoughts" data-share-text="He took her. He didn&#39;t expect to care." aria-label="Share A Penny For My Thoughts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+            </div>
             <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-1" type="button">🎧 SAMPLE</button>
@@ -346,7 +361,10 @@
             <img alt="UNPLUGGED: 30 DAYS OF CHAOS cover" src="images/books/book2.jpg" width="400" height="600" loading="lazy" decoding="async"/>
           </div>
           <div class="product-body">
-            <div class="product-title">UNPLUGGED: 30 DAYS OF CHAOS</div>
+            <div class="card-title-row">
+              <div class="product-title">UNPLUGGED: 30 DAYS OF CHAOS</div>
+              <button type="button" class="card-share" data-share-slug="unplugged" data-share-title="Unplugged: 30 Days of Chaos" data-share-text="No cell service. No WiFi. Only chaos." aria-label="Share Unplugged: 30 Days of Chaos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+            </div>
             <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-2" type="button">🎧 SAMPLE</button>
@@ -365,7 +383,10 @@
             <img alt="THE JAILHOUSE LAWYER cover" src="images/books/book3.jpg?v=20260928" width="400" height="608" loading="lazy" decoding="async"/>
           </div>
           <div class="product-body">
-            <div class="product-title">THE JAILHOUSE LAWYER</div>
+            <div class="card-title-row">
+              <div class="product-title">THE JAILHOUSE LAWYER</div>
+              <button type="button" class="card-share" data-share-slug="the-jailhouse-lawyer" data-share-title="The Jailhouse Lawyer" data-share-text="Inside the walls, knowledge is power." aria-label="Share The Jailhouse Lawyer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+            </div>
             <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-3" type="button">🎧 SAMPLE</button>
@@ -384,7 +405,10 @@
             <img alt="STILL STANDING cover" src="images/books/still-standing.jpg" width="400" height="600" loading="lazy" decoding="async"/>
           </div>
           <div class="product-body">
-            <div class="product-title">STILL STANDING</div>
+            <div class="card-title-row">
+              <div class="product-title">STILL STANDING</div>
+              <button type="button" class="card-share" data-share-slug="still-standing" data-share-title="Still Standing" data-share-text="Before the empire... there was the beginning." aria-label="Share Still Standing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+            </div>
             <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-4" type="button">🎧 SAMPLE</button>
@@ -403,7 +427,10 @@
             <img alt="THE ECHO cover" src="images/covers-square/the-echo-origins.jpg" width="1000" height="1000" loading="lazy" decoding="async"/>
           </div>
           <div class="product-body">
-            <div class="product-title">THE ECHO</div>
+            <div class="card-title-row">
+              <div class="product-title">THE ECHO</div>
+              <button type="button" class="card-share" data-share-slug="the-echo" data-share-title="The Echo" data-share-text="Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook." aria-label="Share The Echo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+            </div>
             <div class="price-tag">$12.99</div>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-5" type="button">🎧 SAMPLE</button>
@@ -423,7 +450,10 @@
             <img alt="The Clock by E. D. Lewis cover" src="images/covers-square/the-clock.jpg?v=20260929" width="1000" height="1000" loading="lazy" decoding="async"/>
           </div>
           <div class="product-body">
-            <div class="product-title">THE CLOCK</div>
+            <div class="card-title-row">
+              <div class="product-title">THE CLOCK</div>
+              <button type="button" class="card-share" data-share-slug="the-clock" data-share-title="The Clock" data-share-text="When the numbers disappear, you have seven days." aria-label="Share The Clock"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+            </div>
             <span class="pill" style="margin:4px 0 8px; display:inline-block;">🎧 Free preview · Full audiobook coming soon</span>
             <p style="margin:0 0 8px;"><em>When the numbers disappear, you have seven days.</em></p>
             <p class="muted" style="margin:0 0 10px;">Everyone is born with a clock, a countdown projected onto their retina that ticks away the years, days and seconds of their life. When you reach your final seven days, the numbers disappear. At twenty-five, healthy and with no reason to die, Jay wakes up to find his clock gone. He tells no one. He has seven days.</p>
@@ -533,6 +563,7 @@
   document.addEventListener('play', function (e) { if (e.target && e.target.tagName === 'AUDIO') pauseOthers(e.target); }, true);
 })();
 </script>
+  <script src="js/share.js" defer></script>
   <script src="js/animations.js"></script>
 <script src="js/mobile-nav.js" defer></script>
 </body>

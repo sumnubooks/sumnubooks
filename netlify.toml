@@ -9,6 +9,16 @@
   function = "protect-paid-audio"
   pattern = '^/+[aA][uU][dD][iI][oO]/+(?:[aA][uU][dD][iI][oO][bB][oO][oO][kK][sS]|[sS][eE][rR][iI][eE][sS])(?:/.*)?$'
 
+# Per-audiobook link previews (Open Graph / Twitter) for shared player links.
+# Crawlers don't run JS, so the edge function writes the <head> meta per ?slug.
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/audiobook.html"
+
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/audiobook"
+
 # Retired membership pages → Audiobooks (Buy buttons live there).
 [[redirects]]
   from = "/unlock.html"

@@ -6,6 +6,17 @@
   <meta name="theme-color" content="#06080f" />
   <title>Audiobook · Sumnu Books</title>
   <meta name="description" content="Listen to free sample chapters of audiobooks by E.D. Lewis on SumnuBooks.">
+  <!-- Default link-preview meta. netlify/edge-functions/og-audiobook.js replaces these per ?slug for crawlers. -->
+  <meta property="og:site_name" content="Sumnu Books">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Audiobooks by E.D. Lewis · Sumnu Books">
+  <meta property="og:description" content="Listen to free sample chapters of audiobooks by E.D. Lewis on SumnuBooks.">
+  <meta property="og:url" content="https://sumnubooks.com/audiobooks.html">
+  <meta property="og:image" content="https://sumnubooks.com/images/logos/sumnu-books-logo.png?v=20260929">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Audiobooks by E.D. Lewis · Sumnu Books">
+  <meta name="twitter:description" content="Listen to free sample chapters of audiobooks by E.D. Lewis on SumnuBooks.">
+  <meta name="twitter:image" content="https://sumnubooks.com/images/logos/sumnu-books-logo.png?v=20260929">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/site.css" />
@@ -55,6 +66,18 @@
   .back-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
   .top-bar-title { font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.35); }
   .top-bar-placeholder { width: 44px; }
+  /* Share */
+  .share-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    min-height: 44px; min-width: 44px; padding: 0 14px;
+    border-radius: 999px; border: 1px solid rgba(212,168,67,.45);
+    background: rgba(212,168,67,.08); color: var(--gold);
+    font-family: inherit; font-size: 1rem; font-weight: 600; line-height: 1;
+    cursor: pointer; -webkit-tap-highlight-color: transparent;
+  }
+  .share-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .share-btn:active { background: rgba(212,168,67,.2); }
+  .share-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
   /* Book info bar */
   .book-info-bar { display: flex; align-items: flex-start; gap: 12px; padding: 16px 18px 0; }
@@ -206,7 +229,10 @@
         Home
       </a>
       <span class="top-bar-title" id="topBarTitle">Audiobook</span>
-      <div class="top-bar-placeholder"></div>
+      <button type="button" class="share-btn" id="shareBtn" aria-label="Share this audiobook">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>
+        <span>Share</span>
+      </button>
     </div>
 
     <div class="book-info-bar">
@@ -475,6 +501,7 @@
         <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:28px;">
           <a href="mailto:therealericlewis@sumnubooks.com?subject=Notify%20me%20when%20Chandra%20audiobook%20is%20ready" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border-radius:999px;background:#d4a843;color:#0a0a0a;font-weight:800;font-size:.9rem;text-decoration:none;">Notify Me</a>
           <a href="audiobooks.html" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.75);font-weight:700;font-size:.9rem;text-decoration:none;">Audiobooks shelf</a>
+          <button type="button" id="shareBtn" data-share-slug="${book.slug}" data-share-title="${book.title}" data-share-text="${book.tagline.replace(/"/g, '&quot;')}" aria-label="Share ${book.title}" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:12px 22px;border-radius:999px;border:1px solid rgba(212,168,67,.45);background:rgba(212,168,67,.08);color:#d4a843;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;">↗ Share</button>
         </div>
         <a href="index.html" style="color:rgba(255,255,255,.4);font-size:.84rem;text-decoration:none;">← Back home</a>
       </div>`;
@@ -490,6 +517,11 @@
     document.getElementById('bookTagline').textContent = book.tagline;
     document.getElementById('topBarTitle').textContent = 'Audiobook';
     document.title = `${book.title} · Sumnu Books`;
+    const shareBtn = document.getElementById('shareBtn');
+    shareBtn.dataset.shareSlug = book.slug;
+    shareBtn.dataset.shareTitle = book.title;
+    shareBtn.dataset.shareText = book.tagline;
+    shareBtn.setAttribute('aria-label', `Share ${book.title}`);
 
     document.getElementById('bookPills').innerHTML = book.previewOnly ? `
       <span class="book-pill">Prologue + Ch 1 Free</span>
@@ -706,6 +738,7 @@
   }
   </script>
 
+  <script src="js/share.js" defer></script>
   <script src="js/animations.js"></script>
 <script src="js/mobile-nav.js" defer></script>
 </body>
