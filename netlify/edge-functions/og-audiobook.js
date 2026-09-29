@@ -2,10 +2,26 @@
  * og-audiobook — server-side link-preview meta for the audiobook player.
  *
  * Link crawlers (Facebook, X, iMessage, WhatsApp, Slack …) don't run JS, so
- * audiobook.html?slug=<slug> gets real per-book <title>, description,
- * Open Graph and Twitter tags written into its <head> here.
- * Unknown / missing slug => default site meta. Only touches GET 200 HTML;
- * everything else (HEAD, 304, errors) passes through untouched.
+ * per-book <title>, description, canonical, Open Graph and Twitter tags are
+ * written into the <head> here:
+ *   /audiobook.html?slug=<slug>  (and /audiobook)   -> that book; unknown slug -> default meta
+ *   /?play=<slug>  (and /index.html)                 -> that book (og:url/canonical = player URL);
+ *                                                      plain / is left untouched
+ *   /audiobooks.html?slug=<slug> (and /audiobooks)   -> 302 to the player for that slug
+ *   /listen/<slug>  (the URL every Share button shares; fresh path so Facebook
+ *                    has no stale cache for it)
+ *        link-preview crawlers  -> 200 tiny page with that book's meta (og:url = itself)
+ *        everyone else          -> 302 to /audiobook.html?slug=<slug>&utm_source=share&utm_medium=social&utm_campaign=<slug>
+ *                                  (incl. the Facebook in-app browser and search engines)
+ *        unknown slug           -> 302 to /audiobooks.html
+ *   og:url on every page for a book is https://sumnubooks.com/listen/<slug>; canonical
+ *   stays the real player URL (audiobook.html?slug=) for search engines.
+ *
+ * IMPORTANT: facebookexternalhit sends "Range: bytes=0-524287". A Range (or
+ * conditional) request makes the static file come back as 206/304, which we
+ * can't rewrite — Facebook then saw the static default tags. So Range and
+ * conditional headers are dropped before fetching the page, and the
+ * rewritten page is always a full 200 (ignoring Range is valid HTTP).
  *
  * Keep BOOKS in sync with audiobookData in audiobook.html (title, tagline, cover).
  */
@@ -35,6 +51,15 @@ const esc = (s) => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
+const listenUrl = (slug) => `${SITE}/listen/${encodeURIComponent(slug)}`;
+const playerPath = (slug) => {
+  const e = encodeURIComponent(slug);
+  return `/audiobook.html?slug=${e}&utm_source=share&utm_medium=social&utm_campaign=${e}`;
+};
+// Link-preview crawlers (not search engines: those get the real page via 302).
+// iMessage sends "facebookexternalhit/1.1 Facebot Twitterbot/1.0".
+const PREVIEW_BOT = /facebookexternalhit|facebookcatalog|facebot|meta-externalagent|meta-externalfetcher|twitterbot|linkedinbot|slackbot|whatsapp|telegrambot|discordbot|pinterest|redditbot|skypeuripreview|embedly|vkshare|snapchat|bitlybot|tumblr|mastodon|iframely|applebot|quora link preview|outbrain|google-inspectiontool/i;
+
 function metaFor(slug) {
   const b = Object.prototype.hasOwnProperty.call(BOOKS, slug) ? BOOKS[slug] : null;
   if (!b) return { slug: null, ...DEFAULT_META };
@@ -47,6 +72,7 @@ function metaFor(slug) {
     w: b.w, h: b.h,
     alt: `${b.title} audiobook cover`,
     url: `${SITE}/audiobook.html?slug=${encodeURIComponent(slug)}`,
+    ogUrl: listenUrl(slug),
   };
 }
 
@@ -58,7 +84,7 @@ function headTags(m) {
     `<meta property="og:type" content="website">`,
     `<meta property="og:title" content="${esc(t)}">`,
     `<meta property="og:description" content="${esc(m.description)}">`,
-    `<meta property="og:url" content="${esc(m.url)}">`,
+    `<meta property="og:url" content="${esc(m.ogUrl || m.url)}">`,
     `<meta property="og:image" content="${esc(m.image)}">`,
     `<meta property="og:image:secure_url" content="${esc(m.image)}">`,
     `<meta property="og:image:type" content="${m.image.includes('.png') ? 'image/png' : 'image/jpeg'}">`,
@@ -73,29 +99,95 @@ function headTags(m) {
   ].join('\n  ');
 }
 
+const has = (o, k) => !!k && Object.prototype.hasOwnProperty.call(o, k);
+const STRIP_REQ = ['range', 'if-range', 'if-none-match', 'if-modified-since', 'if-match', 'if-unmodified-since'];
+
+function listenPage(m, slug) {
+  const to = SITE + playerPath(slug);
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${esc(m.title)}</title>
+  <meta name="description" content="${esc(m.description)}">
+  ${headTags({ ...m, url: m.ogUrl })}
+  <style>body{margin:0;background:#0a0e1a;color:#fff;font:16px/1.5 "DM Sans",system-ui,sans-serif;text-align:center;padding:32px 16px}img{width:240px;max-width:70vw;height:auto;border-radius:12px}a{display:inline-block;margin-top:16px;min-height:44px;line-height:44px;padding:0 20px;border-radius:999px;background:#d4a843;color:#0a0e1a;font-weight:700;text-decoration:none}</style>
+</head>
+<body>
+  <img src="${esc(m.image)}" alt="${esc(m.alt)}" width="${m.w}" height="${m.h}">
+  <h1>${esc(m.ogTitle || m.title)}</h1>
+  <p>${esc(m.description)}</p>
+  <a href="${esc(to)}">Listen on Sumnu Books</a>
+  <script>location.replace(${JSON.stringify(to)});</script>
+</body>
+</html>
+`;
+}
+
 export default async (request, context) => {
-  const res = await context.next();
-  if (request.method !== 'GET' || res.status !== 200) return res;
+  const url = new URL(request.url);
+  const p = (url.pathname.replace(/\/+$/, '') || '/').toLowerCase();
+
+  // Share URL: /listen/<slug>
+  if (p === '/listen' || p.startsWith('/listen/')) {
+    const slug = decodeURIComponent(p.slice('/listen/'.length).split('/')[0] || '');
+    const nocache = { 'cache-control': 'public, max-age=0, must-revalidate', vary: 'User-Agent' };
+    if (!has(BOOKS, slug)) {
+      return new Response(null, { status: 302, headers: { ...nocache, location: new URL('/audiobooks.html', url.origin).toString(), 'x-sumnu-og': 'listen:unknown' } });
+    }
+    const ua = request.headers.get('user-agent') || '';
+    if (PREVIEW_BOT.test(ua)) {
+      const headers = { ...nocache, 'content-type': 'text/html; charset=utf-8', 'x-sumnu-og': slug };
+      if (request.method === 'HEAD') return new Response(null, { status: 200, headers });
+      return new Response(listenPage(metaFor(slug), slug), { status: 200, headers });
+    }
+    const to = new URL(playerPath(slug), url.origin);
+    url.searchParams.forEach((v, k) => to.searchParams.set(k, v)); // any incoming utm overrides the defaults
+    return new Response(null, { status: 302, headers: { ...nocache, location: to.toString(), 'x-sumnu-og': 'listen:' + slug } });
+  }
+
+  // List page with ?slug= -> that book's player (keeps utm etc.).
+  if (p === '/audiobooks.html' || p === '/audiobooks') {
+    const s = url.searchParams.get('slug');
+    if (!has(BOOKS, s)) return; // untouched
+    const to = new URL('/audiobook.html', url.origin);
+    url.searchParams.forEach((v, k) => to.searchParams.append(k, v));
+    return new Response(null, { status: 302, headers: { location: to.toString(), 'cache-control': 'public, max-age=0, must-revalidate', 'x-sumnu-og': 'redirect:' + s } });
+  }
+
+  let slug;
+  if (p === '/' || p === '/index.html' || p === '/index') {
+    slug = url.searchParams.get('play');
+    if (!has(BOOKS, slug)) return; // plain home keeps its own meta, untouched
+  } else {
+    slug = url.searchParams.get('slug') || '';
+  }
+
+  // Always fetch the full page (see note above about Facebook's Range header).
+  const fwd = new Headers(request.headers);
+  STRIP_REQ.forEach((h) => fwd.delete(h));
+  const res = await context.next(new Request(request, { headers: fwd }));
+
   const type = res.headers.get('content-type') || '';
-  if (!type.includes('text/html')) return res;
-
-  const slug = new URL(request.url).searchParams.get('slug') || '';
+  if (res.status !== 200 || !type.includes('text/html')) return res;
   const m = metaFor(slug);
-  let html = await res.text();
 
-  // Drop any static OG/Twitter/canonical tags so there is exactly one set.
+  const headers = new Headers(res.headers);
+  ['content-length', 'etag', 'last-modified', 'accept-ranges', 'content-range'].forEach((h) => headers.delete(h));
+  headers.set('x-sumnu-og', m.slug || 'default');
+  if (request.method === 'HEAD') return new Response(null, { status: 200, headers });
+
+  let html = await res.text();
+  // Drop any static OG/Twitter/canonical tags (all of them) so there is exactly one set.
   html = html.replace(/\s*<meta\s+(?:property|name)=["'](?:og:|twitter:)[^>]*>/gi, '')
              .replace(/\s*<link\s+rel=["']canonical["'][^>]*>/gi, '');
   html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${esc(m.title)}</title>`);
   if (/<meta\s+name=["']description["'][^>]*>/i.test(html)) {
-    html = html.replace(/<meta\s+name=["']description["'][^>]*>/i, `<meta name="description" content="${esc(m.description)}">\n  ${headTags(m)}`);
+    html = html.replace(/<meta\s+name=["']description["'][^>]*>/gi, '')
+               .replace(/<\/title>/i, `</title>\n  <meta name="description" content="${esc(m.description)}">\n  ${headTags(m)}`);
   } else {
-    html = html.replace(/<\/head>/i, `  <meta name="description" content="${esc(m.description)}">\n  ${headTags(m)}\n</head>`);
+    html = html.replace(/<\/title>/i, `</title>\n  <meta name="description" content="${esc(m.description)}">\n  ${headTags(m)}`);
   }
-
-  const headers = new Headers(res.headers);
-  headers.delete('content-length');
-  headers.delete('etag'); // body now differs per slug; let the browser revalidate normally
-  headers.set('x-sumnu-og', m.slug || 'default');
   return new Response(html, { status: 200, headers });
 };

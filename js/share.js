@@ -1,13 +1,25 @@
 /* Sumnu Books — per-audiobook Share.
    Phones (touch + Web Share API): native share sheet via navigator.share.
    Desktop / unsupported: copy the link + "Link copied" toast with Facebook / X / WhatsApp links.
-   Shared URL always points at the production player for that slug, with UTM tags. */
+   Shared URL is always https://sumnubooks.com/listen/<slug>: the og-audiobook edge function
+   gives link-preview crawlers that book's meta and sends people to the player
+   (audiobook.html?slug=<slug>&utm_source=share&utm_medium=social&utm_campaign=<slug>). */
 (function () {
   var SITE = 'https://sumnubooks.com';
+  // Player titles/taglines (keep in sync with audiobook.html + og-audiobook.js).
+  var BOOKS = {
+    'a-penny-for-my-thoughts': ['A Penny For My Thoughts', "He took her. He didn't expect to care."],
+    'unplugged': ['Unplugged: 30 Days of Chaos', 'No cell service. No WiFi. Only chaos.'],
+    'chandra': ['Chandra: Forbidden Obsession', "She survived the streets. It's what she knows that will get her killed."],
+    'the-jailhouse-lawyer': ['The Jailhouse Lawyer', 'Inside the walls, knowledge is power.'],
+    'still-standing': ['Still Standing', 'Before the empire... there was the beginning.'],
+    'the-echo': ['The Echo', 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.'],
+    'the-clock': ['The Clock', 'When the numbers disappear, you have seven days.'],
+    'she-still-exists': ['She Still Exists', "He built a world for the woman he lost — and inside it, she's helping him find her killer without knowing she's dead."]
+  };
 
   function shareUrl(slug) {
-    var s = encodeURIComponent(slug);
-    return SITE + '/audiobook.html?slug=' + s + '&utm_source=share&utm_medium=social&utm_campaign=' + s;
+    return SITE + '/listen/' + encodeURIComponent(slug);
   }
 
   function isPhone() {
@@ -90,8 +102,12 @@
   }
 
   function share(opts) {
+    var known = BOOKS[opts.slug] || [];
+    opts = { slug: opts.slug, title: opts.title || known[0] || document.title, text: opts.text || known[1] || '' };
+    // Always the absolute /listen/<slug> URL (never location.href / list-page anchors).
     var url = shareUrl(opts.slug);
-    var data = { title: opts.title, text: opts.text || '', url: url };
+    // url is passed on its own; text is the tagline only (no URL in text).
+    var data = { title: opts.title, text: opts.text, url: url };
     if (navigator.share && isPhone()) {
       return navigator.share(data).catch(function (err) {
         if (err && err.name === 'AbortError') return; // user closed the share sheet
@@ -106,8 +122,9 @@
     var el = e.target.closest && e.target.closest('[data-share-slug]');
     if (!el) return;
     e.preventDefault();
-    share({ slug: el.getAttribute('data-share-slug'), title: el.getAttribute('data-share-title') || document.title, text: el.getAttribute('data-share-text') || '' });
+    e.stopPropagation();
+    share({ slug: el.getAttribute('data-share-slug'), title: el.getAttribute('data-share-title') || '', text: el.getAttribute('data-share-text') || '' });
   });
 
-  window.SumnuShare = { share: share, url: shareUrl };
+  window.SumnuShare = { share: share, url: shareUrl, books: BOOKS };
 })();

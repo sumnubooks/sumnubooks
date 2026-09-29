@@ -11,6 +11,15 @@
 
 # Per-audiobook link previews (Open Graph / Twitter) for shared player links.
 # Crawlers don't run JS, so the edge function writes the <head> meta per ?slug.
+# Share URL: /listen/<slug> (crawlers: per-book meta; people: 302 to the player).
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/listen/*"
+
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/listen"
+
 [[edge_functions]]
   function = "og-audiobook"
   path = "/audiobook.html"
@@ -18,6 +27,23 @@
 [[edge_functions]]
   function = "og-audiobook"
   path = "/audiobook"
+
+# Home while a book plays (/?play=<slug>) and list-page ?slug= links.
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/"
+
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/index.html"
+
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/audiobooks.html"
+
+[[edge_functions]]
+  function = "og-audiobook"
+  path = "/audiobooks"
 
 # Retired membership pages → Audiobooks (Buy buttons live there).
 [[redirects]]
