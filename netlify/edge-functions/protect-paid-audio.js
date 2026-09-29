@@ -14,6 +14,7 @@
  *   Jailhouse  The-Jailhouse-Lawyer-Ch1/2.mp3
  *   Still      Still-Standing-Ch1/2.mp3
  *   Echo       audiobooks/the-echo/the-echo-origins-ch1/2.mp3
+ *   Clock      The-Clock-Prologue.mp3 + The-Clock-Ch1.mp3 (free preview)
  *   HET        here-eat-this-ep1/2.mp3
  *   Other Man  other-man-ep1/2.mp3
  *   BOWB       before-our-water-breaks-ep1/2.mp3
@@ -31,6 +32,7 @@ const SAMPLE_RE = [
   /^\/audio\/audiobooks\/the-jailhouse-lawyer\/The-Jailhouse-Lawyer-Ch[12]\.mp3$/i,
   /^\/audio\/audiobooks\/still-standing\/Still-Standing-Ch[12]\.mp3$/i,
   /^\/audio\/audiobooks\/the-echo\/the-echo-origins-ch[12]\.mp3$/i,
+  /^\/audio\/audiobooks\/the-clock\/The-Clock-(?:Prologue|Ch1)\.mp3$/i,
   /^\/audio\/series\/here-eat-this\/here-eat-this-ep[12]\.mp3$/i,
   /^\/audio\/series\/other-man\/other-man-ep[12]\.mp3$/i,
   /^\/audio\/series\/before-our-water-breaks\/before-our-water-breaks-ep[12]\.mp3$/i,

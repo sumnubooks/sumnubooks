@@ -93,6 +93,9 @@
   .buy-btn:active { background: #c8902a; }
   .buy-bar.coming-soon { opacity: .5; pointer-events: none; }
   .coming-soon-badge { font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px 14px; }
+  /* Free-preview titles: full-strength, legible gold badge (not the faded coming-soon style) */
+  .buy-bar.preview-only { justify-content: center; border-color: rgba(212,168,67,.45); }
+  .coming-soon-badge.is-preview { color: var(--gold); font-size: 1rem; letter-spacing: .03em; line-height: 1.35; text-align: center; padding: 10px 12px; }
 
   .divider { height: 1px; background: var(--border); margin: 16px 18px 0; }
 
@@ -400,6 +403,21 @@
       }))
     },
     {
+      slug: 'the-clock',
+      title: 'The Clock',
+      eyebrow: 'Audiobook',
+      tagline: 'When the numbers disappear, you have seven days.',
+      cover: 'images/covers-square/the-clock.jpg',
+      freeCount: 2,
+      payhip: null,
+      // FREE PREVIEW ONLY: Prologue + Ch 1. Full audiobook coming soon (no Buy / Payhip / price yet).
+      previewOnly: true,
+      items: [
+        { number: 0, title: 'Prologue', image: 'images/covers-square/the-clock.jpg', audio: 'audio/audiobooks/the-clock/The-Clock-Prologue.mp3' },
+        { number: 1, title: 'Chapter 1', image: 'images/covers-square/the-clock.jpg', audio: 'audio/audiobooks/the-clock/The-Clock-Ch1.mp3' }
+      ]
+    },
+    {
       slug: 'she-still-exists',
       title: 'She Still Exists',
       eyebrow: 'Sci-Fi Thriller · Audiobook',
@@ -473,7 +491,10 @@
     document.getElementById('topBarTitle').textContent = 'Audiobook';
     document.title = `${book.title} · Sumnu Books`;
 
-    document.getElementById('bookPills').innerHTML = `
+    document.getElementById('bookPills').innerHTML = book.previewOnly ? `
+      <span class="book-pill">Prologue + Ch 1 Free</span>
+      <span class="book-pill">Full audiobook coming soon</span>
+    ` : `
       <span class="book-pill">${book.totalChapters} Chapters</span>
       <span class="book-pill">Ch 1–${book.freeCount} Free</span>
       <span class="book-pill">Buy to Own</span>
@@ -482,7 +503,11 @@
     // Buy bar
     const buyBar = document.getElementById('buyBar');
     const buyBtn = document.getElementById('buyBtn');
-    if (book.payhip) {
+    if (book.previewOnly) {
+      // Free preview only: no Buy button, no price.
+      buyBar.innerHTML = '<span class="coming-soon-badge is-preview">🔜 Full audiobook coming soon</span>';
+      buyBar.classList.add('preview-only');
+    } else if (book.payhip) {
       buyBtn.href = book.payhip;
       buyBtn.textContent = `Buy $${book.price || '12.99'}`;
     } else if (book.payhipPending) {
@@ -498,8 +523,8 @@
       buyBar.classList.add('coming-soon');
     }
 
-    document.getElementById('sheetTitle').textContent = 'Free Sample Chapters';
-    document.getElementById('chapterTriggerLabel').textContent = `${book.items.length} Free Chapters`;
+    document.getElementById('sheetTitle').textContent = book.previewOnly ? 'Free Preview' : 'Free Sample Chapters';
+    document.getElementById('chapterTriggerLabel').textContent = book.previewOnly ? 'Free Preview · Prologue + Ch 1' : `${book.items.length} Free Chapters`;
     document.getElementById('trackSeries').textContent = book.title;
 
     buildChapterSheet();
@@ -518,7 +543,7 @@
     artEl.src = item.image;
 
     document.getElementById('trackTitle').textContent = displayTitle(item);
-    document.getElementById('trackChapter').textContent = `${displayTitle(item)} of ${book.totalChapters}`;
+    document.getElementById('trackChapter').textContent = book.previewOnly ? `${displayTitle(item)} · Free preview` : `${displayTitle(item)} of ${book.totalChapters}`;
     setProgress(0);
     document.getElementById('timeCurrent').textContent = '0:00';
     document.getElementById('timeRemaining').textContent = '—';
