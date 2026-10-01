@@ -184,12 +184,20 @@
       border-bottom: none !important;
       border-right: 1px solid rgba(255,255,255,.06) !important;
       flex-shrink: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
     }
+    /* Full cover, never cropped: same 2:3 tile on every card; square covers sit centred on black (matches their built-in frame) */
     .page-audiobooks .product-cover img {
       width: 110px !important;
-      height: 100% !important;
-      min-height: 160px !important;
-      object-fit: cover !important;
+      height: auto !important;
+      min-height: 0 !important;
+      aspect-ratio: 2 / 3 !important;
+      object-fit: contain !important;
+      object-position: center !important;
+      background: #000 !important;
       border-radius: 0 !important;
       max-height: none !important;
       display: block !important;
