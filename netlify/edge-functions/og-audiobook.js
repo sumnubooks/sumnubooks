@@ -14,6 +14,9 @@
  *        everyone else          -> 302 to /audiobook.html?slug=<slug>&utm_source=share&utm_medium=social&utm_campaign=<slug>
  *                                  (incl. the Facebook in-app browser and search engines)
  *        unknown slug           -> 302 to /audiobooks.html
+ *        audio series (SERIES)  -> same, but people go to /series.html?slug=<slug>&utm_…
+ *        short alias (ALIASES)  -> treated as its canonical slug (og:url = canonical /listen URL);
+ *                                  people get utm_content=<alias> on the 302
  *   og:url on every page for a book is https://sumnubooks.com/listen/<slug>; canonical
  *   stays the real player URL (audiobook.html?slug=) for search engines.
  *
@@ -24,6 +27,8 @@
  * rewritten page is always a full 200 (ignoring Range is valid HTTP).
  *
  * Keep BOOKS in sync with audiobookData in audiobook.html (title, tagline, cover).
+ * Keep SERIES in sync with seriesData in series.html (title, tagline, cover).
+ * SERIES slugs are only used for /listen/<slug>; the other routes stay audiobook-only.
  */
 const SITE = 'https://sumnubooks.com';
 
@@ -36,6 +41,17 @@ const BOOKS = {
   'the-echo': { title: 'The Echo', tagline: 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.', cover: 'images/covers-square/the-echo-origins.jpg?v=20260929', w: 1000, h: 1000 },
   'the-clock': { title: 'The Clock', tagline: 'When the numbers disappear, you have seven days.', cover: 'images/covers-square/the-clock.jpg?v=20260929', w: 1000, h: 1000 },
   'she-still-exists': { title: 'She Still Exists', tagline: "He built a world for the woman he lost — and inside it, she's helping him find her killer without knowing she's dead.", cover: 'images/covers-square/she-still-exists.jpg?v=20260929', w: 1000, h: 1000 },
+};
+
+// Audio series (player: series.html?slug=<slug>). Used by /listen/<slug> only.
+const SERIES = {
+  'here-eat-this': { title: 'Here... Eat This', tagline: 'A dinner table. A pressure chamber. A story built on suspicion, betrayal, and what gets served when trust is already dead.', cover: 'images/covers-square/here-eat-this.jpg?v=20261001', w: 1000, h: 1000 },
+  'other-man': { title: 'Other Man', tagline: "He didn't steal his life. He replaced it.", cover: 'images/covers-square/other-man.jpg?v=20261001', w: 1000, h: 1000 },
+};
+
+// Short /listen/<alias> URLs (easy to say out loud) -> canonical slug in BOOKS or SERIES.
+const ALIASES = {
+  'penny': 'a-penny-for-my-thoughts',
 };
 
 const DEFAULT_META = {
@@ -52,15 +68,31 @@ const esc = (s) => String(s)
   .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
 const listenUrl = (slug) => `${SITE}/listen/${encodeURIComponent(slug)}`;
+const isSeries = (slug) => !!slug && Object.prototype.hasOwnProperty.call(SERIES, slug);
 const playerPath = (slug) => {
   const e = encodeURIComponent(slug);
-  return `/audiobook.html?slug=${e}&utm_source=share&utm_medium=social&utm_campaign=${e}`;
+  const page = isSeries(slug) ? '/series.html' : '/audiobook.html';
+  return `${page}?slug=${e}&utm_source=share&utm_medium=social&utm_campaign=${e}`;
 };
 // Link-preview crawlers (not search engines: those get the real page via 302).
 // iMessage sends "facebookexternalhit/1.1 Facebot Twitterbot/1.0".
 const PREVIEW_BOT = /facebookexternalhit|facebookcatalog|facebot|meta-externalagent|meta-externalfetcher|twitterbot|linkedinbot|slackbot|whatsapp|telegrambot|discordbot|pinterest|redditbot|skypeuripreview|embedly|vkshare|snapchat|bitlybot|tumblr|mastodon|iframely|applebot|quora link preview|outbrain|google-inspectiontool/i;
 
-function metaFor(slug) {
+function metaFor(slug, allowSeries = false) {
+  if (allowSeries && isSeries(slug)) {
+    const sr = SERIES[slug];
+    return {
+      slug,
+      title: `${sr.title} · Audio series by E.D. Lewis · Sumnu Books`,
+      ogTitle: `${sr.title} — Listen free`,
+      description: sr.tagline,
+      image: `${SITE}/${sr.cover}`,
+      w: sr.w, h: sr.h,
+      alt: `${sr.title} audio series cover`,
+      url: `${SITE}/series.html?slug=${encodeURIComponent(slug)}`,
+      ogUrl: listenUrl(slug),
+    };
+  }
   const b = Object.prototype.hasOwnProperty.call(BOOKS, slug) ? BOOKS[slug] : null;
   if (!b) return { slug: null, ...DEFAULT_META };
   return {
@@ -131,18 +163,26 @@ export default async (request, context) => {
 
   // Share URL: /listen/<slug>
   if (p === '/listen' || p.startsWith('/listen/')) {
-    const slug = decodeURIComponent(p.slice('/listen/'.length).split('/')[0] || '');
+    const asked = decodeURIComponent(p.slice('/listen/'.length).split('/')[0] || '');
+    const slug = has(ALIASES, asked) ? ALIASES[asked] : asked;
     const nocache = { 'cache-control': 'public, max-age=0, must-revalidate', vary: 'User-Agent' };
-    if (!has(BOOKS, slug)) {
+    const ua = request.headers.get('user-agent') || '';
+    const isBot = PREVIEW_BOT.test(ua);
+    // Per-slug visit log (Netlify edge function logs). No PII: referrer host only, no IP/UA.
+    let refHost = '';
+    try { refHost = new URL(request.headers.get('referer') || '').hostname; } catch (_e) {}
+    const known = has(BOOKS, slug) || has(SERIES, slug);
+    console.log('listen_visit ' + JSON.stringify({ slug: known ? slug : 'unknown', alias: asked !== slug && known ? asked : null, who: isBot ? 'crawler' : 'person', ref: refHost || null }));
+    if (!known) {
       return new Response(null, { status: 302, headers: { ...nocache, location: new URL('/audiobooks.html', url.origin).toString(), 'x-sumnu-og': 'listen:unknown' } });
     }
-    const ua = request.headers.get('user-agent') || '';
-    if (PREVIEW_BOT.test(ua)) {
+    if (isBot) {
       const headers = { ...nocache, 'content-type': 'text/html; charset=utf-8', 'x-sumnu-og': slug };
       if (request.method === 'HEAD') return new Response(null, { status: 200, headers });
-      return new Response(listenPage(metaFor(slug), slug), { status: 200, headers });
+      return new Response(listenPage(metaFor(slug, true), slug), { status: 200, headers });
     }
     const to = new URL(playerPath(slug), url.origin);
+    if (asked !== slug) to.searchParams.set('utm_content', asked);
     url.searchParams.forEach((v, k) => to.searchParams.set(k, v)); // any incoming utm overrides the defaults
     return new Response(null, { status: 302, headers: { ...nocache, location: to.toString(), 'x-sumnu-og': 'listen:' + slug } });
   }
