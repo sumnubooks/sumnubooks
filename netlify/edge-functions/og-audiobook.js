@@ -46,7 +46,7 @@ const BOOKS = {
 // Audio series (player: series.html?slug=<slug>). Used by /listen/<slug> only.
 const SERIES = {
   'here-eat-this': { title: 'Here... Eat This', tagline: 'A dinner table. A pressure chamber. A story built on suspicion, betrayal, and what gets served when trust is already dead.', cover: 'images/covers-square/here-eat-this.jpg?v=20261001', w: 1000, h: 1000 },
-  'other-man': { title: 'Other Man', tagline: "He didn't steal his life. He replaced it.", cover: 'images/covers-square/other-man.jpg?v=20261001', w: 1000, h: 1000 },
+  'other-man': { title: 'Other Man', tagline: "He didn't steal his life. He replaced it.", cover: 'images/covers-square/other-man-clean.jpg?v=20261001', w: 1000, h: 1000 },
 };
 
 // Short /listen/<alias> URLs (easy to say out loud) -> canonical slug in BOOKS or SERIES.
