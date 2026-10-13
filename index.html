@@ -1518,6 +1518,7 @@ const siteData = {
       title: 'The Clock',
       label: 'Audiobook',
       meta: 'Prologue + Ch 1 free • Full audiobook out now',
+      freeLabel: 'Prologue + Ch 1 free',
       tagline: 'When the numbers disappear, you have seven days.',
       cover: 'images/covers-square/the-clock.jpg?v=20260929',
       freeCount: 2,
@@ -1719,7 +1720,7 @@ function showModal(entry) {
   const twoChFree = HOME_TWO_CH_FREE;
   const freeCount = homeFreeCount(entry);
   const pills = [
-    entry.type === 'series' ? 'Episodes 1–2 free' : entry.type === 'audiobook' ? (twoChFree.includes(entry.slug) ? 'Ch 1–2 free' : 'Prologue free') : 'Free listening',
+    entry.type === 'series' ? 'Episodes 1–2 free' : entry.type === 'audiobook' ? (entry.freeLabel || (twoChFree.includes(entry.slug) ? 'Ch 1–2 free' : 'Prologue free')) : 'Free listening',
     entry.label
   ];
   const titlePage = entry.type === 'series' ? `series.html?slug=${entry.slug}` : entry.type === 'audiobook' ? `audiobook.html?slug=${entry.slug}` : '';
