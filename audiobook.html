@@ -248,7 +248,7 @@
     <div class="buy-bar" id="buyBar">
       <div class="buy-bar-text">
         <div class="buy-bar-label">Own It Forever</div>
-        <div class="buy-bar-desc">DRM-free MP3 download — any device, keep it forever</div>
+        <div class="buy-bar-desc" id="buyDesc">DRM-free MP3 download — any device, keep it forever</div>
       </div>
       <a class="buy-btn" id="buyBtn" href="#" target="_blank" rel="noopener">Buy</a>
     </div>
@@ -439,6 +439,7 @@
       // Full audiobook on Payhip (M4B). Free sample here: Prologue + Ch 1 only; chapter count not listed, so no "N Chapters" pill.
       totalChapters: null,
       freeLabel: 'Prologue + Ch 1 Free',
+      buyDesc: 'DRM-free M4B audiobook — keep it forever',
       items: [
         { number: 0, title: 'Prologue', image: 'images/covers-square/the-clock.jpg?v=20260929', audio: 'audio/audiobooks/the-clock/The-Clock-Prologue.mp3' },
         { number: 1, title: 'Chapter 1', image: 'images/covers-square/the-clock.jpg?v=20260929', audio: 'audio/audiobooks/the-clock/The-Clock-Ch1.mp3' }
@@ -542,6 +543,7 @@
       buyBar.classList.add('preview-only');
     } else if (book.payhip) {
       buyBtn.href = book.payhip;
+      if (book.buyDesc) document.getElementById('buyDesc').textContent = book.buyDesc;
       buyBtn.textContent = `Buy $${book.price || '12.99'}`;
     } else if (book.payhipPending) {
       // PAYHIP LINK PENDING ERIC — disabled placeholder until the Payhip URL exists.
