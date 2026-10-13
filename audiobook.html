@@ -434,9 +434,11 @@
       tagline: 'When the numbers disappear, you have seven days.',
       cover: 'images/covers-square/the-clock.jpg?v=20260929',
       freeCount: 2,
-      payhip: null,
-      // FREE PREVIEW ONLY: Prologue + Ch 1. Full audiobook coming soon (no Buy / Payhip / price yet).
-      previewOnly: true,
+      payhip: 'https://payhip.com/b/0zdk5',
+      price: '12.99',
+      // Full audiobook on Payhip (M4B). Free sample here: Prologue + Ch 1 only; chapter count not listed, so no "N Chapters" pill.
+      totalChapters: null,
+      freeLabel: 'Prologue + Ch 1 Free',
       items: [
         { number: 0, title: 'Prologue', image: 'images/covers-square/the-clock.jpg?v=20260929', audio: 'audio/audiobooks/the-clock/The-Clock-Prologue.mp3' },
         { number: 1, title: 'Chapter 1', image: 'images/covers-square/the-clock.jpg?v=20260929', audio: 'audio/audiobooks/the-clock/The-Clock-Ch1.mp3' }
@@ -464,7 +466,7 @@
   // No paywall: only the free sample chapters are in the player.
   // Paid chapters are not listed or streamed here (server also blocks them).
   if (book && !book.comingSoon) {
-    book.totalChapters = book.items.length;
+    if (book.totalChapters === undefined) book.totalChapters = book.items.length;
     book.items = book.items.slice(0, book.freeCount);
   }
   const canAccess = i => !!book && i < book.items.length;
@@ -526,8 +528,8 @@
       <span class="book-pill">Prologue + Ch 1 Free</span>
       <span class="book-pill">Full audiobook coming soon</span>
     ` : `
-      <span class="book-pill">${book.totalChapters} Chapters</span>
-      <span class="book-pill">Ch 1–${book.freeCount} Free</span>
+      ${book.totalChapters ? `<span class="book-pill">${book.totalChapters} Chapters</span>` : ''}
+      <span class="book-pill">${book.freeLabel || `Ch 1–${book.freeCount} Free`}</span>
       <span class="book-pill">Buy to Own</span>
     `;
 
@@ -574,7 +576,7 @@
     artEl.src = item.image;
 
     document.getElementById('trackTitle').textContent = displayTitle(item);
-    document.getElementById('trackChapter').textContent = book.previewOnly ? `${displayTitle(item)} · Free preview` : `${displayTitle(item)} of ${book.totalChapters}`;
+    document.getElementById('trackChapter').textContent = book.previewOnly ? `${displayTitle(item)} · Free preview` : book.totalChapters ? `${displayTitle(item)} of ${book.totalChapters}` : `${displayTitle(item)} · Free sample`;
     setProgress(0);
     document.getElementById('timeCurrent').textContent = '0:00';
     document.getElementById('timeRemaining').textContent = '—';
