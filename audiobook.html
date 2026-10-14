@@ -446,6 +446,24 @@
       ]
     },
     {
+      slug: 'still-pimpin',
+      title: 'Still Pimpin',
+      eyebrow: 'Audiobook',
+      tagline: 'An audiobook by E. D. Lewis. Out now. Start with the free sample.',
+      cover: 'images/covers-square/still-pimpin.jpg?v=20261014',
+      freeCount: 1,
+      payhip: 'https://payhip.com/b/9QzZv',
+      price: '12.99',
+      // Full audiobook on Payhip (M4B). Free retail sample only here; no per-chapter streaming, so no "N Chapters" pill.
+      totalChapters: null,
+      freeLabel: 'Free Sample',
+      triggerLabel: 'Free Sample',
+      buyDesc: 'DRM-free M4B audiobook — keep it forever',
+      items: [
+        { number: 1, title: 'Audiobook Sample', image: 'images/covers-square/still-pimpin.jpg?v=20261014', audio: 'audio/audiobooks/still-pimpin/Still-Pimpin-Sample.mp3' }
+      ]
+    },
+    {
       slug: 'she-still-exists',
       title: 'She Still Exists',
       eyebrow: 'Sci-Fi Thriller · Audiobook',
@@ -537,13 +555,13 @@
     // Buy bar
     const buyBar = document.getElementById('buyBar');
     const buyBtn = document.getElementById('buyBtn');
+    if (book.buyDesc) document.getElementById('buyDesc').textContent = book.buyDesc;
     if (book.previewOnly) {
       // Free preview only: no Buy button, no price.
       buyBar.innerHTML = '<span class="coming-soon-badge is-preview">🔜 Full audiobook coming soon</span>';
       buyBar.classList.add('preview-only');
     } else if (book.payhip) {
       buyBtn.href = book.payhip;
-      if (book.buyDesc) document.getElementById('buyDesc').textContent = book.buyDesc;
       buyBtn.textContent = `Buy $${book.price || '12.99'}`;
     } else if (book.payhipPending) {
       // PAYHIP LINK PENDING ERIC — disabled placeholder until the Payhip URL exists.
@@ -559,7 +577,7 @@
     }
 
     document.getElementById('sheetTitle').textContent = book.previewOnly ? 'Free Preview' : 'Free Sample Chapters';
-    document.getElementById('chapterTriggerLabel').textContent = book.previewOnly ? 'Free Preview · Prologue + Ch 1' : `${book.items.length} Free Chapters`;
+    document.getElementById('chapterTriggerLabel').textContent = book.previewOnly ? 'Free Preview · Prologue + Ch 1' : (book.triggerLabel || `${book.items.length} Free Chapters`);
     document.getElementById('trackSeries').textContent = book.title;
 
     buildChapterSheet();
