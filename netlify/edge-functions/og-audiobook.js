@@ -41,6 +41,7 @@ const BOOKS = {
   'the-echo': { title: 'The Echo', tagline: 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.', cover: 'images/covers-square/the-echo-origins.jpg?v=20260929', w: 1000, h: 1000 },
   'the-clock': { title: 'The Clock', tagline: 'When the numbers disappear, you have seven days.', description: 'When the numbers disappear, you have seven days. The full audiobook is out now. Start free with the Prologue and Chapter 1.', cover: 'images/covers-square/the-clock.jpg?v=20260929', w: 1000, h: 1000 },
   'still-pimpin': { title: 'Still Pimpin', tagline: 'An audiobook by E. D. Lewis. Out now. Start with the free sample.', description: 'Still Pimpin by E. D. Lewis. The full audiobook is out now. Start free with the sample.', cover: 'images/covers-square/still-pimpin.jpg?v=20261014', w: 1000, h: 1000 },
+  'bloodline': { title: 'Bloodline (Still Pimpin Book Two)', tagline: 'Still Pimpin Book Two. An audiobook by E. D. Lewis. Out now. Start with the free sample.', description: 'Bloodline, Still Pimpin Book Two, by E. D. Lewis. The full audiobook is out now. Start free with the sample.', cover: 'images/covers-square/bloodline.jpg?v=20261015', w: 1000, h: 1000 },
   'she-still-exists': { title: 'She Still Exists', tagline: "He built a world for the woman he lost — and inside it, she's helping him find her killer without knowing she's dead.", cover: 'images/covers-square/she-still-exists.jpg?v=20260929', w: 1000, h: 1000 },
 };
 
