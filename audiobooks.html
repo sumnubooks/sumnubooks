@@ -8,7 +8,7 @@
   // audiobooks.html#<slug> (fragments never reach the server) -> that book's player.
   (function () {
     var h = ''; try { h = decodeURIComponent((location.hash || '').slice(1)); } catch (e) {}
-    var S = ['a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','the-echo','the-clock','still-pimpin','bloodline','she-still-exists'];
+    var S = ['a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','the-echo','the-clock','still-pimpin','bloodline','toxic-bosses','she-still-exists'];
     if (S.indexOf(h) > -1) location.replace('audiobook.html?slug=' + encodeURIComponent(h));
   })();
 </script>
@@ -532,6 +532,30 @@
             <div class="book-actions-row">
               <a class="btn btn-primary" href="https://payhip.com/b/dQTVE" target="_blank">💳 BUY</a>
               <a class="btn btn-secondary" href="audiobook.html?slug=bloodline">▶ LISTEN FREE</a>
+            </div>
+          </div>
+        </article>
+        <article id="toxic-bosses" class="card product ab-available" style="scroll-margin-top:90px;" aria-label="Turning the Tables on Toxic Bosses: A Practical Survival Guide (Revised and Expanded Edition) audiobook">
+          <div class="product-cover">
+            <img alt="Turning the Tables on Toxic Bosses by E. D. Lewis audiobook cover" src="images/covers-square/toxic-bosses.jpg?v=20261015" width="1000" height="1000" loading="lazy" decoding="async"/>
+          </div>
+          <div class="product-body">
+            <div class="card-title-row">
+              <div class="product-title">TURNING THE TABLES ON TOXIC BOSSES: A PRACTICAL SURVIVAL GUIDE (REVISED AND EXPANDED EDITION)</div>
+              <button type="button" class="card-share" data-share-slug="toxic-bosses" data-share-title="Turning the Tables on Toxic Bosses: A Practical Survival Guide (Revised and Expanded Edition)" data-share-text="Your boss is the problem. Now what?" aria-label="Share Turning the Tables on Toxic Bosses"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+            </div>
+            <div class="price-tag">$12.99</div>
+            <p style="margin:0 0 8px;"><em>Your boss is the problem. Now what?</em></p>
+            <p class="muted" style="margin:0 0 10px;">Realistic, tested strategies for surviving bad management when you can&#39;t just walk out the door. Nonfiction audiobook, about 2 hours 42 minutes, narrated with AI voice. Includes the 57-page Companion Workbook PDF.</p>
+            <div class="audio-sample" data-audio-wrap="">
+              <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-toxic-bosses" type="button">🎧 SAMPLE</button>
+              <audio playsinline controls="" id="ab-sample-toxic-bosses" preload="none">
+                <source src="audio/audiobooks/toxic-bosses/Toxic-Bosses-Sample.mp3" type="audio/mpeg"/>
+              </audio>
+            </div>
+            <div class="book-actions-row">
+              <a class="btn btn-primary" href="https://payhip.com/b/ZQgIx" target="_blank">💳 BUY</a>
+              <a class="btn btn-secondary" href="audiobook.html?slug=toxic-bosses">▶ LISTEN FREE</a>
             </div>
           </div>
         </article>
