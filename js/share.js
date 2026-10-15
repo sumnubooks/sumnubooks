@@ -16,6 +16,7 @@
     'the-echo': ['The Echo', 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.'],
     'the-clock': ['The Clock', 'When the numbers disappear, you have seven days.'],
     'still-pimpin': ['Still Pimpin', 'An audiobook by E. D. Lewis. Out now. Start with the free sample.'],
+    'bloodline': ['Bloodline (Still Pimpin Book Two)', 'Still Pimpin Book Two. An audiobook by E. D. Lewis. Out now. Start with the free sample.'],
     'she-still-exists': ['She Still Exists', "He built a world for the woman he lost — and inside it, she's helping him find her killer without knowing she's dead."]
   };
 

@@ -8,7 +8,7 @@
   // audiobooks.html#<slug> (fragments never reach the server) -> that book's player.
   (function () {
     var h = ''; try { h = decodeURIComponent((location.hash || '').slice(1)); } catch (e) {}
-    var S = ['a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','the-echo','the-clock','still-pimpin','she-still-exists'];
+    var S = ['a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','the-echo','the-clock','still-pimpin','bloodline','she-still-exists'];
     if (S.indexOf(h) > -1) location.replace('audiobook.html?slug=' + encodeURIComponent(h));
   })();
 </script>
@@ -506,6 +506,30 @@
             <div class="book-actions-row">
               <a class="btn btn-primary" href="https://payhip.com/b/9QzZv" target="_blank">💳 BUY</a>
               <a class="btn btn-secondary" href="audiobook.html?slug=still-pimpin">▶ LISTEN FREE</a>
+            </div>
+          </div>
+        </article>
+        <article id="bloodline" class="card product ab-available" style="scroll-margin-top:90px;" aria-label="Bloodline (Still Pimpin Book Two) audiobook">
+          <div class="product-cover">
+            <img alt="Bloodline (Still Pimpin Book Two) by E. D. Lewis audiobook cover" src="images/covers-square/bloodline.jpg?v=20261015" width="1000" height="1000" loading="lazy" decoding="async"/>
+          </div>
+          <div class="product-body">
+            <div class="card-title-row">
+              <div class="product-title">BLOODLINE (STILL PIMPIN BOOK TWO)</div>
+              <button type="button" class="card-share" data-share-slug="bloodline" data-share-title="Bloodline (Still Pimpin Book Two)" data-share-text="Still Pimpin Book Two. An audiobook by E. D. Lewis. Out now. Start with the free sample." aria-label="Share Bloodline"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+            </div>
+            <div class="price-tag">$12.99</div>
+            <p style="margin:0 0 8px;"><em>Still Pimpin Book Two. An audiobook by E. D. Lewis. Out now. Start with the free sample.</em></p>
+            <p class="muted" style="margin:0 0 10px;">Full-cast audiobook with music and sound effects, about 9 hours 40 minutes. Narrated with AI voices. Explicit content: violence and strong language.</p>
+            <div class="audio-sample" data-audio-wrap="">
+              <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-bloodline" type="button">🎧 SAMPLE</button>
+              <audio playsinline controls="" id="ab-sample-bloodline" preload="none">
+                <source src="audio/audiobooks/bloodline/Bloodline-Sample.mp3" type="audio/mpeg"/>
+              </audio>
+            </div>
+            <div class="book-actions-row">
+              <a class="btn btn-primary" href="https://payhip.com/b/dQTVE" target="_blank">💳 BUY</a>
+              <a class="btn btn-secondary" href="audiobook.html?slug=bloodline">▶ LISTEN FREE</a>
             </div>
           </div>
         </article>
