@@ -646,6 +646,8 @@
       }
     }
 
+      /* AI For Real Life: show the whole tall cover in the 2:3 tile, never crop */
+    .card-tile[data-slug="ai-for-real-life"] .card-cover img { object-fit: contain !important; background: #000; }
   </style>
 
   <style>
@@ -1577,7 +1579,7 @@ const siteData = {
       meta: 'Free sample • Full audiobook out now',
       freeLabel: 'Free sample',
       tagline: 'Simple ways to use AI for money, meals, shopping, travel, and everyday problems.',
-      cover: 'images/covers-square/ai-for-real-life.jpg?v=20261015',
+      cover: 'images/covers-tall/ai-for-real-life.jpg?v=20261015',
       freeCount: 1,
       items: [
         { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/ai-for-real-life.jpg?v=20261015', audio: 'audio/audiobooks/ai-for-real-life/AI-For-Real-Life-Sample.mp3' }
