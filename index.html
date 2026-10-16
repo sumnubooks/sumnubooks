@@ -649,6 +649,9 @@
       /* AI For Real Life: show the whole tall cover in the 2:3 tile, never crop */
     .card-tile[data-slug="ai-for-real-life"] .card-cover img,
     .detail-cover img[src*="covers-tall/ai-for-real-life"] { object-fit: contain !important; background: #000; }
+    /* Chandra: square cover in 2:3 slots, never crop */
+    .card-tile[data-type="audiobook"][data-slug="chandra"] .card-cover img,
+    .detail-cover img[src*="covers-square/chandra-audiobook"] { object-fit: contain !important; background: #000; }
   </style>
 
   <style>
@@ -1436,14 +1439,16 @@ const siteData = {
     {
       type: 'audiobook',
       slug: 'chandra',
-      title: 'Chandra',
-      label: 'Las Vegas crime thriller',
-      meta: 'Coming Soon — Notify Me',
-      tagline: 'Audiobook in production. Get notified when Chandra: Forbidden Obsession is ready to listen.',
-      cover: 'images/audiobooks/chandra/chandra-cover.jpg',
-      comingSoon: true,
-      comingSoonBadge: 'Coming Soon',
-      items: []
+      title: 'Chandra: Forbidden Obsession',
+      label: 'Urban fiction audiobook',
+      meta: 'Free sample • Full audiobook out now',
+      freeLabel: 'Free sample',
+      tagline: 'She survived the streets. It\'s what she knows that will get her killed.',
+      cover: 'images/covers-square/chandra-audiobook.jpg?v=20261016',
+      freeCount: 1,
+      items: [
+        { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/chandra-audiobook.jpg?v=20261016', audio: 'audio/audiobooks/chandra/Chandra-Sample.mp3' }
+      ]
     },
     {
       type: 'audiobook',
