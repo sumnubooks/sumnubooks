@@ -861,25 +861,6 @@
       }))
     },
     {
-      slug: 'stolen-passage',
-      title: 'Stolen Passage — Part One',
-      eyebrow: 'Cinematic Thriller · Chapters 1–10 of 20',
-      tagline: "Some people aren't passengers. They're cargo. And not everyone makes it to shore. Chapters 1–10 of 20.",
-      note: 'Chapters 1–10 of 20',
-      cover: 'images/covers-square/stolen-passage.jpg',
-      freeCount: 2,
-      price: '5.99',
-      // PAYHIP LINK PENDING ERIC — price approved; Payhip listing URL not created yet.
-      payhipPending: true,
-      unit: 'Chapter',
-      chapters: Array.from({length:10}, (_,i) => `Chapter ${i+1}`),
-      items: Array.from({length:10}, (_,i) => ({
-        number: i+1,
-        image: `images/series/stolen-passage/stolen-passage-ep${i+1}.jpg`,
-        audio: `audio/series/stolen-passage/Stolen_Passage_Chapter_${i+1}.mp3`
-      }))
-    },
-    {
       slug: 'she-still-here',
       title: 'She Still Here',
       eyebrow: 'Audio Drama',
@@ -907,6 +888,10 @@
   // The Echo: Origins series was replaced by The Echo audiobook.
   if (params.get('slug') === 'the-echo-origins') {
     window.location.replace('audiobook.html?slug=the-echo');
+  }
+  // Stolen Passage Part One series was replaced by the full Stolen Passage audiobook.
+  if (params.get('slug') === 'stolen-passage') {
+    window.location.replace('audiobook.html?slug=stolen-passage');
   }
   const series = seriesData.find(s => s.slug === params.get('slug'));
   // No paywall: only the free sample episodes/chapters are in the player.

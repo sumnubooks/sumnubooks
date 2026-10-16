@@ -8,7 +8,7 @@
   // audiobooks.html#<slug> (fragments never reach the server) -> that book's player.
   (function () {
     var h = ''; try { h = decodeURIComponent((location.hash || '').slice(1)); } catch (e) {}
-    var S = ['a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','the-echo','the-clock','still-pimpin','bloodline','toxic-bosses','ai-for-real-life','she-still-exists'];
+    var S = ['a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','the-echo','the-clock','still-pimpin','bloodline','toxic-bosses','ai-for-real-life','stolen-passage','she-still-exists'];
     if (S.indexOf(h) > -1) location.replace('audiobook.html?slug=' + encodeURIComponent(h));
   })();
 </script>
@@ -604,6 +604,30 @@
             <div class="book-actions-row">
               <a class="btn btn-primary" href="https://payhip.com/b/mk0Nz" target="_blank">💳 BUY</a>
               <a class="btn btn-secondary" href="audiobook.html?slug=chandra">▶ LISTEN FREE</a>
+            </div>
+          </div>
+        </article>
+        <article id="stolen-passage" class="card product ab-available" style="scroll-margin-top:90px;" aria-label="Stolen Passage audiobook">
+          <div class="product-cover">
+            <img alt="Stolen Passage by E. D. Lewis audiobook cover" src="images/covers-square/stolen-passage-audiobook.jpg?v=20261016" width="1000" height="1000" loading="lazy" decoding="async"/>
+          </div>
+          <div class="product-body">
+            <div class="card-title-row">
+              <div class="product-title">STOLEN PASSAGE</div>
+              <button type="button" class="card-share" data-share-slug="stolen-passage" data-share-title="Stolen Passage" data-share-text="Some people aren&#39;t passengers. They&#39;re cargo. And not everyone makes it ashore." aria-label="Share Stolen Passage"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+            </div>
+            <div class="price-tag">$12.99</div>
+            <p style="margin:0 0 8px;"><em>Some people aren&#39;t passengers. They&#39;re cargo. And not everyone makes it ashore.</em></p>
+            <p class="muted" style="margin:0 0 10px;">A cinematic, emotionally charged thriller about love, desperation, and survival. Thriller audiobook, 20 chapters, about 2 hours 14 minutes, full cast narrated with AI voices (AI Voice Fish Audio), with cinematic music and sound effects.</p>
+            <div class="audio-sample" data-audio-wrap="">
+              <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-stolen-passage" type="button">🎧 SAMPLE</button>
+              <audio playsinline controls="" id="ab-sample-stolen-passage" preload="none">
+                <source src="audio/audiobooks/stolen-passage/Stolen-Passage-Sample.mp3" type="audio/mpeg"/>
+              </audio>
+            </div>
+            <div class="book-actions-row">
+              <a class="btn btn-primary" href="https://payhip.com/b/txbzE" target="_blank">💳 BUY</a>
+              <a class="btn btn-secondary" href="audiobook.html?slug=stolen-passage">▶ LISTEN FREE</a>
             </div>
           </div>
         </article>

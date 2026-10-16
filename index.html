@@ -652,6 +652,9 @@
     /* Chandra: square cover in 2:3 slots, never crop */
     .card-tile[data-type="audiobook"][data-slug="chandra"] .card-cover img,
     .detail-cover img[src*="covers-square/chandra-audiobook"] { object-fit: contain !important; background: #000; }
+    /* Stolen Passage: square cover in 2:3 slots, never crop */
+    .card-tile[data-type="audiobook"][data-slug="stolen-passage"] .card-cover img,
+    .detail-cover img[src*="covers-square/stolen-passage-audiobook"] { object-fit: contain !important; background: #000; }
   </style>
 
   <style>
@@ -1378,24 +1381,6 @@ const siteData = {
         audio: `audio/series/other-man/other-man-ep${i+1}.mp3`
       }))
     },
-    {
-      type: 'series',
-      slug: 'stolen-passage',
-      title: 'Stolen Passage — Part One',
-      label: 'Cinematic thriller',
-      meta: 'Chapters 1–10 of 20 • chapters 1–2 free',
-      note: 'Chapters 1–10 of 20',
-      tagline: "Some people aren't passengers. They're cargo. And not everyone makes it to shore.",
-      cover: 'images/series/stolen-passage/stolen-passage-cover.jpg',
-      freeCount: 2,
-      items: Array.from({length:10}, (_,i) => ({
-        number: i + 1,
-        title: `Chapter ${i+1}`,
-        description: i < 2 ? 'Free sample chapter.' : 'Full-book chapter.',
-        image: `images/series/stolen-passage/stolen-passage-ep${i+1}.jpg`,
-        audio: `audio/series/stolen-passage/Stolen_Passage_Chapter_${i+1}.mp3`
-      }))
-    },
   ],
   audiobooks: [
     {
@@ -1448,6 +1433,20 @@ const siteData = {
       freeCount: 1,
       items: [
         { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/chandra-audiobook.jpg?v=20261016', audio: 'audio/audiobooks/chandra/Chandra-Sample.mp3' }
+      ]
+    },
+    {
+      type: 'audiobook',
+      slug: 'stolen-passage',
+      title: 'Stolen Passage',
+      label: 'Thriller audiobook',
+      meta: 'Free sample • Full audiobook out now',
+      freeLabel: 'Free sample',
+      tagline: 'Some people aren\'t passengers. They\'re cargo. And not everyone makes it ashore.',
+      cover: 'images/covers-square/stolen-passage-audiobook.jpg?v=20261016',
+      freeCount: 1,
+      items: [
+        { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/stolen-passage-audiobook.jpg?v=20261016', audio: 'audio/audiobooks/stolen-passage/Stolen-Passage-Sample.mp3' }
       ]
     },
     {

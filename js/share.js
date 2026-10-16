@@ -11,6 +11,7 @@
     'a-penny-for-my-thoughts': ['A Penny For My Thoughts', "He took her. He didn't expect to care."],
     'unplugged': ['Unplugged: 30 Days of Chaos', 'No cell service. No WiFi. Only chaos.'],
     'chandra': ['Chandra: Forbidden Obsession', "She survived the streets. It's what she knows that will get her killed."],
+    'stolen-passage': ['Stolen Passage', "Some people aren't passengers. They're cargo. And not everyone makes it ashore."],
     'the-jailhouse-lawyer': ['The Jailhouse Lawyer', 'Inside the walls, knowledge is power.'],
     'still-standing': ['Still Standing', 'Before the empire... there was the beginning.'],
     'the-echo': ['The Echo', 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.'],

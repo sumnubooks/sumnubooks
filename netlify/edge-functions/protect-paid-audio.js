@@ -20,10 +20,10 @@
  *   Toxic      audiobooks/toxic-bosses/Toxic-Bosses-Sample.mp3 (retail sample)
  *   AI4RL      audiobooks/ai-for-real-life/AI-For-Real-Life-Sample.mp3 (retail sample)
  *   Chandra    audiobooks/chandra/Chandra-Sample.mp3 (retail sample)
+ *   Stolen     audiobooks/stolen-passage/Stolen-Passage-Sample.mp3 (retail sample)
  *   HET        here-eat-this-ep1/2.mp3
  *   Other Man  other-man-ep1/2.mp3
  *   BOWB       before-our-water-breaks-ep1/2.mp3
- *   Stolen     Stolen_Passage_Chapter_1/2.mp3
  *   She Still  she-still-exists-ch1/2.mp3
  *   Echo (legacy series path) the-echo-origins-ep1/2.mp3
  *
@@ -43,10 +43,10 @@ const SAMPLE_RE = [
   /^\/audio\/audiobooks\/toxic-bosses\/Toxic-Bosses-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/ai-for-real-life\/AI-For-Real-Life-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/chandra\/Chandra-Sample\.mp3$/i,
+  /^\/audio\/audiobooks\/stolen-passage\/Stolen-Passage-Sample\.mp3$/i,
   /^\/audio\/series\/here-eat-this\/here-eat-this-ep[12]\.mp3$/i,
   /^\/audio\/series\/other-man\/other-man-ep[12]\.mp3$/i,
   /^\/audio\/series\/before-our-water-breaks\/before-our-water-breaks-ep[12]\.mp3$/i,
-  /^\/audio\/series\/stolen-passage\/Stolen_Passage_Chapter_[12]\.mp3$/i,
   /^\/audio\/series\/she-still-exists\/she-still-exists-ch[12]\.mp3$/i,
   /^\/audio\/series\/the-echo-origins\/the-echo-origins-ep[12]\.mp3$/i
 ];
