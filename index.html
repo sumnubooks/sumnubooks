@@ -646,6 +646,9 @@
       }
     }
 
+      /* AI For Real Life: show the whole tall cover in the 2:3 tile, never crop */
+    .card-tile[data-slug="ai-for-real-life"] .card-cover img,
+    .detail-cover img[src*="covers-tall/ai-for-real-life"] { object-fit: contain !important; background: #000; }
   </style>
 
   <style>
@@ -1567,6 +1570,20 @@ const siteData = {
       freeCount: 1,
       items: [
         { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/toxic-bosses.jpg?v=20261015', audio: 'audio/audiobooks/toxic-bosses/Toxic-Bosses-Sample.mp3' }
+      ]
+    },
+    {
+      type: 'audiobook',
+      slug: 'ai-for-real-life',
+      title: 'AI For Real Life: Simple Ways to Make Everyday Life Easier with Artificial Intelligence',
+      label: 'Nonfiction audiobook',
+      meta: 'Free sample • Full audiobook out now',
+      freeLabel: 'Free sample',
+      tagline: 'Simple ways to use AI for money, meals, shopping, travel, and everyday problems.',
+      cover: 'images/covers-tall/ai-for-real-life.jpg?v=20261015',
+      freeCount: 1,
+      items: [
+        { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/ai-for-real-life.jpg?v=20261015', audio: 'audio/audiobooks/ai-for-real-life/AI-For-Real-Life-Sample.mp3' }
       ]
     }
   ],
