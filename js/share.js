@@ -14,6 +14,7 @@
     'stolen-passage': ['Stolen Passage', "Some people aren't passengers. They're cargo. And not everyone makes it ashore."],
     'the-jailhouse-lawyer': ['The Jailhouse Lawyer', 'Inside the walls, knowledge is power.'],
     'still-standing': ['Still Standing', 'Before the empire... there was the beginning.'],
+    'deanna': ['Deanna: The Predator Hunter', "She knows what you've done."],
     'the-echo': ['The Echo', 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.'],
     'the-clock': ['The Clock', 'When the numbers disappear, you have seven days.'],
     'still-pimpin': ['Still Pimpin', 'An audiobook by E. D. Lewis. Out now. Start with the free sample.'],

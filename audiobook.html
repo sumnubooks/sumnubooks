@@ -453,6 +453,18 @@
       }))
     },
     {
+      slug: 'deanna',
+      title: 'Deanna: The Predator Hunter',
+      eyebrow: 'A Psychological Thriller · Audiobook',
+      tagline: 'She knows what you\'ve done.',
+      blurb: 'To everyone in Chandler, Arizona, eighteen-year-old Deanna Martinez is the girl who survived the worst year a family can have. None of them know about the second phone. She lets the men who hunt children find her, and then she finds them. Now someone is watching her.',
+      cover: 'images/covers-square/deanna.jpg?v=20261017',
+      comingSoon: true,
+      freeCount: 0,
+      payhip: null,
+      items: []
+    },
+    {
       slug: 'the-clock',
       title: 'The Clock',
       eyebrow: 'Audiobook',
@@ -596,9 +608,9 @@
         <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;border:1px solid rgba(212,168,67,.4);background:rgba(212,168,67,.1);color:#d4a843;font-weight:800;font-size:.9rem;letter-spacing:.06em;margin-bottom:20px;">
           🔜 Coming Soon
         </div>
-        <p style="color:rgba(255,255,255,.45);font-size:.88rem;margin:0 0 24px;max-width:36ch;">Audiobook in production. No sample or stream yet — get notified when it drops.</p>
+        ${book.blurb ? `<p style="color:rgba(255,255,255,.72);font-size:.95rem;line-height:1.65;max-width:42ch;margin:0 0 20px;">${book.blurb}</p>` : ''}
+        <p style="color:rgba(255,255,255,.45);font-size:.88rem;margin:0 0 24px;max-width:36ch;">Audiobook in production. No sample or stream yet.</p>
         <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:28px;">
-          <a href="mailto:therealericlewis@sumnubooks.com?subject=Notify%20me%20when%20Chandra%20audiobook%20is%20ready" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border-radius:999px;background:#d4a843;color:#0a0a0a;font-weight:800;font-size:.9rem;text-decoration:none;">Notify Me</a>
           <a href="audiobooks.html" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.75);font-weight:700;font-size:.9rem;text-decoration:none;">Audiobooks shelf</a>
           <button type="button" id="shareBtn" data-share-slug="${book.slug}" data-share-title="${book.title}" data-share-text="${book.tagline.replace(/"/g, '&quot;')}" aria-label="Share ${book.title}" style="display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:12px 22px;border-radius:999px;border:1px solid rgba(212,168,67,.45);background:rgba(212,168,67,.08);color:#d4a843;font-weight:700;font-size:1rem;font-family:inherit;cursor:pointer;">↗ Share</button>
         </div>
