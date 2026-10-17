@@ -652,6 +652,8 @@
     /* Chandra: square cover in 2:3 slots, never crop */
     .card-tile[data-type="audiobook"][data-slug="chandra"] .card-cover img,
     .detail-cover img[src*="covers-square/chandra-audiobook"] { object-fit: contain !important; background: #000; }
+    /* Deanna: 2:3 portrait cover, never crop */
+    .card-tile[data-type="audiobook"][data-slug="deanna"] .card-cover img { object-fit: contain !important; background: #000; }
     /* Stolen Passage: square cover in 2:3 slots, never crop */
     .card-tile[data-type="audiobook"][data-slug="stolen-passage"] .card-cover img,
     .detail-cover img[src*="covers-square/stolen-passage-audiobook"] { object-fit: contain !important; background: #000; }
@@ -1484,6 +1486,18 @@ const siteData = {
         image: 'images/books/still-standing.jpg',
         audio: `audio/audiobooks/still-standing/Still-Standing-Ch${i+1}.mp3`
       }))
+    },
+    {
+      type: 'audiobook',
+      slug: 'deanna',
+      title: 'Deanna: The Predator Hunter',
+      label: 'A Psychological Thriller',
+      meta: 'Coming soon',
+      tagline: 'She knows what you\'ve done.',
+      cover: 'images/covers-tall/deanna.jpg?v=20261017',
+      comingSoon: true,
+      comingSoonBadge: 'Coming Soon',
+      items: []
     },
     {
       type: 'audiobook',

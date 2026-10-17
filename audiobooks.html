@@ -8,7 +8,7 @@
   // audiobooks.html#<slug> (fragments never reach the server) -> that book's player.
   (function () {
     var h = ''; try { h = decodeURIComponent((location.hash || '').slice(1)); } catch (e) {}
-    var S = ['a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','the-echo','the-clock','still-pimpin','bloodline','toxic-bosses','ai-for-real-life','stolen-passage','she-still-exists'];
+    var S = ['a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','the-echo','the-clock','still-pimpin','bloodline','toxic-bosses','ai-for-real-life','stolen-passage','deanna','she-still-exists'];
     if (S.indexOf(h) > -1) location.replace('audiobook.html?slug=' + encodeURIComponent(h));
   })();
 </script>
@@ -460,6 +460,25 @@
               <!-- PAYHIP LINK PENDING ERIC -->
               <span class="btn btn-primary" aria-disabled="true" style="opacity:.55;cursor:not-allowed;" title="Coming soon">💳 $12.99 · Coming soon</span>
               <a class="btn btn-secondary" href="audiobook.html?slug=the-echo">▶ STREAM</a>
+            </div>
+          </div>
+        </article>
+        <article id="deanna" class="card product ab-upcoming" style="scroll-margin-top:90px;" aria-label="Deanna: The Predator Hunter audiobook coming soon">
+          <div class="product-cover">
+            <img alt="Deanna: The Predator Hunter by E. D. Lewis audiobook cover" src="images/covers-tall/deanna.jpg?v=20261017" width="800" height="1200" loading="lazy" decoding="async"/>
+          </div>
+          <div class="product-body">
+            <div class="card-title-row">
+              <div class="product-title">DEANNA: THE PREDATOR HUNTER</div>
+              <button type="button" class="card-share" data-share-slug="deanna" data-share-title="Deanna: The Predator Hunter" data-share-text="She knows what you&#39;ve done." aria-label="Share Deanna: The Predator Hunter"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+            </div>
+            <span class="pill" style="margin:0 0 8px; display:inline-block;">🔜 Coming Soon</span>
+            <p style="margin:0 0 8px; font-weight:700;">A Psychological Thriller</p>
+            <p style="margin:0 0 8px;"><em>She knows what you&#39;ve done.</em></p>
+            <p style="margin:0 0 10px;">To everyone in Chandler, Arizona, eighteen-year-old Deanna Martinez is the girl who survived the worst year a family can have. None of them know about the second phone. She lets the men who hunt children find her, and then she finds them. Now someone is watching her.</p>
+            <div class="book-actions-row">
+              <span class="btn btn-primary" aria-disabled="true" style="opacity:.55;cursor:not-allowed;" title="Coming soon">🔜 Coming soon</span>
+              <a class="btn btn-secondary" href="audiobook.html?slug=deanna">ℹ DETAILS</a>
             </div>
           </div>
         </article>
