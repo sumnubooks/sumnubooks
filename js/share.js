@@ -15,6 +15,7 @@
     'the-jailhouse-lawyer': ['The Jailhouse Lawyer', 'Inside the walls, knowledge is power.'],
     'still-standing': ['Still Standing', 'Before the empire... there was the beginning.'],
     'deanna': ['Deanna: The Predator Hunter', "She knows what you've done."],
+    'still-pimpin-iii': ['Still Pimpin III', 'Like Father, Like Son'],
     'the-echo': ['The Echo', 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.'],
     'the-clock': ['The Clock', 'When the numbers disappear, you have seven days.'],
     'still-pimpin': ['Still Pimpin', 'An audiobook by E. D. Lewis. Out now. Start with the free sample.'],
