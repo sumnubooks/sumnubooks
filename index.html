@@ -967,6 +967,22 @@
   }
   @media (max-width: 359px) { .hero-spotlight-cta { padding: 0 10px; font-size: .75rem; letter-spacing: 0; } }
 </style>
+<style>
+  /* Short titles + aligned tiles: every tile in a row is the same height, its copy panel fills to the bottom,
+     titles max 2 lines (ellipsis), and the meta line sits on the same baseline across the row. */
+  .shelf { align-items: stretch !important; }
+  .card-tile .card-copy { display: flex !important; flex-direction: column !important; flex: 1 1 auto !important; }
+  .card-tile .card-title {
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    min-height: 2.3em;
+  }
+  .card-tile .card-meta { margin-top: auto !important; }
+</style>
 </head>
 <body>
 <div id="siteSplash" class="site-splash" aria-hidden="true">

@@ -302,6 +302,23 @@
     }
   </style>
 <link href="css/mobile.css" rel="stylesheet"/>
+<style>
+  /* Short titles + aligned cards: titles max 2 lines (ellipsis), 16px; buttons pinned to the card bottom */
+  .page-audiobooks .card-title-row .product-title,
+  .page-audiobooks .product-title {
+    font-size: 1rem !important;
+    line-height: 1.25 !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    overflow-wrap: anywhere;
+    letter-spacing: .02em !important; /* tighter tracking so full short titles fit in 2 lines on 375px phones */
+  }
+  .page-audiobooks .book-actions-row { margin-top: auto !important; }
+</style>
 </head>
 <body class="page-audiobooks">
 
