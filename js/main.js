@@ -83,7 +83,7 @@
       const hasAudiobook = !!b.audiobookUrl;
       const hasEpub = !!b.epubUrl;
       const audiobookBtn = hasAudiobook
-        ? `<a class="btn btn-primary btn-small" href="${escapeHtml(b.audiobookUrl)}" style="background:linear-gradient(135deg,#b8860b,#ffd700);color:#000;font-weight:800;">🎧 Audiobook $12.99</a>`
+        ? `<a class="btn btn-primary btn-small" href="${escapeHtml(b.audiobookUrl)}" style="background:linear-gradient(135deg,#b8860b,#ffd700);color:#000;font-weight:800;">🎧 Audiobook${b.audiobookPrice ? ' ' + escapeHtml(b.audiobookPrice) : ''}</a>`
         : '';
       const readBtn = hasEpub
         ? `<a class="btn btn-secondary btn-small" href="${escapeHtml(buildReaderLink(b))}">📖 Read Now</a>`
