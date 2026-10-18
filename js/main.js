@@ -96,7 +96,7 @@
           </div>
           <div class="book-detail-panel" data-book-panel="${b.id}">
             <button class="book-close-btn" data-book-close="${b.id}" aria-label="Close">✕ Back</button>
-            <div class="book-detail-title">${escapeHtml(b.title)}</div>
+            <div class="book-detail-title">${escapeHtml(b.shortTitle || b.title)}</div>
             <div class="book-detail-desc">${escapeHtml(b.desc)}</div>
             <div class="book-detail-meta">
               <span class="pill">${genreIcon} ${escapeHtml(genreLabel)}</span>
