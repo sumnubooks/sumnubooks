@@ -657,6 +657,9 @@
     /* Stolen Passage: square cover in 2:3 slots, never crop */
     .card-tile[data-type="audiobook"][data-slug="stolen-passage"] .card-cover img,
     .detail-cover img[src*="covers-square/stolen-passage-audiobook"] { object-fit: contain !important; background: #000; }
+    /* 6x9 portrait covers (Oct 17): full 2:3 art fills the 2:3 tile and pop-up; contain guarantees no crop */
+    .card-tile .card-cover img[src*="-6x9-20261017"],
+    .detail-cover img[src*="-6x9-20261017"] { object-fit: contain !important; background: #000; }
   </style>
 
   <style>
@@ -1448,7 +1451,7 @@ const siteData = {
       meta: 'Free sample • Full audiobook out now',
       freeLabel: 'Free sample',
       tagline: 'She survived the streets. It\'s what she knows that will get her killed.',
-      cover: 'images/covers-square/chandra-audiobook.jpg?v=20261016',
+      cover: 'images/covers-tall/chandra-6x9-20261017.webp',
       freeCount: 1,
       items: [
         { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/chandra-audiobook.jpg?v=20261016', audio: 'audio/audiobooks/chandra/Chandra-Sample.mp3' }
@@ -1462,7 +1465,7 @@ const siteData = {
       meta: 'Free sample • Full audiobook out now',
       freeLabel: 'Free sample',
       tagline: 'Some people aren\'t passengers. They\'re cargo. And not everyone makes it ashore.',
-      cover: 'images/covers-square/stolen-passage-audiobook.jpg?v=20261016',
+      cover: 'images/covers-tall/stolen-passage-6x9-20261017.webp',
       freeCount: 1,
       items: [
         { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/stolen-passage-audiobook.jpg?v=20261016', audio: 'audio/audiobooks/stolen-passage/Stolen-Passage-Sample.mp3' }
@@ -1523,7 +1526,7 @@ const siteData = {
       label: 'Superhero sci-fi audiobook',
       meta: 'Ch 1–2 free • 15 chapters',
       tagline: 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.',
-      cover: 'images/covers-square/the-echo-origins.jpg',
+      cover: 'images/covers-tall/the-echo-origins-6x9-20261017.webp',
       freeCount: 2,
       items: Array.from({length:15}, (_,i) => ({
         number: i + 1,
@@ -1573,7 +1576,7 @@ const siteData = {
       meta: 'Free sample • Full audiobook out now',
       freeLabel: 'Free sample',
       tagline: 'An audiobook by E. D. Lewis. Out now. Start with the free sample.',
-      cover: 'images/covers-square/still-pimpin.jpg?v=20261014',
+      cover: 'images/covers-tall/still-pimpin-6x9-20261017.webp',
       freeCount: 1,
       items: [
         { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/still-pimpin.jpg?v=20261014', audio: 'audio/audiobooks/still-pimpin/Still-Pimpin-Sample.mp3' }
@@ -1588,7 +1591,7 @@ const siteData = {
       meta: 'Free sample • Full audiobook out now',
       freeLabel: 'Free sample',
       tagline: 'Still Pimpin Book Two. An audiobook by E. D. Lewis. Out now. Start with the free sample.',
-      cover: 'images/covers-square/bloodline.jpg?v=20261015',
+      cover: 'images/covers-tall/bloodline-6x9-20261017.webp',
       freeCount: 1,
       items: [
         { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/bloodline.jpg?v=20261015', audio: 'audio/audiobooks/bloodline/Bloodline-Sample.mp3' }
