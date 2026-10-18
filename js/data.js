@@ -16,6 +16,7 @@ window.SUMNU_DATA={
     {
       "id": "book2",
       "title": "UNPLUGGED: 30 DAYS OF CHAOS",
+      "shortTitle": "UNPLUGGED",
       "desc": "Survival, chaos, and redemption — thirty days that change everything.",
       "price": "$14.99",
       "genre": "Street Lit",
@@ -39,6 +40,7 @@ window.SUMNU_DATA={
     {
       "id": "book4",
       "title": "CHANDRA: FORBIDDEN OBSESSION",
+      "shortTitle": "CHANDRA",
       "desc": "Desire, danger, and secrets that spiral out of control. Urban fiction that hits hard and keeps you turning pages.",
       "price": "$14.99",
       "genre": "Urban Fiction",

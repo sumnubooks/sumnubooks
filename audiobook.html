@@ -355,6 +355,7 @@
     {
       slug: 'unplugged',
       title: 'Unplugged: 30 Days of Chaos',
+      shortTitle: 'Unplugged',
       eyebrow: 'Dystopian Suspense · Audiobook',
       tagline: 'No cell service. No WiFi. Only chaos.',
       cover: 'images/covers-square/unplugged.jpg',
@@ -371,6 +372,7 @@
     {
       slug: 'chandra',
       title: 'Chandra: Forbidden Obsession',
+      shortTitle: 'Chandra',
       eyebrow: 'Urban Fiction · Audiobook',
       tagline: 'She survived the streets. It\'s what she knows that will get her killed.',
       cover: 'images/covers-square/chandra-audiobook.jpg?v=20261016',
@@ -503,6 +505,7 @@
     {
       slug: 'bloodline',
       title: 'Bloodline (Still Pimpin Book Two)',
+      shortTitle: 'Bloodline',
       eyebrow: 'Audiobook',
       tagline: 'Still Pimpin Book Two. An audiobook by E. D. Lewis. Out now. Start with the free sample.',
       cover: 'images/covers-square/bloodline.jpg?v=20261015',
@@ -521,6 +524,7 @@
     {
       slug: 'toxic-bosses',
       title: 'Turning the Tables on Toxic Bosses: A Practical Survival Guide (Revised and Expanded Edition)',
+      shortTitle: 'Turning the Tables on Toxic Bosses',
       eyebrow: 'Nonfiction · Audiobook',
       tagline: 'Your boss is the problem. Now what?',
       cover: 'images/covers-square/toxic-bosses.jpg?v=20261015',
@@ -539,6 +543,7 @@
     {
       slug: 'ai-for-real-life',
       title: 'AI For Real Life: Simple Ways to Make Everyday Life Easier with Artificial Intelligence',
+      shortTitle: 'AI For Real Life',
       eyebrow: 'Nonfiction · Audiobook',
       tagline: 'Simple ways to use AI for money, meals, shopping, travel, and everyday problems.',
       cover: 'images/covers-square/ai-for-real-life.jpg?v=20261015',
@@ -603,7 +608,7 @@
       <div style="position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;text-align:center;font-family:'DM Sans',sans-serif;">
         <img src="${book.cover}" alt="${book.title}" style="width:min(280px,72vw);border-radius:20px;box-shadow:0 24px 60px rgba(0,0,0,.7);margin-bottom:28px;">
         <div style="font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#d4a843;margin-bottom:10px;">${book.eyebrow}</div>
-        <h1 style="font-size:clamp(1.8rem,6vw,2.8rem);color:#fff;margin:0 0 12px;line-height:1.05;">${book.title}</h1>
+        <h1 style="font-size:clamp(1.8rem,6vw,2.8rem);color:#fff;margin:0 0 12px;line-height:1.05;">${book.shortTitle || book.title}</h1>
         <p style="color:rgba(255,255,255,.6);font-size:.98rem;line-height:1.7;max-width:38ch;margin:0 0 24px;">${book.tagline}</p>
         <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:999px;border:1px solid rgba(212,168,67,.4);background:rgba(212,168,67,.1);color:#d4a843;font-weight:800;font-size:.9rem;letter-spacing:.06em;margin-bottom:20px;">
           🔜 Coming Soon
@@ -624,7 +629,7 @@
     document.getElementById('backdropImg').src = book.cover;
     document.getElementById('bookInfoCover').src = book.cover;
     document.getElementById('bookEyebrow').textContent = book.eyebrow;
-    document.getElementById('bookName').textContent = book.title;
+    document.getElementById('bookName').textContent = book.shortTitle || book.title;
     document.getElementById('bookTagline').textContent = book.tagline;
     document.getElementById('topBarTitle').textContent = 'Audiobook';
     document.title = `${book.title} · Sumnu Books`;
@@ -669,7 +674,7 @@
 
     document.getElementById('sheetTitle').textContent = book.previewOnly ? 'Free Preview' : 'Free Sample Chapters';
     document.getElementById('chapterTriggerLabel').textContent = book.previewOnly ? 'Free Preview · Prologue + Ch 1' : (book.triggerLabel || `${book.items.length} Free Chapters`);
-    document.getElementById('trackSeries').textContent = book.title;
+    document.getElementById('trackSeries').textContent = book.shortTitle || book.title;
 
     buildChapterSheet();
     loadChapter(0, false);
