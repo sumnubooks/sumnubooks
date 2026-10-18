@@ -8,6 +8,7 @@ window.SUMNU_DATA={
       "genre": "Street Lit",
       "formats": ["Paperback", "Kindle"],
       "audiobookUrl": "audiobooks.html#ab1",
+      "audiobookPrice": "$22.99",
       "epubUrl": "ebooks/a-penny-for-my-thoughts.epub",
       "cover": "images/books/book1.jpg",
       "audioSample": "audio/audiobooks/book1-sample.mp3",
@@ -22,6 +23,7 @@ window.SUMNU_DATA={
       "genre": "Street Lit",
       "formats": ["Paperback", "Kindle"],
       "audiobookUrl": "audiobooks.html#ab2",
+      "audiobookPrice": "$10.99",
       "cover": "images/books/book2.jpg",
       "audioSample": "audio/audiobooks/book2-sample.mp3",
       "buyUrl": "https://a.co/d/0cdFMpGt"
