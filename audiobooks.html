@@ -466,7 +466,7 @@
               <div class="product-title">THE ECHO</div>
               <button type="button" class="card-share" data-share-slug="the-echo" data-share-title="The Echo" data-share-text="Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook." aria-label="Share The Echo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
             </div>
-            <div class="price-tag">$12.99</div>
+            <div class="price-tag">$22.99</div>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-5" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-5" preload="none">
@@ -475,7 +475,7 @@
             </div>
             <div class="book-actions-row">
               <!-- PAYHIP LINK PENDING ERIC -->
-              <span class="btn btn-primary" aria-disabled="true" style="opacity:.55;cursor:not-allowed;" title="Coming soon">💳 $12.99 · Coming soon</span>
+              <span class="btn btn-primary" aria-disabled="true" style="opacity:.55;cursor:not-allowed;" title="Coming soon">💳 $22.99 · Coming soon</span>
               <a class="btn btn-secondary" href="audiobook.html?slug=the-echo">▶ STREAM</a>
             </div>
           </div>
@@ -813,5 +813,13 @@
   <script src="js/share.js" defer></script>
   <script src="js/animations.js"></script>
 <script src="js/mobile-nav.js" defer></script>
+<script>
+  // Card covers are lazy-loaded; after the page has loaded, fetch the rest in idle time so a jump
+  // (anchor, scrollIntoView, fast fling) never lands on an empty cover box.
+  (function () {
+    function go() { document.querySelectorAll('.product-cover img[loading="lazy"]').forEach(function (i) { i.loading = 'eager'; }); }
+    window.addEventListener('load', function () { if ('requestIdleCallback' in window) requestIdleCallback(go, { timeout: 2000 }); else setTimeout(go, 1200); });
+  })();
+</script>
 </body>
 </html>
