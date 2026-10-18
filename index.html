@@ -654,12 +654,19 @@
     .detail-cover img[src*="covers-square/chandra-audiobook"] { object-fit: contain !important; background: #000; }
     /* Deanna: 2:3 portrait cover, never crop */
     .card-tile[data-type="audiobook"][data-slug="deanna"] .card-cover img { object-fit: contain !important; background: #000; }
+    /* Still Pimpin III: 2:3 portrait cover, never crop */
+    .card-tile[data-type="audiobook"][data-slug="still-pimpin-iii"] .card-cover img { object-fit: contain !important; background: #000; }
     /* Stolen Passage: square cover in 2:3 slots, never crop */
     .card-tile[data-type="audiobook"][data-slug="stolen-passage"] .card-cover img,
     .detail-cover img[src*="covers-square/stolen-passage-audiobook"] { object-fit: contain !important; background: #000; }
     /* 6x9 portrait covers (Oct 17): full 2:3 art fills the 2:3 tile and pop-up; contain guarantees no crop */
     .card-tile .card-cover img[src*="-6x9-20261017"],
     .detail-cover img[src*="-6x9-20261017"] { object-fit: contain !important; background: #000; }
+    /* Official covers (Oct 18): Bloodline, Still Pimpin III — full 2:3 art, never crop */
+    .card-tile .card-cover img[src*="covers-tall/bloodline-20261018"],
+    .card-tile .card-cover img[src*="covers-tall/still-pimpin-iii-20261018"],
+    .detail-cover img[src*="covers-tall/bloodline-20261018"],
+    .detail-cover img[src*="covers-tall/still-pimpin-iii-20261018"] { object-fit: contain !important; background: #000; }
   </style>
 
   <style>
@@ -1591,11 +1598,23 @@ const siteData = {
       meta: 'Free sample • Full audiobook out now',
       freeLabel: 'Free sample',
       tagline: 'Still Pimpin Book Two. An audiobook by E. D. Lewis. Out now. Start with the free sample.',
-      cover: 'images/covers-tall/bloodline-6x9-20261017.webp',
+      cover: 'images/covers-tall/bloodline-20261018.webp',
       freeCount: 1,
       items: [
-        { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/bloodline.jpg?v=20261015', audio: 'audio/audiobooks/bloodline/Bloodline-Sample.mp3' }
+        { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/bloodline-20261018.webp', audio: 'audio/audiobooks/bloodline/Bloodline-Sample.mp3' }
       ]
+    },
+    {
+      type: 'audiobook',
+      slug: 'still-pimpin-iii',
+      title: 'Still Pimpin III',
+      label: 'The Still Pimpin Saga, Book Three',
+      meta: 'Coming soon',
+      tagline: 'Like Father, Like Son',
+      cover: 'images/covers-tall/still-pimpin-iii-20261018.webp',
+      comingSoon: true,
+      comingSoonBadge: 'Coming Soon',
+      items: []
     },
     {
       type: 'audiobook',
