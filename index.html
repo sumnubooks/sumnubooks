@@ -995,6 +995,8 @@
   }
   .card-tile .card-meta { margin-top: auto !important; }
 </style>
+<link rel="preload" as="image" href="images/covers-thumb/ai-for-real-life-400.webp" fetchpriority="high">
+<link rel="preload" as="image" href="images/covers-thumb/toxic-bosses-400.webp" fetchpriority="high">
 <style id="home-hub-2026-10">
   /* Home hub: covers in the first screen */
   .logo-band { padding: 4px 0 0 !important; }
@@ -1782,7 +1784,8 @@ const NEW_ROW_ORDER = ['ai-for-real-life','toxic-bosses','bloodline','still-pimp
 const NEW_ROW_SOON = ['still-pimpin-iii','deanna','the-echo'];
 function renderNewRow() {
   const host = $('#newGrid');
-  if (!host) return;
+  if (!host || host.dataset.ready === '1') return; // static data: render once so the first covers are not re-created
+  host.dataset.ready = '1';
   const all = siteData.series.concat(siteData.audiobooks);
   host.innerHTML = NEW_ROW_ORDER.map((slug, i) => {
     const item = all.find(x => x.slug === slug);
