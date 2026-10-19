@@ -299,6 +299,28 @@
     .book-card .product-body { display: none !important; }
     .book-card .product-media { display: none !important; }
   </style>
+  <style>
+    /* The Echo: Origins paperback mockup strip */
+    .echo-gallery { grid-column: 1 / -1; min-width: 0; margin: 6px 0 4px; padding: 14px 0 6px; border-top: 1px solid rgba(212,168,67,.18); border-bottom: 1px solid rgba(212,168,67,.18); }
+    .page-books [data-books-grid] { grid-auto-flow: row dense; }
+    .echo-gallery[hidden] { display: none; }
+    .echo-gallery-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
+    .echo-gallery-title { margin: 0; font-size: 16px; line-height: 1.3; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: var(--gold, #ffd700); }
+    .echo-gallery-nav { display: flex; gap: 8px; flex: none; }
+    .echo-nav-btn { width: 44px; height: 44px; border-radius: 999px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.06); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0 0 3px; }
+    .echo-nav-btn:hover, .echo-nav-btn:focus-visible { border-color: rgba(212,168,67,.6); }
+    .echo-strip { list-style: none; margin: 0; padding: 0 0 10px; display: flex; gap: 10px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scrollbar-width: thin; max-width: 100%; }
+    .echo-shot { flex: none; scroll-snap-align: start; }
+    .echo-shot-btn { display: block; padding: 0; margin: 0; border: 1px solid rgba(255,255,255,.08); border-radius: 10px; overflow: hidden; background: rgba(0,0,0,.3); cursor: zoom-in; min-height: 44px; }
+    .echo-shot-btn:focus-visible { outline: 2px solid #d4a843; outline-offset: 2px; }
+    .echo-shot img { display: block; height: 240px; width: auto; max-width: none; }
+    @media (min-width: 900px) { .echo-shot img { height: 320px; } }
+    @media (prefers-reduced-motion: no-preference) { .echo-strip { scroll-behavior: smooth; } }
+    .echo-lightbox { margin: auto; padding: 0; border: 0; background: transparent; max-width: 96vw; max-height: 96vh; overflow: visible; }
+    .echo-lightbox::backdrop { background: rgba(0,0,0,.88); }
+    .echo-lightbox img { display: block; width: auto; height: auto; max-width: 96vw; max-height: 92vh; border-radius: 10px; }
+    .echo-lightbox-close { position: absolute; top: 8px; right: 8px; width: 44px; height: 44px; border-radius: 999px; border: 1px solid rgba(255,255,255,.3); background: rgba(0,0,0,.65); color: #fff; font-size: 20px; cursor: pointer; z-index: 2; }
+  </style>
 <link href="css/mobile.css" rel="stylesheet"/>
 </head>
 <body class="page-books">
@@ -349,6 +371,28 @@
         </select>
       </div>
       <div class="grid grid-4" data-books-grid=""></div>
+      <!-- The Echo: Origins paperback lifestyle mockups (placed after the Echo card by script) -->
+      <section class="echo-gallery" id="echoGallery" aria-labelledby="echoGalleryTitle">
+        <div class="echo-gallery-head">
+          <h2 id="echoGalleryTitle" class="echo-gallery-title">The Echo: Origins &mdash; Paperback</h2>
+          <div class="echo-gallery-nav">
+            <button type="button" class="echo-nav-btn" data-echo-prev aria-label="Previous photos">&#8249;</button>
+            <button type="button" class="echo-nav-btn" data-echo-next aria-label="Next photos">&#8250;</button>
+          </div>
+        </div>
+        <ul class="echo-strip" data-echo-strip tabindex="0" aria-label="Photos of The Echo: Origins paperback">
+          <li class="echo-shot"><button type="button" class="echo-shot-btn" data-echo-full="images/promo/echo-origins/echo-origins-mockup-1-1200.webp" aria-label="Enlarge photo 1 of 6"><img src="images/promo/echo-origins/echo-origins-mockup-1-800.webp" srcset="images/promo/echo-origins/echo-origins-mockup-1-480.webp 480w, images/promo/echo-origins/echo-origins-mockup-1-800.webp 800w, images/promo/echo-origins/echo-origins-mockup-1-1200.webp 1200w" sizes="(min-width: 900px) 213px, 160px" width="800" height="1200" alt="Smiling man in a denim jacket holding up The Echo: Origins paperback by E. D. Lewis, with a potted plant beside him" loading="lazy" decoding="async"></button></li>
+          <li class="echo-shot"><button type="button" class="echo-shot-btn" data-echo-full="images/promo/echo-origins/echo-origins-mockup-2-1200.webp" aria-label="Enlarge photo 2 of 6"><img src="images/promo/echo-origins/echo-origins-mockup-2-800.webp" srcset="images/promo/echo-origins/echo-origins-mockup-2-480.webp 480w, images/promo/echo-origins/echo-origins-mockup-2-800.webp 800w, images/promo/echo-origins/echo-origins-mockup-2-1200.webp 1200w" sizes="(min-width: 900px) 213px, 160px" width="800" height="1200" alt="Young girl in bed peeking over the top of The Echo: Origins paperback by E. D. Lewis, propped against pink pillows" loading="lazy" decoding="async"></button></li>
+          <li class="echo-shot"><button type="button" class="echo-shot-btn" data-echo-full="images/promo/echo-origins/echo-origins-mockup-3-1200.webp" aria-label="Enlarge photo 3 of 6"><img src="images/promo/echo-origins/echo-origins-mockup-3-800.webp" srcset="images/promo/echo-origins/echo-origins-mockup-3-480.webp 480w, images/promo/echo-origins/echo-origins-mockup-3-800.webp 800w, images/promo/echo-origins/echo-origins-mockup-3-1200.webp 1200w" sizes="(min-width: 900px) 480px, 360px" width="800" height="533" alt="Smiling young woman lying on pink pillows, holding The Echo: Origins paperback by E. D. Lewis toward the camera" loading="lazy" decoding="async"></button></li>
+          <li class="echo-shot"><button type="button" class="echo-shot-btn" data-echo-full="images/promo/echo-origins/echo-origins-mockup-4-1200.webp" aria-label="Enlarge photo 4 of 6"><img src="images/promo/echo-origins/echo-origins-mockup-4-800.webp" srcset="images/promo/echo-origins/echo-origins-mockup-4-480.webp 480w, images/promo/echo-origins/echo-origins-mockup-4-800.webp 800w, images/promo/echo-origins/echo-origins-mockup-4-1200.webp 1200w" sizes="(min-width: 900px) 212px, 159px" width="800" height="1206" alt="Woman in a kitchen holding The Echo: Origins paperback by E. D. Lewis under her arm while pouring coffee into a cup" loading="lazy" decoding="async"></button></li>
+          <li class="echo-shot"><button type="button" class="echo-shot-btn" data-echo-full="images/promo/echo-origins/echo-origins-mockup-5-1200.webp" aria-label="Enlarge photo 5 of 6"><img src="images/promo/echo-origins/echo-origins-mockup-5-800.webp" srcset="images/promo/echo-origins/echo-origins-mockup-5-480.webp 480w, images/promo/echo-origins/echo-origins-mockup-5-800.webp 800w, images/promo/echo-origins/echo-origins-mockup-5-1200.webp 1200w" sizes="(min-width: 900px) 427px, 320px" width="800" height="600" alt="Woman at a white counter holding up The Echo: Origins paperback by E. D. Lewis and looking at the cover" loading="lazy" decoding="async"></button></li>
+          <li class="echo-shot"><button type="button" class="echo-shot-btn" data-echo-full="images/promo/echo-origins/echo-origins-mockup-6-1200.webp" aria-label="Enlarge photo 6 of 6"><img src="images/promo/echo-origins/echo-origins-mockup-6-800.webp" srcset="images/promo/echo-origins/echo-origins-mockup-6-480.webp 480w, images/promo/echo-origins/echo-origins-mockup-6-800.webp 800w, images/promo/echo-origins/echo-origins-mockup-6-1200.webp 1200w" sizes="(min-width: 900px) 427px, 320px" width="800" height="600" alt="Playful woman in a red top covering half her face with The Echo: Origins paperback by E. D. Lewis, in front of a blue and white tiled wall" loading="lazy" decoding="async"></button></li>
+        </ul>
+      </section>
+      <dialog class="echo-lightbox" id="echoLightbox" aria-label="Enlarged photo">
+        <button type="button" class="echo-lightbox-close" data-echo-close aria-label="Close">&#10005;</button>
+        <img alt="" id="echoLightboxImg" width="1200" height="1800">
+      </dialog>
       <div class="hr"></div>
       <div class="card card-pad" style="text-align:center;">
         <h3 style="margin:0; color:var(--gold,#ffd700); letter-spacing:.12em; text-transform:uppercase;">Want the Audiobooks?</h3>
@@ -408,6 +452,37 @@
       } else {
         tryRender();
       }
+    })();
+  </script>
+  <script>
+    /* Echo: Origins mockup strip: keep it right after the Echo card's row; arrows; tap to enlarge */
+    (function () {
+      var gal = document.getElementById('echoGallery');
+      var grid = document.querySelector('[data-books-grid]');
+      if (!gal || !grid) return;
+      function place() {
+        var card = grid.querySelector('[data-book="book7"]');
+        if (!card) { gal.hidden = true; if (gal.parentNode !== grid.parentNode) grid.after(gal); return; }
+        gal.hidden = false;
+        if (card.nextElementSibling !== gal) card.after(gal);
+      }
+      place();
+      new MutationObserver(place).observe(grid, { childList: true });
+      var strip = gal.querySelector('[data-echo-strip]');
+      function step(dir) { strip.scrollBy({ left: dir * Math.max(200, strip.clientWidth * 0.8), behavior: 'smooth' }); }
+      gal.querySelector('[data-echo-prev]').addEventListener('click', function () { step(-1); });
+      gal.querySelector('[data-echo-next]').addEventListener('click', function () { step(1); });
+      var box = document.getElementById('echoLightbox'), big = document.getElementById('echoLightboxImg');
+      if (!box || typeof box.showModal !== 'function') return;
+      gal.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-echo-full]'); if (!b) return;
+        var im = b.querySelector('img');
+        big.src = b.getAttribute('data-echo-full'); big.alt = im.alt;
+        big.width = im.width; big.height = im.height;
+        box.showModal();
+      });
+      box.addEventListener('click', function (e) { if (e.target === box || e.target.closest('[data-echo-close]')) box.close(); });
+      box.addEventListener('close', function () { big.removeAttribute('src'); });
     })();
   </script>
   <script src="js/animations.js"></script>
