@@ -391,4 +391,4 @@ ${b.audioSample ? `            <div style="display:none; margin-top:10px;" data-
   });
 
   window.renderBooks = renderBooks;
-})();
+})();
