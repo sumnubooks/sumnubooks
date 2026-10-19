@@ -276,8 +276,7 @@ window.SUMNU_DATA={
       "title": "THE YESTERDAY PROJECT",
       "desc": "Time bends, memory distorts, and the past is never really gone. A suspenseful sci-fi thriller built on secrets and consequence.",
       "genre": "Sci-Fi",
-      "formats": ["Paperback", "Kindle"],
-      "cover": "images/covers-tall/yesterday-project-20261019.webp",
+      "cover": "images/books/yesterday-project-cover.webp",
       "alt": "The Yesterday Project by E. D. Lewis cover",
       "tagline": "They weren't born. They were selected.",
       "comingSoon": true
