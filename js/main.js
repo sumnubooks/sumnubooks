@@ -103,16 +103,16 @@
               <span class="price">${escapeHtml(b.price || '')}</span>
             </div>
             <div class="book-detail-actions">
-              <button class="btn btn-secondary btn-small" data-audio-btn="${b.id}">🎧 Sample</button>
+              ${b.audioSample ? `<button class="btn btn-secondary btn-small" data-audio-btn="${b.id}">🎧 Sample</button>` : ''}
               ${readBtn}
               ${audiobookBtn}
               <a class="btn btn-primary btn-small" href="${b.buyUrl}" target="_blank" rel="noopener">🛒 Buy on Amazon</a>
             </div>
-            <div style="display:none; margin-top:10px;" data-audio-wrap="${b.id}">
+${b.audioSample ? `            <div style="display:none; margin-top:10px;" data-audio-wrap="${b.id}">
               <audio controls preload="none">
                 <source src="${b.audioSample}" type="audio/mpeg">
               </audio>
-            </div>
+            </div>` : ''}
           </div>
         </article>
       `;

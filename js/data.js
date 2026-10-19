@@ -269,7 +269,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book24.jpg",
       "audioSample": "audio/audiobooks/book24-sample.mp3",
-      "buyUrl": "https://a.co/d/0bHn5JcE"
+      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
     },
     {
       "id": "book25",
@@ -281,7 +281,20 @@ window.SUMNU_DATA={
       "cover": "images/books/book25.jpg",
       "audioSample": "audio/audiobooks/book25-sample.mp3",
       "buyUrl": "https://a.co/d/0e8R7wQb"
-    }
+    },
+    {
+          "id": "book26",
+          "title": "Strategies for Leadership Development: Practical Strategies for New and Developing Leaders",
+          "shortTitle": "Strategies for Leadership Development",
+          "desc": "You got the promotion. Now what?\n\nMany new supervisors are put in charge because they were great at the work, not because anyone taught them how to lead. If you're in charge of people and still aren't sure you belong there, this book is for you.\n\nDrawing on his own years as a supervisor, E. D. Lewis offers a plain-spoken, practical guide to the skills that matter most in your first years of leadership. You'll learn how to:\n\n- Make the jump from teammate to leader, even with people who were your peers yesterday\n- Understand yourself well enough to lead with confidence\n- Communicate so your team knows what matters and why\n- Make sound decisions under pressure\n- Build a team that performs even when you're not in the room\n- Work well with your own manager\n- Take care of yourself so you can lead for the long haul",
+          "price": "$2.99",
+          "genre": "Leadership",
+          "formats": [
+                "Kindle"
+          ],
+          "cover": "images/covers-tall/strategies-for-leadership-development-20261019.webp",
+          "buyUrl": "https://www.amazon.com/dp/B0F2MBBYZB"
+        }
   ],
   "albums": [
     {
