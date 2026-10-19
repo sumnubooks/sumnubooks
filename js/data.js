@@ -275,12 +275,12 @@ window.SUMNU_DATA={
       "id": "book25",
       "title": "THE YESTERDAY PROJECT",
       "desc": "Time bends, memory distorts, and the past is never really gone. A suspenseful sci-fi thriller built on secrets and consequence.",
-      "price": "$14.99",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book25.jpg",
-      "audioSample": "audio/audiobooks/book25-sample.mp3",
-      "buyUrl": "https://a.co/d/0e8R7wQb"
+      "cover": "images/covers-tall/yesterday-project-20261019.webp",
+      "alt": "The Yesterday Project by E. D. Lewis cover",
+      "tagline": "They weren't born. They were selected.",
+      "comingSoon": true
     },
     {
           "id": "book26",
@@ -402,4 +402,4 @@ window.SUMNU_DATA={
       ]
     }
   ]
-};
+};
