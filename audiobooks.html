@@ -8,7 +8,7 @@
   // audiobooks.html#<slug> (fragments never reach the server) -> that book's player.
   (function () {
     var h = ''; try { h = decodeURIComponent((location.hash || '').slice(1)); } catch (e) {}
-    var S = ['a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','the-echo','the-clock','still-pimpin','bloodline','toxic-bosses','ai-for-real-life','stolen-passage','deanna','still-pimpin-iii','she-still-exists'];
+    var S = ['a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','the-echo','the-clock','still-pimpin','bloodline','toxic-bosses','ai-for-real-life','leadership-development','stolen-passage','deanna','still-pimpin-iii','she-still-exists'];
     if (S.indexOf(h) > -1) location.replace('audiobook.html?slug=' + encodeURIComponent(h));
   })();
 </script>
@@ -634,6 +634,30 @@
             <div class="book-actions-row">
               <a class="btn btn-primary" href="https://payhip.com/b/4OULd" target="_blank">💳 BUY</a>
               <a class="btn btn-secondary" href="audiobook.html?slug=ai-for-real-life">▶ LISTEN FREE</a>
+            </div>
+          </div>
+        </article>
+        <article id="leadership-development" class="card product ab-available" style="scroll-margin-top:90px;" aria-label="Strategies for Leadership Development: Practical Strategies for New and Developing Leaders audiobook">
+          <div class="product-cover">
+            <img alt="Strategies for Leadership Development by E. D. Lewis audiobook cover" src="images/covers-square/leadership-development-20261019.webp" width="1200" height="1200" loading="lazy" decoding="async"/>
+          </div>
+          <div class="product-body">
+            <div class="card-title-row">
+              <div class="product-title">STRATEGIES FOR LEADERSHIP DEVELOPMENT</div>
+              <button type="button" class="card-share" data-share-slug="leadership-development" data-share-title="Strategies for Leadership Development: Practical Strategies for New and Developing Leaders" data-share-text="You got the promotion. Now what?" aria-label="Share Strategies for Leadership Development"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
+            </div>
+            <div class="price-tag">$25.00</div>
+            <p style="margin:0 0 8px;"><em>You got the promotion. Now what?</em></p>
+            <p class="muted" style="margin:0 0 10px;">A plain-spoken, practical guide to the skills that matter most in your first years of leadership, from making the jump from teammate to leader to building a team that performs. Nonfiction audiobook, about 1 hour 36 minutes. Includes the printable 39-page PDF Companion Workbook.</p>
+            <div class="audio-sample" data-audio-wrap="">
+              <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-leadership-development" type="button">🎧 SAMPLE</button>
+              <audio playsinline controls="" id="ab-sample-leadership-development" preload="none">
+                <source src="audio/audiobooks/leadership-development/Leadership-Development-Sample.mp3" type="audio/mpeg"/>
+              </audio>
+            </div>
+            <div class="book-actions-row">
+              <a class="btn btn-primary" href="https://payhip.com/b/OxJr0" target="_blank">💳 BUY</a>
+              <a class="btn btn-secondary" href="audiobook.html?slug=leadership-development">▶ LISTEN FREE</a>
             </div>
           </div>
         </article>

@@ -19,6 +19,7 @@
  *   Bloodline  audiobooks/bloodline/Bloodline-Sample.mp3 (retail sample)
  *   Toxic      audiobooks/toxic-bosses/Toxic-Bosses-Sample.mp3 (retail sample)
  *   AI4RL      audiobooks/ai-for-real-life/AI-For-Real-Life-Sample.mp3 (retail sample)
+ *   Leadership audiobooks/leadership-development/Leadership-Development-Sample.mp3 (retail sample)
  *   Chandra    audiobooks/chandra/Chandra-Sample.mp3 (retail sample)
  *   Stolen     audiobooks/stolen-passage/Stolen-Passage-Sample.mp3 (retail sample)
  *   HET        here-eat-this-ep1/2.mp3
@@ -42,6 +43,7 @@ const SAMPLE_RE = [
   /^\/audio\/audiobooks\/bloodline\/Bloodline-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/toxic-bosses\/Toxic-Bosses-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/ai-for-real-life\/AI-For-Real-Life-Sample\.mp3$/i,
+  /^\/audio\/audiobooks\/leadership-development\/Leadership-Development-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/chandra\/Chandra-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/stolen-passage\/Stolen-Passage-Sample\.mp3$/i,
   /^\/audio\/series\/here-eat-this\/here-eat-this-ep[12]\.mp3$/i,
