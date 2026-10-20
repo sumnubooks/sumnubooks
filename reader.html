@@ -1238,10 +1238,10 @@
         const metadata = await Promise.race([
           state.book.loaded.metadata,
           new Promise((_, reject) => setTimeout(() => reject(new Error('meta_timeout')), 10000))
-        ]).catch(() => ({ title: manualTitle || 'Untitled', creator: manualAuthor || 'E.D. Lewis' }));
+        ]).catch(() => ({ title: manualTitle || 'Untitled', creator: manualAuthor || 'E. D. Lewis' }));
 
         state.metadata.title = manualTitle || metadata.title || "Untitled Book";
-        state.metadata.creator = manualAuthor || metadata.creator || "E.D. Lewis";
+        state.metadata.creator = manualAuthor || metadata.creator || "E. D. Lewis";
         updateHeader();
 
         const navigation = await Promise.race([

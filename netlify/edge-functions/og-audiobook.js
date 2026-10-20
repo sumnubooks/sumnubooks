@@ -63,8 +63,8 @@ const ALIASES = {
 };
 
 const DEFAULT_META = {
-  title: 'Audiobooks by E.D. Lewis · Sumnu Books',
-  description: 'Listen to free sample chapters of audiobooks by E.D. Lewis on SumnuBooks.',
+  title: 'Audiobooks by E. D. Lewis · Sumnu Books',
+  description: 'Listen to free sample chapters of audiobooks by E. D. Lewis on SumnuBooks.',
   image: `${SITE}/images/logos/sumnu-books-logo.png?v=20260929`,
   w: 640, h: 640,
   alt: 'Sumnu Books logo',
@@ -91,7 +91,7 @@ function metaFor(slug, allowSeries = false) {
     const sr = SERIES[slug];
     return {
       slug,
-      title: `${sr.title} · Audio series by E.D. Lewis · Sumnu Books`,
+      title: `${sr.title} · Audio series by E. D. Lewis · Sumnu Books`,
       ogTitle: `${sr.title} — Listen free`,
       description: sr.tagline,
       image: `${SITE}/${sr.cover}`,
@@ -105,7 +105,7 @@ function metaFor(slug, allowSeries = false) {
   if (!b) return { slug: null, ...DEFAULT_META };
   return {
     slug,
-    title: b.comingSoon ? `${b.title} · Audiobook coming soon · Sumnu Books` : `${b.title} · Audiobook by E.D. Lewis · Sumnu Books`,
+    title: b.comingSoon ? `${b.title} · Audiobook coming soon · Sumnu Books` : `${b.title} · Audiobook by E. D. Lewis · Sumnu Books`,
     ogTitle: b.comingSoon ? `${b.title} — Audiobook coming soon` : `${b.title} — Listen free`,
     description: b.description || b.tagline,
     image: `${SITE}/${b.cover}`,

@@ -207,14 +207,14 @@ window.SUMNU_DATA={
     },
     {
       "id": "book19",
-      "title": "BODIED BY BIAS",
-      "desc": "Bias isn't always loud. Sometimes it hides in plain sight. A clear-eyed look at how systems shape outcomes and who pays the price.",
+      "title": "Powerful Words: How to Use Them Correctly",
+      "shortTitle": "Powerful Words",
+      "desc": "Master the exact words that move people to action, establish your authority, and make your communication unforgettable. Twelve categories of high-impact words, with real-world examples and exercises at the end of every chapter.",
       "price": "$14.99",
       "genre": "Nonfiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book19.jpg",
-      "audioSample": "audio/audiobooks/book19-sample.mp3",
-      "buyUrl": "https://a.co/d/0dKmY1w4"
+      "buyUrl": "https://www.amazon.com/dp/B0F4JK515M"
     },
     {
       "id": "book20",
@@ -229,25 +229,24 @@ window.SUMNU_DATA={
     },
     {
       "id": "book21",
-      "title": "BLOOD PRESSURE DOWN",
-      "desc": "A simple, direct guide to understanding high blood pressure and the everyday habits that can help bring it down.",
+      "title": "The Little Things that Mean a Lot",
+      "desc": "Strengthening your relationship one moment at a time. A warm, practical guide to the small, everyday actions (a genuine smile, full attention, a specific compliment) that build lasting love.",
       "price": "$14.99",
-      "genre": "Health",
-      "formats": ["Paperback", "Kindle"],
+      "genre": "Nonfiction",
+      "formats": ["Kindle"],
       "cover": "images/books/book21.jpg",
-      "audioSample": "audio/audiobooks/book21-sample.mp3",
-      "buyUrl": "https://a.co/d/0e8qjGxT"
+      "buyUrl": "https://www.amazon.com/dp/B0F3WFGFV1"
     },
     {
       "id": "book22",
-      "title": "STRESS",
-      "desc": "Stress is part of life — but it doesn't have to control it. A grounded guide to understanding pressure, triggers, and real coping strategies.",
+      "title": "Beyond Numbers: Breaking Free from Age-Based Limitations",
+      "shortTitle": "Beyond Numbers",
+      "desc": "Live a vibrant, meaningful life unconstrained by society's age expectations. Beyond Numbers challenges the idea that your age should define your capabilities, opportunities, and identity.",
       "price": "$14.99",
-      "genre": "Health",
+      "genre": "Self-Help",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book22.jpg",
-      "audioSample": "audio/audiobooks/book22-sample.mp3",
-      "buyUrl": "https://a.co/d/0dRw4S0v"
+      "buyUrl": "https://www.amazon.com/dp/B0F4J1HLFR"
     },
     {
       "id": "book23",
