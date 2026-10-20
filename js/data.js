@@ -4,39 +4,35 @@ window.SUMNU_DATA={
       "id": "book1",
       "title": "A PENNY FOR MY THOUGHTS",
       "desc": "A raw, gripping street-lit saga — authentic storytelling that pulls no punches.",
-      "price": "$14.99",
+      "price": "$5.99",
       "genre": "Street Lit",
       "formats": ["Paperback", "Kindle"],
       "audiobookUrl": "audiobooks.html#ab1",
       "audiobookPrice": "$22.99",
       "epubUrl": "ebooks/a-penny-for-my-thoughts.epub",
       "cover": "images/books/book1.jpg",
-      "audioSample": "audio/audiobooks/book1-sample.mp3",
-      "buyUrl": "https://a.co/d/0dJkrj0d"
+      "buyUrl": "https://www.amazon.com/dp/B01BCUD66G"
     },
     {
       "id": "book2",
       "title": "UNPLUGGED: 30 DAYS OF CHAOS",
       "shortTitle": "UNPLUGGED",
       "desc": "Survival, chaos, and redemption — thirty days that change everything.",
-      "price": "$14.99",
+      "price": "$2.99",
       "genre": "Street Lit",
       "formats": ["Paperback", "Kindle"],
       "audiobookUrl": "audiobooks.html#ab2",
       "audiobookPrice": "$10.99",
       "cover": "images/books/book2.jpg",
-      "audioSample": "audio/audiobooks/book2-sample.mp3",
-      "buyUrl": "https://a.co/d/0cdFMpGt"
+      "buyUrl": "https://www.amazon.com/dp/B0F8KT2LJM"
     },
     {
       "id": "book3",
       "title": "THE JAILHOUSE LAWYER",
       "desc": "Inside the walls, knowledge is power. A story of self-taught legal warfare and the fight for justice from the inside out.",
-      "price": "$14.99",
       "genre": "Urban Fiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book3.jpg?v=20260928",
-      "audioSample": "audio/audiobooks/book3-sample.mp3",
       "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
     },
     {
@@ -44,23 +40,21 @@ window.SUMNU_DATA={
       "title": "CHANDRA: FORBIDDEN OBSESSION",
       "shortTitle": "CHANDRA",
       "desc": "Desire, danger, and secrets that spiral out of control. Urban fiction that hits hard and keeps you turning pages.",
-      "price": "$14.99",
+      "price": "$4.99",
       "genre": "Urban Fiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/covers-tall/chandra-6x9-20261017.webp",
-      "audioSample": "audio/audiobooks/book4-sample.mp3",
-      "buyUrl": "https://a.co/d/0aY3ui6u"
+      "buyUrl": "https://www.amazon.com/dp/B0DFTZ1BJG"
     },
     {
       "id": "book5",
       "title": "THE AMERICAN ARK",
       "desc": "When civilization fractures, who decides who survives? A high-stakes sci-fi thriller about power, survival, and what we leave behind.",
-      "price": "$14.99",
+      "price": "$4.99",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book5.jpg",
-      "audioSample": "audio/audiobooks/book5-sample.mp3",
-      "buyUrl": "https://a.co/d/0hkypwTV"
+      "buyUrl": "https://www.amazon.com/dp/B0F4PTN195"
     },
     {
       "id": "book6",
@@ -70,147 +64,133 @@ window.SUMNU_DATA={
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book6.jpg",
-      "audioSample": "audio/audiobooks/book6-sample.mp3",
-      "buyUrl": "https://a.co/d/022RgmnY"
+      "buyUrl": "https://www.amazon.com/dp/B0F53LHNL6"
     },
     {
       "id": "book7",
       "title": "THE ECHO: ORIGINS",
       "desc": "Book 1 of The Echo series. The origin of a signal no one was supposed to find — and the people who die trying to silence it.",
-      "price": "$14.99",
+      "price": "$4.99",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book7.jpg",
-      "audioSample": "audio/audiobooks/book7-sample.mp3",
-      "buyUrl": "https://a.co/d/0780BeSt"
+      "buyUrl": "https://www.amazon.com/dp/B0F7GXVX5T"
     },
     {
       "id": "book8",
       "title": "THE ECHO: RESONANCE",
       "desc": "Book 2 of The Echo series. The signal is spreading — and so is the danger. A relentless sci-fi thriller that escalates everything from Book 1.",
-      "price": "$14.99",
+      "price": "$4.99",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book8.jpg",
-      "audioSample": "audio/audiobooks/book8-sample.mp3",
-      "buyUrl": "https://a.co/d/06tb79PY"
+      "buyUrl": "https://www.amazon.com/dp/B0F7J27VK9"
     },
     {
       "id": "book9",
       "title": "THE ECHO: SHADOW CIRCUIT",
       "desc": "Book 3 of The Echo series. The conspiracy goes deeper than anyone imagined. No one can be trusted and no system is safe.",
-      "price": "$14.99",
+      "price": "$20.00",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book9.jpg",
-      "audioSample": "audio/audiobooks/book9-sample.mp3",
-      "buyUrl": "https://a.co/d/07yvNXen"
+      "buyUrl": "https://www.amazon.com/dp/B0F6NPRJ1R"
     },
     {
       "id": "book10",
       "title": "THE ECHO: DISSONANT FREQUENCIES",
       "desc": "Book 4 of The Echo series. The final frequencies are broadcasting — a gripping conclusion built on paranoia and truth.",
-      "price": "$14.99",
+      "price": "$20.00",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book10.jpg",
-      "audioSample": "audio/audiobooks/book10-sample.mp3",
-      "buyUrl": "https://a.co/d/048QcgH9"
+      "buyUrl": "https://www.amazon.com/dp/B0F6NR1RSP"
     },
     {
       "id": "book11",
       "title": "THE EDGE OF KNOWING",
       "desc": "At the boundary between what's real and what's manufactured, one person knows too much. A taut psychological sci-fi thriller.",
-      "price": "$14.99",
+      "price": "$4.99",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book11.jpg",
-      "audioSample": "audio/audiobooks/book11-sample.mp3",
-      "buyUrl": "https://a.co/d/0iJXEaHq"
+      "buyUrl": "https://www.amazon.com/dp/B0F4Y2JK9J"
     },
     {
       "id": "book12",
       "title": "THE GAIA ALGORITHM",
       "desc": "An AI built to save the planet has its own agenda. A chilling near-future thriller about technology, control, and what happens when the machine decides it knows best.",
-      "price": "$14.99",
+      "price": "$2.99",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book12.jpg",
-      "audioSample": "audio/audiobooks/book12-sample.mp3",
-      "buyUrl": "https://a.co/d/0foE9isn"
+      "buyUrl": "https://www.amazon.com/dp/B0F4PV2TV5"
     },
     {
       "id": "book13",
       "title": "BEYOND THE ICE",
       "desc": "Past the frozen edge of the known world, something was never supposed to be found. A survival thriller packed with tension and discovery.",
-      "price": "$14.99",
       "genre": "Thriller",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book13.jpg",
-      "audioSample": "audio/audiobooks/book13-sample.mp3",
       "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
     },
     {
       "id": "book14",
       "title": "THE UNWANTED PASSENGER",
       "desc": "You never asked for this. You never wanted to know. But now you do — and someone will do anything to keep you quiet.",
-      "price": "$14.99",
+      "price": "$25.00",
       "genre": "Thriller",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book14.jpg",
-      "audioSample": "audio/audiobooks/book14-sample.mp3",
-      "buyUrl": "https://a.co/d/085tf2Dz"
+      "buyUrl": "https://www.amazon.com/dp/B0F7M1KZSX"
     },
     {
       "id": "book15",
       "title": "ANOTHER PENNY",
       "desc": "The story isn't over. Another chapter of raw street-lit truth picks up where the original left off — unfiltered and unforgettable.",
-      "price": "$14.99",
+      "price": "$4.99",
       "genre": "Street Lit",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book15.jpg",
-      "audioSample": "audio/audiobooks/book15-sample.mp3",
-      "buyUrl": "https://a.co/d/0j1kb1MV"
+      "buyUrl": "https://www.amazon.com/dp/B0F85JM3TL"
     },
     {
       "id": "book16",
       "title": "CANCER AND NUTRITION",
       "desc": "A practical, straightforward guide to the relationship between diet and cancer — written for real people, not medical professionals.",
-      "price": "$14.99",
+      "price": "$9.99",
       "genre": "Nonfiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book16.jpg",
-      "audioSample": "audio/audiobooks/book16-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://www.amazon.com/dp/B0F2DP5XMV"
     },
     {
       "id": "book17",
       "title": "AI FOR THE COMMON ADULT",
       "desc": "Artificial intelligence explained without the jargon — what it is, how it works, and what it means for your everyday life.",
-      "price": "$14.99",
+      "price": "$9.99",
       "genre": "Nonfiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book17.jpg",
-      "audioSample": "audio/audiobooks/book17-sample.mp3",
-      "buyUrl": "https://a.co/d/04ZakVhG"
+      "buyUrl": "https://www.amazon.com/dp/B0F4R8VPJ4"
     },
     {
       "id": "book18",
       "title": "CULTURAL SCRIPTS AND LOVE LANGUAGES",
       "desc": "Why we love the way we love — and how our backgrounds shape every relationship. A frank, culturally aware look at communication and connection.",
-      "price": "$14.99",
+      "price": "$4.99",
       "genre": "Nonfiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book18.jpg",
-      "audioSample": "audio/audiobooks/book18-sample.mp3",
-      "buyUrl": "https://a.co/d/0hY6otSi"
+      "buyUrl": "https://www.amazon.com/dp/B0F2DF5Z9H"
     },
     {
       "id": "book19",
       "title": "Powerful Words: How to Use Them Correctly",
       "shortTitle": "Powerful Words",
       "desc": "Master the exact words that move people to action, establish your authority, and make your communication unforgettable. Twelve categories of high-impact words, with real-world examples and exercises at the end of every chapter.",
-      "price": "$14.99",
+      "price": "$2.99",
       "genre": "Nonfiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book19.jpg",
@@ -218,20 +198,21 @@ window.SUMNU_DATA={
     },
     {
       "id": "book20",
-      "title": "YOUR MONEY GAME PLAN",
-      "desc": "No fluff, no gimmicks — just practical steps to take control of your money and build a real financial strategy.",
-      "price": "$14.99",
-      "genre": "Finance",
-      "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book20.jpg",
-      "audioSample": "audio/audiobooks/book20-sample.mp3",
-      "buyUrl": "https://a.co/d/0f5PX36I"
+      "title": "A Secure Relationship: A Woman's Handbook for Preventing Infidelity",
+      "shortTitle": "A Secure Relationship",
+      "alt": "A Secure Relationship by E. D. Lewis cover",
+      "desc": "Discover the truth about why men cheat, and how to create a relationship so fulfilling he'll never look elsewhere. Written with compassion and insight, this guide offers women practical strategies to recognize early warning signs, navigate high-risk periods, and build unshakeable trust.",
+      "price": "$2.99",
+      "genre": "Relationships",
+      "formats": ["Kindle"],
+      "cover": "images/books/book20-secure-relationship.jpg",
+      "buyUrl": "https://www.amazon.com/dp/B0F3CRQQYB"
     },
     {
       "id": "book21",
       "title": "The Little Things that Mean a Lot",
       "desc": "Strengthening your relationship one moment at a time. A warm, practical guide to the small, everyday actions (a genuine smile, full attention, a specific compliment) that build lasting love.",
-      "price": "$14.99",
+      "price": "$2.99",
       "genre": "Nonfiction",
       "formats": ["Kindle"],
       "cover": "images/books/book21.jpg",
@@ -242,7 +223,7 @@ window.SUMNU_DATA={
       "title": "Beyond Numbers: Breaking Free from Age-Based Limitations",
       "shortTitle": "Beyond Numbers",
       "desc": "Live a vibrant, meaningful life unconstrained by society's age expectations. Beyond Numbers challenges the idea that your age should define your capabilities, opportunities, and identity.",
-      "price": "$14.99",
+      "price": "$2.99",
       "genre": "Self-Help",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book22.jpg",
@@ -250,25 +231,27 @@ window.SUMNU_DATA={
     },
     {
       "id": "book23",
-      "title": "LIVING IN SPITE OF CANCER",
-      "desc": "Hope, resilience, and practical perspective for anyone navigating cancer — written to support the human being, not just the diagnosis.",
-      "price": "$14.99",
-      "genre": "Health",
-      "formats": ["Paperback", "Kindle"],
+      "title": "The Professional Way: to Type, Format, and Publish a 6x9 inch book",
+      "shortTitle": "The Professional Way",
+      "alt": "The Professional Way by E. D. Lewis cover",
+      "desc": "The professional way to write, type, and format your 6x9 inch book, with step-by-step instructions on how to set up your computer programs, such as Microsoft Word. Includes 58 screenshots to make each step easy to follow.",
+      "price": "$5.99",
+      "genre": "Publishing",
+      "formats": ["Kindle"],
       "cover": "images/books/book23.jpg",
-      "audioSample": "audio/audiobooks/book23-sample.mp3",
-      "buyUrl": "https://a.co/d/0dLHZUeM"
+      "buyUrl": "https://www.amazon.com/dp/B01D6OJEFI"
     },
     {
       "id": "book24",
-      "title": "NEVER FLY SOLO",
-      "desc": "Leadership isn't about control — it's about who rises with you. Lessons on trust, accountability, and leading with purpose.",
-      "price": "$14.99",
-      "genre": "Leadership",
-      "formats": ["Paperback", "Kindle"],
+      "title": "Turning the Tables on Toxic Bosses: A Practical Survival Guide",
+      "shortTitle": "Turning the Tables on Toxic Bosses",
+      "alt": "Turning the Tables on Toxic Bosses by E. D. Lewis cover",
+      "desc": "Sometimes the problem isn't you; it's genuinely poor management. When leaving immediately isn't an option, this guide gives you concrete, realistic strategies to keep your dignity, your sanity, and your career on track.",
+      "price": "$2.99",
+      "genre": "Career",
+      "formats": ["Kindle"],
       "cover": "images/books/book24.jpg",
-      "audioSample": "audio/audiobooks/book24-sample.mp3",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://www.amazon.com/dp/B0DSCF5YMT"
     },
     {
       "id": "book25",
