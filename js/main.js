@@ -92,21 +92,22 @@
       return `
         <article class="card product book-card" data-book="${b.id}">
           <div class="book-cover-wrap">
-            <img src="${b.cover}" alt="${escapeHtml(b.title)} cover" loading="lazy" decoding="async" width="400" height="600">
+            <img src="${b.cover}" alt="${escapeHtml(b.alt || (b.title + ' cover'))}" loading="lazy" decoding="async" width="400" height="600">
           </div>
           <div class="book-detail-panel" data-book-panel="${b.id}">
             <button class="book-close-btn" data-book-close="${b.id}" aria-label="Close">✕ Back</button>
             <div class="book-detail-title">${escapeHtml(b.shortTitle || b.title)}</div>
+            ${b.tagline ? `<div class="book-detail-desc"><em>${escapeHtml(b.tagline)}</em></div>` : ''}
             <div class="book-detail-desc">${escapeHtml(b.desc)}</div>
             <div class="book-detail-meta">
               <span class="pill">${genreIcon} ${escapeHtml(genreLabel)}</span>
-              <span class="price">${escapeHtml(b.price || '')}</span>
+              ${b.comingSoon ? '<span class="pill">🔜 Coming Soon</span>' : `<span class="price">${escapeHtml(b.price || '')}</span>`}
             </div>
             <div class="book-detail-actions">
               ${b.audioSample ? `<button class="btn btn-secondary btn-small" data-audio-btn="${b.id}">🎧 Sample</button>` : ''}
               ${readBtn}
               ${audiobookBtn}
-              <a class="btn btn-primary btn-small" href="${b.buyUrl}" target="_blank" rel="noopener">🛒 Buy on Amazon</a>
+              ${b.comingSoon ? '<span class="btn btn-primary btn-small" aria-disabled="true" style="opacity:.55;cursor:not-allowed;" title="Coming soon">🔜 Coming soon</span>' : `<a class="btn btn-primary btn-small" href="${b.buyUrl}" target="_blank" rel="noopener">🛒 Buy on Amazon</a>`}
             </div>
 ${b.audioSample ? `            <div style="display:none; margin-top:10px;" data-audio-wrap="${b.id}">
               <audio controls preload="none">
