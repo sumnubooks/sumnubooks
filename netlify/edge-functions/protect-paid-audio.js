@@ -13,7 +13,7 @@
  *   Unplugged  unplugged-ch1/2.mp3            (Prologue + Ch 1)
  *   Jailhouse  The-Jailhouse-Lawyer-Ch1/2.mp3
  *   Still      Still-Standing-Ch1/2.mp3
- *   Echo       audiobooks/the-echo/The-Echo-Origins-Ch1/2.mp3 (20-chapter edition, Ch 1-2 free)
+ *   Echo       audiobooks/the-echo/Echo-Origins-2026-Ch1/2.mp3 (20-chapter edition, Ch 1-2 free)
  *   Clock      The-Clock-Prologue.mp3 + The-Clock-Ch1.mp3 (free preview)
  *   Pimpin     audiobooks/still-pimpin/Still-Pimpin-Sample.mp3 (retail sample)
  *   Bloodline  audiobooks/bloodline/Bloodline-Sample.mp3 (retail sample)
@@ -39,7 +39,7 @@ const SAMPLE_RE = [
   /^\/audio\/audiobooks\/unplugged\/unplugged-ch[12]\.mp3$/i,
   /^\/audio\/audiobooks\/the-jailhouse-lawyer\/The-Jailhouse-Lawyer-Ch[12]\.mp3$/i,
   /^\/audio\/audiobooks\/still-standing\/Still-Standing-Ch[12]\.mp3$/i,
-  /^\/audio\/audiobooks\/the-echo\/The-Echo-Origins-Ch[12]\.mp3$/i,
+  /^\/audio\/audiobooks\/the-echo\/Echo-Origins-2026-Ch[12]\.mp3$/i,
   /^\/audio\/audiobooks\/the-clock\/The-Clock-(?:Prologue|Ch1)\.mp3$/i,
   /^\/audio\/audiobooks\/still-pimpin\/Still-Pimpin-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/bloodline\/Bloodline-Sample\.mp3$/i,
