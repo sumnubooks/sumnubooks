@@ -327,6 +327,27 @@ window.SUMNU_DATA={
           "audiobookPrice": "$22.99",
           "buyUrl": "https://payhip.com/b/nXl1m",
           "buyLabel": "💳 Buy eBook"
+        },
+    {
+          "id": "book29",
+          "title": "A Penny For My Thoughts: The Author's Cut",
+          "shortTitle": "Penny: The Author's Cut",
+          "desc": "The expanded Author's Cut edition, a separate, longer story from the original A Penny For My Thoughts. Tarz \"Reverend\" Williams is a former military operative who lives by street rules as an armed robber. Then a heist goes wrong, and his partner kidnaps undercover detective Brittney \"Penny\" Starlite. Penny is no damsel: tough, confident, and quick with a gun. What starts as survival turns into a desperate wilderness chase, and the people hunting them aren't just cops and crooks. A shadowy Agency is watching. So is someone a thousand years from now. Book One of the Penny Series.",
+          "price": "$4.99",
+          "genre": "Thriller",
+          "formats": [
+                "EPUB",
+                "PDF"
+          ],
+          "cover": "images/books/penny-authors-cut-ebook-20261021.webp",
+          "alt": "A Penny For My Thoughts: The Author's Cut by E. D. Lewis cover",
+          "tagline": "He took her. He didn't expect to care.",
+          "epubUrl": "ebooks/penny-authors-cut-sample.epub",
+          "readLabel": "📖 Read Sample",
+          "audiobookUrl": "audiobook.html?slug=penny-authors-cut",
+          "audiobookPrice": "$22.99",
+          "buyUrl": "https://payhip.com/b/qfwKu",
+          "buyLabel": "💳 Buy eBook"
         }
   ],
   "albums": [

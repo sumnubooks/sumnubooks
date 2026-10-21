@@ -21,6 +21,7 @@
  *   AI4RL      audiobooks/ai-for-real-life/AI-For-Real-Life-Sample.mp3 (retail sample)
  *   SP3        audiobooks/still-pimpin-iii/Still-Pimpin-III-Sample.mp3 (retail sample, Ch1 opening)
  *   Deanna     audiobooks/deanna/Deanna-Sample.mp3 (retail sample, Ch1 opening)
+ *   Penny AC   audiobooks/penny-authors-cut/Penny-Authors-Cut-Sample.mp3 (Payhip preview)
  *   Yesterday  audiobooks/the-yesterday-project/The-Yesterday-Project-Sample.mp3 (retail sample, Ch1 opening)
  *   Leadership audiobooks/leadership-development/Leadership-Development-Sample.mp3 (retail sample)
  *   Chandra    audiobooks/chandra/Chandra-Sample.mp3 (retail sample)
@@ -47,6 +48,7 @@ const SAMPLE_RE = [
   /^\/audio\/audiobooks\/ai-for-real-life\/AI-For-Real-Life-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/still-pimpin-iii\/Still-Pimpin-III-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/deanna\/Deanna-Sample\.mp3$/i,
+  /^\/audio\/audiobooks\/penny-authors-cut\/Penny-Authors-Cut-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/the-yesterday-project\/The-Yesterday-Project-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/leadership-development\/Leadership-Development-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/chandra\/Chandra-Sample\.mp3$/i,
