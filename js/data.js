@@ -33,7 +33,7 @@ window.SUMNU_DATA={
       "price": "$6.99",
       "genre": "Urban Fiction",
       "formats": ["EPUB", "PDF"],
-      "cover": "images/books/book3.jpg?v=20260928",
+      "cover": "images/books/jailhouse-lawyer-ebook-20261021.webp",
       "audiobookUrl": "audiobook.html?slug=the-jailhouse-lawyer",
       "audiobookPrice": "$22.99",
       "buyUrl": "https://payhip.com/b/xORP3",
@@ -254,7 +254,7 @@ window.SUMNU_DATA={
       "price": "$2.99",
       "genre": "Career",
       "formats": ["Kindle"],
-      "cover": "images/books/book24.jpg",
+      "cover": "images/books/toxic-bosses-ebook-20261021.webp",
       "buyUrl": "https://www.amazon.com/dp/B0DSCF5YMT"
     },
     {
