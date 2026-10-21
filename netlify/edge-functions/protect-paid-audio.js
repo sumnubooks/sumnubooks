@@ -19,6 +19,7 @@
  *   Bloodline  audiobooks/bloodline/Bloodline-Sample.mp3 (retail sample)
  *   Toxic      audiobooks/toxic-bosses/Toxic-Bosses-Sample.mp3 (retail sample)
  *   AI4RL      audiobooks/ai-for-real-life/AI-For-Real-Life-Sample.mp3 (retail sample)
+ *   Yesterday  audiobooks/the-yesterday-project/The-Yesterday-Project-Sample.mp3 (retail sample, Ch1 opening)
  *   Leadership audiobooks/leadership-development/Leadership-Development-Sample.mp3 (retail sample)
  *   Chandra    audiobooks/chandra/Chandra-Sample.mp3 (retail sample)
  *   Stolen     audiobooks/stolen-passage/Stolen-Passage-Sample.mp3 (retail sample)
@@ -43,6 +44,7 @@ const SAMPLE_RE = [
   /^\/audio\/audiobooks\/bloodline\/Bloodline-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/toxic-bosses\/Toxic-Bosses-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/ai-for-real-life\/AI-For-Real-Life-Sample\.mp3$/i,
+  /^\/audio\/audiobooks\/the-yesterday-project\/The-Yesterday-Project-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/leadership-development\/Leadership-Development-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/chandra\/Chandra-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/stolen-passage\/Stolen-Passage-Sample\.mp3$/i,

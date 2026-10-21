@@ -86,7 +86,7 @@
         ? `<a class="btn btn-primary btn-small" href="${escapeHtml(b.audiobookUrl)}" style="background:linear-gradient(135deg,#b8860b,#ffd700);color:#000;font-weight:800;">🎧 Audiobook${b.audiobookPrice ? ' ' + escapeHtml(b.audiobookPrice) : ''}</a>`
         : '';
       const readBtn = hasEpub
-        ? `<a class="btn btn-secondary btn-small" href="${escapeHtml(buildReaderLink(b))}">📖 Read Now</a>`
+        ? `<a class="btn btn-secondary btn-small" href="${escapeHtml(buildReaderLink(b))}">${escapeHtml(b.readLabel || '📖 Read Now')}</a>`
         : '';
 
       return `
@@ -107,7 +107,7 @@
               ${b.audioSample ? `<button class="btn btn-secondary btn-small" data-audio-btn="${b.id}">🎧 Sample</button>` : ''}
               ${readBtn}
               ${audiobookBtn}
-              ${b.comingSoon ? '<span class="btn btn-primary btn-small" aria-disabled="true" style="opacity:.55;cursor:not-allowed;" title="Coming soon">🔜 Coming soon</span>' : `<a class="btn btn-primary btn-small" href="${b.buyUrl}" target="_blank" rel="noopener">🛒 Buy on Amazon</a>`}
+              ${b.comingSoon ? '<span class="btn btn-primary btn-small" aria-disabled="true" style="opacity:.55;cursor:not-allowed;" title="Coming soon">🔜 Coming soon</span>' : `<a class="btn btn-primary btn-small" href="${b.buyUrl}" target="_blank" rel="noopener">${escapeHtml(b.buyLabel || '🛒 Buy on Amazon')}</a>`}
             </div>
 ${b.audioSample ? `            <div style="display:none; margin-top:10px;" data-audio-wrap="${b.id}">
               <audio controls preload="none">

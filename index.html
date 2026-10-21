@@ -1658,6 +1658,21 @@ const siteData = {
     },
     {
       type: 'audiobook',
+      slug: 'the-yesterday-project',
+      title: 'The Yesterday Project: Book One, Part One',
+      shortTitle: 'The Yesterday Project',
+      label: 'Sci-Fi audiobook',
+      meta: 'Free sample • Full audiobook out now',
+      freeLabel: 'Free sample',
+      tagline: 'We are the experiment.',
+      cover: 'images/covers-square/the-yesterday-project-20261020.webp',
+      freeCount: 1,
+      items: [
+        { number: 1, title: 'Audiobook Sample: Chapter 1', description: 'Free sample.', image: 'images/covers-square/the-yesterday-project-20261020.webp', audio: 'audio/audiobooks/the-yesterday-project/The-Yesterday-Project-Sample.mp3' }
+      ]
+    },
+    {
+      type: 'audiobook',
       slug: 'leadership-development',
       title: 'Strategies for Leadership Development: Practical Strategies for New and Developing Leaders',
       shortTitle: 'Strategies for Leadership Development',
@@ -1807,7 +1822,7 @@ function buildCard(item, freeLabel, locked = false) {
 }
 
 // New On Sumnu Books row: live titles newest first, then coming soon (marked). Tiles keep their usual links.
-const NEW_ROW_ORDER = ['bloodline','still-pimpin','the-clock','stolen-passage','she-still-exists','here-eat-this','other-man','a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','still-pimpin-iii','deanna','the-echo'];
+const NEW_ROW_ORDER = ['the-yesterday-project','bloodline','still-pimpin','the-clock','stolen-passage','she-still-exists','here-eat-this','other-man','a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','still-pimpin-iii','deanna','the-echo'];
 const NEW_ROW_SOON = ['still-pimpin-iii','deanna','the-echo'];
 function renderNewRow() {
   const host = $('#newGrid');
