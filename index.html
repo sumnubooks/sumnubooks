@@ -1527,23 +1527,27 @@ const siteData = {
     {
       type: 'audiobook',
       slug: 'deanna',
-      title: 'Deanna: The Predator Hunter',
-      label: 'A Psychological Thriller',
-      meta: 'Coming soon',
-      tagline: 'She knows what you\'ve done.',
-      cover: 'images/covers-tall/deanna.jpg?v=20261017',
-      comingSoon: true,
-      comingSoonBadge: 'Coming Soon',
-      items: []
+      title: "Deanna: The Predator Hunter",
+      shortTitle: "Deanna",
+      label: "A Psychological Thriller",
+      meta: 'Free sample • Full audiobook out now',
+      freeLabel: 'Free sample',
+      tagline: "She knows what you've done.",
+      cover: 'images/covers-square/deanna-20261020.webp',
+      freeCount: 1,
+      items: [
+        { number: 1, title: 'Audiobook Sample: Chapter 1', description: 'Free sample.', image: 'images/covers-square/deanna-20261020.webp', audio: 'audio/audiobooks/deanna/Deanna-Sample.mp3' }
+      ]
     },
     {
       type: 'audiobook',
       slug: 'the-echo',
-      title: 'The Echo',
+      title: 'The Echo: Origins',
+      shortTitle: 'The Echo: Origins',
       label: 'Superhero sci-fi audiobook',
-      meta: 'Ch 1–2 free • 15 chapters',
+      meta: 'Ch 1–2 free • Full audiobook out now',
       tagline: 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.',
-      cover: 'images/covers-tall/the-echo-origins-6x9-20261017.webp',
+      cover: 'images/covers-square/the-echo-20261020.webp',
       freeCount: 2,
       items: Array.from({length:15}, (_,i) => ({
         number: i + 1,
@@ -1617,14 +1621,17 @@ const siteData = {
     {
       type: 'audiobook',
       slug: 'still-pimpin-iii',
-      title: 'Still Pimpin III',
-      label: 'The Still Pimpin Saga, Book Three',
-      meta: 'Coming soon',
-      tagline: 'Like Father, Like Son',
-      cover: 'images/covers-tall/still-pimpin-iii-20261018.webp',
-      comingSoon: true,
-      comingSoonBadge: 'Coming Soon',
-      items: []
+      title: "Still Pimpin III: Like Father, Like Son",
+      shortTitle: "Still Pimpin III",
+      label: "The Still Pimpin Saga, Book Three",
+      meta: 'Free sample • Full audiobook out now',
+      freeLabel: 'Free sample',
+      tagline: "Like Father, Like Son",
+      cover: 'images/covers-square/still-pimpin-iii-20261020.webp',
+      freeCount: 1,
+      items: [
+        { number: 1, title: 'Audiobook Sample: Chapter 1', description: 'Free sample.', image: 'images/covers-square/still-pimpin-iii-20261020.webp', audio: 'audio/audiobooks/still-pimpin-iii/Still-Pimpin-III-Sample.mp3' }
+      ]
     },
     {
       type: 'audiobook',
@@ -1823,7 +1830,7 @@ function buildCard(item, freeLabel, locked = false) {
 
 // New On Sumnu Books row: live titles newest first, then coming soon (marked). Tiles keep their usual links.
 const NEW_ROW_ORDER = ['the-yesterday-project','bloodline','still-pimpin','the-clock','stolen-passage','she-still-exists','here-eat-this','other-man','a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','still-pimpin-iii','deanna','the-echo'];
-const NEW_ROW_SOON = ['still-pimpin-iii','deanna','the-echo'];
+const NEW_ROW_SOON = [];
 function renderNewRow() {
   const host = $('#newGrid');
   if (!host || host.dataset.ready === '1') return; // static data: render once so the first covers are not re-created
