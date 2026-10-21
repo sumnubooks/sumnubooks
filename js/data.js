@@ -30,10 +30,14 @@ window.SUMNU_DATA={
       "id": "book3",
       "title": "THE JAILHOUSE LAWYER",
       "desc": "Inside the walls, knowledge is power. A story of self-taught legal warfare and the fight for justice from the inside out.",
+      "price": "$6.99",
       "genre": "Urban Fiction",
-      "formats": ["Paperback", "Kindle"],
+      "formats": ["EPUB", "PDF"],
       "cover": "images/books/book3.jpg?v=20260928",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "audiobookUrl": "audiobook.html?slug=the-jailhouse-lawyer",
+      "audiobookPrice": "$22.99",
+      "buyUrl": "https://payhip.com/b/xORP3",
+      "buyLabel": "💳 Buy eBook"
     },
     {
       "id": "book4",
