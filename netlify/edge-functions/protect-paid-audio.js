@@ -13,7 +13,7 @@
  *   Unplugged  unplugged-ch1/2.mp3            (Prologue + Ch 1)
  *   Jailhouse  The-Jailhouse-Lawyer-Ch1/2.mp3
  *   Still      Still-Standing-Ch1/2.mp3
- *   Echo       audiobooks/the-echo/the-echo-origins-ch1/2.mp3
+ *   Echo       audiobooks/the-echo/The-Echo-Origins-Ch1/2.mp3 (20-chapter edition, Ch 1-2 free)
  *   Clock      The-Clock-Prologue.mp3 + The-Clock-Ch1.mp3 (free preview)
  *   Pimpin     audiobooks/still-pimpin/Still-Pimpin-Sample.mp3 (retail sample)
  *   Bloodline  audiobooks/bloodline/Bloodline-Sample.mp3 (retail sample)
@@ -29,7 +29,6 @@
  *   Other Man  other-man-ep1/2.mp3
  *   BOWB       before-our-water-breaks-ep1/2.mp3
  *   She Still  she-still-exists-ch1/2.mp3
- *   Echo (legacy series path) the-echo-origins-ep1/2.mp3
  *
  * /audio/music/** (Sumnu Radio) is not routed through this function.
  * To add a new title's samples, add one line to SAMPLE_RE.
@@ -40,7 +39,7 @@ const SAMPLE_RE = [
   /^\/audio\/audiobooks\/unplugged\/unplugged-ch[12]\.mp3$/i,
   /^\/audio\/audiobooks\/the-jailhouse-lawyer\/The-Jailhouse-Lawyer-Ch[12]\.mp3$/i,
   /^\/audio\/audiobooks\/still-standing\/Still-Standing-Ch[12]\.mp3$/i,
-  /^\/audio\/audiobooks\/the-echo\/the-echo-origins-ch[12]\.mp3$/i,
+  /^\/audio\/audiobooks\/the-echo\/The-Echo-Origins-Ch[12]\.mp3$/i,
   /^\/audio\/audiobooks\/the-clock\/The-Clock-(?:Prologue|Ch1)\.mp3$/i,
   /^\/audio\/audiobooks\/still-pimpin\/Still-Pimpin-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/bloodline\/Bloodline-Sample\.mp3$/i,
@@ -55,8 +54,7 @@ const SAMPLE_RE = [
   /^\/audio\/series\/here-eat-this\/here-eat-this-ep[12]\.mp3$/i,
   /^\/audio\/series\/other-man\/other-man-ep[12]\.mp3$/i,
   /^\/audio\/series\/before-our-water-breaks\/before-our-water-breaks-ep[12]\.mp3$/i,
-  /^\/audio\/series\/she-still-exists\/she-still-exists-ch[12]\.mp3$/i,
-  /^\/audio\/series\/the-echo-origins\/the-echo-origins-ep[12]\.mp3$/i
+  /^\/audio\/series\/she-still-exists\/she-still-exists-ch[12]\.mp3$/i
 ];
 
 function normalizePath(pathname) {

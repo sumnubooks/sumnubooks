@@ -201,6 +201,8 @@
   .ch-bar:nth-child(2) { height: 13px; animation: barAnim 1s ease-in-out infinite .2s; }
   .ch-bar:nth-child(3) { height: 9px; animation: barAnim 1s ease-in-out infinite .4s; }
   @keyframes barAnim { 0%,100% { transform: scaleY(.4); } 50% { transform: scaleY(1); } }
+  .ch-dur { font-size: .72rem; color: rgba(255,255,255,.4); flex-shrink: 0; font-variant-numeric: tabular-nums; }
+  .chapter-row.is-locked .ch-title { color: rgba(255,255,255,.42); }
   .ch-locked { font-size: .66rem; color: rgba(212,168,67,.4); flex-shrink: 0; font-weight: 600; }
 
   @media (min-width: 600px) {
@@ -451,12 +453,34 @@
       price: '22.99',
       // Full audiobook on Payhip (MP3 + M4B with chapter markers). Ch 1-2 stream free here.
       buyDesc: 'MP3 and M4B with chapter markers, about 9 hours',
-      items: Array.from({length:15}, (_,i) => ({
-        number: i+1,
-        title: `Chapter ${i+1}`,
-        image: 'images/covers-square/the-echo-origins.jpg',
-        audio: `audio/audiobooks/the-echo/the-echo-origins-ch${i+1}.mp3`
-      }))
+      // 20-chapter edition (Oct 2026). Only Ch 1-2 have public audio; Ch 3-20 are listed (title + duration) and locked to Buy.
+      totalChapters: 20,
+      items: [
+        { number: 1, title: 'Chapter 1', duration: '27:44', image: 'images/covers-square/the-echo-20261020.webp', audio: 'audio/audiobooks/the-echo/The-Echo-Origins-Ch1.mp3' },
+        { number: 2, title: 'Chapter 2', duration: '29:04', image: 'images/covers-square/the-echo-20261020.webp', audio: 'audio/audiobooks/the-echo/The-Echo-Origins-Ch2.mp3' }
+      ],
+      chapterList: [
+        { number: 1, title: 'Chapter 1', duration: '27:44' },
+        { number: 2, title: 'Chapter 2', duration: '29:04' },
+        { number: 3, title: 'Chapter 3', duration: '25:32' },
+        { number: 4, title: 'Chapter 4', duration: '35:51' },
+        { number: 5, title: 'Chapter 5', duration: '22:14' },
+        { number: 6, title: 'Chapter 6', duration: '21:44' },
+        { number: 7, title: 'Chapter 7', duration: '40:18' },
+        { number: 8, title: 'Chapter 8', duration: '26:25' },
+        { number: 9, title: 'Chapter 9', duration: '21:41' },
+        { number: 10, title: 'Chapter 10', duration: '34:00' },
+        { number: 11, title: 'Chapter 11', duration: '37:44' },
+        { number: 12, title: 'Chapter 12', duration: '34:26' },
+        { number: 13, title: 'Chapter 13', duration: '29:53' },
+        { number: 14, title: 'Chapter 14', duration: '31:09' },
+        { number: 15, title: 'Chapter 15', duration: '38:54' },
+        { number: 16, title: 'Chapter 16', duration: '21:22' },
+        { number: 17, title: 'Chapter 17', duration: '17:34' },
+        { number: 18, title: 'Chapter 18', duration: '16:53' },
+        { number: 19, title: 'Chapter 19', duration: '15:49' },
+        { number: 20, title: 'Chapter 20', duration: '20:05' }
+      ]
     },
     {
       slug: 'deanna',
@@ -872,12 +896,28 @@
         <span class="ch-num">${displayShort(item)}</span>
         <div class="ch-art"><img src="${item.image}" alt="" loading="lazy" onerror="this.src='${book.cover}'"></div>
         <div class="ch-title">${displayTitle(item)}</div>
+        ${item.duration ? `<span class="ch-dur">${item.duration}</span>` : ''}
         <div class="ch-playing"><div class="ch-bar"></div><div class="ch-bar"></div><div class="ch-bar"></div></div>
       `;
       row.addEventListener('click', () => { if (ok) { loadChapter(i, true); closeSheet(); } else { goToBuy(); } });
       scroll.appendChild(row);
     });
-    if (book.totalChapters > book.items.length) {
+    if (book.chapterList && book.payhip) {
+      // Full table of contents: chapters past the free ones are locked (no audio here) and point to Buy.
+      book.chapterList.slice(book.items.length).forEach(ch => {
+        const row = document.createElement('div');
+        row.className = 'chapter-row is-locked';
+        row.innerHTML = `
+          <span class="ch-num">${String(ch.number).padStart(2,'0')}</span>
+          <div class="ch-art"><img src="${book.cover}" alt="" loading="lazy"></div>
+          <div class="ch-title">${ch.title}</div>
+          <span class="ch-dur">${ch.duration}</span>
+          <span class="ch-locked">🔒 Buy $${book.price}</span>
+        `;
+        row.addEventListener('click', () => { closeSheet(); goToBuy(); });
+        scroll.appendChild(row);
+      });
+    } else if (book.totalChapters > book.items.length) {
       const rest = document.createElement('div');
       rest.className = 'chapter-row';
       rest.innerHTML = `
