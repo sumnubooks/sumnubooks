@@ -283,6 +283,46 @@ window.SUMNU_DATA={
           ],
           "cover": "images/covers-tall/strategies-for-leadership-development-20261019.webp",
           "buyUrl": "https://www.amazon.com/dp/B0F2MBBYZB"
+        },
+    {
+          "id": "book27",
+          "title": "Deanna: The Predator Hunter",
+          "shortTitle": "Deanna",
+          "desc": "By day, Deanna lives a quiet life in Chandler, Arizona. By night, she becomes Lily, a lonely fourteen-year-old girl who doesn't exist, and she waits for the men who come looking for her. She doesn't call the police. She builds airtight files, collects, and makes predators pay, month after month, while her partner Tobias keeps the money invisible. It works, until a tempting offer, a detective who won't stop digging, and a long lens pointed at her own life force Deanna to revisit the first case that started it all. When the hunter becomes the hunted, how far will she go to protect the children no one else is watching? A gripping, morally complex psychological thriller.",
+          "price": "$6.99",
+          "genre": "Thriller",
+          "formats": [
+                "EPUB"
+          ],
+          "cover": "images/books/deanna-ebook-20261020.webp",
+          "alt": "Deanna: The Predator Hunter by E. D. Lewis cover",
+          "tagline": "She knows what you've done.",
+          "epubUrl": "ebooks/deanna-sample.epub",
+          "readLabel": "📖 Read Sample",
+          "audiobookUrl": "audiobook.html?slug=deanna",
+          "audiobookPrice": "$22.99",
+          "buyUrl": "https://payhip.com/b/DR3rf",
+          "buyLabel": "💳 Buy eBook"
+        },
+    {
+          "id": "book28",
+          "title": "Still Pimpin III: Like Father, Like Son",
+          "shortTitle": "Still Pimpin III",
+          "desc": "Josiah \"Jordan\" Turner buries his grandmother in Louisville and walks back into the inheritance he never asked for: Las Vegas, Bluegrass Holdings, and the name his father made on the Strip. Now Jordan is building something of his own: a record label, a crew he trusts, and a life with Lila, the woman who runs his house. But the music business has its own kind of pimps, and a powerful mogul named Vaughn Mercer has never paid for the women he has broken. As Jordan moves money, loyalty, and secrets between Vegas and Los Angeles, he learns how thin the line is between protecting people and owning them. Like father, like son, or something better? The explosive third book in the Still Pimpin Saga.",
+          "price": "$6.99",
+          "genre": "Street Lit",
+          "formats": [
+                "EPUB"
+          ],
+          "cover": "images/books/still-pimpin-iii-ebook-20261020.webp",
+          "alt": "Still Pimpin III: Like Father, Like Son by E. D. Lewis cover",
+          "tagline": "Like Father, Like Son",
+          "epubUrl": "ebooks/still-pimpin-iii-sample.epub",
+          "readLabel": "📖 Read Sample",
+          "audiobookUrl": "audiobook.html?slug=still-pimpin-iii",
+          "audiobookPrice": "$22.99",
+          "buyUrl": "https://payhip.com/b/nXl1m",
+          "buyLabel": "💳 Buy eBook"
         }
   ],
   "albums": [

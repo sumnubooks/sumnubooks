@@ -441,15 +441,16 @@
     },
     {
       slug: 'the-echo',
-      title: 'The Echo',
+      title: 'The Echo: Origins',
+      shortTitle: 'The Echo: Origins',
       eyebrow: 'Superhero Sci-Fi · Audiobook',
       tagline: 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.',
-      cover: 'images/covers-square/the-echo-origins.jpg',
+      cover: 'images/covers-square/the-echo-20261020.webp',
       freeCount: 2,
-      payhip: null,
+      payhip: 'https://payhip.com/b/X89m5',
       price: '22.99',
-      // PAYHIP LINK PENDING ERIC — price approved; Payhip listing URL not created yet.
-      payhipPending: true,
+      // Full audiobook on Payhip (MP3 + M4B with chapter markers). Ch 1-2 stream free here.
+      buyDesc: 'MP3 and M4B with chapter markers, about 9 hours',
       items: Array.from({length:15}, (_,i) => ({
         number: i+1,
         title: `Chapter ${i+1}`,
@@ -459,26 +460,43 @@
     },
     {
       slug: 'deanna',
-      title: 'Deanna: The Predator Hunter',
-      eyebrow: 'A Psychological Thriller · Audiobook',
-      tagline: 'She knows what you\'ve done.',
-      blurb: 'To everyone in Chandler, Arizona, eighteen-year-old Deanna Martinez is the girl who survived the worst year a family can have. None of them know about the second phone. She lets the men who hunt children find her, and then she finds them. Now someone is watching her.',
-      cover: 'images/covers-square/deanna.jpg?v=20261017',
-      comingSoon: true,
-      freeCount: 0,
-      payhip: null,
-      items: []
+      title: "Deanna: The Predator Hunter",
+      shortTitle: "Deanna",
+      eyebrow: "A Psychological Thriller \u00b7 Audiobook",
+      tagline: "She knows what you've done.",
+      blurb: "By day, Deanna lives a quiet life in Chandler, Arizona. By night, she becomes Lily, a lonely fourteen-year-old girl who doesn't exist, and she waits for the men who come looking for her. She doesn't call the police. She builds airtight files, collects, and makes predators pay, month after month, while her partner Tobias keeps the money invisible. It works, until a tempting offer, a detective who won't stop digging, and a long lens pointed at her own life force Deanna to revisit the first case that started it all. When the hunter becomes the hunted, how far will she go to protect the children no one else is watching? A gripping, morally complex psychological thriller.",
+      cover: 'images/covers-square/deanna-20261020.webp',
+      freeCount: 1,
+      payhip: 'https://payhip.com/b/s8atd',
+      price: '22.99',
+      // Full audiobook on Payhip (MP3 + M4B with chapter markers). Free sample here: opening of Chapter 1, no per-chapter streaming.
+      totalChapters: null,
+      freeLabel: 'Free Sample',
+      triggerLabel: 'Free Sample',
+      buyDesc: 'MP3 and M4B with chapter markers, about 5 hours 45 minutes',
+      items: [
+        { number: 1, title: 'Audiobook Sample: Chapter 1', image: 'images/covers-square/deanna-20261020.webp', audio: 'audio/audiobooks/deanna/Deanna-Sample.mp3' }
+      ]
     },
     {
       slug: 'still-pimpin-iii',
-      title: 'Still Pimpin III',
-      eyebrow: 'The Still Pimpin Saga, Book Three',
-      tagline: 'Like Father, Like Son',
-      cover: 'images/covers-square/still-pimpin-iii-20261018.webp',
-      comingSoon: true,
-      freeCount: 0,
-      payhip: null,
-      items: []
+      title: "Still Pimpin III: Like Father, Like Son",
+      shortTitle: "Still Pimpin III",
+      eyebrow: "The Still Pimpin Saga, Book Three \u00b7 Audiobook",
+      tagline: "Like Father, Like Son",
+      blurb: "Josiah \"Jordan\" Turner buries his grandmother in Louisville and walks back into the inheritance he never asked for: Las Vegas, Bluegrass Holdings, and the name his father made on the Strip. Now Jordan is building something of his own: a record label, a crew he trusts, and a life with Lila, the woman who runs his house. But the music business has its own kind of pimps, and a powerful mogul named Vaughn Mercer has never paid for the women he has broken. As Jordan moves money, loyalty, and secrets between Vegas and Los Angeles, he learns how thin the line is between protecting people and owning them. Like father, like son, or something better? The explosive third book in the Still Pimpin Saga.",
+      cover: 'images/covers-square/still-pimpin-iii-20261020.webp',
+      freeCount: 1,
+      payhip: 'https://payhip.com/b/MG70y',
+      price: '22.99',
+      // Full audiobook on Payhip (MP3 + M4B with chapter markers). Free sample here: opening of Chapter 1, no per-chapter streaming.
+      totalChapters: null,
+      freeLabel: 'Free Sample',
+      triggerLabel: 'Free Sample',
+      buyDesc: 'MP3 and M4B with chapter markers, about 10 hours',
+      items: [
+        { number: 1, title: 'Audiobook Sample: Chapter 1', image: 'images/covers-square/still-pimpin-iii-20261020.webp', audio: 'audio/audiobooks/still-pimpin-iii/Still-Pimpin-III-Sample.mp3' }
+      ]
     },
     {
       slug: 'the-clock',
