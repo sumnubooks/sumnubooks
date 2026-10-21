@@ -255,13 +255,21 @@ window.SUMNU_DATA={
     },
     {
       "id": "book25",
-      "title": "THE YESTERDAY PROJECT",
-      "desc": "Time bends, memory distorts, and the past is never really gone. A suspenseful sci-fi thriller built on secrets and consequence.",
+      "title": "The Yesterday Project: Book One, Part One",
+      "shortTitle": "The Yesterday Project",
+      "desc": "They weren't born. They were selected. In a world built on a perfect lie, Nod has lived his whole life inside the experiment, until he starts to remember what he was never meant to know. The first book of a new sci-fi series by E. D. Lewis.",
+      "price": "$6.99",
       "genre": "Sci-Fi",
+      "formats": ["EPUB", "PDF"],
       "cover": "images/books/yesterday-project-cover-v2.webp",
-      "alt": "The Yesterday Project by E. D. Lewis cover",
+      "alt": "The Yesterday Project: Book One, Part One by E. D. Lewis cover",
       "tagline": "We are the experiment.",
-      "comingSoon": true
+      "epubUrl": "ebooks/the-yesterday-project-sample.epub",
+      "readLabel": "📖 Read Sample",
+      "audiobookUrl": "audiobook.html?slug=the-yesterday-project",
+      "audiobookPrice": "$22.99",
+      "buyUrl": "https://payhip.com/b/FKnIq",
+      "buyLabel": "💳 Buy eBook"
     },
     {
           "id": "book26",

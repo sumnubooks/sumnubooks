@@ -22,6 +22,7 @@
     'bloodline': ['Bloodline (Still Pimpin Book Two)', 'Still Pimpin Book Two. An audiobook by E. D. Lewis. Out now. Start with the free sample.'],
     'toxic-bosses': ['Turning the Tables on Toxic Bosses: A Practical Survival Guide (Revised and Expanded Edition)', 'Your boss is the problem. Now what?'],
     'ai-for-real-life': ['AI For Real Life: Simple Ways to Make Everyday Life Easier with Artificial Intelligence', 'Simple ways to use AI for money, meals, shopping, travel, and everyday problems.'],
+    'the-yesterday-project': ['The Yesterday Project: Book One, Part One', 'We are the experiment.'],
     'leadership-development': ['Strategies for Leadership Development: Practical Strategies for New and Developing Leaders', 'You got the promotion. Now what?'],
     'she-still-exists': ['She Still Exists', "He built a world for the woman he lost — and inside it, she's helping him find her killer without knowing she's dead."]
   };
