@@ -654,6 +654,7 @@
     .detail-cover img[src*="covers-square/chandra-audiobook"] { object-fit: contain !important; background: #000; }
     /* Deanna: 2:3 portrait cover, never crop */
     .card-tile[data-type="audiobook"][data-slug="deanna"] .card-cover img { object-fit: contain !important; background: #000; }
+    .card-tile[data-type="audiobook"][data-slug="penny-authors-cut"] .card-cover img { object-fit: contain !important; background: #000; }
     /* Still Pimpin III: 2:3 portrait cover, never crop */
     .card-tile[data-type="audiobook"][data-slug="still-pimpin-iii"] .card-cover img { object-fit: contain !important; background: #000; }
     /* Stolen Passage: square cover in 2:3 slots, never crop */
@@ -1394,7 +1395,7 @@ const siteData = {
       label: 'Suspense drama',
       meta: '8 episodes • episodes 1–2 free',
       tagline: 'A dinner table. A pressure chamber. A story built on suspicion, betrayal, and what gets served when trust is already dead.',
-      cover: 'images/series/here-eat-this/here-eat-this-cover.jpg',
+      cover: 'images/books/here-eat-this-tall-20261021.webp',
       items: Array.from({length:8}, (_,i) => ({
         number: i + 1,
         title: `Episode ${i+1}`,
@@ -1496,13 +1497,13 @@ const siteData = {
       label: 'Audiobook',
       meta: 'Ch 1–2 free • 20 chapters',
       tagline: 'Inside the walls, knowledge is power.',
-      cover: 'images/books/book3.jpg?v=20260928',
+      cover: 'images/covers-square/the-jailhouse-lawyer-20261021.webp',
       freeCount: 2,
       items: Array.from({length:20}, (_,i) => ({
         number: i + 1,
         title: `Chapter ${i+1}`,
         description: i < 2 ? 'Free chapter.' : 'Full-book chapter.',
-        image: 'images/books/book3.jpg?v=20260928',
+        image: 'images/covers-square/the-jailhouse-lawyer-20261021.webp',
         audio: `audio/audiobooks/the-jailhouse-lawyer/The-Jailhouse-Lawyer-Ch${i+1}.mp3${i < 2 ? '?v=20260928' : ''}`
       }))
     },
@@ -1523,6 +1524,21 @@ const siteData = {
         image: 'images/books/still-standing.jpg',
         audio: `audio/audiobooks/still-standing/Still-Standing-Ch${i+1}.mp3`
       }))
+    },
+    {
+      type: 'audiobook',
+      slug: 'penny-authors-cut',
+      title: "A Penny For My Thoughts: The Author's Cut",
+      shortTitle: "Penny: The Author's Cut",
+      label: "A Thriller \u00b7 Author's Cut",
+      meta: 'Free sample \u2022 Full audiobook out now',
+      freeLabel: 'Free sample',
+      tagline: "He took her. He didn't expect to care.",
+      cover: 'images/covers-square/penny-authors-cut-20261021.webp',
+      freeCount: 1,
+      items: [
+        { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/penny-authors-cut-20261021.webp', audio: 'audio/audiobooks/penny-authors-cut/Penny-Authors-Cut-Sample.mp3' }
+      ]
     },
     {
       type: 'audiobook',
@@ -1561,13 +1577,13 @@ const siteData = {
       label: 'Audiobook',
       meta: 'Ch 1–2 free • 15 chapters',
       tagline: 'They took her life. He refused to let them take the rest.',
-      cover: 'images/series/she-still-exists/she-still-exists-cover.jpg',
+      cover: 'images/covers-square/she-still-exists-20261021.webp',
       freeCount: 2,
       items: Array.from({length:15}, (_,i) => ({
         number: i + 1,
         title: `Chapter ${i+1}`,
         description: i < 2 ? 'Free chapter.' : 'Full-book chapter.',
-        image: 'images/series/she-still-exists/she-still-exists-cover.jpg',
+        image: 'images/covers-square/she-still-exists-20261021.webp',
         audio: `audio/series/she-still-exists/she-still-exists-ch${i+1}.mp3`
       }))
     },
@@ -1639,10 +1655,10 @@ const siteData = {
       meta: 'Free sample • Full audiobook out now',
       freeLabel: 'Free sample',
       tagline: 'Your boss is the problem. Now what?',
-      cover: 'images/covers-square/toxic-bosses.jpg?v=20261015',
+      cover: 'images/covers-square/toxic-bosses-20261021.webp',
       freeCount: 1,
       items: [
-        { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/toxic-bosses.jpg?v=20261015', audio: 'audio/audiobooks/toxic-bosses/Toxic-Bosses-Sample.mp3' }
+        { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/toxic-bosses-20261021.webp', audio: 'audio/audiobooks/toxic-bosses/Toxic-Bosses-Sample.mp3' }
       ]
     },
     {
@@ -1654,10 +1670,10 @@ const siteData = {
       meta: 'Free sample • Full audiobook out now',
       freeLabel: 'Free sample',
       tagline: 'Simple ways to use AI for money, meals, shopping, travel, and everyday problems.',
-      cover: 'images/covers-tall/ai-for-real-life.jpg?v=20261015',
+      cover: 'images/covers-square/ai-for-real-life-20261021.webp',
       freeCount: 1,
       items: [
-        { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/ai-for-real-life.jpg?v=20261015', audio: 'audio/audiobooks/ai-for-real-life/AI-For-Real-Life-Sample.mp3' }
+        { number: 1, title: 'Audiobook Sample', description: 'Free sample.', image: 'images/covers-square/ai-for-real-life-20261021.webp', audio: 'audio/audiobooks/ai-for-real-life/AI-For-Real-Life-Sample.mp3' }
       ]
     },
     {
@@ -1826,7 +1842,7 @@ function buildCard(item, freeLabel, locked = false) {
 }
 
 // New On Sumnu Books row: live titles newest first, then coming soon (marked). Tiles keep their usual links.
-const NEW_ROW_ORDER = ['the-yesterday-project','bloodline','still-pimpin','the-clock','stolen-passage','she-still-exists','here-eat-this','other-man','a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','still-pimpin-iii','deanna','the-echo'];
+const NEW_ROW_ORDER = ['the-yesterday-project','bloodline','still-pimpin','the-clock','stolen-passage','she-still-exists','here-eat-this','other-man','a-penny-for-my-thoughts','penny-authors-cut','unplugged','chandra','the-jailhouse-lawyer','still-standing','still-pimpin-iii','deanna','the-echo'];
 const NEW_ROW_SOON = [];
 function renderNewRow() {
   const host = $('#newGrid');

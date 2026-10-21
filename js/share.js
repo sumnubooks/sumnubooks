@@ -14,6 +14,7 @@
     'stolen-passage': ['Stolen Passage', "Some people aren't passengers. They're cargo. And not everyone makes it ashore."],
     'the-jailhouse-lawyer': ['The Jailhouse Lawyer', 'Inside the walls, knowledge is power.'],
     'still-standing': ['Still Standing', 'Before the empire... there was the beginning.'],
+    'penny-authors-cut': ["A Penny For My Thoughts: The Author's Cut", "He took her. He didn't expect to care."],
     'deanna': ['Deanna: The Predator Hunter', "She knows what you've done."],
     'still-pimpin-iii': ['Still Pimpin III: Like Father, Like Son', 'Like Father, Like Son'],
     'the-echo': ['The Echo: Origins', 'Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook.'],
