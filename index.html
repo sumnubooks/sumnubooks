@@ -1012,6 +1012,9 @@
   #newGrid .card-tile { flex: 0 0 132px; width: 132px; scroll-snap-align: start; border-radius: 14px !important; cursor: pointer; }
   @media (min-width: 900px) { #newGrid { gap: 14px; } #newGrid .card-tile { flex-basis: 168px; width: 168px; } }
   #newGrid .card-cover img { object-fit: contain !important; background: #000; }
+  /* Audiobook and series tiles (Stories, Nonfiction audiobooks, Audiobooks, Series rows): each frame follows its own cover (square 1:1, tall 2:3), so no black bars. Book and music tiles unchanged. */
+  .card-tile[data-type="audiobook"] .card-cover, .card-tile[data-type="series"] .card-cover { aspect-ratio: auto !important; height: auto !important; }
+  .card-tile[data-type="audiobook"] .card-cover img, .card-tile[data-type="series"] .card-cover img { height: auto !important; aspect-ratio: auto !important; }
   #newGrid .card-free, #newGrid .card-kicker, #newGrid .card-meta { display: none !important; }
   #newGrid .card-copy { min-height: 0 !important; padding: 8px 8px 10px !important; }
   #newGrid .card-title { font-size: 16px !important; line-height: 1.2 !important; margin: 0 !important; }
