@@ -49,6 +49,16 @@
   }
   .ab-available { border: 1px solid rgba(255,215,0,.35) !important; }
   .ab-upcoming { opacity: .8; }
+
+    /* About this story dropdown (native details, closed by default) */
+    .ab-about { margin: 0 0 12px; border: 1px solid rgba(255,255,255,.14); border-radius: 12px; background: rgba(255,255,255,.04); }
+    .ab-about > summary { min-height: 44px; display: flex; align-items: center; padding: 10px 14px; font-size: 16px; font-weight: 700; cursor: pointer; list-style: none; }
+    .ab-about > summary::-webkit-details-marker { display: none; }
+    .ab-about > summary::after { content: "▾"; margin-left: auto; transition: transform .2s; }
+    .ab-about[open] > summary::after { transform: rotate(180deg); }
+    .ab-about-body { padding: 0 14px 12px; font-size: 16px; line-height: 1.5; }
+    .ab-about-body p { margin: 0 0 8px; overflow-wrap: anywhere; }
+    .ab-about-formats a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; text-decoration: underline; color: inherit; }
 </style>
 
   <style>
@@ -379,6 +389,14 @@
             <div class="price-tag">$22.99</div>
             <p style="margin:0 0 8px;"><em>We are the experiment.</em></p>
             <p class="muted" style="margin:0 0 10px;">They weren&#39;t born. They were selected. In a world built on a perfect lie, Nod has lived his whole life inside the experiment, until he starts to remember what he was never meant to know. Book One, Part One of a new sci-fi series by E. D. Lewis. Full-cast AI-voiced audiobook, about 5 hours. MP3 and M4B with chapter markers.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>They weren&#x27;t born. They were selected. In a world built on a perfect lie, Nod has lived his whole life inside the experiment, until he starts to remember what he was never meant to know. Book One, Part One of a new sci-fi series by E. D. Lewis.</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 5 hours</p>
+                <p class="ab-about-formats"><strong>Also available as:</strong> <a href="https://payhip.com/b/FKnIq" target="_blank" rel="noopener">Ebook</a> · <a href="https://www.amazon.com/dp/B0HNRQF64W" target="_blank" rel="noopener">Kindle</a></p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-the-yesterday-project" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-the-yesterday-project" preload="none">
@@ -403,6 +421,13 @@
             <div class="price-tag">$22.99</div>
             <p style="margin:0 0 8px;"><em>He took her. He didn&#39;t expect to care.</em></p>
             <p class="muted" style="margin:0 0 10px;">A street-lit thriller: a former soldier turned robber, an undercover detective, and a chase that forces both to face a destiny they can&#39;t explain.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>Tarz “Reverend” Williams is a former military operative living by street rules as an armed robber, until a heist goes wrong and his partner kidnaps undercover detective Brittney “Penny” Starlite. What starts as survival turns into a desperate wilderness chase. Attraction, loyalty, and a pull neither of them understands collide as enemies close in.</p>
+                <p class="ab-about-formats"><strong>Also available as:</strong> <a href="https://www.amazon.com/dp/B01BCUD66G" target="_blank" rel="noopener">Kindle</a> · <a href="https://www.amazon.com/dp/1523819340" target="_blank" rel="noopener">Paperback</a> · <a href="https://www.amazon.com/dp/B0DT3JQG91" target="_blank" rel="noopener">Hardcover</a></p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-1" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-1" preload="none">
@@ -425,6 +450,13 @@
               <button type="button" class="card-share" data-share-slug="unplugged" data-share-title="Unplugged: 30 Days of Chaos" data-share-text="No cell service. No WiFi. Only chaos." aria-label="Share Unplugged: 30 Days of Chaos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
             </div>
             <div class="price-tag">$10.99</div>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>When the lights go out, Reggie Hayes assumes it&#x27;s temporary. It isn&#x27;t. In a single moment every digital connection on the planet goes silent: no internet, no phones, no broadcasts, just static. Survival, chaos, and redemption collide across thirty days that change everything.</p>
+                <p class="ab-about-formats"><strong>Also available as:</strong> <a href="https://www.amazon.com/dp/B0F8KT2LJM" target="_blank" rel="noopener">Kindle</a> · <a href="https://www.amazon.com/dp/B0F8P3X2QD" target="_blank" rel="noopener">Paperback</a></p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-2" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-2" preload="none">
@@ -447,6 +479,13 @@
               <button type="button" class="card-share" data-share-slug="the-jailhouse-lawyer" data-share-title="The Jailhouse Lawyer" data-share-text="Inside the walls, knowledge is power." aria-label="Share The Jailhouse Lawyer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
             </div>
             <div class="price-tag">$22.99</div>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>The Jailhouse Lawyer is a tense, character-driven story about survival, justice, and fighting back when the system seems stacked against you. Blending street-level reality with courtroom tension, it follows a man forced to learn the law, challenge the system, and prove that knowledge can become its own kind of power.</p>
+                <p class="ab-about-formats"><strong>Also available as:</strong> <a href="https://payhip.com/b/xORP3" target="_blank" rel="noopener">Ebook</a></p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-3" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-3" preload="none">
@@ -469,6 +508,12 @@
               <button type="button" class="card-share" data-share-slug="still-standing" data-share-title="Still Standing" data-share-text="Before the empire... there was the beginning." aria-label="Share Still Standing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
             </div>
             <div class="price-tag">$12.99</div>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>Still Standing is a raw, personal hip-hop journey from E. D. Lewis, tracing decades of music, setbacks, incarceration, family, rebuilding, and the determination to keep creating when life keeps testing you. At its core, it&#x27;s about survival, identity, and what it means to still be standing when everything around you has changed.</p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-4" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-4" preload="none">
@@ -491,6 +536,14 @@
               <button type="button" class="card-share" data-share-slug="the-echo" data-share-title="The Echo: Origins" data-share-text="Power awakens. Pressure builds. The complete Echo origin story, now as a full audiobook." aria-label="Share The Echo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><polyline points="7 8 12 3 17 8"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg></button>
             </div>
             <div class="price-tag">$22.99</div>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>At 2:17 a.m., Dr. Lila Chen, the youngest lead researcher in the history of Nexus Neurological Research Center, is one experiment away from a breakthrough. NEF-7, a glowing serum designed to awaken mirror neurons, was meant to heal autism, PTSD, and empathy disorders. Instead, it changes her. Inside Nexus, a hidden program called Harmony is turning gifted people into obedient weapons, and the men behind it will do anything to bring Lila under control.</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 9 hours</p>
+                <p class="ab-about-formats"><strong>Also available as:</strong> <a href="https://www.amazon.com/dp/B0F7GXVX5T" target="_blank" rel="noopener">Kindle</a> · <a href="https://www.amazon.com/dp/B0F5QM8M1J" target="_blank" rel="noopener">Paperback</a></p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-5" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-5" preload="none">
@@ -516,6 +569,14 @@
             <p style="margin:0 0 8px; font-weight:700;">A Thriller · Author&#39;s Cut</p>
             <p style="margin:0 0 8px;"><em>He took her. He didn&#39;t expect to care.</em></p>
             <p class="muted" style="margin:0 0 10px;">The expanded Author&#39;s Cut edition, a separate, longer story from the original A Penny For My Thoughts. Tarz &quot;Reverend&quot; Williams is a former military operative who lives by street rules as an armed robber. Then a heist goes wrong, and his partner kidnaps undercover detective Brittney &quot;Penny&quot; Starlite. Penny is no damsel: tough, confident, and quick with a gun. What starts as survival turns into a desperate wilderness chase, and the people hunting them aren&#39;t just cops and crooks. A shadowy Agency is watching. So is someone a thousand years from now. Book One of the Penny Series. Full-cast AI-voiced audiobook, about 5 hours 57 minutes. M4B with chapter markers, full MP3 and chapter MP3s.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>Tarz “Reverend” Williams is a former military operative who lives by street rules as an armed robber. Then a heist goes wrong, and his partner kidnaps undercover detective Brittney “Penny” Starlite, who is no damsel: tough, confident, and quick with a gun. What starts as survival turns into a desperate wilderness chase. And the people hunting them aren&#x27;t just cops and crooks: a shadowy Agency is watching, and so is someone a thousand years from now.</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 5 hours 57 minutes</p>
+                <p class="ab-about-formats"><strong>Also available as:</strong> <a href="https://payhip.com/b/qfwKu" target="_blank" rel="noopener">Ebook</a></p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-penny-authors-cut" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-penny-authors-cut" preload="none">
@@ -541,6 +602,14 @@
             <p style="margin:0 0 8px; font-weight:700;">A Psychological Thriller</p>
             <p style="margin:0 0 8px;"><em>She knows what you&#39;ve done.</em></p>
             <p class="muted" style="margin:0 0 10px;">By day, Deanna lives a quiet life in Chandler, Arizona. By night, she becomes Lily, a lonely fourteen-year-old girl who doesn&#39;t exist, and she waits for the men who come looking for her. She doesn&#39;t call the police. She builds airtight files, collects, and makes predators pay, month after month, while her partner Tobias keeps the money invisible. It works, until a tempting offer, a detective who won&#39;t stop digging, and a long lens pointed at her own life force Deanna to revisit the first case that started it all. When the hunter becomes the hunted, how far will she go to protect the children no one else is watching? A gripping, morally complex psychological thriller. Full-cast AI-voiced audiobook, about 5 hours 45 minutes. MP3 and M4B with chapter markers.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>By day, Deanna lives a quiet life in Chandler, Arizona. By night, she becomes Lily, a lonely fourteen-year-old girl who doesn&#x27;t exist, and she waits for the men who come looking for her. She doesn&#x27;t call the police; she builds airtight files and makes predators pay. When the hunter becomes the hunted, how far will she go to protect the children no one else is watching?</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 5 hours 45 minutes</p>
+                <p class="ab-about-formats"><strong>Also available as:</strong> <a href="https://payhip.com/b/DR3rf" target="_blank" rel="noopener">Ebook</a></p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-deanna" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-deanna" preload="none">
@@ -565,6 +634,13 @@
             <div class="price-tag">$22.99</div>
             <p style="margin:0 0 8px;"><em>When the numbers disappear, you have seven days.</em></p>
             <p class="muted" style="margin:0 0 10px;">Everyone is born with a clock, a countdown projected onto their retina that ticks away the years, days and seconds of their life. When you reach your final seven days, the numbers disappear. At twenty-five, healthy and with no reason to die, Jay wakes up to find his clock gone. He tells no one. He has seven days.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>Everyone is born with a clock, a countdown projected onto their retina that ticks away the years, days and seconds of their life. When you reach your final seven days, the numbers disappear. At twenty-five, healthy and with no reason to die, Jay wakes up to find his clock gone. He has seven days.</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 5 hours 34 minutes</p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-clock" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-clock" preload="none">
@@ -589,6 +665,13 @@
             <div class="price-tag">$22.99</div>
             <p style="margin:0 0 8px;"><em>An audiobook by E. D. Lewis. Out now. Start with the free sample.</em></p>
             <p class="muted" style="margin:0 0 10px;">Full-cast audiobook with music and sound effects. 24 chapters, about 10 hours 17 minutes. Explicit language and adult themes, 18+.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>Mac came out of Kentucky with a &#x27;73 Caprice Classic, a sharp mind and nothing to lose. In Las Vegas he takes Nicky, the queen of the Strip, right out from under rival pimp C-Note, and builds an empire on neon and nerve. But the game always collects, and when C-Note strikes back at the one thing Mac can&#x27;t replace, Mac has to decide what being Still Pimpin really costs.</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 10 hours 17 minutes</p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-still-pimpin" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-still-pimpin" preload="none">
@@ -613,6 +696,13 @@
             <div class="price-tag">$22.99</div>
             <p style="margin:0 0 8px;"><em>Still Pimpin Book Two. An audiobook by E. D. Lewis. Out now. Start with the free sample.</em></p>
             <p class="muted" style="margin:0 0 10px;">Full-cast audiobook with music and sound effects, about 9 hours 40 minutes. Narrated with AI voices. Explicit content: violence and strong language.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>The sequel to STILL PIMPIN by E. D. Lewis. The streets remember, and blood runs deeper than loyalty.</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 9 hours 40 minutes</p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-bloodline" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-bloodline" preload="none">
@@ -638,6 +728,14 @@
             <p style="margin:0 0 8px; font-weight:700;">The Still Pimpin Saga, Book Three</p>
             <p style="margin:0 0 8px;"><em>Like Father, Like Son</em></p>
             <p class="muted" style="margin:0 0 10px;">Josiah &quot;Jordan&quot; Turner buries his grandmother in Louisville and walks back into the inheritance he never asked for: Las Vegas, Bluegrass Holdings, and the name his father made on the Strip. Now Jordan is building something of his own: a record label, a crew he trusts, and a life with Lila, the woman who runs his house. But the music business has its own kind of pimps, and a powerful mogul named Vaughn Mercer has never paid for the women he has broken. As Jordan moves money, loyalty, and secrets between Vegas and Los Angeles, he learns how thin the line is between protecting people and owning them. Like father, like son, or something better? The explosive third book in the Still Pimpin Saga. Full-cast AI-voiced audiobook, about 10 hours. MP3 and M4B with chapter markers.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>Josiah “Jordan” Turner buries his grandmother in Louisville and walks back into the inheritance he never asked for: Las Vegas, Bluegrass Holdings, and the name his father made on the Strip. Now Jordan is building something of his own: a record label, a crew he trusts, and a life with Lila. But the music business has its own kind of pimps, and a powerful mogul named Vaughn Mercer has never paid for the women he has broken. Like father, like son, or something better?</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 10 hours</p>
+                <p class="ab-about-formats"><strong>Also available as:</strong> <a href="https://payhip.com/b/nXl1m" target="_blank" rel="noopener">Ebook</a> · <a href="https://www.amazon.com/dp/B0HNRTFRK7" target="_blank" rel="noopener">Kindle</a> · <a href="https://www.amazon.com/dp/B0HNRBQ187" target="_blank" rel="noopener">Paperback</a></p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-still-pimpin-iii" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-still-pimpin-iii" preload="none">
@@ -662,6 +760,14 @@
             <div class="price-tag">$25.00</div>
             <p style="margin:0 0 8px;"><em>Your boss is the problem. Now what?</em></p>
             <p class="muted" style="margin:0 0 10px;">Realistic, tested strategies for surviving bad management when you can&#39;t just walk out the door. Nonfiction audiobook, about 2 hours 42 minutes, narrated with AI voice. Includes the 57-page Companion Workbook PDF.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>Your boss is the problem. Now what? If you&#x27;ve ever dreaded Sunday nights because of the person you report to, this is for you. Realistic, tested strategies for surviving bad management when you can&#x27;t just walk out the door.</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 2 hours 42 minutes</p>
+                <p class="ab-about-formats"><strong>Also available as:</strong> <a href="https://www.amazon.com/dp/B0DSCF5YMT" target="_blank" rel="noopener">Kindle</a></p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-toxic-bosses" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-toxic-bosses" preload="none">
@@ -686,6 +792,13 @@
             <div class="price-tag">$25.00</div>
             <p style="margin:0 0 8px;"><em>Simple ways to use AI for money, meals, shopping, travel, and everyday problems.</em></p>
             <p class="muted" style="margin:0 0 10px;">16 practical chapters on working with AI like a helpful assistant. No technical background needed. Nonfiction audiobook, about 7 hours 5 minutes, narrated by AI Voice Fish Audio. Includes the Prompt Companion PDF with more than 330 ready-to-use prompts.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>This isn&#x27;t another AI book about coding, side hustles, or getting rich. It&#x27;s about Tuesday afternoon: figuring out what to make for dinner, finding out where your money went, making sense of a confusing letter, and planning a trip without twenty browser tabs. In 16 practical chapters, E. D. Lewis shows you how to stop using AI like a search box and start working with it like a helpful assistant.</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 7 hours 5 minutes</p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-ai-for-real-life" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-ai-for-real-life" preload="none">
@@ -710,6 +823,14 @@
             <div class="price-tag">$25.00</div>
             <p style="margin:0 0 8px;"><em>You got the promotion. Now what?</em></p>
             <p class="muted" style="margin:0 0 10px;">A plain-spoken, practical guide to the skills that matter most in your first years of leadership, from making the jump from teammate to leader to building a team that performs. Nonfiction audiobook, about 1 hour 36 minutes. Includes the printable 39-page PDF Companion Workbook.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>You got the promotion. Now what? Many new supervisors are put in charge because they were great at the work, not because anyone taught them how to lead. Drawing on his own years as a supervisor, E. D. Lewis offers a plain-spoken, practical guide to the skills that matter most in your first years of leadership.</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 1 hour 36 minutes</p>
+                <p class="ab-about-formats"><strong>Also available as:</strong> <a href="https://www.amazon.com/dp/B0F2MBBYZB" target="_blank" rel="noopener">Kindle</a></p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-leadership-development" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-leadership-development" preload="none">
@@ -734,6 +855,14 @@
             <div class="price-tag">$22.99</div>
             <p style="margin:0 0 8px;"><em>She survived the streets. It&#39;s what she knows that will get her killed.</em></p>
             <p class="muted" style="margin:0 0 10px;">Desire, danger, and secrets that spiral out of control. Urban fiction audiobook, 20 chapters, about 7 hours 29 minutes, narrated with AI voices (AI Voice Fish Audio) with immersive sound effects. Mature content: strong language, violence and adult themes.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>She survived the streets. It&#x27;s what she knows that will get her killed. Chandra has clawed her way out of a hard life, but the past doesn&#x27;t let go that easily. When a powerful man&#x27;s offer, a set of stolen documents, and a friend who suddenly goes silent collide, Chandra is pulled into a high-stakes game where every choice could buy her freedom or cost her everything.</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 7 hours 29 minutes</p>
+                <p class="ab-about-formats"><strong>Also available as:</strong> <a href="https://www.amazon.com/dp/B0DFTZ1BJG" target="_blank" rel="noopener">Kindle</a> · <a href="https://www.amazon.com/dp/B0F8H2R54S" target="_blank" rel="noopener">Paperback</a></p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-chandra" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-chandra" preload="none">
@@ -758,6 +887,13 @@
             <div class="price-tag">$10.99</div>
             <p style="margin:0 0 8px;"><em>Some people aren&#39;t passengers. They&#39;re cargo. And not everyone makes it ashore.</em></p>
             <p class="muted" style="margin:0 0 10px;">A cinematic, emotionally charged thriller about love, desperation, and survival. Thriller audiobook, 20 chapters, about 2 hours 14 minutes, full cast narrated with AI voices (AI Voice Fish Audio), with cinematic music and sound effects.</p>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>Daniel Carr is thirty-eight, careful, and quietly lonely, a logistics man from outside Columbus, Ohio. Then a message from Maria, a sharp, warm woman from Davao in the Philippines, cuts through the noise, and within months they are married. When the visa is denied, they accept an offer they should have refused: secret passage to America aboard a cargo ship, the Meridian Star. But below deck there are sounds that aren&#x27;t mechanical, and a sealed container holding a truth that ties straight back to the cousin Maria lost three years ago.</p>
+                <p class="ab-about-runtime"><strong>Runtime:</strong> About 2 hours 14 minutes</p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-stolen-passage" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-stolen-passage" preload="none">
@@ -790,6 +926,12 @@
             </div>
             <span class="pill" style="margin:4px 0 8px; display:inline-block;">🎭 8 episodes · Ep 1–2 free</span>
             <div class="price-tag">$10.99</div>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>Twin brothers. One stolen life. A woman who knows something is wrong before she can prove it.</p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-other-man" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-other-man" preload="none">
@@ -813,6 +955,12 @@
             </div>
             <span class="pill" style="margin:4px 0 8px; display:inline-block;">🎭 8 episodes · Ep 1–2 free</span>
             <div class="price-tag">$5.99</div>
+            <details class="ab-about">
+              <summary>About this story</summary>
+              <div class="ab-about-body">
+                <p>Here… Eat This is a dark, suspenseful audio drama about a dinner that turns into something far more disturbing than either person expected. What begins as an ordinary evening quickly becomes a tense psychological game filled with secrets, manipulation, and the feeling that something is very wrong. One dinner. Two people. Something is wrong.</p>
+              </div>
+            </details>
             <div class="audio-sample" data-audio-wrap="">
               <button class="btn btn-secondary btn-small" data-audio-btn="" data-audio-id="ab-sample-here-eat-this" type="button">🎧 SAMPLE</button>
               <audio playsinline controls="" id="ab-sample-here-eat-this" preload="none">
