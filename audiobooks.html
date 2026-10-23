@@ -189,12 +189,12 @@
       align-items: center !important;
       justify-content: flex-start !important;
     }
-    /* Full cover, never cropped: same 2:3 tile on every card; square covers sit centred on black (matches their built-in frame) */
+    /* Full cover, never cropped, no letterbox: the frame follows each cover's own shape (square audiobook covers 1:1, 6x9 covers 2:3) */
     .page-audiobooks .product-cover img {
       width: 110px !important;
       height: auto !important;
       min-height: 0 !important;
-      aspect-ratio: 2 / 3 !important;
+      aspect-ratio: auto !important;
       object-fit: contain !important;
       object-position: center !important;
       background: #000 !important;
