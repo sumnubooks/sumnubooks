@@ -10,7 +10,7 @@ window.SUMNU_DATA={
       "audiobookUrl": "audiobooks.html#ab1",
       "audiobookPrice": "$22.99",
       "epubUrl": "ebooks/a-penny-for-my-thoughts.epub",
-      "cover": "images/books/book1.jpg",
+      "cover": "images/books/a-penny-for-my-thoughts-ebook-20261024.webp",
       "buyUrl": "https://www.amazon.com/dp/B01BCUD66G"
     },
     {
