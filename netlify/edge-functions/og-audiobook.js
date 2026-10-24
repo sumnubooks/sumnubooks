@@ -33,7 +33,7 @@
 const SITE = 'https://sumnubooks.com';
 
 const BOOKS = {
-  'a-penny-for-my-thoughts': { title: 'A Penny For My Thoughts', tagline: "He took her. He didn't expect to care.", cover: 'images/covers-square/a-penny-for-my-thoughts.jpg?v=20260929', w: 1000, h: 1000 },
+  'a-penny-for-my-thoughts': { title: 'A Penny For My Thoughts', tagline: "He took her. He didn't expect to care.", cover: 'images/covers-square/a-penny-for-my-thoughts-20261024.webp?v=20261024', w: 1000, h: 1000 },
   'unplugged': { title: 'Unplugged: 30 Days of Chaos', tagline: 'No cell service. No WiFi. Only chaos.', cover: 'images/covers-square/unplugged-badge-20261022.webp', w: 1200, h: 1200 },
   'chandra': { title: 'Chandra: Forbidden Obsession', tagline: "She survived the streets. It's what she knows that will get her killed.", description: "Chandra: Forbidden Obsession by E. D. Lewis. She survived the streets. It's what she knows that will get her killed. The full audiobook is out now. Start free with the sample.", cover: 'images/covers-square/chandra-badge-20261022.webp', w: 1200, h: 1200 },
   'stolen-passage': { title: 'Stolen Passage', tagline: "Some people aren't passengers. They're cargo. And not everyone makes it ashore.", description: "Stolen Passage by E. D. Lewis. Some people aren't passengers. They're cargo. And not everyone makes it ashore. The full audiobook is out now. Start free with the sample.", cover: 'images/covers-square/stolen-passage-badge-20261022.webp', w: 1200, h: 1200 },
