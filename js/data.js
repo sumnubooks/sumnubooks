@@ -77,7 +77,7 @@ window.SUMNU_DATA={
       "price": "$4.99",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book7.jpg",
+      "cover": "images/books/book7-20261029.jpg",
       "buyUrl": "https://www.amazon.com/dp/B0F7GXVX5T"
     },
     {
@@ -87,7 +87,7 @@ window.SUMNU_DATA={
       "price": "$4.99",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book8.jpg",
+      "cover": "images/books/book8-20261029.jpg",
       "buyUrl": "https://www.amazon.com/dp/B0F7J27VK9"
     },
     {
@@ -97,7 +97,7 @@ window.SUMNU_DATA={
       "price": "$20.00",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book9.jpg",
+      "cover": "images/books/book9-20261029.jpg",
       "buyUrl": "https://www.amazon.com/dp/B0F6NPRJ1R"
     },
     {
@@ -107,7 +107,7 @@ window.SUMNU_DATA={
       "price": "$20.00",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book10.jpg",
+      "cover": "images/books/book10-20261029.jpg",
       "buyUrl": "https://www.amazon.com/dp/B0F6NR1RSP"
     },
     {
