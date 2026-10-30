@@ -6,6 +6,7 @@
   <title>Sumnu Books — Cinematic Audio Series (Not Just Audiobooks)</title>
   <meta name="description" content="This isn’t just an audiobook platform. It’s a cinematic audio experience. Start free with intense, story-driven series built like Netflix — on SumnuBooks." />
   <link href="css/site.css" rel="stylesheet"/>
+  <script src="js/data.js"></script>
 
   <style>
     .shelf-start { padding-top: 26px; }
@@ -896,7 +897,7 @@
     }
   </style>
 
-  <link href="css/animations.css" rel="stylesheet"/>
+  
 
 <style id="home-final-overrides">
   /* smaller homepage only */
@@ -912,6 +913,7 @@
   .radio-dock-art{width:62px !important; height:62px !important; border-radius:14px !important;}
   .btn, .radio-dock-controls .btn{min-height:44px !important; padding:0 16px !important; font-size:.88rem !important;}
 </style>
+<link href="css/animations.css" rel="stylesheet"/>
 <link href="css/mobile.css" rel="stylesheet"/>
 
 <style id="mobile-home-polish">
@@ -1035,6 +1037,39 @@
   .hub-link:hover, .hub-link:focus-visible { background: rgba(212,168,67,.16); border-color: #d4a843; }
   @media (min-width: 900px) { .hub-links { max-width: 560px; } }
 </style>
+<style id="fp-redesign">
+  html, body { background: #000 !important; background-image: none !important; overflow-x: hidden; }
+  body::before, body::after, .glow-orb, #gold-dust { display: none !important; background: none !important; }
+  body { font-size: 16px; }
+  .fp-hero { padding: 28px 0 8px; background: radial-gradient(120% 70% at 50% 0%, rgba(212,168,67,.18), transparent 60%), #000; }
+  .fp-hero-inner { display: grid; gap: 24px; align-items: center; }
+  .fp-eyebrow { margin: 0 0 8px; color: #d4a843; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; font-size: 16px; }
+  .fp-title { margin: 0; font-size: clamp(2.3rem, 10vw, 4.6rem); line-height: 1.02; font-weight: 900; color: #fff; letter-spacing: -.02em; }
+  .fp-title span { color: #ffd34d; display: block; }
+  .fp-sub { margin: 14px 0 0; color: #e8e8e8; font-size: 1.1rem; line-height: 1.5; max-width: 34ch; }
+  .fp-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+  .fp-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 24px; border-radius: 999px; font-weight: 900; font-size: 1.05rem; text-decoration: none; }
+  .fp-btn-primary { background: #ffd34d; color: #000; box-shadow: 0 8px 30px rgba(255,211,77,.35); }
+  .fp-btn-ghost { border: 2px solid #fff; color: #fff; }
+  .fp-covers { display: grid; grid-template-columns: 1.25fr 1fr 1fr; gap: 10px; align-items: end; max-width: 100%; }
+  .fp-cover { position: relative; display: block; border-radius: 14px; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,.8), 0 0 0 2px rgba(255,211,77,.5); min-height: 44px; }
+  .fp-cover img { display: block; width: 100%; height: auto; aspect-ratio: 2/3; object-fit: cover; }
+  .fp-cover-cta { position: absolute; left: 8px; bottom: 8px; background: rgba(0,0,0,.82); color: #ffd34d; font-weight: 800; font-size: 16px; padding: 6px 12px; border-radius: 999px; }
+  .fp-shelf { margin-top: 28px; }
+  .fp-play { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; min-width: 44px; margin-top: 8px; padding: 0 14px; border-radius: 999px; border: 0; background: #ffd34d; color: #000; font-weight: 900; font-size: 16px; cursor: pointer; position: relative; z-index: 3; }
+  .fp-play[aria-pressed="true"] { background: #fff; }
+  .fp-play:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  .fp-shelf-title { font-size: clamp(1.6rem, 6vw, 2.4rem) !important; font-weight: 900 !important; color: #fff !important; border-left: 5px solid #ffd34d; padding-left: 12px; }
+  .new-row { max-width: 100%; }
+  .card-tile .card-title, .card-tile .card-meta, .card-tile .nf-sub, .card-tile .card-kicker { font-size: 16px; }
+  .hub-link, .fp-btn, .btn { min-height: 44px; }
+  @media (min-width: 900px) {
+    .fp-hero { padding: 64px 0 24px; }
+    .fp-hero-inner { grid-template-columns: 1fr 1.1fr; gap: 48px; }
+    .fp-sub { font-size: 1.25rem; }
+    .fp-covers { gap: 18px; }
+  }
+</style>
 </head>
 <body>
 
@@ -1068,7 +1103,7 @@
           <span class="mkt-banner-label">Sumnu Books</span>
           <div class="mkt-banner-divider"></div>
           <span class="mkt-banner-text">Start free with cinematic audio series built for tension, drama, and immersive listening.</span>
-          <a href="#seriesShelf" class="mkt-banner-btn">Start Listening Free</a>
+          <a href="#listenShelf" class="mkt-banner-btn">Start Listening Free</a>
         </div>
         <button class="mkt-banner-close" id="mktBannerClose" aria-label="Dismiss banner">✕</button>
       </div>
@@ -1077,20 +1112,40 @@
 
   <main>
 
-  <!-- Home hub (Oct 2026 preview): short headline, covers first, quick links -->
-  <section class="section home-hub" id="homeHub">
-    <div class="container">
-      <h1 class="hub-title">Press play on your next story.</h1>
-      <p class="hub-sub">Start free with sample episodes and chapters across Sumnu Books.</p>
+  <!-- Front page redesign (Oct 29 2026): punchy hero + four shelves -->
+  <section class="fp-hero" id="homeHub" aria-labelledby="fpHeroTitle">
+    <div class="container fp-hero-inner">
+      <div class="fp-hero-copy">
+        <p class="fp-eyebrow">Sumnu Books &middot; Audio drama &amp; fiction</p>
+        <h1 class="fp-title" id="fpHeroTitle">Press play on your <span>next obsession.</span></h1>
+        <p class="fp-sub">Cinematic audiobooks and page-turning books by E. D. Lewis. Start free with sample chapters.</p>
+        <div class="fp-ctas" id="fpCtas">
+          <a class="fp-btn fp-btn-primary" id="fpPrimaryCta" href="audiobook.html?slug=the-yesterday-project">&#9654; Listen free</a>
+          <a class="fp-btn fp-btn-ghost" href="#listenShelf">Browse audiobooks</a>
+        </div>
+      </div>
+      <div class="fp-covers" id="fpCovers" aria-label="Featured titles"></div>
     </div>
   </section>
 
   <section class="section new-shelf" id="newShelf" aria-labelledby="newShelfTitle">
     <div class="container">
-      <h2 class="new-title" id="newShelfTitle">Stories</h2>
-      <div class="new-row" id="newGrid" aria-label="Stories, newest first, swipe for more"></div>
-      <h2 class="new-title nf-title" id="nfShelfTitle">Nonfiction</h2>
-      <div class="new-row" id="nfGrid" aria-label="Nonfiction, swipe for more"></div>
+      <div class="fp-shelf" id="listenShelf">
+        <h2 class="new-title fp-shelf-title" id="newShelfTitle">Audiobooks</h2>
+        <div class="new-row" id="newGrid" aria-label="Audiobooks, newest first, swipe for more"></div>
+      </div>
+      <div class="fp-shelf" id="nfListenShelf">
+        <h2 class="new-title fp-shelf-title nf-title" id="nfShelfTitle">Nonfiction Audiobooks</h2>
+        <div class="new-row" id="nfGrid" aria-label="Nonfiction audiobooks, swipe for more"></div>
+      </div>
+      <div class="fp-shelf" id="fictionBookShelf">
+        <h2 class="new-title fp-shelf-title" id="fictionBooksTitle">Fiction Books</h2>
+        <div class="new-row" id="fictionBookGrid" aria-label="Fiction books, swipe for more"></div>
+      </div>
+      <div class="fp-shelf" id="nfBookShelf">
+        <h2 class="new-title fp-shelf-title" id="nfBooksTitle">Nonfiction Books</h2>
+        <div class="new-row" id="nfBookGrid" aria-label="Nonfiction books, swipe for more"></div>
+      </div>
       <nav class="hub-links" aria-label="Browse Sumnu Books">
         <a class="hub-link" href="audiobooks.html">Audiobooks</a>
         <a class="hub-link" href="books.html">Books</a>
@@ -1111,29 +1166,7 @@
       </div>
     </section>
 
-    <section class="section shelf-start" id="seriesShelf">
-      <div class="container">
-        <div class="section-head compact-head section-intro">
-          <div class="section-copy">
-            <h2>Start With This</h2>
-            <p>Lead with the stories built like premium streaming drama. Start free with the opening episodes.</p>
-          </div>
-        </div>
-        <div class="shelf" id="seriesGrid"></div>
-      </div>
-    </section>
 
-    <section class="section" id="audiobookShelf">
-      <div class="container">
-        <div class="section-head compact-head section-intro">
-          <div class="section-copy">
-            <h2>More To Explore</h2>
-            <p>Full-length audiobooks, chapter access, and premium listening built around your strongest titles.</p>
-          </div>
-        </div>
-        <div class="shelf" id="audiobookGrid"></div>
-      </div>
-    </section>
 
     <section class="section" id="musicShelf">
       <div class="container">
@@ -1300,7 +1333,7 @@
       <div class="final-cta-shell">
         <h2>You do not just hear these stories. You step into them.</h2>
         <p>Start with the free episodes. Explore the series shelf. Then pick up the titles that stay with people after the screen is off and the room gets quiet.</p>
-        <a class="btn btn-primary" href="#seriesShelf">Start Listening Free</a>
+        <a class="btn btn-primary" href="#listenShelf">Start Listening Free</a>
       </div>
     </div>
   </section>
@@ -1309,7 +1342,7 @@
     <div class="container footer-grid">
       <div>
         <strong class="gold">SUMNU BOOKS</strong><br />
-        Cinematic audio series, premium audiobooks, and immersive listening built for the Sumnu world.
+        Cinematic audio series, audiobooks, and books by E. D. Lewis. Start free.
       </div>
       <div>
         <a class="link-pill" href="contact.html">Need help?</a>
@@ -1318,7 +1351,7 @@
   </footer>
 
   <div class="mobile-bar">
-    <a class="btn btn-primary" href="#seriesShelf" id="mobileListenBtn">▶ Start listening free</a>
+    <a class="btn btn-primary" href="#listenShelf" id="mobileListenBtn">▶ Start listening free</a>
   </div>
 
   <div class="modal" id="detailModal" aria-hidden="true">
@@ -1431,7 +1464,7 @@ const siteData = {
       title: 'A Penny for My Thoughts',
       label: 'Urban thriller',
       meta: 'prologue free • 50 audio files',
-      tagline: 'A premium chapter-by-chapter audiobook experience. Starts with the prologue, then moves into the full chapter list.',
+      tagline: 'A chapter-by-chapter audiobook experience. Starts with the prologue, then moves into the full chapter list.',
       cover: 'images/covers-tall/a-penny-for-my-thoughts-tall-20261024.webp',
       items: [
         { number: 1, title: 'Prologue', description: 'Free sample prologue.', image: 'images/covers-square/a-penny-for-my-thoughts-20261024.webp', audio: 'audio/audiobooks/a-penny-for-my-thoughts/a-penny-for-my-thoughts-ch1.mp3' },
@@ -1450,7 +1483,7 @@ const siteData = {
       title: 'Unplugged',
       label: 'Dystopian suspense',
       meta: 'prologue free • 18 audio files',
-      tagline: 'A premium chapter-by-chapter audiobook experience. Starts with the prologue, then moves into the full chapter list.',
+      tagline: 'A chapter-by-chapter audiobook experience. Starts with the prologue, then moves into the full chapter list.',
       cover: 'images/covers-tall/unplugged-tall-20261023.webp',
       items: [
         { number: 1, title: 'Prologue', description: 'Free sample prologue.', image: 'images/covers-square/unplugged-badge-20261022.webp', audio: 'audio/audiobooks/unplugged/unplugged-ch1.mp3' },
@@ -1859,6 +1892,45 @@ function buildCard(item, freeLabel, locked = false) {
     </article>`;
 }
 
+// Inline sample player: uses only the existing approved *-Sample.mp3 files already in each title's data.
+// No autoplay, preload=none, one clip at a time, stops after 45 seconds.
+const SAMPLE_MAX_SEC = 45;
+function sampleUrl(item) {
+  const list = [].concat(item.items || [], item.chapters || [], item.episodes || []);
+  const hit = list.find(c => c && /-Sample\.mp3$/.test(c.audio || ''));
+  return hit ? hit.audio : '';
+}
+function addSampleBtn(html, item) {
+  const url = sampleUrl(item);
+  if (!url) return html;
+  const btn = `<button type="button" class="fp-play" data-sample="${url}" aria-label="Play 45-second sample of ${item.title}" aria-pressed="false"><span aria-hidden="true">&#9654;</span> Sample</button>`;
+  return html.replace(/(<div class="card-meta"[^>]*>[^<]*<\/div>)/, '$1' + btn);
+}
+let fpAudio = null, fpBtn = null;
+function fpStop() {
+  if (fpAudio) { fpAudio.pause(); }
+  if (fpBtn) { fpBtn.setAttribute('aria-pressed','false'); fpBtn.innerHTML = '<span aria-hidden="true">&#9654;</span> Sample'; fpBtn.setAttribute('aria-label', fpBtn.getAttribute('aria-label').replace(/^Pause/, 'Play')); }
+  fpBtn = null;
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('.fp-play');
+  if (!b) return;
+  e.preventDefault(); e.stopPropagation();
+  if (fpBtn === b && fpAudio && !fpAudio.paused) { fpStop(); return; }
+  fpStop();
+  document.querySelectorAll('audio').forEach(a => { try { a.pause(); } catch (_) {} });
+  if (!fpAudio) {
+    fpAudio = new Audio(); fpAudio.preload = 'none';
+    fpAudio.addEventListener('timeupdate', () => { if (fpAudio.currentTime >= SAMPLE_MAX_SEC) fpStop(); });
+    fpAudio.addEventListener('ended', fpStop);
+  }
+  fpAudio.src = b.dataset.sample; fpAudio.currentTime = 0;
+  fpAudio.play().catch(fpStop);
+  fpBtn = b; b.setAttribute('aria-pressed','true'); b.innerHTML = '<span aria-hidden="true">&#10074;&#10074;</span> Pause';
+  b.setAttribute('aria-label', b.getAttribute('aria-label').replace(/^Play/, 'Pause'));
+}, true);
+document.addEventListener('play', e => { if (fpAudio && e.target !== fpAudio && fpBtn) fpStop(); }, true);
+
 // New On Sumnu Books row: live titles newest first, then coming soon (marked). Tiles keep their usual links.
 const NEW_ROW_ORDER = ['the-yesterday-project','the-yesterday-project-part-two','bloodline','still-pimpin','the-clock','stolen-passage','she-still-exists','here-eat-this','other-man','a-penny-for-my-thoughts','penny-authors-cut','unplugged','chandra','the-jailhouse-lawyer','still-standing','still-pimpin-iii','deanna','the-echo'];
 const NEW_ROW_SOON = [];
@@ -1874,6 +1946,7 @@ function renderNewRow() {
     let html = buildCard(Object.assign({}, item, { cover: thumb }), '', false);
     html = html.replace(`<img src="${thumb}" alt="${item.title} cover" loading="lazy"`,
       `<img src="${thumb}" alt="${item.title} cover" ${i < 4 ? 'loading="eager" fetchpriority="' + (i < 2 ? 'high' : 'auto') + '"' : 'loading="lazy"'} decoding="async" width="400" height="600" data-fallbacks="${item.cover}"`);
+    html = addSampleBtn(html, item);
     if (NEW_ROW_SOON.includes(slug)) html = html.replace(/(<div class="card-title">[^<]*<\/div>)/, '$1<div class="new-soon">Coming soon</div>');
     return html;
   }).join('');
@@ -1892,7 +1965,7 @@ function renderNfRow() {
     const item = siteData.audiobooks.find(x => x.slug === slug);
     if (!item) return '';
     const thumb = `images/covers-thumb/${slug}-400.webp`;
-    return buildCard(Object.assign({}, item, { cover: thumb }), '', false)
+    return addSampleBtn(buildCard(Object.assign({}, item, { cover: thumb }), '', false), item)
       .replace(`<img src="${thumb}" alt="${item.title} cover" loading="lazy"`, `<img src="${thumb}" alt="${item.title} cover" loading="lazy" decoding="async" width="400" height="600" data-fallbacks="${item.cover}"`);
   });
   const bk = NF_BOOKS.map(b => `
@@ -1903,15 +1976,54 @@ function renderNfRow() {
         <div class="nf-sub">Buy on Amazon</div>
       </div>
     </a>`);
-  host.innerHTML = ab.concat(bk).join('');
+  host.innerHTML = ab.join('');
   wireImageFallbacks(host);
+  const bkHost = $('#nfBookGrid');
+  if (bkHost) { bkHost.innerHTML = bk.join(''); wireImageFallbacks(bkHost); }
+}
+
+// Fiction books row: fiction titles from js/data.js (same data books.html uses); each tile opens books.html.
+const NF_BOOK_IDS = ['book16','book17','book18','book19','book20','book21','book22','book23','book24','book26'];
+function renderFictionBooks() {
+  const host = $('#fictionBookGrid');
+  if (!host || host.dataset.ready === '1') return;
+  host.dataset.ready = '1';
+  const books = ((window.SUMNU_DATA || {}).books || []).filter(b => !NF_BOOK_IDS.includes(b.id));
+  host.innerHTML = books.map(b => `
+    <a class="card-tile nf-book" href="books.html" data-type="book" data-book="${b.id}" aria-label="${b.title} on the Books page">
+      <div class="card-cover"><img src="${b.cover}" alt="${b.alt || (b.title + ' cover')}" loading="lazy" decoding="async" width="400" height="600"></div>
+      <div class="card-copy">
+        <div class="card-title">${b.shortTitle || b.title}</div>
+        <div class="nf-sub">${b.genre || 'Fiction'}</div>
+      </div>
+    </a>`).join('');
+}
+
+// Hero: three big existing covers (gold AUDIOBOOK-badged thumbs) linking to their player/detail pages.
+const HERO_SLUGS = ['the-yesterday-project','bloodline','still-pimpin'];
+function renderHero() {
+  const host = $('#fpCovers');
+  if (!host || host.dataset.ready === '1') return;
+  host.dataset.ready = '1';
+  const all = siteData.series.concat(siteData.audiobooks);
+  host.innerHTML = HERO_SLUGS.map((slug, i) => {
+    const item = all.find(x => x.slug === slug);
+    if (!item) return '';
+    const href = item.type === 'series' ? `series.html?slug=${slug}` : `audiobook.html?slug=${slug}`;
+    return `<a class="fp-cover fp-cover-${i}" href="${href}" aria-label="Listen to ${item.title}">
+      <img src="images/covers-thumb/${slug}-400.webp" alt="${item.title} cover" width="400" height="600" loading="eager" fetchpriority="${i < 2 ? 'high' : 'auto'}" decoding="async">
+      <span class="fp-cover-cta">&#9654; Play</span></a>`;
+  }).join('');
+  const first = all.find(x => x.slug === HERO_SLUGS[0]);
+  const cta = $('#fpPrimaryCta');
+  if (first && cta) cta.href = first.type === 'series' ? `series.html?slug=${first.slug}` : `audiobook.html?slug=${first.slug}`;
 }
 
 function renderShelves() {
+  renderHero();
   renderNewRow();
   renderNfRow();
-  $('#seriesGrid').innerHTML = siteData.series.map(item => buildCard(item, '', false)).join('');
-  $('#audiobookGrid').innerHTML = siteData.audiobooks.map(item => buildCard(item, '', false)).join('');
+  renderFictionBooks();
   $('#musicGrid').innerHTML = [
     `<div class="radio-card" id="radioCard" role="group" aria-label="Sumnu Radio">
       <button type="button" class="radio-art" id="radioDockArt" aria-label="Play Sumnu Radio">
@@ -2166,8 +2278,9 @@ function wireUi() {
     navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
   }
 
-  ['newGrid','nfGrid','seriesGrid','audiobookGrid','musicGrid'].forEach(id => {
-    $('#' + id).addEventListener('click', e => {
+  ['newGrid','nfGrid','fictionBookGrid','nfBookGrid','musicGrid'].forEach(id => {
+    const gridEl = $('#' + id); if (!gridEl) return;
+    gridEl.addEventListener('click', e => {
       if (e.target.closest('[data-share-slug]')) return; // tile Share icon — js/share.js handles it
       const tile = e.target.closest('.card-tile');
       if (!tile) return;
@@ -2193,9 +2306,9 @@ function wireUi() {
         showModal(entry);
       }
     });
-    $('#' + id).addEventListener('keydown', e => {
+    gridEl.addEventListener('keydown', e => {
       if (e.key !== 'Enter' && e.key !== ' ') return;
-      if (e.target.closest('[data-share-slug]')) return;
+      if (e.target.closest('[data-share-slug]') || e.target.closest('.fp-play')) return;
       const tile = e.target.closest('.card-tile');
       if (tile && tile.tagName === 'A') return;
       if (tile) { e.preventDefault(); tile.click(); }
@@ -2295,7 +2408,6 @@ window.addEventListener('pageshow', function() {
   });
 })();
 </script>
-  <script src="js/animations.js"></script>
 <script src="js/share.js" defer></script>
 <script src="js/mobile-nav.js" defer></script>
 
