@@ -1493,14 +1493,15 @@ const siteData = {
       label: 'Dystopian suspense',
       meta: 'prologue free • 18 audio files',
       tagline: 'A chapter-by-chapter audiobook experience. Starts with the prologue, then moves into the full chapter list.',
-      cover: 'images/covers-tall/unplugged-tall-20261023.webp',
+      cover: 'images/covers-tall/unplugged-tall-20261030.webp',
+      sample: 'audio/audiobooks/unplugged/Unplugged-Sample.mp3',
       items: [
-        { number: 1, title: 'Prologue', description: 'Free sample prologue.', image: 'images/covers-square/unplugged-badge-20261022.webp', audio: 'audio/audiobooks/unplugged/unplugged-ch1.mp3' },
+        { number: 1, title: 'Prologue', description: 'Free sample prologue.', image: 'images/covers-square/unplugged-badge-20261030.webp', audio: 'audio/audiobooks/unplugged/unplugged-ch1.mp3' },
         ...Array.from({length:17}, (_,i) => ({
           number: i + 2,
           title: `Chapter ${i+1}`,
           description: 'Full-book chapter.',
-          image: 'images/covers-square/unplugged-badge-20261022.webp',
+          image: 'images/covers-square/unplugged-badge-20261030.webp',
           audio: `audio/audiobooks/unplugged/unplugged-ch${i+2}.mp3`
         }))
       ]
@@ -1905,6 +1906,7 @@ function buildCard(item, freeLabel, locked = false) {
 // No autoplay, preload=none, one clip at a time, stops after 45 seconds.
 const SAMPLE_MAX_SEC = 45;
 function sampleUrl(item) {
+  if (item.sample) return item.sample;
   const list = [].concat(item.items || [], item.chapters || [], item.episodes || []);
   const hit = list.find(c => c && /-Sample\.mp3$/.test(c.audio || ''));
   return hit ? hit.audio : '';

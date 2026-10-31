@@ -11,6 +11,7 @@
  * Ch10/ep12 never match):
  *   Penny      a-penny-for-my-thoughts-ch1/2.mp3
  *   Unplugged  unplugged-ch1/2.mp3            (Prologue + Ch 1)
+ *   Unplugged  audiobooks/unplugged/Unplugged-Sample.mp3 (51s Prologue opening, homepage Sample button)
  *   Jailhouse  The-Jailhouse-Lawyer-Ch1/2.mp3
  *   Still      Still-Standing-Ch1/2.mp3
  *   Echo       audiobooks/the-echo/Echo-Origins-2026-Ch1/2.mp3 (20-chapter edition, Ch 1-2 free)
@@ -38,6 +39,7 @@
 const SAMPLE_RE = [
   /^\/audio\/audiobooks\/a-penny-for-my-thoughts\/a-penny-for-my-thoughts-ch[12]\.mp3$/i,
   /^\/audio\/audiobooks\/unplugged\/unplugged-ch[12]\.mp3$/i,
+  /^\/audio\/audiobooks\/unplugged\/Unplugged-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/the-jailhouse-lawyer\/The-Jailhouse-Lawyer-Ch[12]\.mp3$/i,
   /^\/audio\/audiobooks\/still-standing\/Still-Standing-Ch[12]\.mp3$/i,
   /^\/audio\/audiobooks\/the-echo\/Echo-Origins-2026-Ch[12]\.mp3$/i,

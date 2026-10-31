@@ -23,7 +23,7 @@ window.SUMNU_DATA={
       "formats": ["Paperback", "Kindle"],
       "audiobookUrl": "audiobooks.html#ab2",
       "audiobookPrice": "$10.99",
-      "cover": "images/books/book2.jpg",
+      "cover": "images/books/unplugged-20261030.jpg",
       "buyUrl": "https://www.amazon.com/dp/B0F8KT2LJM"
     },
     {
