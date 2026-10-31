@@ -57,7 +57,7 @@ window.SUMNU_DATA={
       "price": "$4.99",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book5.jpg",
+      "cover": "images/books/book5-20261030.jpg",
       "buyUrl": "https://www.amazon.com/dp/B0F4PTN195"
     },
     {
@@ -117,7 +117,7 @@ window.SUMNU_DATA={
       "price": "$4.99",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book11.jpg",
+      "cover": "images/books/book11-20261030.jpg",
       "buyUrl": "https://www.amazon.com/dp/B0F4Y2JK9J"
     },
     {
