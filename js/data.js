@@ -209,7 +209,7 @@ window.SUMNU_DATA={
       "price": "$2.99",
       "genre": "Relationships",
       "formats": ["Kindle"],
-      "cover": "images/books/book20-secure-relationship.jpg",
+      "cover": "images/books/book20-secure-relationship-20261031.jpg",
       "buyUrl": "https://www.amazon.com/dp/B0F3CRQQYB"
     },
     {
@@ -219,7 +219,7 @@ window.SUMNU_DATA={
       "price": "$2.99",
       "genre": "Nonfiction",
       "formats": ["Kindle"],
-      "cover": "images/books/book21.jpg",
+      "cover": "images/books/book21-20261031.jpg",
       "buyUrl": "https://www.amazon.com/dp/B0F3WFGFV1"
     },
     {
