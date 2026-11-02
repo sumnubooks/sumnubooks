@@ -67,7 +67,7 @@ window.SUMNU_DATA={
       "price": "$14.99",
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book6.jpg",
+      "cover": "images/books/architects-of-us-20261102.jpg",
       "buyUrl": "https://www.amazon.com/dp/B0F53LHNL6"
     },
     {
