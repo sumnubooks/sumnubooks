@@ -98,7 +98,7 @@
             <button class="book-close-btn" data-book-close="${b.id}" aria-label="Close">✕ Back</button>
             <div class="book-detail-title">${escapeHtml(b.shortTitle || b.title)}</div>
             ${b.tagline ? `<div class="book-detail-desc"><em>${escapeHtml(b.tagline)}</em></div>` : ''}
-            <div class="book-detail-desc">${escapeHtml(b.desc)}</div>
+            <div class="book-detail-desc" style="white-space:pre-line;">${escapeHtml(b.desc)}</div>
             <div class="book-detail-meta">
               <span class="pill">${genreIcon} ${escapeHtml(genreLabel)}</span>
               ${b.comingSoon ? '<span class="pill">🔜 Coming Soon</span>' : `<span class="price">${escapeHtml(b.price || '')}</span>`}
@@ -107,6 +107,7 @@
               ${b.audioSample ? `<button class="btn btn-secondary btn-small" data-audio-btn="${b.id}">🎧 Sample</button>` : ''}
               ${readBtn}
               ${audiobookBtn}
+              ${b.paperbackUrl && !b.comingSoon ? `<a class="btn btn-secondary btn-small" href="${escapeHtml(b.paperbackUrl)}" target="_blank" rel="noopener">📕 Paperback${b.paperbackPrice ? ' ' + escapeHtml(b.paperbackPrice) : ''}</a>` : ''}
               ${b.comingSoon ? '<span class="btn btn-primary btn-small" aria-disabled="true" style="opacity:.55;cursor:not-allowed;" title="Coming soon">🔜 Coming soon</span>' : `<a class="btn btn-primary btn-small" href="${b.buyUrl}" target="_blank" rel="noopener">${escapeHtml(b.buyLabel || '🛒 Buy on Amazon')}</a>`}
             </div>
 ${b.audioSample ? `            <div style="display:none; margin-top:10px;" data-audio-wrap="${b.id}">

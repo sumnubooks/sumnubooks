@@ -142,12 +142,16 @@ window.SUMNU_DATA={
     {
       "id": "book14",
       "title": "THE UNWANTED PASSENGER",
-      "desc": "You never asked for this. You never wanted to know. But now you do — and someone will do anything to keep you quiet.",
-      "price": "$25.00",
+      "alt": "The Unwanted Passenger by E. D. Lewis cover",
+      "desc": "Johnathon Styles carries a demon he never asked for — and a past he can never erase. After prison, he lives by every rule: therapy every Tuesday, a monitor on his ankle, and a life built far away from his past. Then a woman named Rachel sees the man behind the mark and decides to stay.\n\nBut across the street, someone else is watching. Gordon Teague believes men like Johnathon never change — and he’s willing to do anything to prove it. Even frame an innocent man.\n\nRaw, unflinching, and deeply human, The Unwanted Passenger asks who the real danger is — the man fighting his demon, or the man who never questions his own.",
+      "price": "$6.99",
       "genre": "Thriller",
-      "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book14.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F7M1KZSX"
+      "formats": ["Paperback", "eBook"],
+      "cover": "images/books/book14-unwanted-passenger-20261102.jpg",
+      "buyUrl": "https://payhip.com/b/PGFRv",
+      "buyLabel": "💳 Buy eBook",
+      "paperbackUrl": "https://www.amazon.com/dp/B0F7M1KZSX",
+      "paperbackPrice": "$19.99"
     },
     {
       "id": "book15",
