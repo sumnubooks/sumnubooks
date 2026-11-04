@@ -80,7 +80,7 @@
       const genreEmoji = { 'Sci-Fi': '🚀', 'Thriller': '🔪', 'Urban Fiction': '🔥', 'Street Lit': '🔥', 'Nonfiction': '📘', 'Self-Help': '💡', 'Finance': '💰', 'Health': '🩺', 'Leadership': '🏆' };
       const genreLabel = b.genre || 'Street Lit';
       const genreIcon = genreEmoji[genreLabel] || '📖';
-      const hasAudiobook = !!b.audiobookUrl;
+      const hasAudiobook = !!b.audiobookUrl && !b.audiobookHidden;
       const hasEpub = !!b.epubUrl;
       const audiobookBtn = hasAudiobook
         ? `<a class="btn btn-primary btn-small" href="${escapeHtml(b.audiobookUrl)}" style="background:linear-gradient(135deg,#b8860b,#ffd700);color:#000;font-weight:800;">🎧 Audiobook${b.audiobookPrice ? ' ' + escapeHtml(b.audiobookPrice) : ''}</a>`

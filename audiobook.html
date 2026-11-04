@@ -375,6 +375,7 @@
     },
     {
       slug: 'chandra',
+      hidden: true, // audiobook hidden 2026-11-04 (reversible: delete this line)
       title: 'Chandra: Forbidden Obsession',
       shortTitle: 'Chandra',
       eyebrow: 'Urban Fiction · Audiobook',
@@ -412,6 +413,7 @@
     },
     {
       slug: 'the-jailhouse-lawyer',
+      hidden: true, // audiobook hidden 2026-11-04 (reversible: delete this line)
       title: 'The Jailhouse Lawyer',
       eyebrow: 'Legal Thriller · Audiobook',
       tagline: 'Inside the walls, knowledge is power.',
@@ -709,7 +711,9 @@
   ];
 
   const params = new URLSearchParams(window.location.search);
-  const book = audiobookData.find(b => b.slug === params.get('slug'));
+  // Hidden audiobooks: no player, no sample, no buy. Send visitors to the catalog instead.
+  if (audiobookData.some(b => b.hidden && b.slug === params.get('slug'))) { window.location.replace('audiobooks.html'); }
+  const book = audiobookData.find(b => b.slug === params.get('slug') && !b.hidden);
   // No paywall: only the free sample chapters are in the player.
   // Paid chapters are not listed or streamed here (server also blocks them).
   if (book && !book.comingSoon) {

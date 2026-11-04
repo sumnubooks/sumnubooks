@@ -32,6 +32,9 @@
  */
 const SITE = 'https://sumnubooks.com';
 
+// Audiobooks hidden from the site (2026-11-04). Reversible: remove the slug. Their share previews fall back to the default.
+const HIDDEN_AUDIOBOOKS = new Set(['chandra', 'the-jailhouse-lawyer']);
+
 const BOOKS = {
   'a-penny-for-my-thoughts': { title: 'A Penny For My Thoughts', tagline: "He took her. He didn't expect to care.", cover: 'images/covers-square/a-penny-for-my-thoughts-20261024.webp?v=20261024', w: 1000, h: 1000 },
   'unplugged': { title: 'Unplugged: 30 Days of Chaos', tagline: 'No cell service. No WiFi. Only chaos.', cover: 'images/covers-square/unplugged-badge-20261030.webp', w: 1200, h: 1200 },
@@ -104,7 +107,7 @@ function metaFor(slug, allowSeries = false) {
       ogUrl: listenUrl(slug),
     };
   }
-  const b = Object.prototype.hasOwnProperty.call(BOOKS, slug) ? BOOKS[slug] : null;
+  const b = Object.prototype.hasOwnProperty.call(BOOKS, slug) && !HIDDEN_AUDIOBOOKS.has(slug) ? BOOKS[slug] : null;
   if (!b) return { slug: null, ...DEFAULT_META };
   return {
     slug,

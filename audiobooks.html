@@ -8,7 +8,7 @@
   // audiobooks.html#<slug> (fragments never reach the server) -> that book's player.
   (function () {
     var h = ''; try { h = decodeURIComponent((location.hash || '').slice(1)); } catch (e) {}
-    var S = ['a-penny-for-my-thoughts','unplugged','chandra','the-jailhouse-lawyer','still-standing','the-echo','the-clock','still-pimpin','bloodline','toxic-bosses','ai-for-real-life','leadership-development','the-yesterday-project','the-yesterday-project-part-two','stolen-passage','deanna','still-pimpin-iii','she-still-exists','penny-authors-cut'];
+    var S = ['a-penny-for-my-thoughts','unplugged','still-standing','the-echo','the-clock','still-pimpin','bloodline','toxic-bosses','ai-for-real-life','leadership-development','the-yesterday-project','the-yesterday-project-part-two','stolen-passage','deanna','still-pimpin-iii','she-still-exists','penny-authors-cut'];
     if (S.indexOf(h) > -1) location.replace('audiobook.html?slug=' + encodeURIComponent(h));
   })();
 </script>
@@ -501,7 +501,7 @@
             </div>
           </div>
         </article>
-        <article id="ab3" class="card product ab-available">
+        <article id="ab3" class="card product ab-available" hidden data-ab-hidden="2026-11-04" style="display:none !important;">
           <div class="product-cover">
             <img alt="THE JAILHOUSE LAWYER cover" src="images/books/jailhouse-lawyer-ebook-20261021.webp" width="1024" height="1536" loading="lazy" decoding="async"/>
           </div>
@@ -875,7 +875,7 @@
             </div>
           </div>
         </article>
-        <article id="chandra" class="card product ab-available" style="scroll-margin-top:90px;" aria-label="Chandra: Forbidden Obsession audiobook">
+        <article id="chandra" class="card product ab-available" hidden data-ab-hidden="2026-11-04" style="display:none !important; scroll-margin-top:90px;" aria-label="Chandra: Forbidden Obsession audiobook">
           <div class="product-cover">
             <img alt="Chandra: Forbidden Obsession by E. D. Lewis audiobook cover" src="images/covers-tall/chandra-6x9-20261017.webp" width="1024" height="1536" loading="lazy" decoding="async"/>
           </div>

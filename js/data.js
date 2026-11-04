@@ -36,6 +36,7 @@ window.SUMNU_DATA={
       "cover": "images/books/jailhouse-lawyer-ebook-20261021.webp",
       "audiobookUrl": "audiobook.html?slug=the-jailhouse-lawyer",
       "audiobookPrice": "$22.99",
+      "audiobookHidden": true,
       "buyUrl": "https://payhip.com/b/xORP3",
       "buyLabel": "💳 Buy eBook"
     },
