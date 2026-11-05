@@ -56,7 +56,7 @@ const BOOKS = {
 
 // Audio series (player: series.html?slug=<slug>). Used by /listen/<slug> only.
 const SERIES = {
-  'here-eat-this': { title: 'Here... Eat This', tagline: 'A dinner table. A pressure chamber. A story built on suspicion, betrayal, and what gets served when trust is already dead.', cover: 'images/covers-square/here-eat-this-20261021.webp', w: 1200, h: 1200 },
+  'here-eat-this': { title: 'Here... Eat This', tagline: 'A dinner table. A pressure chamber. A story built on suspicion, betrayal, and what gets served when trust is already dead.', cover: 'images/covers-square/here-eat-this-20261104.webp', w: 1200, h: 1200 },
   'other-man': { title: 'Other Man', tagline: "He didn't steal his life. He replaced it.", cover: 'images/covers-square/other-man-clean.jpg?v=20261001', w: 1000, h: 1000 },
 };
 
