@@ -136,7 +136,7 @@ window.SUMNU_DATA={
       "desc": "Past the frozen edge of the known world, something was never supposed to be found. A survival thriller packed with tension and discovery.",
       "genre": "Thriller",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/beyond-the-ice-20261105.jpg",
+      "cover": "images/books/beyond-the-ice-20261105b.jpg",
       "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
     },
     {
@@ -147,7 +147,7 @@ window.SUMNU_DATA={
       "price": "$6.99",
       "genre": "Thriller",
       "formats": ["Paperback", "eBook"],
-      "cover": "images/books/book14-unwanted-passenger-20261102.jpg",
+      "cover": "images/books/book14-unwanted-passenger-20261105b.jpg",
       "buyUrl": "https://payhip.com/b/PGFRv",
       "buyLabel": "💳 Buy eBook",
       "paperbackUrl": "https://www.amazon.com/dp/B0F7M1KZSX",
@@ -190,7 +190,7 @@ window.SUMNU_DATA={
       "price": "$4.99",
       "genre": "Nonfiction",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/cultural-scripts-20261105.jpg",
+      "cover": "images/books/cultural-scripts-20261105b.jpg",
       "buyUrl": "https://www.amazon.com/dp/B0F2DF5Z9H"
     },
     {
@@ -246,7 +246,7 @@ window.SUMNU_DATA={
       "price": "$5.99",
       "genre": "Publishing",
       "formats": ["Kindle"],
-      "cover": "images/books/professional-way-20261105.jpg",
+      "cover": "images/books/professional-way-20261105b.jpg",
       "buyUrl": "https://www.amazon.com/dp/B01D6OJEFI"
     },
     {
