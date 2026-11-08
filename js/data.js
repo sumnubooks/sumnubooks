@@ -269,7 +269,7 @@ window.SUMNU_DATA={
       "price": "$6.99",
       "genre": "Sci-Fi",
       "formats": ["EPUB", "PDF"],
-      "cover": "images/books/yesterday-project-cover-v2.webp",
+      "cover": "images/books/yesterday-project-book-one-part-one-ebook-20261108.jpg",
       "alt": "The Yesterday Project: Book One, Part One by E. D. Lewis cover",
       "tagline": "We are the experiment.",
       "epubUrl": "ebooks/the-yesterday-project-sample.epub",
