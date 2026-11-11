@@ -352,7 +352,18 @@ window.SUMNU_DATA={
           "audiobookPrice": "$22.99",
           "buyUrl": "https://payhip.com/b/qfwKu",
           "buyLabel": "💳 Buy eBook"
-        }
+        },
+    {
+      "id": "book30",
+      "title": "POLLEN IN THE AIR",
+      "shortTitle": "Pollen in the Air",
+      "alt": "Pollen in the Air by E. D. Lewis",
+      "tagline": "A computer gave him a number. A hustler gave him an offer. An old man gave him the truth.",
+      "desc": "In Louisville's near future, sixteen-year-old robot builder Early V is reduced to a PATH score of 41 and a warehouse future. A hustler offers money, an old night supervisor offers a different kind of wisdom, and Early must decide what his intelligence is for, and who pays for the choices he makes. A coming-of-age novel about AI, family, responsibility, and the people who see more than a number.",
+      "genre": "Fiction",
+      "cover": "images/books/pollen-in-the-air-20261110.webp",
+      "comingSoon": true
+    }
   ],
   "albums": [
     {
