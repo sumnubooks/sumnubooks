@@ -111,32 +111,35 @@ window.SUMNU_DATA={
       "buyUrl": "https://www.amazon.com/dp/B0F6NR1RSP"
     },
     {
-      "id": "book11",
-      "title": "THE EDGE OF KNOWING",
-      "desc": "At the boundary between what's real and what's manufactured, one person knows too much. A taut psychological sci-fi thriller.",
-      "price": "$4.99",
-      "genre": "Sci-Fi",
-      "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book11-20261030.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F4Y2JK9J"
-    },
-    {
       "id": "book12",
       "title": "THE GAIA ALGORITHM",
       "desc": "An AI built to save the planet has its own agenda. A chilling near-future thriller about technology, control, and what happens when the machine decides it knows best.",
       "price": "$2.99",
       "genre": "Sci-Fi",
+      "seriesLine": "The Southern Threshold, Book One",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/book12.jpg",
+      "cover": "images/books/the-gaia-algorithm-20261111.webp",
       "buyUrl": "https://www.amazon.com/dp/B0F4PV2TV5"
+    },
+    {
+      "id": "book11",
+      "title": "THE EDGE OF KNOWING",
+      "desc": "At the boundary between what's real and what's manufactured, one person knows too much. A taut psychological sci-fi thriller.",
+      "price": "$4.99",
+      "genre": "Sci-Fi",
+      "seriesLine": "The Southern Threshold, Book Two",
+      "formats": ["Paperback", "Kindle"],
+      "cover": "images/books/the-edge-of-knowing-20261111.webp",
+      "buyUrl": "https://www.amazon.com/dp/B0F4Y2JK9J"
     },
     {
       "id": "book13",
       "title": "BEYOND THE ICE",
       "desc": "Past the frozen edge of the known world, something was never supposed to be found. A survival thriller packed with tension and discovery.",
       "genre": "Thriller",
+      "seriesLine": "The Southern Threshold, Book Three",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/books/beyond-the-ice-20261105b.jpg",
+      "cover": "images/books/beyond-the-ice-20261111.webp",
       "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
     },
     {

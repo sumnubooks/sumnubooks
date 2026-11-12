@@ -97,6 +97,7 @@
           <div class="book-detail-panel" data-book-panel="${b.id}">
             <button class="book-close-btn" data-book-close="${b.id}" aria-label="Close">✕ Back</button>
             <div class="book-detail-title">${escapeHtml(b.shortTitle || b.title)}</div>
+            ${b.seriesLine ? `<div class="book-detail-desc"><em>${escapeHtml(b.seriesLine)}</em></div>` : ''}
             ${b.tagline ? `<div class="book-detail-desc"><em>${escapeHtml(b.tagline)}</em></div>` : ''}
             <div class="book-detail-desc" style="white-space:pre-line;">${escapeHtml(b.desc)}</div>
             <div class="book-detail-meta">
