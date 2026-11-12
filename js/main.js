@@ -72,7 +72,15 @@
       const sort = sortSel?.value || 'new';
       if (sort === 'az') out.sort((a,b)=>a.title.localeCompare(b.title));
       if (sort === 'za') out.sort((a,b)=>b.title.localeCompare(a.title));
-      if (sort === 'num') out.sort((a,b)=> (parseInt(a.id.replace('book',''),10) - parseInt(b.id.replace('book',''),10)));
+      if (sort === 'num') out.sort((a,b)=> {
+        const n = (id) => {
+          const x = parseInt(String(id).replace('book',''), 10);
+          if (x === 11) return 12; // Edge of Knowing — after Gaia, before Beyond
+          if (x === 12) return 11; // Gaia Algorithm — Southern Threshold Book One first
+          return x;
+        };
+        return n(a.id) - n(b.id);
+      });
       return out;
     }
 
