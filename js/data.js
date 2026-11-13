@@ -366,6 +366,39 @@ window.SUMNU_DATA={
       "genre": "Fiction",
       "cover": "images/books/pollen-in-the-air-20261111b.webp",
       "comingSoon": true
+    },
+    {
+      "id": "book31",
+      "title": "Here... Eat This!",
+      "alt": "Here... Eat This! by E. D. Lewis cover",
+      "desc": "Here... Eat This! is a dark, suspenseful psychological thriller about a dinner that turns into something far more disturbing than either person expected. What begins as an ordinary evening quickly becomes a tense psychological game filled with secrets, manipulation, and the feeling that something is very wrong. As the night unfolds, every conversation raises another question, and every answer makes the situation more dangerous. One dinner. Two people. Something is wrong.",
+      "price": "$2.99",
+      "genre": "Fiction",
+      "seriesLine": "Here... series, Book 1",
+      "formats": ["eBook"],
+      "cover": "images/books/here-eat-this-ebook-20261113.webp",
+      "buyUrl": "https://payhip.com/b/VPu2S",
+      "buyLabel": "💳 Buy eBook",
+      "relatedLinks": [
+        { "href": "books.html#book32", "label": "Book 2: Here... Drink This! The Couch Sessions" },
+        { "href": "https://payhip.com/b/oXsvR", "label": "Also available: Here… Eat This audio drama" }
+      ]
+    },
+    {
+      "id": "book32",
+      "title": "Here... Drink This! The Couch Sessions",
+      "alt": "Here... Drink This! The Couch Sessions by E. D. Lewis cover",
+      "desc": "Callum told his therapist it was work stress. It isn't. Over eight sessions on Dr. Vale's couch, he talks about the numbers, the quiet house, and the wife who does all the cooking now. And every session, a glass of ice water sits beside him. Close enough to reach. Close enough to think about. He won't drink it. A story of paranoia, trust, and the mind's betrayal.",
+      "price": "$2.99",
+      "genre": "Fiction",
+      "seriesLine": "Here... series, Book 2",
+      "formats": ["eBook"],
+      "cover": "images/books/here-drink-this-ebook-20261113.webp",
+      "buyUrl": "https://payhip.com/b/VAloD",
+      "buyLabel": "💳 Buy eBook",
+      "relatedLinks": [
+        { "href": "books.html#book31", "label": "Book 1: Here... Eat This!" }
+      ]
     }
   ],
   "albums": [
