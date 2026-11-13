@@ -84,6 +84,18 @@
       return out;
     }
 
+
+    function relatedLinksHtml(b) {
+      const links = Array.isArray(b.relatedLinks) ? b.relatedLinks : [];
+      if (!links.length) return '';
+      return `<div class="book-detail-desc">${links.map(l => {
+        const href = escapeHtml(l.href || '');
+        const ext = /^(https?:)?\/\//i.test(l.href || '');
+        const extra = ext ? ' target="_blank" rel="noopener"' : '';
+        return `<a href="${href}"${extra} style="color:var(--gold,#ffd700);font-weight:700;">${escapeHtml(l.label || l.href || '')}</a>`;
+      }).join('<br>')}</div>`;
+    }
+
     function card(b) {
       const genreEmoji = { 'Sci-Fi': '🚀', 'Thriller': '🔪', 'Urban Fiction': '🔥', 'Street Lit': '🔥', 'Nonfiction': '📘', 'Self-Help': '💡', 'Finance': '💰', 'Health': '🩺', 'Leadership': '🏆' };
       const genreLabel = b.genre || 'Street Lit';
@@ -106,6 +118,7 @@
             <button class="book-close-btn" data-book-close="${b.id}" aria-label="Close">✕ Back</button>
             <div class="book-detail-title">${escapeHtml(b.shortTitle || b.title)}</div>
             ${b.seriesLine ? `<div class="book-detail-desc"><em>${escapeHtml(b.seriesLine)}</em></div>` : ''}
+            ${relatedLinksHtml(b)}
             ${b.tagline ? `<div class="book-detail-desc"><em>${escapeHtml(b.tagline)}</em></div>` : ''}
             <div class="book-detail-desc" style="white-space:pre-line;">${escapeHtml(b.desc)}</div>
             <div class="book-detail-meta">
@@ -129,10 +142,23 @@ ${b.audioSample ? `            <div style="display:none; margin-top:10px;" data-
       `;
     }
 
+    function openBookFromHash() {
+      const id = (location.hash || '').replace(/^#/, '');
+      if (!/^book\d+$/.test(id)) return;
+      const bookCard = qs(`[data-book="${id}"]`);
+      if (!bookCard) return;
+      closeAllPanels();
+      bookCard.scrollIntoView({ block: 'center' });
+      bookCard.classList.add('panel-open');
+      const panel = qs('[data-book-panel]', bookCard);
+      if (panel) panel.style.transform = 'translateY(0)';
+    }
+
     function draw() {
       host.innerHTML = getFiltered().map(card).join('');
       wireBookAudio();
       enforceSingleAudio();
+      openBookFromHash();
     }
 
     function closeAllPanels() {
@@ -192,6 +218,10 @@ ${b.audioSample ? `            <div style="display:none; margin-top:10px;" data-
     });
 
     draw();
+    if (!renderBooks._hashBound) {
+      renderBooks._hashBound = true;
+      window.addEventListener('hashchange', openBookFromHash);
+    }
   }
 
   function wireZelleToggles(){
