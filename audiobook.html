@@ -692,6 +692,23 @@
       ]
     },
     {
+      slug: 'pollen-in-the-air',
+      title: 'Pollen in the Air',
+      shortTitle: 'Pollen in the Air',
+      eyebrow: 'Fiction · Audiobook',
+      tagline: 'A computer gave him a number. A hustler gave him an offer. An old man gave him the truth.',
+      blurb: 'Louisville, 2031. Early V is sixteen, and a computer has already decided his future: 41. That\'s his PATH score—a number built from his zip code, his school absences, and every time a hallway camera saw him laugh too loud. It means no advanced program, no robotics lab, and no clear way out. Performed by a full cast of AI voices. A standalone novel by E. D. Lewis.',
+      cover: 'images/covers-square/pollen-in-the-air-20261113.webp',
+      freeCount: 0,
+      payhip: 'https://payhip.com/b/adp84',
+      price: '12.99',
+      // Full-cast audiobook on Payhip. No retail sample on the box, so this is a buy-only player page (no LISTEN FREE / sample).
+      totalChapters: null,
+      freeLabel: '5 hr 12 min',
+      buyDesc: 'Full-cast audiobook, 5 hr 12 min. ZIP of all 20 chapter MP3 files (320 kbps) plus cover art — DRM-free',
+      items: []
+    },
+    {
       slug: 'she-still-exists',
       title: 'She Still Exists',
       eyebrow: 'Sci-Fi Thriller · Audiobook',
@@ -713,10 +730,11 @@
   // No paywall: only the free sample chapters are in the player.
   // Paid chapters are not listed or streamed here (server also blocks them).
   if (book && !book.comingSoon) {
+    book.items = Array.isArray(book.items) ? book.items : [];
     if (book.totalChapters === undefined) book.totalChapters = book.items.length;
-    book.items = book.items.slice(0, book.freeCount);
+    if (book.freeCount) book.items = book.items.slice(0, book.freeCount);
   }
-  const canAccess = i => !!book && i < book.items.length;
+  const canAccess = i => !!book && book.items && i < book.items.length;
   const displayTitle = item => item.title || `Chapter ${item.number}`;
   const displayShort = item => {
     const title = displayTitle(item);
@@ -771,12 +789,17 @@
     shareBtn.dataset.shareText = book.tagline;
     shareBtn.setAttribute('aria-label', `Share ${book.title}`);
 
+    const hasSample = Array.isArray(book.items) && book.items.length > 0;
     document.getElementById('bookPills').innerHTML = book.previewOnly ? `
       <span class="book-pill">Prologue + Ch 1 Free</span>
       <span class="book-pill">Full audiobook coming soon</span>
-    ` : `
+    ` : hasSample ? `
       ${book.totalChapters ? `<span class="book-pill">${book.totalChapters} Chapters</span>` : ''}
       <span class="book-pill">${book.freeLabel || `Ch 1–${book.freeCount} Free`}</span>
+      <span class="book-pill">Buy to Own</span>
+    ` : `
+      ${book.freeLabel ? `<span class="book-pill">${book.freeLabel}</span>` : ''}
+      <span class="book-pill">Full-cast audiobook</span>
       <span class="book-pill">Buy to Own</span>
     `;
 
@@ -804,12 +827,22 @@
       buyBar.classList.add('coming-soon');
     }
 
-    document.getElementById('sheetTitle').textContent = book.previewOnly ? 'Free Preview' : 'Free Sample Chapters';
-    document.getElementById('chapterTriggerLabel').textContent = book.previewOnly ? 'Free Preview · Prologue + Ch 1' : (book.triggerLabel || `${book.items.length} Free Chapters`);
     document.getElementById('trackSeries').textContent = book.shortTitle || book.title;
-
-    buildChapterSheet();
-    loadChapter(0, false);
+    if (hasSample) {
+      document.getElementById('sheetTitle').textContent = book.previewOnly ? 'Free Preview' : 'Free Sample Chapters';
+      document.getElementById('chapterTriggerLabel').textContent = book.previewOnly ? 'Free Preview · Prologue + Ch 1' : (book.triggerLabel || `${book.items.length} Free Chapters`);
+      buildChapterSheet();
+      loadChapter(0, false);
+    } else {
+      const trigger = document.getElementById('chapterTrigger');
+      if (trigger) trigger.style.display = 'none';
+      const artEl = document.getElementById('coverArt');
+      if (artEl) artEl.src = book.cover;
+      const titleEl = document.getElementById('trackTitle');
+      if (titleEl) titleEl.textContent = book.shortTitle || book.title;
+      const chEl = document.getElementById('trackChapter');
+      if (chEl) chEl.textContent = book.buyDesc || 'Full-cast audiobook';
+    }
     wireControls();
     wireSheet();
   }
@@ -887,6 +920,7 @@
       const btn = document.getElementById('btnPlay');
       const frame = document.getElementById('coverFrame');
       if (audio.paused) {
+        if (!book.items || !book.items.length) { goToBuy(); return; }
         if (audio.readyState === 0) {
           audio.src = book.items[currentIndex].audio;
           audio.play().catch(() => { btn.classList.remove('is-playing'); frame.classList.remove('is-playing'); });

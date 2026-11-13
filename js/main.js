@@ -123,14 +123,15 @@
             <div class="book-detail-desc" style="white-space:pre-line;">${escapeHtml(b.desc)}</div>
             <div class="book-detail-meta">
               <span class="pill">${genreIcon} ${escapeHtml(genreLabel)}</span>
-              ${b.comingSoon ? '<span class="pill">🔜 Coming Soon</span>' : `<span class="price">${escapeHtml(b.price || '')}</span>`}
+              ${b.audiobookBuyUrl && b.audiobookPrice ? `<span class="price">${escapeHtml(b.audiobookPrice)}</span>` : (b.comingSoon ? '<span class="pill">🔜 Coming Soon</span>' : `<span class="price">${escapeHtml(b.price || '')}</span>`)}
+              ${b.comingSoon && b.audiobookBuyUrl ? '<span class="pill">eBook 🔜 Coming Soon</span>' : ''}
             </div>
             <div class="book-detail-actions">
               ${b.audioSample ? `<button class="btn btn-secondary btn-small" data-audio-btn="${b.id}">🎧 Sample</button>` : ''}
               ${readBtn}
               ${audiobookBtn}
               ${b.paperbackUrl && !b.comingSoon ? `<a class="btn btn-secondary btn-small" href="${escapeHtml(b.paperbackUrl)}" target="_blank" rel="noopener">📕 Paperback${b.paperbackPrice ? ' ' + escapeHtml(b.paperbackPrice) : ''}</a>` : ''}
-              ${b.comingSoon ? '<span class="btn btn-primary btn-small" aria-disabled="true" style="opacity:.55;cursor:not-allowed;" title="Coming soon">🔜 Coming soon</span>' : `<a class="btn btn-primary btn-small" href="${b.buyUrl}" target="_blank" rel="noopener">${escapeHtml(b.buyLabel || '🛒 Buy on Amazon')}</a>`}
+              ${b.audiobookBuyUrl ? `<a class="btn btn-primary btn-small" href="${escapeHtml(b.audiobookBuyUrl)}" target="_blank" rel="noopener">🎧 Buy Audiobook${b.audiobookPrice ? ' ' + escapeHtml(b.audiobookPrice) : ''}</a>` : (b.comingSoon ? '<span class="btn btn-primary btn-small" aria-disabled="true" style="opacity:.55;cursor:not-allowed;" title="Coming soon">🔜 Coming soon</span>' : `<a class="btn btn-primary btn-small" href="${b.buyUrl}" target="_blank" rel="noopener">${escapeHtml(b.buyLabel || '🛒 Buy on Amazon')}</a>`)}
             </div>
 ${b.audioSample ? `            <div style="display:none; margin-top:10px;" data-audio-wrap="${b.id}">
               <audio controls preload="none">
