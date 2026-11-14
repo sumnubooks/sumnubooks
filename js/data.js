@@ -47,7 +47,7 @@ window.SUMNU_DATA={
       "price": "$4.99",
       "genre": "Urban Fiction",
       "formats": ["Paperback", "Kindle"],
-      "cover": "images/covers-tall/chandra-6x9-20261017.webp",
+      "cover": "images/covers-tall/chandra-20261113.webp",
       "buyUrl": "https://www.amazon.com/dp/B0DFTZ1BJG"
     },
     {
