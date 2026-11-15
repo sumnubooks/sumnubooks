@@ -113,6 +113,29 @@
     -webkit-tap-highlight-color: transparent;
   }
   .buy-btn:active { background: #c8902a; }
+
+  .buy-bar-extra {
+    display: none;
+    margin: 8px 18px 0;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .buy-bar-extra.is-live { display: flex; }
+  .buy-bar-extra .related-line {
+    font-size: .8rem;
+    color: rgba(255,255,255,.55);
+    line-height: 1.45;
+  }
+  .buy-bar-extra .related-line a { color: var(--gold, #d4a843); font-weight: 700; text-decoration: none; }
+  .buy-bar-extra .buy-btn-secondary {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 8px 14px; border-radius: 999px;
+    border: 1px solid rgba(212,168,67,.55);
+    background: transparent; color: var(--gold, #d4a843);
+    font-size: .78rem; font-weight: 800; letter-spacing: .04em;
+    text-decoration: none;
+  }
   .buy-bar.coming-soon { opacity: .5; pointer-events: none; }
   .coming-soon-badge { font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px 14px; }
   /* Free-preview titles: full-strength, legible gold badge (not the faded coming-soon style) */
@@ -254,6 +277,7 @@
       </div>
       <a class="buy-btn" id="buyBtn" href="#" target="_blank" rel="noopener">Buy</a>
     </div>
+    <div class="buy-bar-extra" id="buyBarExtra" hidden></div>
 
     <div class="divider"></div>
 
@@ -709,6 +733,28 @@
       items: []
     },
     {
+      slug: 'after-our-water-breaks',
+      title: 'After Our Water Breaks',
+      shortTitle: 'After Our Water Breaks',
+      eyebrow: 'Fiction · Audiobook',
+      tagline: 'The baby changed everything, Now the truth will break them all.',
+      blurb: 'After Our Water Breaks is Book Two of Before Our Water Breaks: ten episodes told by Morgan in a full-cast audiobook of about forty-six minutes. Thirty-eight weeks. Two hospital bags sit by the front door, packed the same week. Morgan and her sister share a house and a due season. Everyone thinks they know what Morgan is carrying. Her sister thinks she knows. Devlin thinks he knows. For a long time, so did she. They still tell it as if a worn hotel receipt started everything. That story is simple. It is not the truth. Morgan already knew. She set her phone on the table and made them sit — calm, in control, a card of her own face down the whole time. Devlin has left the house, but he has not left the story. Packages arrive with his handwriting. Morgan lies awake counting kicks, landing on the answer she can live with. There is a word for what she is carrying, and it isn\'t only baby. It\'s secret. And she was never the only one holding one.',
+      cover: 'images/covers-square/after-our-water-breaks-20261115.webp',
+      freeCount: 0,
+      payhip: 'https://payhip.com/b/OBAHm',
+      price: '10.99',
+      totalChapters: null,
+      freeLabel: 'About 46 min',
+      buyDesc: 'Full-cast audiobook, about 46 minutes, 10 episodes told by Morgan. M4B (chaptered) plus ten episode MP3 files — DRM-free',
+      relatedLinks: [
+        { href: 'series.html?slug=before-our-water-breaks', label: 'Book One: Before Our Water Breaks $10.99' }
+      ],
+      bundleUrl: 'https://payhip.com/b/uIeXP',
+      bundlePrice: '$15',
+      bundleLabel: 'Bundle both audiobooks $15',
+      items: []
+    },
+    {
       slug: 'she-still-exists',
       title: 'She Still Exists',
       eyebrow: 'Sci-Fi Thriller · Audiobook',
@@ -803,6 +849,26 @@
       <span class="book-pill">Buy to Own</span>
     `;
 
+
+    function fillBuyExtras(cfg) {
+      const extra = document.getElementById('buyBarExtra');
+      if (!extra || !cfg) return;
+      const esc = (s) => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+      const parts = [];
+      (cfg.relatedLinks || []).forEach((l) => {
+        if (!l || !l.href || !l.label) return;
+        parts.push('<div class="related-line"><a href="' + esc(l.href) + '">' + esc(l.label) + '</a></div>');
+      });
+      if (cfg.bundleUrl) {
+        const label = cfg.bundleLabel || ('Bundle both audiobooks ' + (cfg.bundlePrice || '$15'));
+        parts.push('<a class="buy-btn-secondary" href="' + esc(cfg.bundleUrl) + '" target="_blank" rel="noopener">' + esc(label) + '</a>');
+      }
+      if (!parts.length) return;
+      extra.innerHTML = parts.join('');
+      extra.hidden = false;
+      extra.classList.add('is-live');
+    }
+
     // Buy bar
     const buyBar = document.getElementById('buyBar');
     const buyBtn = document.getElementById('buyBtn');
@@ -826,6 +892,7 @@
       buyBar.innerHTML = '<span class="coming-soon-badge">🔜 Purchase link coming soon</span>';
       buyBar.classList.add('coming-soon');
     }
+    fillBuyExtras(book);
 
     document.getElementById('trackSeries').textContent = book.shortTitle || book.title;
     if (hasSample) {

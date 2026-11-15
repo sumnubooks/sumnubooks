@@ -646,6 +646,29 @@
   }
   .buy-btn:active { background: #c8902a; }
 
+  .buy-bar-extra {
+    display: none;
+    margin: 8px 18px 0;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .buy-bar-extra.is-live { display: flex; }
+  .buy-bar-extra .related-line {
+    font-size: .8rem;
+    color: rgba(255,255,255,.55);
+    line-height: 1.45;
+  }
+  .buy-bar-extra .related-line a { color: var(--gold, #d4a843); font-weight: 700; text-decoration: none; }
+  .buy-bar-extra .buy-btn-secondary {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 8px 14px; border-radius: 999px;
+    border: 1px solid rgba(212,168,67,.55);
+    background: transparent; color: var(--gold, #d4a843);
+    font-size: .78rem; font-weight: 800; letter-spacing: .04em;
+    text-decoration: none;
+  }
+
   /* Divider */
   .divider {
     height: 1px;
@@ -715,6 +738,7 @@
       <!-- PAYHIP LINK PENDING ERIC: titles with payhipPending render a disabled "$price · Coming soon" button here -->
       <a class="buy-btn" id="buyBtn" href="#" target="_blank" rel="noopener">Buy</a>
     </div>
+    <div class="buy-bar-extra" id="buyBarExtra" hidden></div>
 
     <div class="divider"></div>
 
@@ -835,6 +859,12 @@
       freeCount: 2,
       payhip: 'https://payhip.com/b/BL9JG',
       price: '10.99',
+      relatedLinks: [
+        { href: 'audiobook.html?slug=after-our-water-breaks', label: 'Book Two: After Our Water Breaks $10.99' }
+      ],
+      bundleUrl: 'https://payhip.com/b/uIeXP',
+      bundlePrice: '$15',
+      bundleLabel: 'Bundle both audiobooks $15',
       unit: 'Episode',
       chapters: Array.from({length:8}, (_,i) => `Episode ${i+1}`),
       items: Array.from({length:8}, (_,i) => ({
@@ -952,6 +982,26 @@
       <span class="series-pill">${ul}s 1–${series.freeCount} Free</span>
     `;
 
+
+    function fillBuyExtras(cfg) {
+      const extra = document.getElementById('buyBarExtra');
+      if (!extra || !cfg) return;
+      const esc = (s) => String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+      const parts = [];
+      (cfg.relatedLinks || []).forEach((l) => {
+        if (!l || !l.href || !l.label) return;
+        parts.push('<div class="related-line"><a href="' + esc(l.href) + '">' + esc(l.label) + '</a></div>');
+      });
+      if (cfg.bundleUrl) {
+        const label = cfg.bundleLabel || ('Bundle both audiobooks ' + (cfg.bundlePrice || '$15'));
+        parts.push('<a class="buy-btn-secondary" href="' + esc(cfg.bundleUrl) + '" target="_blank" rel="noopener">' + esc(label) + '</a>');
+      }
+      if (!parts.length) return;
+      extra.innerHTML = parts.join('');
+      extra.hidden = false;
+      extra.classList.add('is-live');
+    }
+
     if (series.payhip) {
       const buyBar = document.getElementById('buyBar');
       const buyBtn = document.getElementById('buyBtn');
@@ -969,6 +1019,7 @@
       buyBtn.textContent = `$${series.price} · Coming soon`;
       buyBar.classList.add('is-live');
     }
+    fillBuyExtras(series);
 
     // Sheet title
     document.getElementById('sheetTitle').textContent = `Free Sample ${ul}s`;
