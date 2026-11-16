@@ -40,7 +40,11 @@ export default async (req, context) => {
     const prefix = `${env}/${d}/`;
     for await (const page of store.list({ prefix, paginate: true })) {
       for (const b of page.blobs) {
-        const bucket = decodeURIComponent(b.key.slice(prefix.length).split('/')[0] || '');
+        // key = <prefix><bucket>/<random>; bucket may come back URL-encoded or decoded, so split on the LAST '/'.
+        const rest = b.key.slice(prefix.length);
+        const cut = rest.lastIndexOf('/');
+        let bucket = cut > 0 ? rest.slice(0, cut) : rest;
+        try { bucket = decodeURIComponent(bucket); } catch {}
         counts[bucket] = (counts[bucket] || 0) + 1;
       }
     }
