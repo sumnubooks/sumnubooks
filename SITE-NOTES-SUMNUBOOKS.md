@@ -1,3 +1,35 @@
+## Analytics + Buy-click tracking + UTM tags (Nov 15, 2026)
+
+**What it is:** free, self-hosted, cookie-free aggregate counts. No third-party account, no secret, no cost.
+
+- **Client:** `js/analytics.js`, included in `<head>` of every public page (`<script src="/js/analytics.js" defer>`).
+  Sends one `navigator.sendBeacon('/api/hit')` per page load (`pageview`) and one per click on an outbound
+  Payhip / Amazon / Audible link (`buy_click`, incl. middle-click). No cookies, no localStorage, no visitor/session
+  IDs, no fingerprinting. Skipped when Do Not Track or Global Privacy Control is on, and for automated browsers.
+  Payload: event, page path, slug (`?slug`/`?play` on the page, or the link's `utm_campaign`), referrer **host** only
+  (`direct` / `internal` / e.g. `google.com`), Buy destination host, incoming `utm_source`.
+- **Collector:** `netlify/functions/hit.mjs` (POST `/api/hit`). Drops bots by user-agent (UA is never stored) and
+  DNT/GPC requests. Writes one EMPTY blob per event to Netlify Blobs store `site-analytics`, key
+  `<env>/<YYYY-MM-DD>/<bucket>/<random>` where env = `production` or `preview` (deploy previews/branches never
+  mix with production), day is Pacific time, bucket = `event|path|slug|referrerHost|destHost|utmSource`
+  (URL-encoded). Append-only so simultaneous hits never overwrite each other (a read-modify-write counter lost
+  1 of 10 concurrent hits in testing). `/api/stats` counts keys per bucket.
+- **Read the data:** `GET /api/stats?from=YYYY-MM-DD&to=YYYY-MM-DD` (default last 30 days; `&env=preview` for preview
+  data). Returns totals plus pageviews by path / slug / referrer / utm_source and Buy clicks by slug / destination /
+  page, per day. Aggregate only, so it is open; to lock it, set a `STATS_TOKEN` env var in Netlify and add `&token=`.
+- **Deps:** `package.json` exists only so Netlify installs `@netlify/blobs` for the functions. `node_modules`,
+  `package.json`, `package-lock.json` are 404'd on the public site via `netlify.toml`.
+
+**UTM tags:** every outbound Buy link (Payhip, Amazon incl. the author store, Audible) carries
+`utm_source=sumnubooks&utm_medium=site&utm_campaign=<slug>`. Slug = the site slug of the book
+(`still-pimpin`, `the-yesterday-project-part-two`, ...; ebook-only titles use the slugified title, e.g.
+`the-unwanted-passenger`; music albums use `music-<album-slug>`; author-store links use `author-store`).
+Existing query params are kept. **When you add a new Buy link, add the UTM tags to the URL** (the analytics
+script also adds them at click time as a safety net, campaign = nearest `data-slug`/`article id`, else `sitewide`).
+YouTube / music-video links are not tagged.
+
+---
+
 > **Superseded — paywall removed (feature/remove-paywall, Sep 2026).** The site no longer uses
 > Outseta, VIP, `js/auth.js` or login. Free sample chapters/episodes (1–2) play openly; paid audio
 > is blocked server-side by `netlify/edge-functions/protect-paid-audio.js`; full titles are sold via

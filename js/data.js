@@ -11,7 +11,7 @@ window.SUMNU_DATA={
       "audiobookPrice": "$22.99",
       "epubUrl": "ebooks/a-penny-for-my-thoughts.epub",
       "cover": "images/books/a-penny-for-my-thoughts-ebook-20261024.webp",
-      "buyUrl": "https://www.amazon.com/dp/B01BCUD66G"
+      "buyUrl": "https://www.amazon.com/dp/B01BCUD66G?utm_source=sumnubooks&utm_medium=site&utm_campaign=a-penny-for-my-thoughts"
     },
     {
       "id": "book2",
@@ -24,7 +24,7 @@ window.SUMNU_DATA={
       "audiobookUrl": "audiobooks.html#ab2",
       "audiobookPrice": "$10.99",
       "cover": "images/books/unplugged-20261030.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F8KT2LJM"
+      "buyUrl": "https://www.amazon.com/dp/B0F8KT2LJM?utm_source=sumnubooks&utm_medium=site&utm_campaign=unplugged"
     },
     {
       "id": "book3",
@@ -36,7 +36,7 @@ window.SUMNU_DATA={
       "cover": "images/books/jailhouse-lawyer-ebook-20261021.webp",
       "audiobookUrl": "audiobook.html?slug=the-jailhouse-lawyer",
       "audiobookPrice": "$22.99",
-      "buyUrl": "https://payhip.com/b/xORP3",
+      "buyUrl": "https://payhip.com/b/xORP3?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-jailhouse-lawyer",
       "buyLabel": "💳 Buy eBook"
     },
     {
@@ -48,7 +48,7 @@ window.SUMNU_DATA={
       "genre": "Urban Fiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/covers-tall/chandra-20261113.webp",
-      "buyUrl": "https://www.amazon.com/dp/B0DFTZ1BJG"
+      "buyUrl": "https://www.amazon.com/dp/B0DFTZ1BJG?utm_source=sumnubooks&utm_medium=site&utm_campaign=chandra"
     },
     {
       "id": "book5",
@@ -58,7 +58,7 @@ window.SUMNU_DATA={
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book5-20261030.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F4PTN195"
+      "buyUrl": "https://www.amazon.com/dp/B0F4PTN195?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-american-ark"
     },
     {
       "id": "book6",
@@ -68,7 +68,7 @@ window.SUMNU_DATA={
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/architects-of-us-20261102.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F53LHNL6"
+      "buyUrl": "https://www.amazon.com/dp/B0F53LHNL6?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-architects-of-us"
     },
     {
       "id": "book7",
@@ -78,7 +78,7 @@ window.SUMNU_DATA={
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book7-20261029.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F7GXVX5T"
+      "buyUrl": "https://www.amazon.com/dp/B0F7GXVX5T?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-echo-origins"
     },
     {
       "id": "book8",
@@ -88,7 +88,7 @@ window.SUMNU_DATA={
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book8-20261029.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F7J27VK9"
+      "buyUrl": "https://www.amazon.com/dp/B0F7J27VK9?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-echo-resonance"
     },
     {
       "id": "book9",
@@ -98,7 +98,7 @@ window.SUMNU_DATA={
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book9-20261029.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F6NPRJ1R"
+      "buyUrl": "https://www.amazon.com/dp/B0F6NPRJ1R?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-echo-shadow-circuit"
     },
     {
       "id": "book10",
@@ -108,7 +108,7 @@ window.SUMNU_DATA={
       "genre": "Sci-Fi",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book10-20261029.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F6NR1RSP"
+      "buyUrl": "https://www.amazon.com/dp/B0F6NR1RSP?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-echo-dissonant-frequencies"
     },
     {
       "id": "book12",
@@ -119,7 +119,7 @@ window.SUMNU_DATA={
       "seriesLine": "The Southern Threshold, Book One",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/the-gaia-algorithm-20261111.webp",
-      "buyUrl": "https://www.amazon.com/dp/B0F4PV2TV5"
+      "buyUrl": "https://www.amazon.com/dp/B0F4PV2TV5?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-gaia-algorithm"
     },
     {
       "id": "book11",
@@ -130,7 +130,7 @@ window.SUMNU_DATA={
       "seriesLine": "The Southern Threshold, Book Two",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/the-edge-of-knowing-20261111.webp",
-      "buyUrl": "https://www.amazon.com/dp/B0F4Y2JK9J"
+      "buyUrl": "https://www.amazon.com/dp/B0F4Y2JK9J?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-edge-of-knowing"
     },
     {
       "id": "book13",
@@ -140,7 +140,7 @@ window.SUMNU_DATA={
       "seriesLine": "The Southern Threshold, Book Three",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/beyond-the-ice-20261111.webp",
-      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab"
+      "buyUrl": "https://www.amazon.com/stores/E.-D.-Lewis/author/B01BD7L2WI/allbooks?shoppingPortalEnabled=true&ccs_id=96351533-d68e-488b-a324-b9fc2ba66eab&utm_source=sumnubooks&utm_medium=site&utm_campaign=author-store"
     },
     {
       "id": "book14",
@@ -151,9 +151,9 @@ window.SUMNU_DATA={
       "genre": "Thriller",
       "formats": ["Paperback", "eBook"],
       "cover": "images/books/book14-unwanted-passenger-20261105b.jpg",
-      "buyUrl": "https://payhip.com/b/PGFRv",
+      "buyUrl": "https://payhip.com/b/PGFRv?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-unwanted-passenger",
       "buyLabel": "💳 Buy eBook",
-      "paperbackUrl": "https://www.amazon.com/dp/B0F7M1KZSX",
+      "paperbackUrl": "https://www.amazon.com/dp/B0F7M1KZSX?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-unwanted-passenger",
       "paperbackPrice": "$19.99"
     },
     {
@@ -164,7 +164,7 @@ window.SUMNU_DATA={
       "genre": "Street Lit",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book15.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F85JM3TL"
+      "buyUrl": "https://www.amazon.com/dp/B0F85JM3TL?utm_source=sumnubooks&utm_medium=site&utm_campaign=another-penny"
     },
     {
       "id": "book16",
@@ -174,7 +174,7 @@ window.SUMNU_DATA={
       "genre": "Nonfiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book16.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F2DP5XMV"
+      "buyUrl": "https://www.amazon.com/dp/B0F2DP5XMV?utm_source=sumnubooks&utm_medium=site&utm_campaign=cancer-and-nutrition"
     },
     {
       "id": "book17",
@@ -184,7 +184,7 @@ window.SUMNU_DATA={
       "genre": "Nonfiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book17.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F4R8VPJ4"
+      "buyUrl": "https://www.amazon.com/dp/B0F4R8VPJ4?utm_source=sumnubooks&utm_medium=site&utm_campaign=ai-for-the-common-adult"
     },
     {
       "id": "book18",
@@ -194,7 +194,7 @@ window.SUMNU_DATA={
       "genre": "Nonfiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/cultural-scripts-20261105b.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F2DF5Z9H"
+      "buyUrl": "https://www.amazon.com/dp/B0F2DF5Z9H?utm_source=sumnubooks&utm_medium=site&utm_campaign=cultural-scripts-and-love-languages"
     },
     {
       "id": "book19",
@@ -205,7 +205,7 @@ window.SUMNU_DATA={
       "genre": "Nonfiction",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book19.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F4JK515M"
+      "buyUrl": "https://www.amazon.com/dp/B0F4JK515M?utm_source=sumnubooks&utm_medium=site&utm_campaign=powerful-words"
     },
     {
       "id": "book20",
@@ -217,7 +217,7 @@ window.SUMNU_DATA={
       "genre": "Relationships",
       "formats": ["Kindle"],
       "cover": "images/books/book20-secure-relationship-20261031.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F3CRQQYB"
+      "buyUrl": "https://www.amazon.com/dp/B0F3CRQQYB?utm_source=sumnubooks&utm_medium=site&utm_campaign=a-secure-relationship"
     },
     {
       "id": "book21",
@@ -227,7 +227,7 @@ window.SUMNU_DATA={
       "genre": "Nonfiction",
       "formats": ["Kindle"],
       "cover": "images/books/book21-20261031.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F3WFGFV1"
+      "buyUrl": "https://www.amazon.com/dp/B0F3WFGFV1?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-little-things-that-mean-a-lot"
     },
     {
       "id": "book22",
@@ -238,7 +238,7 @@ window.SUMNU_DATA={
       "genre": "Self-Help",
       "formats": ["Paperback", "Kindle"],
       "cover": "images/books/book22.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B0F4J1HLFR"
+      "buyUrl": "https://www.amazon.com/dp/B0F4J1HLFR?utm_source=sumnubooks&utm_medium=site&utm_campaign=beyond-numbers"
     },
     {
       "id": "book23",
@@ -250,7 +250,7 @@ window.SUMNU_DATA={
       "genre": "Publishing",
       "formats": ["Kindle"],
       "cover": "images/books/professional-way-20261105b.jpg",
-      "buyUrl": "https://www.amazon.com/dp/B01D6OJEFI"
+      "buyUrl": "https://www.amazon.com/dp/B01D6OJEFI?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-professional-way"
     },
     {
       "id": "book24",
@@ -262,7 +262,7 @@ window.SUMNU_DATA={
       "genre": "Career",
       "formats": ["Kindle"],
       "cover": "images/books/toxic-bosses-ebook-20261021.webp",
-      "buyUrl": "https://www.amazon.com/dp/B0DSCF5YMT"
+      "buyUrl": "https://www.amazon.com/dp/B0DSCF5YMT?utm_source=sumnubooks&utm_medium=site&utm_campaign=turning-the-tables-on-toxic-bosses"
     },
     {
       "id": "book25",
@@ -279,7 +279,7 @@ window.SUMNU_DATA={
       "readLabel": "📖 Read Sample",
       "audiobookUrl": "audiobook.html?slug=the-yesterday-project",
       "audiobookPrice": "$22.99",
-      "buyUrl": "https://payhip.com/b/FKnIq",
+      "buyUrl": "https://payhip.com/b/FKnIq?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-yesterday-project",
       "buyLabel": "💳 Buy eBook"
     },
     {
@@ -293,7 +293,7 @@ window.SUMNU_DATA={
                 "Kindle"
           ],
           "cover": "images/covers-tall/strategies-for-leadership-development-20261019.webp",
-          "buyUrl": "https://www.amazon.com/dp/B0F2MBBYZB"
+          "buyUrl": "https://www.amazon.com/dp/B0F2MBBYZB?utm_source=sumnubooks&utm_medium=site&utm_campaign=strategies-for-leadership-development"
         },
     {
           "id": "book27",
@@ -312,7 +312,7 @@ window.SUMNU_DATA={
           "readLabel": "📖 Read Sample",
           "audiobookUrl": "audiobook.html?slug=deanna",
           "audiobookPrice": "$22.99",
-          "buyUrl": "https://payhip.com/b/DR3rf",
+          "buyUrl": "https://payhip.com/b/DR3rf?utm_source=sumnubooks&utm_medium=site&utm_campaign=deanna",
           "buyLabel": "💳 Buy eBook"
         },
     {
@@ -332,7 +332,7 @@ window.SUMNU_DATA={
           "readLabel": "📖 Read Sample",
           "audiobookUrl": "audiobook.html?slug=still-pimpin-iii",
           "audiobookPrice": "$22.99",
-          "buyUrl": "https://payhip.com/b/nXl1m",
+          "buyUrl": "https://payhip.com/b/nXl1m?utm_source=sumnubooks&utm_medium=site&utm_campaign=still-pimpin-iii",
           "buyLabel": "💳 Buy eBook"
         },
     {
@@ -353,7 +353,7 @@ window.SUMNU_DATA={
           "readLabel": "📖 Read Sample",
           "audiobookUrl": "audiobook.html?slug=penny-authors-cut",
           "audiobookPrice": "$22.99",
-          "buyUrl": "https://payhip.com/b/qfwKu",
+          "buyUrl": "https://payhip.com/b/qfwKu?utm_source=sumnubooks&utm_medium=site&utm_campaign=penny-authors-cut",
           "buyLabel": "💳 Buy eBook"
         },
     {
@@ -369,7 +369,7 @@ window.SUMNU_DATA={
       "comingSoon": true,
       "audiobookUrl": "audiobook.html?slug=pollen-in-the-air",
       "audiobookPrice": "$12.99",
-      "audiobookBuyUrl": "https://payhip.com/b/adp84"
+      "audiobookBuyUrl": "https://payhip.com/b/adp84?utm_source=sumnubooks&utm_medium=site&utm_campaign=pollen-in-the-air"
     },
     {
       "id": "book31",
@@ -381,11 +381,11 @@ window.SUMNU_DATA={
       "seriesLine": "Here... series, Book 1",
       "formats": ["eBook"],
       "cover": "images/books/here-eat-this-ebook-20261113.webp",
-      "buyUrl": "https://payhip.com/b/VPu2S",
+      "buyUrl": "https://payhip.com/b/VPu2S?utm_source=sumnubooks&utm_medium=site&utm_campaign=here-eat-this",
       "buyLabel": "💳 Buy eBook",
       "relatedLinks": [
         { "href": "books.html#book32", "label": "Book 2: Here... Drink This! The Couch Sessions" },
-        { "href": "https://payhip.com/b/oXsvR", "label": "Also available: Here… Eat This audio drama" }
+        { "href": "https://payhip.com/b/oXsvR?utm_source=sumnubooks&utm_medium=site&utm_campaign=here-eat-this", "label": "Also available: Here… Eat This audio drama" }
       ]
     },
     {
@@ -398,7 +398,7 @@ window.SUMNU_DATA={
       "seriesLine": "Here... series, Book 2",
       "formats": ["eBook"],
       "cover": "images/books/here-drink-this-ebook-20261113.webp",
-      "buyUrl": "https://payhip.com/b/VAloD",
+      "buyUrl": "https://payhip.com/b/VAloD?utm_source=sumnubooks&utm_medium=site&utm_campaign=here-drink-this-the-couch-sessions",
       "buyLabel": "💳 Buy eBook",
       "relatedLinks": [
         { "href": "books.html#book31", "label": "Book 1: Here... Eat This!" }

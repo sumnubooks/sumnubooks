@@ -1,0 +1,9 @@
+{
+  "name": "sumnubooks-site",
+  "private": true,
+  "description": "Static site. This file only exists so Netlify installs @netlify/blobs for netlify/functions (cookie-free aggregate analytics).",
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "^10.7.13"
+  }
+}
