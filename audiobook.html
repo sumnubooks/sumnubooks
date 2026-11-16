@@ -136,6 +136,9 @@
     font-size: .78rem; font-weight: 800; letter-spacing: .04em;
     text-decoration: none;
   }
+  /* Other stores (Audible / Amazon) under the Payhip buy bar: secondary, 44px tap targets, 16px text */
+  .buy-store-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .buy-bar-extra .buy-btn-store { flex: 1 1 140px; min-height: 44px; font-size: 16px; letter-spacing: .01em; text-align: center; line-height: 1.25; padding: 8px 12px; }
   .buy-bar.coming-soon { opacity: .5; pointer-events: none; }
   .coming-soon-badge { font-size: .7rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px 14px; }
   /* Free-preview titles: full-strength, legible gold badge (not the faded coming-soon style) */
@@ -592,6 +595,10 @@
       cover: 'images/covers-square/still-pimpin-20261111.webp',
       freeCount: 1,
       payhip: 'https://payhip.com/b/9QzZv?utm_source=sumnubooks&utm_medium=site&utm_campaign=still-pimpin',
+      storeLinks: [
+        { href: 'https://www.audible.com/pd/Still-Pimpin-Audiobook/B0HN773L9P?utm_source=sumnubooks&utm_medium=site&utm_campaign=still-pimpin', label: '🎧 Also on Audible' },
+        { href: 'https://www.amazon.com/dp/B0HP85NP43?utm_source=sumnubooks&utm_medium=site&utm_campaign=still-pimpin', label: '📕 Paperback on Amazon' }
+      ],
       price: '0',
       buyLabel: 'Get it free',
       priceLabel: 'Free',
@@ -613,6 +620,9 @@
       cover: 'images/covers-square/bloodline-20261018.webp',
       freeCount: 1,
       payhip: 'https://payhip.com/b/dQTVE?utm_source=sumnubooks&utm_medium=site&utm_campaign=bloodline',
+      storeLinks: [
+        { href: 'https://www.audible.com/pd/Bloodline-Audiobook/B0HN6X5MZN?utm_source=sumnubooks&utm_medium=site&utm_campaign=bloodline', label: '🎧 Also on Audible' }
+      ],
       price: '22.99',
       // Full audiobook on Payhip (M4B). Free retail sample only here; no per-chapter streaming, so no "N Chapters" pill.
       totalChapters: null,
@@ -862,6 +872,12 @@
         if (!l || !l.href || !l.label) return;
         parts.push('<div class="related-line"><a href="' + esc(l.href) + '">' + esc(l.label) + '</a></div>');
       });
+      const stores = (cfg.storeLinks || []).filter((l) => l && l.href && l.label);
+      if (stores.length) {
+        parts.push('<div class="buy-store-row">' + stores.map((l) =>
+          '<a class="buy-btn-secondary buy-btn-store" href="' + esc(l.href) + '" target="_blank" rel="noopener">' + esc(l.label) + '</a>'
+        ).join('') + '</div>');
+      }
       if (cfg.bundleUrl) {
         const label = cfg.bundleLabel || ('Bundle both audiobooks ' + (cfg.bundlePrice || '$15'));
         parts.push('<a class="buy-btn-secondary" href="' + esc(cfg.bundleUrl) + '" target="_blank" rel="noopener">' + esc(label) + '</a>');
