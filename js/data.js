@@ -33,7 +33,7 @@ window.SUMNU_DATA={
       "price": "$6.99",
       "genre": "Urban Fiction",
       "formats": ["EPUB", "PDF"],
-      "cover": "images/books/jailhouse-lawyer-ebook-20261021.webp",
+      "cover": "images/books/jailhouse-lawyer-ebook-20261116.webp",
       "audiobookUrl": "audiobook.html?slug=the-jailhouse-lawyer",
       "audiobookPrice": "$22.99",
       "buyUrl": "https://payhip.com/b/xORP3?utm_source=sumnubooks&utm_medium=site&utm_campaign=the-jailhouse-lawyer",
