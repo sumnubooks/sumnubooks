@@ -592,7 +592,9 @@
       cover: 'images/covers-square/still-pimpin-20261111.webp',
       freeCount: 1,
       payhip: 'https://payhip.com/b/9QzZv?utm_source=sumnubooks&utm_medium=site&utm_campaign=still-pimpin',
-      price: '22.99',
+      price: '0',
+      buyLabel: 'Get it free',
+      priceLabel: 'Free',
       // Full audiobook on Payhip (M4B). Free retail sample only here; no per-chapter streaming, so no "N Chapters" pill.
       totalChapters: null,
       freeLabel: 'Free Sample',
@@ -843,11 +845,11 @@
     ` : hasSample ? `
       ${book.totalChapters ? `<span class="book-pill">${book.totalChapters} Chapters</span>` : ''}
       <span class="book-pill">${book.freeLabel || `Ch 1–${book.freeCount} Free`}</span>
-      <span class="book-pill">Buy to Own</span>
+      <span class="book-pill">${book.priceLabel || 'Buy to Own'}</span>
     ` : `
       ${book.freeLabel ? `<span class="book-pill">${book.freeLabel}</span>` : ''}
       <span class="book-pill">Full-cast audiobook</span>
-      <span class="book-pill">Buy to Own</span>
+      <span class="book-pill">${book.priceLabel || 'Buy to Own'}</span>
     `;
 
 
@@ -880,7 +882,7 @@
       buyBar.classList.add('preview-only');
     } else if (book.payhip) {
       buyBtn.href = book.payhip;
-      buyBtn.textContent = `Buy $${book.price || '12.99'}`;
+      buyBtn.textContent = book.buyLabel || `Buy $${book.price || '12.99'}`;
     } else if (book.payhipPending) {
       // PAYHIP LINK PENDING ERIC — disabled placeholder until the Payhip URL exists.
       buyBtn.removeAttribute('href');
@@ -1052,7 +1054,7 @@
           <div class="ch-art"><img src="${book.cover}" alt="" loading="lazy"></div>
           <div class="ch-title">${ch.title}</div>
           <span class="ch-dur">${ch.duration}</span>
-          <span class="ch-locked">🔒 Buy $${book.price}</span>
+          <span class="ch-locked">🔒 ${book.buyLabel || ('Buy $' + book.price)}</span>
         `;
         row.addEventListener('click', () => { closeSheet(); goToBuy(); });
         scroll.appendChild(row);
