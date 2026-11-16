@@ -81,3 +81,25 @@
   to = "/audiobooks.html"
   status = 301
   force = true
+
+# Cookie-free aggregate analytics (Nov 2026): netlify/functions/hit.mjs (POST /api/hit)
+# and netlify/functions/stats.mjs (GET /api/stats). Counts live in Netlify Blobs store
+# "site-analytics" (no dashboard setup, no account, free tier). package.json exists only so
+# Netlify installs @netlify/blobs for those functions; keep node_modules off the public site.
+[[redirects]]
+  from = "/node_modules/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package.json"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/package-lock.json"
+  to = "/404.html"
+  status = 404
+  force = true
