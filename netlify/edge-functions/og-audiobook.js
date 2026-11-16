@@ -51,8 +51,8 @@ const BOOKS = {
   'the-yesterday-project': { title: 'The Yesterday Project: Book One, Part One', tagline: 'We are the experiment.', description: 'The Yesterday Project: Book One, Part One by E. D. Lewis. They weren\'t born. They were selected. Full audiobook out now. Start free with the Chapter 1 sample.', cover: 'images/covers-square/the-yesterday-project-20261020.webp', w: 1200, h: 1200 },
   'the-yesterday-project-part-two': { title: 'The Yesterday Project: Book One, Part Two', tagline: 'We are the experiment.', description: 'The Yesterday Project: Book One, Part Two by E. D. Lewis. Nod is gone. Popi wakes in the upper city with his memories and a house that answers when she speaks. Full audiobook out now. Start free with the Chapter 1 sample.', cover: 'images/covers-square/the-yesterday-project-part-two-20261024.webp?v=20261024', w: 1200, h: 1200 },
   'leadership-development': { title: 'Strategies for Leadership Development: Practical Strategies for New and Developing Leaders', tagline: 'You got the promotion. Now what?', description: 'Strategies for Leadership Development by E. D. Lewis. A practical guide for new and developing leaders. Full audiobook plus 39-page Companion Workbook PDF, out now. Start free with the sample.', cover: 'images/covers-square/leadership-development-20261019.webp', w: 1200, h: 1200 },
-  'after-our-water-breaks': { title: 'After Our Water Breaks', tagline: 'The baby changed everything, Now the truth will break them all.', description: 'After Our Water Breaks is Book Two of Before Our Water Breaks: ten episodes told by Morgan in a full-cast audiobook of about forty-six minutes. The full audiobook is out now.', cover: 'images/covers-square/after-our-water-breaks-20261115b.webp', w: 1200, h: 1200 },
-  'the-water-has-broken': { title: 'The Water Has Broken (Full-Cast Audiobook)', tagline: 'He thought he controlled the game. He never saw who was watching.', description: 'The Water Has Broken is Book Three of Before Our Water Breaks: ten episodes told by Devlin, with Morgan, her sister, and Gloria, in a full-cast audiobook of about forty-two minutes. Includes one chaptered MP3 audiobook file, with all ten episodes marked as chapters. The full audiobook is out now.', cover: 'images/covers-square/the-water-has-broken-20261116.webp', w: 1200, h: 1200 },
+  'after-our-water-breaks': { title: 'After Our Water Breaks', tagline: 'The baby changed everything, Now the truth will break them all.', description: 'After Our Water Breaks is Book Two of Before Our Water Breaks: ten episodes told by Morgan in a full-cast audiobook of about forty-six minutes. Includes an M4B audiobook file with chapters plus one chaptered MP3, with all ten episodes marked as chapters. The full audiobook is out now.', cover: 'images/covers-square/after-our-water-breaks-20261115b.webp', w: 1200, h: 1200 },
+  'the-water-has-broken': { title: 'The Water Has Broken (Full-Cast Audiobook)', tagline: 'He thought he controlled the game. He never saw who was watching.', description: 'The Water Has Broken is Book Three of Before Our Water Breaks: ten episodes told by Devlin, with Morgan, her sister, and Gloria, in a full-cast audiobook of about forty-two minutes. Includes an M4B audiobook file with chapters plus one chaptered MP3, with all ten episodes marked as chapters. The full audiobook is out now.', cover: 'images/covers-square/the-water-has-broken-20261116.webp', w: 1200, h: 1200 },
   'pollen-in-the-air': { title: 'Pollen in the Air', tagline: 'A computer gave him a number. A hustler gave him an offer. An old man gave him the truth.', description: 'Pollen in the Air by E. D. Lewis. Unabridged full-cast audiobook, 5 hr 12 min, performed by a full cast of AI voices. Out now.', cover: 'images/covers-square/pollen-in-the-air-20261113.webp', w: 1200, h: 1200 },
   'she-still-exists': { title: 'She Still Exists', tagline: "He built a world for the woman he lost — and inside it, she's helping him find her killer without knowing she's dead.", cover: 'images/covers-square/she-still-exists-20261021.webp', w: 1200, h: 1200 },
 };
@@ -60,8 +60,34 @@ const BOOKS = {
 // Audio series (player: series.html?slug=<slug>). Used by /listen/<slug> only.
 const SERIES = {
   'here-eat-this': { title: 'Here... Eat This', tagline: 'A dinner table. A pressure chamber. A story built on suspicion, betrayal, and what gets served when trust is already dead.', cover: 'images/covers-square/here-eat-this-20261104.webp', w: 1200, h: 1200 },
+  'before-our-water-breaks': { title: 'Before Our Water Breaks', tagline: 'As told by the woman who burned it all down.', cover: 'images/covers-square/before-our-water-breaks-20261104.webp', w: 1200, h: 1200 },
   'other-man': { title: 'Other Man', tagline: "He didn't steal his life. He replaced it.", cover: 'images/covers-square/other-man-20261105b.jpg', w: 1000, h: 1000 },
 };
+
+// Link-preview wording by access type (keep in sync with price / freeCount in audiobook.html and series.html):
+//   'free'   = whole title is free (price 0, or nothing for sale)  -> "<title> — Listen free"
+//   'sample' = paid, with free sample chapters on the site          -> "<title> — Listen to a sample"   (the default)
+//   'buy'    = paid, no sample on the site (buy-only player)        -> "<title> — Full-cast audiobook"
+// Any slug not listed here is treated as 'sample'.
+const ACCESS = {
+  'still-pimpin': 'free',             // Payhip 9QzZv, price 0
+  'she-still-exists': 'free',         // free chapters, nothing for sale
+  'before-our-water-breaks': 'free',  // series, Payhip BL9JG, price 0
+  'pollen-in-the-air': 'buy',
+  'after-our-water-breaks': 'buy',
+  'the-water-has-broken': 'buy',
+};
+// Base title for link previews where the full title already carries the format.
+const OG_BASE_TITLE = {
+  'the-water-has-broken': 'The Water Has Broken',
+};
+function ogTitleFor(slug, title) {
+  const base = OG_BASE_TITLE[slug] || title;
+  const a = ACCESS[slug] || 'sample';
+  if (a === 'free') return `${base} — Listen free`;
+  if (a === 'buy') return `${base} — Full-cast audiobook`;
+  return `${base} — Listen to a sample`;
+}
 
 // Short /listen/<alias> URLs (easy to say out loud) -> canonical slug in BOOKS or SERIES.
 const ALIASES = {
@@ -98,7 +124,7 @@ function metaFor(slug, allowSeries = false) {
     return {
       slug,
       title: `${sr.title} · Audio series by E. D. Lewis · Sumnu Books`,
-      ogTitle: `${sr.title} — Listen free`,
+      ogTitle: ogTitleFor(slug, sr.title),
       description: sr.tagline,
       image: `${SITE}/${sr.cover}`,
       w: sr.w, h: sr.h,
@@ -112,7 +138,7 @@ function metaFor(slug, allowSeries = false) {
   return {
     slug,
     title: b.comingSoon ? `${b.title} · Audiobook coming soon · Sumnu Books` : `${b.title} · Audiobook by E. D. Lewis · Sumnu Books`,
-    ogTitle: b.comingSoon ? `${b.title} — Audiobook coming soon` : `${b.title} — Listen free`,
+    ogTitle: b.comingSoon ? `${b.title} — Audiobook coming soon` : ogTitleFor(slug, b.title),
     description: b.description || b.tagline,
     image: `${SITE}/${b.cover}`,
     w: b.w, h: b.h,
