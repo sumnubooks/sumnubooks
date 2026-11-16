@@ -663,6 +663,7 @@
   /* 44px tap targets for the Book One/Two link and the bundle button (mobile-first rule) */
   .buy-bar-extra .related-line a { display: inline-flex; align-items: center; min-height: 44px; }
   .buy-bar-extra a.buy-btn-secondary { min-height: 44px; }
+  .buy-bar-extra .bundle-note { font-size: 16px; color: rgba(255,255,255,.72); margin-top: -2px; }
   .buy-bar-extra .buy-btn-secondary {
     display: inline-flex; align-items: center; justify-content: center;
     padding: 8px 14px; border-radius: 999px;
@@ -866,11 +867,13 @@
       buyLabel: 'Get it free',
       priceLabel: 'Free',
       relatedLinks: [
-        { href: 'audiobook.html?slug=after-our-water-breaks', label: 'Book Two: After Our Water Breaks $10.99' }
+        { href: 'audiobook.html?slug=after-our-water-breaks', label: 'Book Two: After Our Water Breaks $10.99' },
+        { href: 'audiobook.html?slug=the-water-has-broken', label: 'Book Three: The Water Has Broken $10.99' }
       ],
       bundleUrl: 'https://payhip.com/b/uIeXP?utm_source=sumnubooks&utm_medium=site&utm_campaign=before-our-water-breaks',
-      bundlePrice: '$15',
-      bundleLabel: 'Bundle both audiobooks $15',
+      bundlePrice: '$15.99',
+      bundleLabel: 'Bundle all three audiobooks $15.99',
+      bundleNote: 'Includes all three: Before Our Water Breaks, After Our Water Breaks and The Water Has Broken.',
       unit: 'Episode',
       chapters: Array.from({length:8}, (_,i) => `Episode ${i+1}`),
       items: Array.from({length:8}, (_,i) => ({
@@ -1000,8 +1003,9 @@
         parts.push('<div class="related-line"><a href="' + esc(l.href) + '">' + esc(l.label) + '</a></div>');
       });
       if (cfg.bundleUrl) {
-        const label = cfg.bundleLabel || ('Bundle both audiobooks ' + (cfg.bundlePrice || '$15'));
+        const label = cfg.bundleLabel || ('Bundle all three audiobooks ' + (cfg.bundlePrice || '$15.99'));
         parts.push('<a class="buy-btn-secondary" href="' + esc(cfg.bundleUrl) + '" target="_blank" rel="noopener">' + esc(label) + '</a>');
+        if (cfg.bundleNote) parts.push('<div class="related-line bundle-note">' + esc(cfg.bundleNote) + '</div>');
       }
       if (!parts.length) return;
       extra.innerHTML = parts.join('');
