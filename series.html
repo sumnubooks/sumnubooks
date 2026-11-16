@@ -660,6 +660,9 @@
     line-height: 1.45;
   }
   .buy-bar-extra .related-line a { color: var(--gold, #d4a843); font-weight: 700; text-decoration: none; }
+  /* 44px tap targets for the Book One/Two link and the bundle button (mobile-first rule) */
+  .buy-bar-extra .related-line a { display: inline-flex; align-items: center; min-height: 44px; }
+  .buy-bar-extra a.buy-btn-secondary { min-height: 44px; }
   .buy-bar-extra .buy-btn-secondary {
     display: inline-flex; align-items: center; justify-content: center;
     padding: 8px 14px; border-radius: 999px;
@@ -859,7 +862,9 @@
       cover: 'images/covers-square/before-our-water-breaks-20261104.webp',
       freeCount: 2,
       payhip: 'https://payhip.com/b/BL9JG?utm_source=sumnubooks&utm_medium=site&utm_campaign=before-our-water-breaks',
-      price: '10.99',
+      price: '0',
+      buyLabel: 'Get it free',
+      priceLabel: 'Free',
       relatedLinks: [
         { href: 'audiobook.html?slug=after-our-water-breaks', label: 'Book Two: After Our Water Breaks $10.99' }
       ],
@@ -981,6 +986,7 @@
     document.getElementById('seriesPills').innerHTML = `
       <span class="series-pill">${series.totalItems} ${ul}s</span>
       <span class="series-pill">${ul}s 1–${series.freeCount} Free</span>
+      ${series.priceLabel ? `<span class="series-pill">${series.priceLabel}</span>` : ''}
     `;
 
 
@@ -1007,7 +1013,7 @@
       const buyBar = document.getElementById('buyBar');
       const buyBtn = document.getElementById('buyBtn');
       buyBtn.href = series.payhip;
-      buyBtn.textContent = `Buy $${series.price || '5.99'}`;
+      buyBtn.textContent = series.buyLabel || `Buy $${series.price || '5.99'}`;
       buyBar.classList.add('is-live');
     } else if (series.payhipPending) {
       // PAYHIP LINK PENDING ERIC — disabled placeholder until the Payhip URL exists.
@@ -1244,8 +1250,8 @@
       rest.className = 'chapter-row';
       rest.innerHTML = `
         <span class="ch-num">+${series.totalItems - series.items.length}</span>
-        <div class="ch-info"><div class="ch-title">${ul}s ${series.items.length + 1}–${series.totalItems} ${series.payhip ? 'come with the full purchase' : series.payhipPending ? 'come with the full release' : 'are not part of the free sample'}</div></div>
-        ${series.payhip ? '<span class="ch-locked">Buy</span>' : series.payhipPending ? '<span class="ch-locked">Coming soon</span>' : ''}
+        <div class="ch-info"><div class="ch-title">${ul}s ${series.items.length + 1}–${series.totalItems} ${series.payhip ? (series.priceLabel === 'Free' ? 'come with the free download' : 'come with the full purchase') : series.payhipPending ? 'come with the full release' : 'are not part of the free sample'}</div></div>
+        ${series.payhip ? `<span class="ch-locked">${series.buyLabel || 'Buy'}</span>` : series.payhipPending ? '<span class="ch-locked">Coming soon</span>' : ''}
       `;
       rest.addEventListener('click', () => { closeSheet(); goToBuy(); });
       scroll.appendChild(rest);
