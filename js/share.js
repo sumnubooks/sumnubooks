@@ -28,6 +28,7 @@
     'leadership-development': ['Strategies for Leadership Development: Practical Strategies for New and Developing Leaders', 'You got the promotion. Now what?'],
     'pollen-in-the-air': ['Pollen in the Air', 'A computer gave him a number. A hustler gave him an offer. An old man gave him the truth.'],
     'after-our-water-breaks': ['After Our Water Breaks', 'The baby changed everything, Now the truth will break them all.'],
+    'the-water-has-broken': ['The Water Has Broken (Full-Cast Audiobook)', 'He thought he controlled the game. He never saw who was watching.'],
     'she-still-exists': ['She Still Exists', "He built a world for the woman he lost — and inside it, she's helping him find her killer without knowing she's dead."]
   };
 
