@@ -9,9 +9,11 @@
   Payload: event, page path, slug (`?slug`/`?play` on the page, or the link's `utm_campaign`), referrer **host** only
   (`direct` / `internal` / e.g. `google.com`), Buy destination host, incoming `utm_source`.
 - **Collector:** `netlify/functions/hit.mjs` (POST `/api/hit`). Drops bots by user-agent (UA is never stored) and
-  DNT/GPC requests. Increments counters in Netlify Blobs store `site-analytics`, one JSON blob per day
-  (Pacific time): key `production/YYYY-MM-DD` or `preview/YYYY-MM-DD` (deploy previews/branches never mix with
-  production). Counter key = `event|path|slug|referrerHost|destHost|utmSource`. Conditional writes (ETag) + retry.
+  DNT/GPC requests. Writes one EMPTY blob per event to Netlify Blobs store `site-analytics`, key
+  `<env>/<YYYY-MM-DD>/<bucket>/<random>` where env = `production` or `preview` (deploy previews/branches never
+  mix with production), day is Pacific time, bucket = `event|path|slug|referrerHost|destHost|utmSource`
+  (URL-encoded). Append-only so simultaneous hits never overwrite each other (a read-modify-write counter lost
+  1 of 10 concurrent hits in testing). `/api/stats` counts keys per bucket.
 - **Read the data:** `GET /api/stats?from=YYYY-MM-DD&to=YYYY-MM-DD` (default last 30 days; `&env=preview` for preview
   data). Returns totals plus pageviews by path / slug / referrer / utm_source and Buy clicks by slug / destination /
   page, per day. Aggregate only, so it is open; to lock it, set a `STATS_TOKEN` env var in Netlify and add `&token=`.

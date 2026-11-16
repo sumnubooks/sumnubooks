@@ -28,24 +28,29 @@ export default async (req, context) => {
   if (addDays(from, 366) < to) return json({ ok: false, error: 'max range 366 days' }, 400);
   const env = ['production', 'preview'].includes(url.searchParams.get('env')) ? url.searchParams.get('env') : envName(context);
 
-  const store = getStore({ name: STORE_NAME, consistency: 'strong' });
+  const store = getStore({ name: STORE_NAME });
   const days = [];
   const totals = { pageviews: 0, buy_clicks: 0 };
   const pv_by_path = {}, pv_by_slug = {}, pv_by_referrer = {}, pv_by_utm_source = {};
   const buy_by_slug = {}, buy_by_destination = {}, buy_by_page = {}, buy_by_slug_destination = {};
 
   for (let d = from; d <= to; d = addDays(d, 1)) {
-    const data = await store.get(`${env}/${d}`, { type: 'json' });
     const day = { date: d, pageviews: 0, buy_clicks: 0 };
-    if (data && data.counts) {
-      for (const [k, n] of Object.entries(data.counts)) {
-        const [e, p, s, r, dest, u] = k.split('|');
-        if (e === 'pageview') {
-          day.pageviews += n; bump(pv_by_path, p, n); bump(pv_by_slug, s, n); bump(pv_by_referrer, r, n); bump(pv_by_utm_source, u, n);
-        } else if (e === 'buy_click') {
-          day.buy_clicks += n; bump(buy_by_slug, s || '(none)', n); bump(buy_by_destination, dest, n); bump(buy_by_page, p, n);
-          bump(buy_by_slug_destination, `${s || '(none)'} -> ${dest}`, n);
-        }
+    const counts = {};
+    const prefix = `${env}/${d}/`;
+    for await (const page of store.list({ prefix, paginate: true })) {
+      for (const b of page.blobs) {
+        const bucket = decodeURIComponent(b.key.slice(prefix.length).split('/')[0] || '');
+        counts[bucket] = (counts[bucket] || 0) + 1;
+      }
+    }
+    for (const [k, n] of Object.entries(counts)) {
+      const [e, p, s, r, dest, u] = k.split('|');
+      if (e === 'pageview') {
+        day.pageviews += n; bump(pv_by_path, p, n); bump(pv_by_slug, s, n); bump(pv_by_referrer, r, n); bump(pv_by_utm_source, u, n);
+      } else if (e === 'buy_click') {
+        day.buy_clicks += n; bump(buy_by_slug, s || '(none)', n); bump(buy_by_destination, dest, n); bump(buy_by_page, p, n);
+        bump(buy_by_slug_destination, `${s || '(none)'} -> ${dest}`, n);
       }
     }
     totals.pageviews += day.pageviews; totals.buy_clicks += day.buy_clicks;

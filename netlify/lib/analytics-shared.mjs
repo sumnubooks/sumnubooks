@@ -1,8 +1,7 @@
 // Shared helpers for /api/hit and /api/stats (cookie-free aggregate analytics).
-// Stores ONLY aggregate counters per day. No cookies, IPs, user agents, or visitor IDs are stored.
+// Stores ONLY aggregate buckets per day (event|path|slug|referrer host|dest host|utm_source). No cookies, IPs, user agents, or visitor IDs are stored.
 export const STORE_NAME = 'site-analytics';
 export const TZ = 'America/Los_Angeles';
-export const MAX_KEYS_PER_DAY = 4000;
 
 export function dayKey(date = new Date()) {
   // YYYY-MM-DD in Pacific time (the owner's zone)

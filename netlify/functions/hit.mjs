@@ -1,9 +1,10 @@
 // POST /api/hit — records one aggregate counter increment.
 // Body (text/plain JSON via navigator.sendBeacon):
 //   { e: 'pv' | 'buy', p: '/path', s?: 'slug', r?: 'referrer-host'|'direct'|'internal', d?: 'payhip.com'|'amazon.com'|'audible.com', u?: 'utm_source' }
+// Storage: one empty blob per event, key = <env>/<YYYY-MM-DD>/<bucket>/<random>; counted by /api/stats.
 // Nothing identifying is stored: no cookies, no IP, no user agent, no visitor/session id.
 import { getStore } from '@netlify/blobs';
-import { STORE_NAME, MAX_KEYS_PER_DAY, dayKey, envName, json } from '../lib/analytics-shared.mjs';
+import { STORE_NAME, dayKey, envName, json } from '../lib/analytics-shared.mjs';
 
 export const config = { path: '/api/hit' };
 
@@ -50,21 +51,10 @@ export default async (req, context) => {
   const u = clean(body.u, /^[a-z0-9._-]{1,40}$/, 40);
 
   const counterKey = [e, p, s, r, d, u].join('|');
-  const store = getStore({ name: STORE_NAME, consistency: 'strong' });
-  const key = `${envName(context)}/${dayKey()}`;
-
-  // Optimistic concurrency: read + conditional write, retry on conflict.
-  for (let attempt = 0; attempt < 6; attempt++) {
-    const cur = await store.getWithMetadata(key, { type: 'json' });
-    const data = (cur && cur.data) || { v: 1, counts: {} };
-    const k = (counterKey in data.counts || Object.keys(data.counts).length < MAX_KEYS_PER_DAY)
-      ? counterKey : [e, '(overflow)', '', '', d, ''].join('|');
-    data.counts[k] = (data.counts[k] || 0) + 1;
-    // Conditional write when the store gives us an ETag (Netlify production does); plain write otherwise.
-    const opts = cur ? (cur.etag ? { onlyIfMatch: cur.etag } : {}) : { onlyIfNew: true };
-    const res = await store.setJSON(key, data, opts);
-    if (!res || res.modified !== false) return new Response(null, { status: 204 });
-    await new Promise((ok) => setTimeout(ok, 20 + Math.random() * 60));
-  }
-  return json({ ok: false, error: 'busy' }, 503);
+  const store = getStore({ name: STORE_NAME });
+  // Append-only: one empty blob per event whose KEY is the aggregate bucket, plus a random suffix so
+  // simultaneous hits never overwrite each other. /api/stats counts keys per bucket. The blob holds no data.
+  const rand = Math.random().toString(36).slice(2, 10);
+  await store.set(`${envName(context)}/${dayKey()}/${encodeURIComponent(counterKey)}/${rand}`, '');
+  return new Response(null, { status: 204 });
 };
