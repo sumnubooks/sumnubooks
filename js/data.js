@@ -385,6 +385,7 @@ window.SUMNU_DATA={
       "buyLabel": "💳 Buy eBook",
       "relatedLinks": [
         { "href": "books.html#book32", "label": "Book 2: Here... Drink This! The Couch Sessions" },
+        { "href": "books.html#book33", "label": "Book 3: Here... Swallow This! The Final Dose" },
         { "href": "https://payhip.com/b/oXsvR?utm_source=sumnubooks&utm_medium=site&utm_campaign=here-eat-this", "label": "Also available: Here… Eat This audio drama" }
       ]
     },
@@ -401,7 +402,25 @@ window.SUMNU_DATA={
       "buyUrl": "https://payhip.com/b/VAloD?utm_source=sumnubooks&utm_medium=site&utm_campaign=here-drink-this-the-couch-sessions",
       "buyLabel": "💳 Buy eBook",
       "relatedLinks": [
-        { "href": "books.html#book31", "label": "Book 1: Here... Eat This!" }
+        { "href": "books.html#book31", "label": "Book 1: Here... Eat This!" },
+        { "href": "books.html#book33", "label": "Book 3: Here... Swallow This! The Final Dose" }
+      ]
+    },
+    {
+      "id": "book33",
+      "title": "Here... Swallow This! The Final Dose",
+      "alt": "Here... Swallow This! The Final Dose by E. D. Lewis cover",
+      "desc": "He drank the water. He was fine. He was always fine. Callum drove home from Dr. Vale's office feeling like himself for the first time in months. Dinner was waiting, his favorite, plated exactly the way he used to plate it. His wife ate first. He ate second. And at eleven-forty that night, he woke up on fire. Now there are pills. Morning and night. A care log on the nightstand. A wife who never leaves his side, and a therapist who always seems to know what happened before he tells her. Over eleven doses, the question isn't whether someone in this house is being poisoned. It's who's holding the glass, and who learned the most from watching.",
+      "genre": "Fiction",
+      "seriesLine": "Here... series, Book 3",
+      "formats": ["Audiobook"],
+      "cover": "images/books/here-swallow-this-ebook-20261127.webp",
+      "audiobookUrl": "audiobook.html?slug=here-swallow-this",
+      "audiobookPrice": "$10.99",
+      "audiobookBuyUrl": "https://payhip.com/b/DbC2x?utm_source=sumnubooks&utm_medium=site&utm_campaign=here-swallow-this",
+      "relatedLinks": [
+        { "href": "books.html#book31", "label": "Book 1: Here... Eat This!" },
+        { "href": "books.html#book32", "label": "Book 2: Here... Drink This! The Couch Sessions" }
       ]
     }
   ],

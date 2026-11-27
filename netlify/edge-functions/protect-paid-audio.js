@@ -27,6 +27,7 @@
  *   Leadership audiobooks/leadership-development/Leadership-Development-Sample.mp3 (retail sample)
  *   Chandra    audiobooks/chandra/Chandra-Sample.mp3 (retail sample)
  *   Stolen     audiobooks/stolen-passage/Stolen-Passage-Sample.mp3 (retail sample)
+ *   HST        audiobooks/here-swallow-this/Here-Swallow-This-Sample.mp3 (Dose 1 preview)
  *   HET        here-eat-this-ep1/2.mp3
  *   Other Man  other-man-ep1/2.mp3
  *   BOWB       before-our-water-breaks-ep1/2.mp3
@@ -55,6 +56,7 @@ const SAMPLE_RE = [
   /^\/audio\/audiobooks\/leadership-development\/Leadership-Development-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/chandra\/Chandra-Sample\.mp3$/i,
   /^\/audio\/audiobooks\/stolen-passage\/Stolen-Passage-Sample\.mp3$/i,
+  /^\/audio\/audiobooks\/here-swallow-this\/Here-Swallow-This-Sample\.mp3$/i,
   /^\/audio\/series\/here-eat-this\/here-eat-this-ep[12]\.mp3$/i,
   /^\/audio\/series\/other-man\/other-man-ep[12]\.mp3$/i,
   /^\/audio\/series\/before-our-water-breaks\/before-our-water-breaks-ep[12]\.mp3$/i,
